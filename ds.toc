@@ -38,130 +38,136 @@
 \contentsline {subsection}{\numberline {4.1.1}O^^e8ek^^e1van^^e1 d^^e9lka ^^f8et^^eczce}{20}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {4.1.2}Velikost $c$-univerz^^e1ln^^edho syst^^e9mu}{21}{subsection.4.1.2}
 \contentsline {subsubsection}{Doln^^ed mez}{21}{section*.10}
-\contentsline {subsubsection}{P^^f8^^edklad mal^^e9ho $c$-univerz^^e1ln^^edho syst^^e9mu}{21}{section*.11}
-\contentsline {subsection}{\numberline {4.1.3}Reprezentace a (MEMBER), INSERT, DELETE}{22}{subsection.4.1.3}
-\contentsline {section}{\numberline {4.2}Perfektn^^ed ha^^b9ov^^e1n^^ed}{23}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Perfektn^^ed ha^^b9ovac^^ed funkce do tabulky velikosti $n^2$}{24}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Perfektn^^ed ha^^b9ovac^^ed funkce do tabulky velikosti $3n$}{25}{subsection.4.2.2}
-\contentsline {subsubsection}{Podobn^^e1 funkce dan^^e1 ^^e8^^edslem velikosti $O(N)$}{25}{section*.12}
-\contentsline {subsubsection}{Podobn^^e1 funkce dan^^e1 ^^e8^^edslem velikosti $O(n^2\qopname \relax o{log}N)$}{25}{section*.13}
-\contentsline {subsection}{\numberline {4.2.3}GPERF}{26}{subsection.4.2.3}
-\contentsline {chapter}{\numberline {5}Trie}{27}{chapter.5}
-\contentsline {section}{\numberline {5.1}Z^^e1kladn^^ed varianta}{27}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Algoritmus MEMBER}{27}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Algoritmus INSERT}{27}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Algoritmus DELETE}{28}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}^^c8asov^^e1 a pam^^ec^^bbov^^e1 slo^^beitost}{28}{subsection.5.1.4}
-\contentsline {section}{\numberline {5.2}Komprimovan^^e9 trie}{28}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}MEMBER}{29}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}INSERT}{29}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}DELETE}{29}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}^^c8asov^^e1 a pam^^ec^^bbov^^e1 slo^^beitost}{29}{subsection.5.2.4}
-\contentsline {section}{\numberline {5.3}Je^^b9t^^ec komprimovan^^ecj^^b9^^ed trie}{32}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Popis $A$ a $rd$}{33}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Algoritmus pro hled^^e1n^^ed rd a hod}{33}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}Vertik^^e1ln^^ed posun sloupc^^f9}{34}{subsection.5.3.3}
-\contentsline {subsubsection}{Algoritmus na posunut^^ed sloupc^^f9}{35}{section*.14}
-\contentsline {subsection}{\numberline {5.3.4}^^dasporn^^e9 ulo^^been^^ed ^^f8^^eddk^^e9ho vektoru}{36}{subsection.5.3.4}
-\contentsline {chapter}{\numberline {6}Uspo^^f8^^e1dan^^e1 pole}{38}{chapter.6}
-\contentsline {section}{\numberline {6.1}Un^^e1rn^^ed, bin^^e1rn^^ed a interpola^^e8n^^ed vyhled^^e1v^^e1n^^ed}{38}{section.6.1}
-\contentsline {section}{\numberline {6.2}Zobecn^^ecn^^e9 kvadratick^^e9 vyhled^^e1v^^e1n^^ed}{38}{section.6.2}
-\contentsline {chapter}{\numberline {7}Bin^^e1rn^^ed vyhled^^e1vac^^ed stromy}{41}{chapter.7}
-\contentsline {section}{\numberline {7.1}Obecn^^ec}{41}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Algoritmus MEMBER}{41}{subsection.7.1.1}
-\contentsline {subsection}{\numberline {7.1.2}Algoritmus INSERT}{41}{subsection.7.1.2}
-\contentsline {subsection}{\numberline {7.1.3}Algoritmus DELETE}{42}{subsection.7.1.3}
-\contentsline {section}{\numberline {7.2}Optim^^e1ln^^ed bin^^e1rn^^ed vyhled^^e1vac^^ed stromy}{42}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}Co je to optim^^e1ln^^ed bin^^e1rn^^ed vyhled^^e1vac^^ed strom}{42}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}Algoritmus konstrukce}{42}{subsection.7.2.2}
-\contentsline {subsubsection}{Zobecn^^edme ^^falohu:}{42}{section*.15}
-\contentsline {subsection}{\numberline {7.2.3}Sn^^ed^^been^^ed slo^^beitosti z kubick^^e9 na kvadratickou}{43}{subsection.7.2.3}
-\contentsline {section}{\numberline {7.3}Skorooptim^^e1ln^^ed bin^^e1rn^^ed vyhled^^e1vac^^ed stromy}{45}{section.7.3}
-\contentsline {subsection}{\numberline {7.3.1}Aproximace optim^^e1ln^^edch strom^^f9}{45}{subsection.7.3.1}
-\contentsline {subsection}{\numberline {7.3.2}Podrobn^^ecj^^b9^^ed popis nazna^^e8en^^e9 metody}{45}{subsection.7.3.2}
-\contentsline {subsection}{\numberline {7.3.3}^^c8asov^^e1 slo^^beitost}{47}{subsection.7.3.3}
-\contentsline {subsection}{\numberline {7.3.4}Hled^^e1n^^ed $k$}{47}{subsection.7.3.4}
-\contentsline {section}{\numberline {7.4}^^c8erveno^^e8ern^^e9 stromy}{48}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}Operace INSERT}{49}{subsection.7.4.1}
-\contentsline {subsection}{\numberline {7.4.2}Operace DELETE}{50}{subsection.7.4.2}
-\contentsline {subsection}{\numberline {7.4.3}Z^^e1v^^ecry}{52}{subsection.7.4.3}
-\contentsline {chapter}{\numberline {8}$(a,b)$ stromy}{54}{chapter.8}
-\contentsline {section}{\numberline {8.1}Z^^e1kladn^^ed varianta}{54}{section.8.1}
-\contentsline {subsection}{\numberline {8.1.1}Reprezentace mno^^beiny $S$ $(a,b)$ stromem}{54}{subsection.8.1.1}
-\contentsline {subsection}{\numberline {8.1.2}MEMBER($x$) v $(a,b)$ stromu}{55}{subsection.8.1.2}
-\contentsline {subsection}{\numberline {8.1.3}INSERT($x$) do $(a,b)$ stromu}{55}{subsection.8.1.3}
-\contentsline {subsection}{\numberline {8.1.4}DELETE($x$) z $(a,b)$ stromu}{55}{subsection.8.1.4}
-\contentsline {subsection}{\numberline {8.1.5}Shrnut^^ed}{56}{subsection.8.1.5}
-\contentsline {subsection}{\numberline {8.1.6}Jak volit parametry $(a,b)$}{56}{subsection.8.1.6}
-\contentsline {section}{\numberline {8.2}Dal^^b9^^ed operace}{56}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}{56}{subsection.8.2.1}
-\contentsline {subsection}{\numberline {8.2.2}Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}{57}{subsection.8.2.2}
-\contentsline {subsection}{\numberline {8.2.3}Algoritmus STACKJOIN($Z$) pro z^^e1sobn^^edk $(a,b)$ strom^^f9}{57}{subsection.8.2.3}
-\contentsline {subsection}{\numberline {8.2.4}Algoritmus FIND($T, k$) pro $(a,b)$ strom}{58}{subsection.8.2.4}
-\contentsline {subsection}{\numberline {8.2.5}A-sort}{58}{subsection.8.2.5}
-\contentsline {section}{\numberline {8.3}Paraleln^^ed p^^f8^^edstup do $(a,b)$ strom^^f9}{60}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}Paraleln^^ed INSERT($x$) do $(a,b)$ stromu}{60}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}Paraleln^^ed DELETE($x$) z $(a,b)$ stromu}{61}{subsection.8.3.2}
-\contentsline {section}{\numberline {8.4}Slo^^beitost posloupnosti operac^^ed na $(a,b)$ stromu}{62}{section.8.4}
-\contentsline {subsection}{\numberline {8.4.1}p^^f8id^^e1n^^ed/ubr^^e1n^^ed listu}{63}{subsection.8.4.1}
-\contentsline {subsection}{\numberline {8.4.2}^^b9t^^ecpen^^ed}{63}{subsection.8.4.2}
-\contentsline {subsection}{\numberline {8.4.3}spojen^^ed}{63}{subsection.8.4.3}
-\contentsline {subsection}{\numberline {8.4.4}p^^f8esun}{63}{subsection.8.4.4}
-\contentsline {section}{\numberline {8.5}Propojen^^e9 $(a,b)$ stromy s prstem}{65}{section.8.5}
-\contentsline {subsection}{\numberline {8.5.1}Algoritmus MEMBER}{65}{subsection.8.5.1}
-\contentsline {subsection}{\numberline {8.5.2}Algoritmus FINGER}{65}{subsection.8.5.2}
-\contentsline {subsection}{\numberline {8.5.3}Amortizovan^^e1 slo^^beitost}{66}{subsection.8.5.3}
-\contentsline {subsubsection}{Bankovn^^ed paradigma}{66}{section*.16}
-\contentsline {chapter}{\numberline {9}Samoopravuj^^edc^^ed se struktury}{67}{chapter.9}
-\contentsline {section}{\numberline {9.1}Amortizovan^^e1 slo^^beitost}{67}{section.9.1}
-\contentsline {section}{\numberline {9.2}Seznamy}{67}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Algoritmus MEMBER}{67}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Algoritmus INSERT}{67}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}Algoritmus DELETE}{67}{subsection.9.2.3}
-\contentsline {subsection}{\numberline {9.2.4}Algoritmus MFR (Move Front Rule)}{67}{subsection.9.2.4}
-\contentsline {subsubsection}{Amort. slo^^beitost}{69}{section*.17}
-\contentsline {subsection}{\numberline {9.2.5}Algoritmus TR (Transposition Rule)}{69}{subsection.9.2.5}
-\contentsline {section}{\numberline {9.3}Splay stromy}{70}{section.9.3}
-\contentsline {subsection}{\numberline {9.3.1}Operace SPLAY}{70}{subsection.9.3.1}
-\contentsline {subsection}{\numberline {9.3.2}Podporovan^^e9 operace}{71}{subsection.9.3.2}
-\contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{71}{subsection.9.3.3}
-\contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{71}{subsection.9.3.4}
-\contentsline {subsection}{\numberline {9.3.5}Algoritmus JOIN3}{71}{subsection.9.3.5}
-\contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{72}{subsection.9.3.6}
-\contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{72}{subsection.9.3.7}
-\contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{72}{subsection.9.3.8}
-\contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{72}{subsection.9.3.9}
-\contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{73}{subsection.9.3.10}
-\contentsline {subsection}{\numberline {9.3.11}Amortizovan^^e1 slo^^beitost SPLAY}{74}{subsection.9.3.11}
-\contentsline {subsection}{\numberline {9.3.12}Amortizovan^^e1 slo^^beitost ostatn^^edch operac^^ed}{74}{subsection.9.3.12}
-\contentsline {chapter}{\numberline {10}Haldy}{75}{chapter.10}
-\contentsline {section}{\numberline {10.1}$d$-regul^^e1rn^^ed haldy}{75}{section.10.1}
-\contentsline {subsection}{\numberline {10.1.1}Algoritmus UP}{75}{subsection.10.1.1}
-\contentsline {subsection}{\numberline {10.1.2}Algoritmus DOWN}{76}{subsection.10.1.2}
-\contentsline {subsection}{\numberline {10.1.3}Operace na hald^^ec}{76}{subsection.10.1.3}
-\contentsline {subsubsection}{INSERT}{76}{section*.18}
-\contentsline {subsubsection}{MIN}{76}{section*.19}
-\contentsline {subsubsection}{DELETEMIN}{76}{section*.20}
-\contentsline {subsubsection}{DECREASEKEY$(x, \Delta )$}{76}{section*.21}
-\contentsline {subsubsection}{INCREASEKEY$(x, \Delta )$}{76}{section*.22}
-\contentsline {subsubsection}{DELETE}{76}{section*.23}
-\contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{76}{subsection.10.1.4}
-\contentsline {subsection}{\numberline {10.1.5}Slo^^beitost operac^^ed}{77}{subsection.10.1.5}
-\contentsline {subsection}{\numberline {10.1.6}Dijkstr^^f9v algoritmus}{77}{subsection.10.1.6}
-\contentsline {section}{\numberline {10.2}Leftist haldy}{78}{section.10.2}
-\contentsline {section}{\numberline {10.3}Binomi^^e1ln^^ed haldy}{79}{section.10.3}
-\contentsline {subsection}{\numberline {10.3.1}Operace}{80}{subsection.10.3.1}
-\contentsline {subsection}{\numberline {10.3.2}L^^edn^^e1 implementace binom. hald}{81}{subsection.10.3.2}
-\contentsline {subsubsection}{Amort. slo^^be.}{81}{section*.24}
-\contentsline {subsection}{\numberline {10.3.3}Zobecn^^ecn^^e9 binomi^^e1ln^^ed haldy}{82}{subsection.10.3.3}
-\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{82}{section.10.4}
-\contentsline {chapter}{\numberline {11}Dynamizace}{83}{chapter.11}
-\contentsline {section}{\numberline {11.1}Zobecn^^ecn^^fd vyhled^^e1vac^^ed probl^^e9m}{83}{section.11.1}
-\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{83}{subsection.11.1.1}
-\contentsline {section}{\numberline {11.2}Semi-dynamizace}{84}{section.11.2}
-\contentsline {section}{\numberline {11.3}Dynamizace}{87}{section.11.3}
-\contentsline {subsection}{\numberline {11.3.1}Reprezentace mno^^beiny A}{88}{subsection.11.3.1}
-\contentsline {subsection}{\numberline {11.3.2}Pam^^ec^^bbov^^e9 n^^e1roky}{88}{subsection.11.3.2}
-\contentsline {subsection}{\numberline {11.3.3}^^e8as pro v^^fdpo^^e8et f}{88}{subsection.11.3.3}
-\contentsline {subsection}{\numberline {11.3.4}Amortizovan^^fd ^^e8as operace DELETE}{89}{subsection.11.3.4}
-\contentsline {chapter}{\numberline {12}V^^edcedimenzion^^e1ln^^ed vyhled^^e1v^^e1n^^ed}{90}{chapter.12}
+\contentsline {subsubsection}{P^^f8^^edklad mal^^e9ho $c$-univerz^^e1ln^^edho syst^^e9mu}{22}{section*.11}
+\contentsline {subsection}{\numberline {4.1.3}Reprezentace a (MEMBER), INSERT, DELETE}{23}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Extern^^ed ha^^b9ov^^e1n^^ed}{24}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}ACCESS(x)}{24}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}INSERT(x)}{24}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}DELETE(x)}{25}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Reprezentace adres^^e1^^f8e}{25}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Perfektn^^ed ha^^b9ov^^e1n^^ed}{25}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Perfektn^^ed ha^^b9ovac^^ed funkce do tabulky velikosti $n^2$}{26}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Perfektn^^ed ha^^b9ovac^^ed funkce do tabulky velikosti $3n$}{27}{subsection.4.3.2}
+\contentsline {subsubsection}{Podobn^^e1 funkce dan^^e1 ^^e8^^edslem velikosti $O(N)$}{27}{section*.12}
+\contentsline {subsubsection}{Podobn^^e1 funkce dan^^e1 ^^e8^^edslem velikosti $O(n^2\qopname \relax o{log}N)$}{28}{section*.13}
+\contentsline {subsection}{\numberline {4.3.3}GPERF}{29}{subsection.4.3.3}
+\contentsline {chapter}{\numberline {5}Trie}{30}{chapter.5}
+\contentsline {section}{\numberline {5.1}Z^^e1kladn^^ed varianta}{30}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Algoritmus MEMBER}{30}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Algoritmus INSERT}{30}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Algoritmus DELETE}{31}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.4}^^c8asov^^e1 a pam^^ec^^bbov^^e1 slo^^beitost}{31}{subsection.5.1.4}
+\contentsline {section}{\numberline {5.2}Komprimovan^^e9 trie}{31}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}MEMBER}{32}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}INSERT}{32}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}DELETE}{32}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}^^c8asov^^e1 a pam^^ec^^bbov^^e1 slo^^beitost}{32}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Je^^b9t^^ec komprimovan^^ecj^^b9^^ed trie}{35}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Popis $A$ a $rd$}{36}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Algoritmus pro hled^^e1n^^ed rd a hod}{36}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Vertik^^e1ln^^ed posun sloupc^^f9}{37}{subsection.5.3.3}
+\contentsline {subsubsection}{Algoritmus na posunut^^ed sloupc^^f9}{38}{section*.14}
+\contentsline {subsection}{\numberline {5.3.4}^^dasporn^^e9 ulo^^been^^ed ^^f8^^eddk^^e9ho vektoru}{39}{subsection.5.3.4}
+\contentsline {chapter}{\numberline {6}Uspo^^f8^^e1dan^^e1 pole}{41}{chapter.6}
+\contentsline {section}{\numberline {6.1}Un^^e1rn^^ed, bin^^e1rn^^ed a interpola^^e8n^^ed vyhled^^e1v^^e1n^^ed}{41}{section.6.1}
+\contentsline {section}{\numberline {6.2}Zobecn^^ecn^^e9 kvadratick^^e9 vyhled^^e1v^^e1n^^ed}{41}{section.6.2}
+\contentsline {chapter}{\numberline {7}Bin^^e1rn^^ed vyhled^^e1vac^^ed stromy}{44}{chapter.7}
+\contentsline {section}{\numberline {7.1}Obecn^^ec}{44}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Algoritmus MEMBER}{44}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Algoritmus INSERT}{44}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Algoritmus DELETE}{45}{subsection.7.1.3}
+\contentsline {section}{\numberline {7.2}Optim^^e1ln^^ed bin^^e1rn^^ed vyhled^^e1vac^^ed stromy}{45}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Co je to optim^^e1ln^^ed bin^^e1rn^^ed vyhled^^e1vac^^ed strom}{45}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Algoritmus konstrukce}{45}{subsection.7.2.2}
+\contentsline {subsubsection}{Zobecn^^edme ^^falohu:}{45}{section*.15}
+\contentsline {subsection}{\numberline {7.2.3}Sn^^ed^^been^^ed slo^^beitosti z kubick^^e9 na kvadratickou}{46}{subsection.7.2.3}
+\contentsline {section}{\numberline {7.3}Skorooptim^^e1ln^^ed bin^^e1rn^^ed vyhled^^e1vac^^ed stromy}{48}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Aproximace optim^^e1ln^^edch strom^^f9}{48}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Podrobn^^ecj^^b9^^ed popis nazna^^e8en^^e9 metody}{48}{subsection.7.3.2}
+\contentsline {subsection}{\numberline {7.3.3}^^c8asov^^e1 slo^^beitost}{50}{subsection.7.3.3}
+\contentsline {subsection}{\numberline {7.3.4}Hled^^e1n^^ed $k$}{51}{subsection.7.3.4}
+\contentsline {section}{\numberline {7.4}AVL stromy}{52}{section.7.4}
+\contentsline {section}{\numberline {7.5}^^c8erveno^^e8ern^^e9 stromy}{52}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Operace INSERT}{52}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Operace DELETE}{53}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.3}Z^^e1v^^ecry}{55}{subsection.7.5.3}
+\contentsline {chapter}{\numberline {8}$(a,b)$ stromy}{57}{chapter.8}
+\contentsline {section}{\numberline {8.1}Z^^e1kladn^^ed varianta}{57}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Reprezentace mno^^beiny $S$ $(a,b)$ stromem}{57}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}MEMBER($x$) v $(a,b)$ stromu}{58}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}INSERT($x$) do $(a,b)$ stromu}{58}{subsection.8.1.3}
+\contentsline {subsection}{\numberline {8.1.4}DELETE($x$) z $(a,b)$ stromu}{58}{subsection.8.1.4}
+\contentsline {subsection}{\numberline {8.1.5}Shrnut^^ed}{59}{subsection.8.1.5}
+\contentsline {subsection}{\numberline {8.1.6}Jak volit parametry $(a,b)$}{59}{subsection.8.1.6}
+\contentsline {section}{\numberline {8.2}Dal^^b9^^ed operace}{59}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}{59}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}{60}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}Algoritmus STACKJOIN($Z$) pro z^^e1sobn^^edk $(a,b)$ strom^^f9}{60}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}Algoritmus FIND($T, k$) pro $(a,b)$ strom}{61}{subsection.8.2.4}
+\contentsline {subsection}{\numberline {8.2.5}A-sort}{61}{subsection.8.2.5}
+\contentsline {section}{\numberline {8.3}Paraleln^^ed p^^f8^^edstup do $(a,b)$ strom^^f9}{63}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Paraleln^^ed INSERT($x$) do $(a,b)$ stromu}{63}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}Paraleln^^ed DELETE($x$) z $(a,b)$ stromu}{64}{subsection.8.3.2}
+\contentsline {section}{\numberline {8.4}Slo^^beitost posloupnosti operac^^ed na $(a,b)$ stromu}{65}{section.8.4}
+\contentsline {subsection}{\numberline {8.4.1}p^^f8id^^e1n^^ed/ubr^^e1n^^ed listu}{66}{subsection.8.4.1}
+\contentsline {subsection}{\numberline {8.4.2}^^b9t^^ecpen^^ed}{66}{subsection.8.4.2}
+\contentsline {subsection}{\numberline {8.4.3}spojen^^ed}{66}{subsection.8.4.3}
+\contentsline {subsection}{\numberline {8.4.4}p^^f8esun}{66}{subsection.8.4.4}
+\contentsline {section}{\numberline {8.5}Propojen^^e9 $(a,b)$ stromy s prstem}{68}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}Algoritmus MEMBER}{68}{subsection.8.5.1}
+\contentsline {subsection}{\numberline {8.5.2}Algoritmus FINGER}{68}{subsection.8.5.2}
+\contentsline {subsection}{\numberline {8.5.3}Amortizovan^^e1 slo^^beitost}{69}{subsection.8.5.3}
+\contentsline {subsubsection}{Bankovn^^ed paradigma}{69}{section*.16}
+\contentsline {chapter}{\numberline {9}Samoopravuj^^edc^^ed se struktury}{70}{chapter.9}
+\contentsline {section}{\numberline {9.1}Amortizovan^^e1 slo^^beitost}{70}{section.9.1}
+\contentsline {section}{\numberline {9.2}Seznamy}{70}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Algoritmus MEMBER}{70}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Algoritmus INSERT}{70}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}Algoritmus DELETE}{70}{subsection.9.2.3}
+\contentsline {subsection}{\numberline {9.2.4}Algoritmus MFR (Move Front Rule)}{70}{subsection.9.2.4}
+\contentsline {subsubsection}{Amort. slo^^beitost}{72}{section*.17}
+\contentsline {subsection}{\numberline {9.2.5}Algoritmus TR (Transposition Rule)}{72}{subsection.9.2.5}
+\contentsline {section}{\numberline {9.3}Splay stromy}{73}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Operace SPLAY}{73}{subsection.9.3.1}
+\contentsline {subsection}{\numberline {9.3.2}Podporovan^^e9 operace}{74}{subsection.9.3.2}
+\contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{74}{subsection.9.3.3}
+\contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{74}{subsection.9.3.4}
+\contentsline {subsection}{\numberline {9.3.5}Algoritmus JOIN3}{74}{subsection.9.3.5}
+\contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{75}{subsection.9.3.6}
+\contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{75}{subsection.9.3.7}
+\contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{75}{subsection.9.3.8}
+\contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{75}{subsection.9.3.9}
+\contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{76}{subsection.9.3.10}
+\contentsline {subsection}{\numberline {9.3.11}Amortizovan^^e1 slo^^beitost SPLAY}{77}{subsection.9.3.11}
+\contentsline {subsection}{\numberline {9.3.12}Amortizovan^^e1 slo^^beitost ostatn^^edch operac^^ed}{77}{subsection.9.3.12}
+\contentsline {chapter}{\numberline {10}Haldy}{78}{chapter.10}
+\contentsline {section}{\numberline {10.1}$d$-regul^^e1rn^^ed haldy}{78}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Algoritmus UP}{78}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Algoritmus DOWN}{79}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Operace na hald^^ec}{79}{subsection.10.1.3}
+\contentsline {subsubsection}{INSERT}{79}{section*.18}
+\contentsline {subsubsection}{MIN}{79}{section*.19}
+\contentsline {subsubsection}{DELETEMIN}{79}{section*.20}
+\contentsline {subsubsection}{DECREASEKEY$(x, \Delta )$}{79}{section*.21}
+\contentsline {subsubsection}{INCREASEKEY$(x, \Delta )$}{79}{section*.22}
+\contentsline {subsubsection}{DELETE}{79}{section*.23}
+\contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{79}{subsection.10.1.4}
+\contentsline {subsection}{\numberline {10.1.5}Slo^^beitost operac^^ed}{80}{subsection.10.1.5}
+\contentsline {subsection}{\numberline {10.1.6}Dijkstr^^f9v algoritmus}{80}{subsection.10.1.6}
+\contentsline {section}{\numberline {10.2}Leftist haldy}{81}{section.10.2}
+\contentsline {section}{\numberline {10.3}Binomi^^e1ln^^ed haldy}{82}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Operace}{83}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}L^^edn^^e1 implementace binom. hald}{84}{subsection.10.3.2}
+\contentsline {subsubsection}{Amort. slo^^be.}{84}{section*.24}
+\contentsline {subsection}{\numberline {10.3.3}Zobecn^^ecn^^e9 binomi^^e1ln^^ed haldy}{85}{subsection.10.3.3}
+\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{85}{section.10.4}
+\contentsline {chapter}{\numberline {11}Dynamizace}{86}{chapter.11}
+\contentsline {section}{\numberline {11.1}Zobecn^^ecn^^fd vyhled^^e1vac^^ed probl^^e9m}{86}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{86}{subsection.11.1.1}
+\contentsline {section}{\numberline {11.2}Semi-dynamizace}{87}{section.11.2}
+\contentsline {section}{\numberline {11.3}Dynamizace}{90}{section.11.3}
+\contentsline {subsection}{\numberline {11.3.1}Reprezentace mno^^beiny A}{91}{subsection.11.3.1}
+\contentsline {subsection}{\numberline {11.3.2}Pam^^ec^^bbov^^e9 n^^e1roky}{91}{subsection.11.3.2}
+\contentsline {subsection}{\numberline {11.3.3}^^e8as pro v^^fdpo^^e8et f}{91}{subsection.11.3.3}
+\contentsline {subsection}{\numberline {11.3.4}Amortizovan^^fd ^^e8as operace DELETE}{92}{subsection.11.3.4}
+\contentsline {chapter}{\numberline {12}V^^edcedimenzion^^e1ln^^ed vyhled^^e1v^^e1n^^ed}{93}{chapter.12}

@@ -7,7 +7,9 @@
 # name of output file
 MAIN=ds
 
-all:
+all: pdf 
+
+ps:
 	latex ${MAIN}
 	dvips ${MAIN}
 

@@ -80,18 +80,23 @@ $(q,r,s)$, který je
 =\frac{\left\lceil \frac{N}{m}\right\rceil ^{2}}{\left(\frac{N}{m}\right) ^{2}}\frac{N^{2}}{m}
 =c\frac{|H|}{m}
 \)
+\mnote{$m$ je poèet $q$, $\left\lceil \frac{N}{m}\right\rceil ^{2}$ je
+poèet $q,s$}
 
+$\Rightarrow$ tento univerzální systém lze zkonstruovat. Velikost $H$ je
+$N^2$.
 \end{proof}
 
 % ..........................................................................
+
 \subsection{Oèekávaná délka øetìzce}
+
+\begin{defn}
 Mìjme libovolnou pevnou $S \subseteq U$, libovolné pevné $x \in
 U$ a funkci $h: U \to \intrange{0}{m-1}$. Definujme
 \begin{equation}
 S_{h,x}= \text{øetìzec prvkù $y \in S$, pro které platí $h(y) = h(x)$}.
 \end{equation}
-Chceme spoèítat prùmìrnou délku $S_x$, kde prùmìr poèítáme pøes
-v¹echny $h \in H$, kde $H$ je $c$-univerzální systém.
 
 Zaveïme
 \mnote{Iversonova konvence: [true]=1, [false]=0}
@@ -99,7 +104,27 @@ Zaveïme
 \delta_h(x,y) & = [ x \neq y \land h(x) = h(y) ]\\
 \delta_h(x,S) & = \sum_{y \in S} \delta_h(x,y),
 \end{align}
+\end{defn}
 
+Chceme spoèítat prùmìrnou délku $S_x$, kde prùmìr poèítáme pøes
+v¹echny $h \in H$, kde $H$ je $c$-univerzální systém.
+
+\begin{theorem}
+Kdy¾ H je c-universální systém, pak $\forall S \subseteq U$ a $\forall x \in
+U$ je oèekávaná hodnota \\
+\[
+\delta_h(x,y) = 
+\begin{cases}
+\frac{c(|S| - 1)}{m} & x \in S \\
+\frac{c|S|}{m} & x \notin S
+\end{cases}
+\]
+\\
+, kde prùmìr se bere pøes $h \in H$ a pøedpokládáme rovnomìrný výbìr fcí z
+$H$.
+\end{theorem}
+
+\begin{proof}
 \begin{equation*}
 \begin{split}
 \sum_{h \in H} \delta_h(x, S)
@@ -114,6 +139,7 @@ Zaveïme
 \end{split}
 \end{equation*}
 Tedy  prùmìrná hodnota $\delta_h(x,S) \leq \frac{cn}m$.
+\end{proof}
 
 \begin{theorem}
 \label{veta-ocek-pocet}
@@ -125,6 +151,12 @@ pøes v¹echny funkce $h \in H$ pøi jejich rovnomìrném rozdìlení.
 \begin{theorem}
 Markovova nerovnost: $\pr(X \geq t \mathrm{E}X) \leq 1/t$
 \end{theorem}
+
+\begin{pozn}
+Jiná formulace Markovovy nerovnosti (vìty) mù¾e být tato: \\
+Kdy¾ $X$ je náhodná velièina s oèekávanou hodnoutou $\mu$, pak 
+$P(X \geq t \mu) \leq \frac{1}{t}$.
+\end{pozn}
 
 \begin{proof}                                                                   
 X je rovnomìrnì rozdìlená náhodná velièina nabývající hodnot $\{x_i : i
@@ -161,6 +193,10 @@ délka øetìzce $S_{h,x}$, pak
 
 \begin{proof}
 plyne z Markovovy nerovnosti.
+
+%
+% tohle je nejaky puvodni dukaz. (V. Kotal)
+%
 %H je $c$-univerzální systém. Nech» 
 %$H' = \{ h \in H; |S_{h,x}| \geq t \mu \}$. 
 %\begin{align*}
@@ -177,8 +213,6 @@ plyne z Markovovy nerovnosti.
 %\pr(|S_{h,x}| \geq t \mu) =  \frac {|H'|}{|H|} < \frac 1t
 %\]
 \end{proof}
-
-
 
 
 % ..........................................................................
@@ -281,7 +315,8 @@ ale $x \bmod p_l \neq y \bmod p_l$
 a $x \bmod p_l = y \bmod p_l$
 \end{enumerate}
 
-1)
+\begin{enumerate}
+\item
 Platí
 \begin{align*}
 c (x \bmod p_l) + d & = k + qm  \pmod {p_{2t}}\\
@@ -313,7 +348,7 @@ $\forall (k,q,r) \exists! (c,d)$, které øe¹í rovnici, jeliko¾
 $\Bbb Z_{p_{2t}}$ je tìleso a $x$ {\tt mod} $p_l \neq y$ {\tt mod} $p_l$.
 \end{pozn}
 
-2)
+\item
 Nech» $L = \{ l : x \bmod p_l = y \bmod p_l \land t < l \leq 2t \}$. 
 Pak poèet trojic splòujících (2) je roven  
 \begin{align*}
@@ -329,6 +364,7 @@ Pokud tedy je¹tì doká¾eme, ¾e $|L| \leq t/m$, pak
 \leq 4 \frac{|H|}m + \frac{|H|}m = 5 \frac{|H|}m
 \)
 a H je 5-univerzální systém.
+\end{enumerate}
 
 Nech» $P = \prod_{l \in L} p_l$. 
 Z definice $L$ v¹echna $p_l$ dìlí $|x-y|$, 
@@ -382,6 +418,164 @@ Spoèítání nové reprezentace:
 
 Kolikrát probìhne ten cyklus? Závisí to na více parametrech a Koubek
 to nikde uspokojivì spoèítané nevidìl.
+
+% --------------------------------------------------------------------------
+\section{Externí ha¹ování}
+
+Máme dáno universum U a vnìj¹íí pamì»ové medium, které je rozdìleno do
+strnánek. Ka¾dá stránka mù¾e obsahovat nejvý¹e b záznamù. Chceme navrhnout
+ukládání prvkù do stránek tak, aby operace MEMBER, INSERT, DELETE
+vy¾adovaly jen konstatní poèet pøístupù do externí pamìti, aby stránky
+byly dostateènì zaplnìné.
+\par
+Vyhledáme v¾dy stránku ve vnìj¹í pamìti - natáhneme ji do vnitøní pamìti a
+tam provedeme vyhledávání - toto vyhlledávání nás ale nezajímá.
+\par
+Nechh» $U$ je universum, $S \subseteq U$. Externí medium má stránky o
+velikosti $b$. Je dána ha¹ovací funkce $h:U \rightarrow {0,1}^k$ prostá.
+(aby ¹etøila pamì») \\
+Vytvoøíme strom mno¾iny S. Vrcholy stromu jsou v¹echny prefixy slov $h(s),
+s \in Si$. Pro vrchol $\alpha$ jsou jeho synové $\alpha 0$ a $\alpha 1$
+(pokud existují). Listy jsou prvky $h(s), s \in S$.
+
+\begin{defn}
+Pro $s \in S$ definujeme $\emph{d(s)} =$ délka nejmen¹ího prefixu $\alpha$ 
+slova $h(s)$, ¾e pod $\alpha$ je nejvý¹e $b$ listù.
+\end{defn}
+
+XXX zde chybí obrázek s pøíkladem
+0100, 0001, 0000, 1001
+b = 2, d(S) = 2
+0010 ... INSERT
+
+00 - 0000, 0001
+01 - 0100
+10
+11 1001
+
+Platí: Kdy¾ $d(s) = k$ a prvek $t$ má stejný prefix délky $k$ jako $s$, 
+pak $d(s) = d(t)$. $d(S) = max\{d(s), s \in S\}$.
+
+Reprezentace: 
+\begin{itemize}
+\item adresáø: ke ka¾dému slovu $\alpha$ délky $d(S)$ je pøiøazena adresa stránky,
+která obsahuje prvky $s \in S$, ¾e $h(s)$ má prefix $\alpha$
+\item datová èást: stránky s pøiøazenými prvky
+\end{itemize}
+
+\begin{pozn}
+Upøesnìní reprezentace stránky (stránek): \\
+Prvek $s \in S$ je ulo¾en na stránce, která obsahuje v¹echny prvky $t \in
+S$ takové, ¾e prefix $h(t)$ délky $d(s)$ bude je stejný jako $h(s)$, tato stánka
+bude pøiøazena v¹em slovùm $\alpha$ délky $d(S)$ takovým, ¾e prefix $h(s)$ délky
+$d(s)$ je prefix $\alpha$. \\
+Pokud $\alpha$ neobsahuje ¾ádný takový prefix, tak je mu pøiøazena stránka
+NIL.
+\end{pozn}
+
+\subsection{ACCESS(x)}
+
+3 pøístupy na disk
+\begin{enumerate}
+\item Spoèítáme $h(x)$, natáhneme adresáø, nalezneme d(S) a najdeme
+stránky odpovídající prefixu h(x) délky d(S)
+\item Natáhneme odpovídající stránku do pamìti, zjistíme, zda obsahuje x a
+kdy¾ ano, provedeme po¾adovené úpravy.
+\item Stránku ulo¾íme zpìt na stejné místo.
+\end{enumerate}
+
+Operace ACCESS vy¾aduje 3 pøístupy na externí medium (pøedpoklad, ¾e
+adresáø je také ulo¾en na externím mediu)
+\par
+Pro rychlou implementaci aktualizaèních operací je vhodné mít u ka¾dé
+stránky ulo¾eno kolik je prvkù na stránce.
+
+
+\subsection{INSERT(x)}
+
+\begin{enumerate}
+\item Spoèítáme h(x), natáhneme adresáø, nalezneme d(S) a nalezneme adresu
+stránky odpovídající prefixu h(x) délky d(S).
+\item Natáhneme do pamìti odpovídající stránku, kdy¾ existuje x - konec
+\item Kdy¾ nneobsahuje x a má ménì prvkù ne¾ b, vlo¾íme x do této stránky
+a ulo¾íme ji zpátky na stejné místo a aktualizujeme adresáø (poèty prvkù
+nna stránce)
+\item Kdy¾ stránka prvek x neobsahuje a má b prvkù, stránku rozdìlíme
+(nalezneme nové d(s) pro s z této stránky i s pøidaným x), stránky ulo¾íme
+a aktualizujeme adresáø.
+\end{enumerate}
+
+v na¹em pøíkladu - zvìt¹í se adresáø.
+
+00 - 0000, 0001		000 - 0000, 0001
+01 - 0100		001 - 0010
+10 \  			010 - 0100
+    - 1001         =>   011 /
+11 /			100 \
+			101 -  1001, 1111
+			110 /
+			111 /
+
+XXX chybí obrázek
+
+0010
+d(S) = 1
+% d(S \sjednoceno {0010}) = 3
+
+\subsection{DELETE(x)}
+
+\begin{enumerate}
+\item spoèítáme h(x), natáhneme adresáø, nalezneme d(S), naleznneme adresu
+stránky odpovídající prefixu h(x) délky d(S), zjistíme zda po odebrání
+prvku x mù¾e nastat spojování stránek a pokud ano, nalezneme adresu
+stránky, který se spojí s na¹í stránkou
+\item natáhneme odpovídající stránku do pamìti, zjistíme zda obsahuje x,
+pokud ne, tak konec
+\item kdy¾ obsahuje x a nemù¾e dojít ke slouèení stránek, tak odstraníme
+x, stránku ulo¾íme na stejné místo a aktualizujeme adresáø (poèty prvkù na
+stránce)
+\item kdy¾ obsahuje a dojde ke sluèování, ppak odstraníme x, natáhneme
+druhou stránku a stránky slouèíme, ullo¾íme novou stránku a aktualizujeme
+adresáø.
+\end{enumerate}
+
+XXX zde chybí obrázek s pøíkladem
+
+\begin{pozn}
+Pesimistický odhad: nejvý¹e 6 pøístupù na externí medium.
+\end{pozn}
+
+\subsection{Reprezentace adresáøe}
+
+\begin{itemize}
+\item reprezentovat jako posloupnost dvojic (adresa stránky, poèet prvkù na
+stránce), kde i-tá dvojice je pøiøazení i-tému slovu v lexikografickém
+uspoøádání.
+\item zvìt¹ování adresáøe znamená zdvojení prvkù
+\item test na zmen¹ování adresáøe - testujeme, zda adresa na lichém místì
+je stejná jako adresa na následujícím sudém místì - pokud ano, tak zmen¹ím
+adresáè vymazáním sudých èlenù posloupnosti.
+\end{itemize}
+
+Oèekávané zaplnìní stránky pøi rovnomìrném rozlo¾ení dat je 
+$b ln 2 ~ 0.69 b$
+\par
+Oèekávaná velikost adresáøe je $\frac{e}{b ln 2} n^{1 + \frac{1}{b}}$ (pøi
+rovnomìrném rozlo¾ení dat)
+
+\begin{pozn}
+èlen $n^{1 + \frac{1}{b}}$ není lineární, zde je problé, proto se to
+nehodí pro malá $b$.
+\end{pozn}
+
+XXX chybí tabulka 
+
+Jak je vidìt, pro b = 2 se to nehodí, adresáø je vìt¹í ne¾ velikost dat.
+
+\begin{pozn}
+Kdy¾ pracujeme s velikostí $S$ kolem $10^10$, pak je vhodné, aby 
+$b \geq 100$, pro vìt¹í mno¾iny S, b musí být vìt¹í..
+\end{pozn}
 
 % --------------------------------------------------------------------------
 \section{Perfektní ha¹ování}

@@ -5,21 +5,24 @@
 # 
 # by Vladimir Kotal, 2004
 
-EPSFILES= abt.eps	\
-	rbt-d.eps	\
-	rbt-d1a.eps	\
-	rbt-d1b.eps	\
-	rbt-d1c.eps	\
-	rbt-d1d.eps	\
-	rbt-d2.eps	\
-	rbt-i.eps	\
-	rbt-i1.eps	\
-	rbt-i2a.eps	\
-	rbt-i2b.eps	\
-	tries.eps
+PDFFILES= abt.pdf	\
+	rbt-d.pdf	\
+	rbt-d1a.pdf	\
+	rbt-d1b.pdf	\
+	rbt-d1c.pdf	\
+	rbt-d1d.pdf	\
+	rbt-d2.pdf	\
+	rbt-i.pdf	\
+	rbt-i1.pdf	\
+	rbt-i2a.pdf	\
+	rbt-i2b.pdf	\
+	tries.pdf
 
-all: 
-	@echo $(EPSFILES) | xargs -n 1 epstopdf
+%.pdf: %.eps
+	epstopdf $<
+
+all: $(PDFFILES)
+#	@echo $(EPSFILES) | xargs -n 1 epstopdf
 
 clean:
 	@rm -f *.pdf
