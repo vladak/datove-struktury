@@ -824,5 +824,104 @@ ST_h + SP_h + P_h \leq \frac{2 n (c+2)}{(c+1)^h}
 % --------------------------------------------------------------------------
 \section{Propojené $(a,b)$ stromy s prstem}
 
+Struktura vnitøního vrcholu $v$: \\
+$\rho(v) =$ poèet synù $v$ \\
+$Syn[1..\rho(v)]$ je pole ukazatelù na syny vrcholu v \\
+$Hod[1..\rho(v)]$ je pole hodnot, platí \\
+$Hod(i-1) <$ prvky reprezentované v podstromu i-tého syna $\leq Hod(i)$ \\ 
+$otec(v)$ = ukazatel na otce v
+
+\begin{tabular}{l}
+Pøedchùdce$(v)$ \\
+Následník$(v)$
+\end{tabular}
+$\Bigl\}$
+\begin{tabular}{l}
+ukazatele na bezprostø. pøedchùdce (následníka) v na hladinì vrcholu v \\
+(v lexikogr. uspoøádání)
+\end{tabular}
+\par
+
+h - hodnota, která le¾í mezi nejvìt¹ím prvkem podstromu v a nejmen¹ím
+prvek podstromu následníka
+
+\mnote{zde chybí vìt¹í obrázek}
+
 \subsection{Algoritmus MEMBER}
 
+Viz algoritmus \ref{alg:trie.k.mem}
+
+\begin{algorithm}[!htb]
+\caption{MEMBER (a,b) stromy s prstem}
+\label{alg:abtrees.mem}
+\begin{algorithmic}
+\STATE MEMBER(x)
+\STATE 1) Nech» y je hodnota, na kterou ukazuje Prst.
+  \IF {$x < y$} 
+    \STATE pokraèuju 2)
+  \ELSE
+    \STATE 3)
+  \ENDIF
+\STATE 2) $v \leftarrow otec(y)$
+  \STATE dokud $x < h$(Pøedchùdce(Pøedchùdce($v$))
+   \STATE jdu na otce(Pøedchùdce($v$))
+  \STATE v opaèném pøípadì
+    \STATE kdy¾ $x \leq$ h(Pøedchùdce($v$)) pak
+    \STATE $v$ $\leftarrow$ Pøedchùdce($v$)
+    \STATE a pokraèuji normálním vyhledáváním
+\STATE 3) symetrické ke 2)
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Algoritmus FINGER}
+
+FINGER(x) \\
+nastaví hodnotu na list, který reprezentuje prvek nejbli¾¹í k x.
+
+Pou¾ití: \\
+kdy¾ lze operace pøirozeným zpùsobem rozdìlit do segmentù a operace v ?
+segmentu mají operace blízko sebe
+\par
+
+\begin{itemize}
+\item vyhledání x vy¾aduje èas O(1 + log(l))
+\item nastavím prst na nìjakou vhodnou hodnotu
+\end{itemize}
+
+\begin{theorem}
+Nech» T je propojovaný (a,b) strom s prstem a nech» P je posloupnost
+pøíkazù MEMBER, INSERT, DELETE, FINGER, kterou provedeme na T.
+Pak P vy¾aduje èas $O(log(n) + \text{èas} na vyhledání)$
+kde $n$ je velikost mno¾iny reprezentované stromem T. ($b \geq 2a$)
+\end{theorem}
+
+\subsection{Amortizovaná slo¾itost}
+
+Vezmeme posloupnost $n$ operací, spoèítáme maximální èas, který vy¾adují a
+ten vydìlíme $n$. 
+Limita takto získaných èísel pro $n \rightarrow \infty$ je amortizovaná
+slo¾itost.
+
+\subsubsection{Bankovní paradigma}
+
+$D \stackrel{o}{\rightarrow} D'$
+
+$D$ - vstupní situace \\
+$o$ - operace \\
+$D'$ - výstupní operace \\
+
+Amortizovaná slo¾itost operace o je Èas$(O) + bal(D') - bal(D)$,
+kde $bal()$ je ohodnocení konfigurace.
+
+$D_0 \stackrel{O_1}{\rightarrow} D_1 \stackrel{O_2}{\rightarrow} D_2 \rightarrow \ldots \rightarrow D_n$
+
+$$\sum_{i=1}^{n} \text{èas}(O_i) + bal(D_n) - bal(D_0) = \sum a(O_i) \leq
+\sum i(O_i)$$
+
+Obvykle platí, ¾e $bal \geq 0$ nebo $bal \leq 0$. \\
+Kdy¾ $bal \geq 0$, pak: \\
+  $$\sum \text{èas}(O_i) \leq \sum a(O_i) + bal(D_0) \leq \sum i(O_i) + bal(D_0)$$
+Kdy¾ $bal \leq 0$, pak \\
+  $$\sum \text{èas}(O_i) \leq \sum a(O_i) - bal(D_n) \leq \sum i(O_i) - bal(D_0)$$
+
+zaèínáme na prázdném (a,b) stromì $\rightarrow bal = 0$.

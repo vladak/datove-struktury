@@ -75,87 +75,95 @@
 \contentsline {subsection}{\numberline {7.2.1}Algoritmus konstrukce}{41}{subsection.7.2.1}
 \contentsline {subsection}{\numberline {7.2.2}Sní¾ení slo¾itosti z kubické na kvadratickou}{41}{subsection.7.2.2}
 \contentsline {section}{\numberline {7.3}Skorooptimální binární vyhledávací stromy}{41}{section.7.3}
-\contentsline {section}{\numberline {7.4}Èervenoèerné stromy}{41}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}Operace INSERT}{42}{subsection.7.4.1}
-\contentsline {subsection}{\numberline {7.4.2}Operace DELETE}{43}{subsection.7.4.2}
-\contentsline {subsection}{\numberline {7.4.3}Závìry}{45}{subsection.7.4.3}
-\contentsline {chapter}{\numberline {8}$(a,b)$ stromy}{46}{chapter.8}
-\contentsline {section}{\numberline {8.1}Základní varianta}{46}{section.8.1}
-\contentsline {subsection}{\numberline {8.1.1}Reprezentace mno¾iny $S$ $(a,b)$ stromem}{46}{subsection.8.1.1}
-\contentsline {subsection}{\numberline {8.1.2}MEMBER($x$) v $(a,b)$ stromu}{47}{subsection.8.1.2}
-\contentsline {subsection}{\numberline {8.1.3}INSERT($x$) do $(a,b)$ stromu}{47}{subsection.8.1.3}
-\contentsline {subsection}{\numberline {8.1.4}DELETE($x$) z $(a,b)$ stromu}{47}{subsection.8.1.4}
-\contentsline {subsection}{\numberline {8.1.5}Shrnutí}{48}{subsection.8.1.5}
-\contentsline {subsection}{\numberline {8.1.6}Jak volit parametry $(a,b)$}{48}{subsection.8.1.6}
-\contentsline {section}{\numberline {8.2}Dal¹í operace}{48}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}{48}{subsection.8.2.1}
-\contentsline {subsection}{\numberline {8.2.2}Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}{49}{subsection.8.2.2}
-\contentsline {subsection}{\numberline {8.2.3}Algoritmus STACKJOIN($Z$) pro zásobník $(a,b)$ stromù}{49}{subsection.8.2.3}
-\contentsline {subsection}{\numberline {8.2.4}Algoritmus FIND($T, k$) pro $(a,b)$ strom}{50}{subsection.8.2.4}
-\contentsline {subsection}{\numberline {8.2.5}A-sort}{50}{subsection.8.2.5}
-\contentsline {section}{\numberline {8.3}Paralelní pøístup do $(a,b)$ stromù}{52}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}Paralelní INSERT($x$) do $(a,b)$ stromu}{52}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}Paralelní DELETE($x$) z $(a,b)$ stromu}{53}{subsection.8.3.2}
-\contentsline {section}{\numberline {8.4}Slo¾itost posloupnosti operací na $(a,b)$ stromu}{54}{section.8.4}
-\contentsline {subsection}{\numberline {8.4.1}pøidání/ubrání listu}{55}{subsection.8.4.1}
-\contentsline {subsection}{\numberline {8.4.2}¹tìpení}{55}{subsection.8.4.2}
-\contentsline {subsection}{\numberline {8.4.3}spojení}{55}{subsection.8.4.3}
-\contentsline {subsection}{\numberline {8.4.4}pøesun}{55}{subsection.8.4.4}
-\contentsline {section}{\numberline {8.5}Propojené $(a,b)$ stromy s prstem}{57}{section.8.5}
-\contentsline {subsection}{\numberline {8.5.1}Algoritmus MEMBER}{57}{subsection.8.5.1}
-\contentsline {chapter}{\numberline {9}Samoopravující se struktury}{58}{chapter.9}
-\contentsline {section}{\numberline {9.1}Amortizovaná slo¾itost}{58}{section.9.1}
-\contentsline {section}{\numberline {9.2}Seznamy}{58}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Algoritmus MEMBER}{58}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Algoritmus INSERT}{58}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}Algoritmus DELETE}{58}{subsection.9.2.3}
-\contentsline {subsection}{\numberline {9.2.4}Algoritmus MFR (Move Front Rule)}{58}{subsection.9.2.4}
-\contentsline {subsubsection}{Amort. slo¾itost}{60}{pozn.9.2.1}
-\contentsline {subsection}{\numberline {9.2.5}Algoritmus TR (Transposition Rule)}{60}{subsection.9.2.5}
-\contentsline {section}{\numberline {9.3}Splay stromy}{61}{section.9.3}
-\contentsline {subsection}{\numberline {9.3.1}Operace SPLAY}{61}{subsection.9.3.1}
-\contentsline {subsection}{\numberline {9.3.2}Podporované operace}{61}{subsection.9.3.2}
-\contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{61}{subsection.9.3.3}
-\contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{61}{subsection.9.3.4}
-\contentsline {subsection}{\numberline {9.3.5}Algoritmus JOIN3}{61}{subsection.9.3.5}
-\contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{62}{subsection.9.3.6}
-\contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{62}{subsection.9.3.7}
-\contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{63}{subsection.9.3.8}
-\contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{63}{subsection.9.3.9}
-\contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{63}{subsection.9.3.10}
-\contentsline {subsection}{\numberline {9.3.11}Amortizovaná slo¾itost SPLAY}{64}{subsection.9.3.11}
-\contentsline {subsection}{\numberline {9.3.12}Amortizovaná slo¾itost ostatních operací}{65}{subsection.9.3.12}
-\contentsline {chapter}{\numberline {10}Haldy}{66}{chapter.10}
-\contentsline {section}{\numberline {10.1}$d$-regulární haldy}{66}{section.10.1}
-\contentsline {subsection}{\numberline {10.1.1}Algoritmus UP}{66}{subsection.10.1.1}
-\contentsline {subsection}{\numberline {10.1.2}Algoritmus DOWN}{67}{subsection.10.1.2}
-\contentsline {subsection}{\numberline {10.1.3}Operace na haldì}{67}{subsection.10.1.3}
-\contentsline {subsubsection}{INSERT}{67}{subsection.10.1.3}
-\contentsline {subsubsection}{MIN}{67}{subsection.10.1.3}
-\contentsline {subsubsection}{DELETEMIN}{67}{subsection.10.1.3}
-\contentsline {subsubsection}{DECREASEKEY(x)}{67}{subsection.10.1.3}
-\contentsline {subsubsection}{INCREASEKEY}{67}{subsection.10.1.3}
-\contentsline {subsubsection}{DELETE}{67}{subsection.10.1.3}
-\contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{67}{subsection.10.1.4}
-\contentsline {subsection}{\numberline {10.1.5}Slo¾itost operací}{67}{subsection.10.1.5}
-\contentsline {subsection}{\numberline {10.1.6}Dijkstrùv algoritmus}{68}{subsection.10.1.6}
-\contentsline {section}{\numberline {10.2}Leftist haldy}{69}{section.10.2}
-\contentsline {section}{\numberline {10.3}Binomiální haldy}{70}{section.10.3}
-\contentsline {subsection}{\numberline {10.3.1}Operace}{71}{subsection.10.3.1}
-\contentsline {subsection}{\numberline {10.3.2}Líná implementace binom. hald}{72}{subsection.10.3.2}
-\contentsline {subsubsection}{Amort. slo¾.}{72}{pozn.10.3.6}
-\contentsline {subsection}{\numberline {10.3.3}Zobecnìné binomiální haldy}{73}{subsection.10.3.3}
-\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{73}{section.10.4}
-\contentsline {chapter}{\numberline {11}Dynamizace}{74}{chapter.11}
-\contentsline {section}{\numberline {11.1}Zobecnìný vyhledávací problém}{74}{section.11.1}
-\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{74}{subsection.11.1.1}
-\contentsline {subsection}{\numberline {11.1.2}Amortizovaný èas operace INSERT}{76}{subsection.11.1.2}
-\contentsline {subsection}{\numberline {11.1.3}Pamì»ové nároky}{77}{subsection.11.1.3}
-\contentsline {subsection}{\numberline {11.1.4}Algoritmus pro výpoèet}{77}{subsection.11.1.4}
-\contentsline {subsection}{\numberline {11.1.5}Èas pro INSERT(x)}{77}{subsection.11.1.5}
-\contentsline {subsection}{\numberline {11.1.6}Dynamizace}{78}{subsection.11.1.6}
-\contentsline {subsection}{\numberline {11.1.7}Reprezentace mno¾iny A}{79}{subsection.11.1.7}
-\contentsline {subsection}{\numberline {11.1.8}Pamì»ové nároky}{79}{subsection.11.1.8}
-\contentsline {subsection}{\numberline {11.1.9}èas pro výpoèet f}{79}{subsection.11.1.9}
-\contentsline {subsection}{\numberline {11.1.10}Amortizovaný èas operace DELETE}{80}{subsection.11.1.10}
-\contentsline {chapter}{\numberline {12}Vícedimenzionální vyhledávání}{81}{chapter.12}
+\contentsline {subsection}{\numberline {7.3.1}Co je to optimální binární vyhledávací strom}{41}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Aproximace optimálních stromù}{42}{subsection.7.3.2}
+\contentsline {subsection}{\numberline {7.3.3}Podrobnìj¹í popis naznaèené metody}{42}{subsection.7.3.3}
+\contentsline {subsection}{\numberline {7.3.4}Èasová slo¾itost}{44}{subsection.7.3.4}
+\contentsline {subsection}{\numberline {7.3.5}Hledání $k$}{44}{subsection.7.3.5}
+\contentsline {section}{\numberline {7.4}Èervenoèerné stromy}{45}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Operace INSERT}{45}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Operace DELETE}{47}{subsection.7.4.2}
+\contentsline {subsection}{\numberline {7.4.3}Závìry}{48}{subsection.7.4.3}
+\contentsline {chapter}{\numberline {8}$(a,b)$ stromy}{50}{chapter.8}
+\contentsline {section}{\numberline {8.1}Základní varianta}{50}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Reprezentace mno¾iny $S$ $(a,b)$ stromem}{50}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}MEMBER($x$) v $(a,b)$ stromu}{51}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}INSERT($x$) do $(a,b)$ stromu}{51}{subsection.8.1.3}
+\contentsline {subsection}{\numberline {8.1.4}DELETE($x$) z $(a,b)$ stromu}{51}{subsection.8.1.4}
+\contentsline {subsection}{\numberline {8.1.5}Shrnutí}{52}{subsection.8.1.5}
+\contentsline {subsection}{\numberline {8.1.6}Jak volit parametry $(a,b)$}{52}{subsection.8.1.6}
+\contentsline {section}{\numberline {8.2}Dal¹í operace}{52}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}{52}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}{53}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}Algoritmus STACKJOIN($Z$) pro zásobník $(a,b)$ stromù}{53}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}Algoritmus FIND($T, k$) pro $(a,b)$ strom}{54}{subsection.8.2.4}
+\contentsline {subsection}{\numberline {8.2.5}A-sort}{54}{subsection.8.2.5}
+\contentsline {section}{\numberline {8.3}Paralelní pøístup do $(a,b)$ stromù}{56}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Paralelní INSERT($x$) do $(a,b)$ stromu}{56}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}Paralelní DELETE($x$) z $(a,b)$ stromu}{57}{subsection.8.3.2}
+\contentsline {section}{\numberline {8.4}Slo¾itost posloupnosti operací na $(a,b)$ stromu}{58}{section.8.4}
+\contentsline {subsection}{\numberline {8.4.1}pøidání/ubrání listu}{59}{subsection.8.4.1}
+\contentsline {subsection}{\numberline {8.4.2}¹tìpení}{59}{subsection.8.4.2}
+\contentsline {subsection}{\numberline {8.4.3}spojení}{59}{subsection.8.4.3}
+\contentsline {subsection}{\numberline {8.4.4}pøesun}{59}{subsection.8.4.4}
+\contentsline {section}{\numberline {8.5}Propojené $(a,b)$ stromy s prstem}{61}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}Algoritmus MEMBER}{61}{subsection.8.5.1}
+\contentsline {subsection}{\numberline {8.5.2}Algoritmus FINGER}{61}{subsection.8.5.2}
+\contentsline {subsection}{\numberline {8.5.3}Amortizovaná slo¾itost}{62}{subsection.8.5.3}
+\contentsline {subsubsection}{Bankovní paradigma}{62}{subsection.8.5.3}
+\contentsline {chapter}{\numberline {9}Samoopravující se struktury}{63}{chapter.9}
+\contentsline {section}{\numberline {9.1}Amortizovaná slo¾itost}{63}{section.9.1}
+\contentsline {section}{\numberline {9.2}Seznamy}{63}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Algoritmus MEMBER}{63}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Algoritmus INSERT}{63}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}Algoritmus DELETE}{63}{subsection.9.2.3}
+\contentsline {subsection}{\numberline {9.2.4}Algoritmus MFR (Move Front Rule)}{63}{subsection.9.2.4}
+\contentsline {subsubsection}{Amort. slo¾itost}{65}{pozn.9.2.1}
+\contentsline {subsection}{\numberline {9.2.5}Algoritmus TR (Transposition Rule)}{65}{subsection.9.2.5}
+\contentsline {section}{\numberline {9.3}Splay stromy}{66}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Operace SPLAY}{66}{subsection.9.3.1}
+\contentsline {subsection}{\numberline {9.3.2}Podporované operace}{66}{subsection.9.3.2}
+\contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{66}{subsection.9.3.3}
+\contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{67}{subsection.9.3.4}
+\contentsline {subsection}{\numberline {9.3.5}Algoritmus JOIN3}{67}{subsection.9.3.5}
+\contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{67}{subsection.9.3.6}
+\contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{67}{subsection.9.3.7}
+\contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{68}{subsection.9.3.8}
+\contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{68}{subsection.9.3.9}
+\contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{69}{subsection.9.3.10}
+\contentsline {subsection}{\numberline {9.3.11}Amortizovaná slo¾itost SPLAY}{69}{subsection.9.3.11}
+\contentsline {subsection}{\numberline {9.3.12}Amortizovaná slo¾itost ostatních operací}{70}{subsection.9.3.12}
+\contentsline {chapter}{\numberline {10}Haldy}{71}{chapter.10}
+\contentsline {section}{\numberline {10.1}$d$-regulární haldy}{71}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Algoritmus UP}{71}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Algoritmus DOWN}{72}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Operace na haldì}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{INSERT}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{MIN}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{DELETEMIN}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{DECREASEKEY(x)}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{INCREASEKEY}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{DELETE}{72}{subsection.10.1.3}
+\contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{72}{subsection.10.1.4}
+\contentsline {subsection}{\numberline {10.1.5}Slo¾itost operací}{72}{subsection.10.1.5}
+\contentsline {subsection}{\numberline {10.1.6}Dijkstrùv algoritmus}{73}{subsection.10.1.6}
+\contentsline {section}{\numberline {10.2}Leftist haldy}{74}{section.10.2}
+\contentsline {section}{\numberline {10.3}Binomiální haldy}{75}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Operace}{76}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Líná implementace binom. hald}{77}{subsection.10.3.2}
+\contentsline {subsubsection}{Amort. slo¾.}{77}{pozn.10.3.6}
+\contentsline {subsection}{\numberline {10.3.3}Zobecnìné binomiální haldy}{78}{subsection.10.3.3}
+\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{78}{section.10.4}
+\contentsline {chapter}{\numberline {11}Dynamizace}{79}{chapter.11}
+\contentsline {section}{\numberline {11.1}Zobecnìný vyhledávací problém}{79}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{79}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Amortizovaný èas operace INSERT}{81}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}Pamì»ové nároky}{82}{subsection.11.1.3}
+\contentsline {subsection}{\numberline {11.1.4}Algoritmus pro výpoèet}{82}{subsection.11.1.4}
+\contentsline {subsection}{\numberline {11.1.5}Èas pro INSERT(x)}{82}{subsection.11.1.5}
+\contentsline {subsection}{\numberline {11.1.6}Dynamizace}{83}{subsection.11.1.6}
+\contentsline {subsection}{\numberline {11.1.7}Reprezentace mno¾iny A}{84}{subsection.11.1.7}
+\contentsline {subsection}{\numberline {11.1.8}Pamì»ové nároky}{84}{subsection.11.1.8}
+\contentsline {subsection}{\numberline {11.1.9}èas pro výpoèet f}{84}{subsection.11.1.9}
+\contentsline {subsection}{\numberline {11.1.10}Amortizovaný èas operace DELETE}{85}{subsection.11.1.10}
+\contentsline {chapter}{\numberline {12}Vícedimenzionální vyhledávání}{86}{chapter.12}

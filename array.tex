@@ -168,11 +168,13 @@ d \hbox{ a } s[i]<x$. Jinak øeèeno $X$ udává vzdálenost $x$ od zaèátku bloku.
 Polo¾me $p=\pr(\hbox{náhodnì zvolený prvek mezi $s[d]$ a $s[h]$ je
 men¹í ne¾ }x)={(x-s[d])}/{(s[h]-s[d])}$
 
-$$\pr(|X|=j) = \binom{h-d+1}{j} p^j (1-p)^{h-d+1-j}$$
+% |X| = j -> X = j , protoze X uz oznacuje kardinalitu
+$$\pr(X=j) = \binom{h-d+1}{j} p^j (1-p)^{h-d+1-j}$$
 
 $X$ má tedy binomické rozdìlení a tudí¾ je jeho oèekávaná hodnota
 $p(h-d+1)$ a jeho rozptyl je $p(1-p)(h-d+1)$.
-Oznaème $prv$ pozici v rámci bloku prvního (interpolaèního) dotazu. 
+Oznaème $prv$ pozici v vrácenou prvním (interpolaèním) dotazem v této fázi
+vzhledem k poèátku bloku. 
 Srovnej $prv$ s oèekávanou hodnotou $X$. 
 
 $$|X-prv|\ge \frac{\hbox{poèet dotazù v rámci bloku}-2}{2}\sqrt{delka}$$

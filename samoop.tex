@@ -47,16 +47,18 @@ XXX
 XXX
 
 \subsection{Algoritmus MFR (Move Front Rule)}
-% pøedná¹ka z 18.3.2003
-Pøi operaci MEMBER(x) je x v seznamu nebo pøi operaci INSERT(x)
+\mnote{pøedná¹ka z 18.3.2003}
+
+{\bf Pravidlo MFR}: Pøi operaci MEMBER(x) je x v seznamu nebo pøi operaci INSERT(x)
 bude x po skonèení operace na 1. místì seznamu.
 
 \begin{theorem}
+\label{theor:samoop.MFRtime}
 Mìjme posloupnost P operací MEMBER, INSERT a DELETE a mìjme dva
 prosté seznamy S1, S2 mno¾iny S. \\
 Pak pro ka¾dý upravující algoritmus A platí:\\
 Kdy¾ MFR provede P na seznam S1 a A provede P a seznam S2, tak platí:\\
-% XXX udelat seznam
+
 \begin{itemize}
 \item{a)} èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
 výmìn A - $|P|$ 
@@ -80,7 +82,7 @@ poøadí $\Leftrightarrow$ seznamy jsou stejné)\\
 bal(S1,S2) $\leq$ $\binom{|S|}{2}$ (v¹echny dvojice jsou pøeházené)
 \end{pozn}
 
-\begin{proof}[Dùkaz vìty XXX] 
+\begin{proof}[Dùkaz vìty \ref{theor:samoop.MFRtime}] 
 Pøes amortizovanou slo¾itost A. \\
 Pøedpokládejme, ¾e A i MFR mají provést operaci O.\\
 A ... provádí na seznam $S_A$, výsledek bude $S_A'$ \\
@@ -96,9 +98,8 @@ poèet placených výmìn A - poèet volných výmìn A - 1
 \par
 
 $$
-{\rm S_A}\stackrel{vyhledání}{\rightarrow} S_A''
-\stackrel{výmìny}{\rightarrow} S_A'
-% XXX cestina
+{\rm S_A}\stackrel{\text{vyhledání}}{\rightarrow} S_A''
+\stackrel{\text{výmìny}}{\rightarrow} S_A'
 $$
 $$
 {\rm S_{MFR}} \rightarrow S_{MFR}' \rightarrow S_{MFR}'
@@ -140,11 +141,14 @@ výmìn A
 Pøedpokládejme, ¾e x není v seznamu a délka seznamù je n.
 Èas MFR je n+1 , èas na vyhledání pro algoritmus je n+1
 operace MEMBER(x) a DELETE(x) $S_A''$ = $S_{MFR}'$
-a tady amort. slo¾. MFR = èas operace = n++ $\leq$ 2(n+1) - 1\\
+a tady amort. slo¾. MFR = èas operace = n+1 $\leq$ 2(n+1) - 1\\
 n+1 je èas na vyhledání pro A - 1\\
 $S_A''$ vznikne z $S_A$ pøidáním x za posl. prvek $S_A$\\
 $S_{MFR}'$ vznikne z $S_{MFR}$ pøidáním x na zaè. seznamu
-tedy bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) = n\\
+tedy 
+$$
+bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR}) = n
+$$
 Amort. slo¾. operace MFR = n+1 + n=2n + 1=2(n+1) - 1 = 2*èas na vyhledání
 A - 1
 
@@ -188,7 +192,7 @@ Tedy platí: \\
 $S_2$) = 2*èas na vyhledání v P algoritmem A + poèet placených výmìn A pøi
 P - poèet volných výmìn A pøi P - $|P|$ + bal($S_1$, $S_2$)
 
-\mnote{|P| ... za ka¾dou operaci je -1}
+\mnote{$|P|$ ... za ka¾dou operaci je -1}
 kdy¾ $S_1$ = $S_2$ pak bal($S_1$, $S_2$)=0 a platí a)
      $S_1$ $\neq$ $S_2$ pak bal($S_1$, $S_2$) $\leq$ $\binom{|S|}{2}$ a
 platí b)
@@ -249,7 +253,7 @@ pak
 p_i
 = \sum_{\Pi}\kappa_\Pi\Pi(i)
 = \sum_{\Pi}\kappa_\Pi(1 + |{j, \Pi(j) < \Pi(i)|}\\
-= 1 + \sum{j,\Pi}\{kappa_\Pi, \Pi(j) < \Pi(i)\} = 1 + \sum_{j}\delta(j,i) (1)
+= 1 + \sum{j,\Pi}\{\kappa_\Pi, \Pi(j) < \Pi(i)\} = 1 + \sum_{j}\delta(j,i) (1)
 \end{multline}
 
 Zkusíme $\delta(j,i)$ spoèítat jiným zpùsobem:\\
@@ -306,24 +310,27 @@ MEMBER, INSERT, DELETE, JOIN2($T_1$,$T_2$), JOIN3(x, $T_1$, $T_2$)
 (nebo asi taky JOIN3($T_1$, x, $T_2$)), SPLIT(x), 
 CHANGEWEIGHT(x, $\triangle$).
 
-JOIN2($T_1$,$T_2$)\\
+\begin{itemize}
+\item JOIN2($T_1$,$T_2$) \\
 pøedpokládá, ¾e $\forall$ prvky reprezentované $T_1 < \forall$ prvky
 reprezentované $T_2$\\
 výsledný strom reprezentuje $T_1 \cup T_2$.
 
-JOIN3($T_1$, x, $T_2$)
+\item JOIN3($T_1$, x, $T_2$) \\
 pøedpokládá, ¾e $\forall$ prvky reprezentované $T_1 < x < \forall$ prvky 
 reprezentované $T_2$\\
 výsledný strom reprezentuje $T_1 \cup T_2 \cup x$.
 
-SPLIT(x)
-výsledek: strom $T_1$ : $\forall prvky \in T_1 < x$\\
-	strom $T_2$: $\forall prvky \in T_2 > x$\\
+\item SPLIT(x) \\
+výsledek: strom $T_1$ : $\forall$ prvky $\in T_1 < x$\\
+	strom $T_2$: $\forall$ prvky $\in T_2 > x$\\
 + informace, zda x le¾el v reprezentované mno¾inì
 
-CHANGEWEIGHT(x, $\triangle$)
+\item CHANGEWEIGHT(x, $\triangle$) \\
 zjistí, zda x le¾í ve stromì a pokud ano, pak k jeho váze pøiète
 $\triangle$.
+\end{itemize}
+
 
 \subsection{Algoritmus MEMBER}
 
@@ -365,7 +372,7 @@ Viz algoritmus \ref{alg:splay.join2}
 
 Viz algoritmus \ref{alg:splay.join3}
 
-\mnote{jaké mají být argumenty Splay() ?}
+\mnote{jaké mají být argumenty Splay() v algoritmu JOIN3 ?}
 
 \begin{algorithm}[!htb]
 \caption{JOIN3($T_1$, x, $T_2$)}

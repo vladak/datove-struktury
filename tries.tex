@@ -615,26 +615,53 @@ Celkový poèet zakázaných hodnot cd je men¹í ne¾
 \frac{f(l,m_{j-1}}{f(l,m_j)} - 1} \frac{f(l,m_{j-1}}{f(l-1,m_{j-1}}
 \end{multline}
 
-Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m})}$ \\
-\mnote{"mystika"}
-f splòuje okrajové podmínky
-$f(l,m) = 2^l \geq l+1 \forall l=0,1,...$ \\
-$f(0,m_j) = 1 \leq \frac{m}{m_j} \forall j=0,1,...,s$
+Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m})}$.
 
-dosadíme do odhadu \ref{odh-zak-hodnot}
-a dostaneme 
+\begin{pozn}
+Jeliko¾ se f vyskytuje v sumì jen v podílech, výraz se zjednodu¹¹í,
+zvolíme-li $f(l, m_j) = 2^{g(l, m_j)}$, kde g je nìjaká vhodná funkce.
+Dosadíme-li, mù¾eme si v¹imnout, ¾e dostaneme v exponentech rozdíly 
+$g(l, m_{j-1}) - g(l, m_j) a g(l, m_{j-1}) - g(l - 1, m_{j-1})$,
+které vznikly vhodnou pøedchozí úpravou výrazu.
+
+(... suma z Mehlhorna na stranì 10, tøetí suma od spoda ...)
+\par
+
+Teï se lze zbavit $-1$ ve jmenovateli pou¾itím nerovnosti 
+$2^x - 1 = e^{x\ln2} - 1 \geq x\ln2$.
+
+(... suma z Mehlhorna na stranì 10, druhá suma od spoda ...)
+\par
+Dal¹ím pozorovaním zjistíme, ¾e v takto získaných rozdílech se mìní
+jenom jedna promìnná. \\
+Výraz se dále zjednodu¹¹í, bude-li $g(l, m_j) = h(l)k(m_j), kde h(l), k(m_j)$
+budou vhodné lineární funkce. \\
+U funkce k linearitou vyu¾ijeme rozdílu $m_{j-1} - m_j$ v èitateli, který
+teï mù¾eme zkrátit.
+
+(... suma z Mehlhorna na stranì 10, první suma od spoda ...)
+\par
+Dal¹ími heuristikami a s vyu¾itím okrajových podmínek pro f nakonec
+zjistíme, ¾e dobrou volbou jsou funkce $h(l) = l, k(m_j) = 2 - \frac {m_j}m.$
+\end{pozn}
+ 
+Takto definovaná f splòuje okrajové podmínky: \\
+$f(l,m) = 2^l \geq l+1$ $\forall l=0,1,...$ \\
+$f(0,m_j) = 1 \leq \frac{m}{m_j}$ $\forall j=0,1,...,s$
+
+dosadíme do odhadu \ref{odh-zak-hodnot} a dostaneme 
 
 \begin{multline}
 \sum_{l=1}^{l_0} 
   \frac{l+1}{l} 
   \frac
     {(m_j - m_{j-1})}
-    { 2^{l ( \frac{m_j}{m} - frac{m_{j-1}}{m} ) }}
+    { 2^{l ( \frac{m_j}{m} - \frac{m_{j-1}}{m} ) }}
   2^{( 2 - \frac{m_{j-1}}{m} )} \leq \\
 \text{vyu¾ijeme, ¾e $2^x - 1 \geq x ln(2)$} \\
 \sum_{l=1}^{l_0} 
   \frac{l+1}{l} 
-  \frac{(m_j - m_{j-1})}{l( \frac{m_j}{m} - frac{m_{j-1}}{m} )} 4 = \\
+  \frac{(m_j - m_{j-1})}{l( \frac{m_j}{m} - \frac{m_{j-1}}{m} )} 4 = \\
 \frac{4m}{ln(2)} \sum_{l=1}^{l_0} 
   \frac{l+1}{l^2} = \frac{4m}{ln(2)} (\sum_{l=1}^{l_0} \frac{1}{l} +
   \sum_{l=1}^{l_0} \frac{1}{l^2}) \leq \\
@@ -646,47 +673,57 @@ l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\} \rightarrow l_0 < log(m) \\
 \text{pak } \leq 4m log(log(m)) + 15.3m
 \end{multline}
 
-Celý algoritmus spoèítá ulo¾ení matice M typu r x s do vektorù  \\
-cd - dimenze s, \\
-rd - dimenze $4m log(log(m)) + 15.3m + r$, \\
-hod dimenze m+s, \\
+Celý algoritmus spoèítá ulo¾ení matice $M$ typu $r \times s$ do vektorù  \\
+$cd$ - dimenze $s$, \\
+$rd$ - dimenze $4m log(log(m)) + 15.3m + r$, \\
+$hod$ dimenze $m+s$, \\
 pøitom hodnoty $cd(j) < 4m log(log(m)) + 15.3m$ a $rd(i) < m$.
 \par
-Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde m je poèet míst $\neq
-NIL$ v matici M.
+Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde $m$ je poèet míst $\neq
+NIL$ v matici $M$.
 
 \subsection{Úsporné ulo¾ení øídkého vektoru}
 
-Máme vektor v dimenze $n \cdot d$ a $i_0 < i_1 < ... < i_{t-1}$ jsou v¹echny
-indexy i takové, ¾e $v(i) \neq 0$. \\
-Vytvoøíme vektor cv dimenze t, $cv(j)=v(i_j)$. \\
+Máme vektor v dimenze $n \cdot d$ (rozdìlený na $n$ blokù velikosti $d$)
+a $i_0 < i_1 < ... < i_{t-1}$ jsou v¹echny
+indexy $i$ takové, ¾e $v(i) \neq 0$. \\
+Vytvoøíme vektor $cv$ dimenze $t$, $cv(j)=v(i_j)$. \\
 Ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j. \\
-base - dimenze m
+Sestavíme vektor $base$ dimenze $n$:
 
 ${\rm base(j) = }$
 % \left 
 $\Bigl\{$
-\begin{tabular}{lll}
--1 & kdy¾ & $i_k$ {\tt div} $d \neq j \forall k=0,1,...,t-1$ \\
-$min\{l; i_l div d = j\}$ & kdy¾ & $\exists l$, ¾e $i_l$ {\tt div} $d = j$ \\
+\begin{tabular}{ll}
+-1 & $i_k$ {\tt div} $d \neq j \forall k=0,1,...,t-1$ \\
+$min\{l; i_l div d = j\}$ & $\exists l$, ¾e $i_l$ {\tt div} $d = j$ \\
 \end{tabular}
 % \right. 
 
-vektor offset - dimenze n x d \\
+a matici $offset$ typu $n \times d$ \\
 ${\rm offset(j,k) =}$
 % \left 
 $\Bigl\{$
-\begin{tabular}{lll}
--1 & kdy¾ & $i_l \neq jd+k$ $\forall l = 0,1,...,t-1$ \\
-$l-base(j)$ & kdy¾ & $i_l = jd+k$ \\
+\begin{tabular}{ll}
+-1 & $i_l \neq jd+k$ $\forall l = 0,1,...,t-1$ \\
+$l-base(j)$ & $i_l = jd+k$ \\
 \end{tabular}
 
-\mnote{jd+k ... zápis v d-èkové soustavì}
+Nyní ulo¾íme matici $offset$ do vektoru $off$ dimenze $n$
+tak, ¾e z ka¾dého øádku vytvoøíme èíslo v soustavì o základu $d+1$: \\
 
-vektor off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
-off je dimenze n \\
+off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
 potøebujeme base(dim n), off (dim n) \\
-smysluplné kdy¾ $d << n$ a $t < n$ (napø. $d = log(log(n))$)
+smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = log(log(n))$)
+\par
+
+Platí následující vztahy: 
+\begin{enumerate}
+\item $v(h) = 0 \leftrightarrow offset(h \div d, h \mod d) = -1$
+\item $v(h) = 1 \rightarrow h = base(h \div d) + offset(h \div d, h \mod d)$
+\item $offset(i, j) = off(i) \div (d+1)^j \mod (d+1) - 1$
+\end{enumerate}
+\par
 
 pro dané i - nalezení hodnoty v(i)
 kdy¾ base(i {\tt div} d) = -1, pak v(i) = 0  \\
