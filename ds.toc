@@ -153,28 +153,28 @@
 \contentsline {subsection}{\numberline {10.1.3}Operace na hald\v e}{107}{subsection.10.1.3}
 \contentsline {subsubsection}{INSERT}{107}{section*.20}
 \contentsline {subsubsection}{MIN}{107}{section*.21}
-\contentsline {subsubsection}{DELETEMIN}{107}{section*.22}
-\contentsline {subsubsection}{DECREASEKEY$(x, \Delta )$}{107}{section*.23}
-\contentsline {subsubsection}{INCREASEKEY$(x, \Delta )$}{107}{section*.24}
+\contentsline {subsubsection}{DELETEMIN}{108}{section*.22}
+\contentsline {subsubsection}{DECREASEKEY$(x, \Delta )$}{108}{section*.23}
+\contentsline {subsubsection}{INCREASEKEY$(x, \Delta )$}{108}{section*.24}
 \contentsline {subsubsection}{DELETE}{108}{section*.25}
 \contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{108}{subsection.10.1.4}
-\contentsline {subsection}{\numberline {10.1.5}Slo\v zitost operac\IeC {\'\i }}{108}{subsection.10.1.5}
-\contentsline {subsection}{\numberline {10.1.6}Dijkstr\r uv algoritmus}{108}{subsection.10.1.6}
-\contentsline {section}{\numberline {10.2}Leftist haldy}{109}{section.10.2}
-\contentsline {section}{\numberline {10.3}Binomi\'aln\IeC {\'\i } haldy}{111}{section.10.3}
+\contentsline {subsection}{\numberline {10.1.5}Slo\v zitost operac\IeC {\'\i }}{109}{subsection.10.1.5}
+\contentsline {subsection}{\numberline {10.1.6}Dijkstr\r uv algoritmus}{109}{subsection.10.1.6}
+\contentsline {subsection}{\numberline {10.1.7}Heapsort}{110}{subsection.10.1.7}
+\contentsline {section}{\numberline {10.2}Leftist haldy}{110}{section.10.2}
+\contentsline {section}{\numberline {10.3}Binomi\'aln\IeC {\'\i } haldy}{112}{section.10.3}
 \contentsline {subsection}{\numberline {10.3.1}Operace}{112}{subsection.10.3.1}
-\contentsline {subsection}{\numberline {10.3.2}L\IeC {\'\i }n\'a implementace binom. hald}{113}{subsection.10.3.2}
+\contentsline {subsection}{\numberline {10.3.2}L\IeC {\'\i }n\'a implementace binom. hald}{114}{subsection.10.3.2}
 \contentsline {subsubsection}{Amort. slo\v z.}{114}{section*.26}
-\contentsline {subsection}{\numberline {10.3.3}Zobecn\v en\'e binomi\'aln\IeC {\'\i } haldy}{114}{subsection.10.3.3}
-\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{114}{section.10.4}
-\contentsline {chapter}{\numberline {11}Dynamizace}{115}{chapter.11}
-\contentsline {section}{\numberline {11.1}Zobecn\v en\'y vyhled\'avac\IeC {\'\i } probl\'em}{115}{section.11.1}
-\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{116}{subsection.11.1.1}
-\contentsline {section}{\numberline {11.2}Semi-dynamizace}{116}{section.11.2}
-\contentsline {section}{\numberline {11.3}Dynamizace}{121}{section.11.3}
-\contentsline {subsection}{\numberline {11.3.1}Reprezentace mno\v ziny A}{121}{subsection.11.3.1}
-\contentsline {subsection}{\numberline {11.3.2}Pam\v e\v tov\'e n\'aroky}{121}{subsection.11.3.2}
-\contentsline {subsection}{\numberline {11.3.3}\v cas pro v\'ypo\v cet f}{121}{subsection.11.3.3}
-\contentsline {subsection}{\numberline {11.3.4}Amortizovan\'y \v cas operace DELETE}{122}{subsection.11.3.4}
-\contentsline {subsection}{\numberline {11.3.5}Amortizovan\'y \v cas operace INSERT}{122}{subsection.11.3.5}
-\contentsline {chapter}{\numberline {12}V\IeC {\'\i }cedimenzion\'aln\IeC {\'\i } vyhled\'av\'an\IeC {\'\i }}{124}{chapter.12}
+\contentsline {subsection}{\numberline {10.3.3}Zobecn\v en\'e binomi\'aln\IeC {\'\i } haldy}{115}{subsection.10.3.3}
+\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{115}{section.10.4}
+\contentsline {chapter}{\numberline {11}Dynamizace}{116}{chapter.11}
+\contentsline {section}{\numberline {11.1}Zobecn\v en\'y vyhled\'avac\IeC {\'\i } probl\'em}{116}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{117}{subsection.11.1.1}
+\contentsline {section}{\numberline {11.2}Semi-dynamizace}{117}{section.11.2}
+\contentsline {section}{\numberline {11.3}Dynamizace}{122}{section.11.3}
+\contentsline {subsection}{\numberline {11.3.1}Reprezentace mno\v ziny A}{122}{subsection.11.3.1}
+\contentsline {subsection}{\numberline {11.3.2}Pam\v e\v tov\'e n\'aroky}{122}{subsection.11.3.2}
+\contentsline {subsection}{\numberline {11.3.3}\v cas pro v\'ypo\v cet f}{122}{subsection.11.3.3}
+\contentsline {subsection}{\numberline {11.3.4}Amortizovan\'y \v cas operace DELETE}{123}{subsection.11.3.4}
+\contentsline {subsection}{\numberline {11.3.5}Amortizovan\'y \v cas operace INSERT}{123}{subsection.11.3.5}
