@@ -47,12 +47,14 @@ PICS=	pics/abt.pdf \
 
 all: $(MAIN).pdf
 
-dist: $(MAIN).pdf $(MAIN).ps
+# no ps (missing pics)
+dist: $(MAIN).pdf 
 	@if [ ! -d $(DISTDIR) ]; then \
 	  echo "cannot copy dist file into $(DISTDIR)"; \
 	  exit 1; \
 	fi
-	cp $(MAIN).pdf $(MAIN).ps $(DISTDIR)
+	#cp $(MAIN).pdf $(MAIN).ps $(DISTDIR)
+	cp $(MAIN).pdf $(DISTDIR)
 	sh snapdate.sh $(HTMLFILE)
 	cd $(DISTDIR) && cvs commit
 

@@ -354,13 +354,16 @@ pøístupu k jednotlivým prvkùm a má pøedem seznam srovnaný
 sestupnì podle tìchto pravdìpodobností. 
 Oèekávaný èas tohoto algoritmu je 
 
-\begin{multline}
-\sum_{i=1}^{n}i\beta_i = \\
-1 + \sum_{i,j=1} 2\frac{\beta_j\beta_i}{\beta_i+\beta_j} \leq 1 + 
-  \sum_{\substack{i,j\\j<i}} 2\beta_i = 1 + \sum_{i=1}^{n} 2(i-1)\beta_i =
-1 + 2\cdot\sum_{i}i\beta_i - 2\sum_{i}\beta_i = \\
-2\sum_{i=1}^{n}i\beta_i - 1
-\end{multline}
+\begin{equation}
+\begin{split}
+& \sum_{i=1}^{n}i\beta_i = \\
+1 + \sum_{i,j=1} 2\frac{\beta_j\beta_i}{\beta_i+\beta_j} \\
+& \leq 1 + \sum_{\substack{i,j\\j<i}} 2\beta_i 
+= 1 + \sum_{i=1}^{n} 2(i-1)\beta_i \\
+& = 1 + 2\cdot\sum_{i}i\beta_i - 2\sum_{i}\beta_i \\
+= 2\sum_{i=1}^{n}i\beta_i - 1
+\end{split}
+\end{equation}
 
 Platí
 $$\frac{\beta_j}{\beta_j+\beta_i} \leq 1$$

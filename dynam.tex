@@ -567,18 +567,39 @@ Kdy¾ operace DELETE buduje S-strukturu pro mno¾inu $A_j$, pak platí:
 $2^{j-1} \leq |A_j| \leq 2^{j-1}$.
 
 \subsection{Amortizovaný èas operace DELETE}
+
 $$
+(log|A| + D(2^j) + P(2^j) =
 (log|A| + D(2^j) + \frac{P(2^j)}{2^{j-3}}) = O(log|A| + D(|A|) +
-8\frac{P(|A|)}{|A|})
+4\frac{P(|A|)}{|A|})
 $$
 
-$log|A|$ - zji¹tìní zda $x \in A$ \\
-$D(2^j)$ - fale¹ný DELETE \\
-$\frac{P(2^j)}{2^{j-3}}$ - budování S-struktury - aspoò $2^{j-3}$ ... pøed
-tím
+\begin{itemize}
+\item $log|A|$ - zji¹tìní zda $x \in A$ 
+\item $D(2^j)$ - fale¹ný DELETE 
+\item $\frac{P(2^j)}{2^{j-3}}$ - budování S-struktury pro $A_i$
+\end{itemize}
 
+Aby DELETE znovu vytváøel S-strukturu pro mno¾inu v $A_i$, musím provést
+aspoò $2^{j-3}$ operací DELETE.
 
-\mnote{zbytek poslední pøedná¹ky chybí}
+\subsection{Amortizovaný èas operace INSERT}
 
+Kdy¾ INSERT vytváøel S-strukturu pro $A_i,$ pak $A_j = \emptyset$ pro
+$j<i$ a aby se znovu vytváøela struktura pro $A_i$, musí platit:
+$$
+1 + \sum_{j \leq i}{} |A_j| > 2^{j-1}
+$$
+
+DELETE zaplní $A_j$ jen do poloviny. To znamená, ¾e se musí provést alespoò
+$2^{j-2}$ INSERTÙ, tedy amortizovaná slo¾itost je
+$$
+O(log|A| + \sum_{}{} \frac{P(2^i)}{2^{i-2}}) = O(\frac{P(|A|)}{|A|} log n)
+$$
+
+Práce s pomocnými stukturami zabere práve $log|A|$ èasu.
+\par
+Kdy¾ $P(n)=n^{\epsilon}$ pro $\epsilon > 0$, pak amortizovaná slo¾itost je
+$O(\frac{P(|A|)}{|A|})$.
 
 % EOF

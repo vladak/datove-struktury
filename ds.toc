@@ -176,4 +176,5 @@
 \contentsline {subsection}{\numberline {11.3.2}Pam\v e\v tov\'e n\'aroky}{121}{subsection.11.3.2}
 \contentsline {subsection}{\numberline {11.3.3}\v cas pro v\'ypo\v cet f}{121}{subsection.11.3.3}
 \contentsline {subsection}{\numberline {11.3.4}Amortizovan\'y \v cas operace DELETE}{122}{subsection.11.3.4}
+\contentsline {subsection}{\numberline {11.3.5}Amortizovan\'y \v cas operace INSERT}{122}{subsection.11.3.5}
 \contentsline {chapter}{\numberline {12}V\IeC {\'\i }cedimenzion\'aln\IeC {\'\i } vyhled\'av\'an\IeC {\'\i }}{124}{chapter.12}
