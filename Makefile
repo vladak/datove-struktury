@@ -11,4 +11,4 @@ all:
 	dvips ${MAIN}
 
 clean:
-	@rm -f * ${MAIN}.toc
+	@rm -f ${MAIN}.toc *.ps *.pdf
