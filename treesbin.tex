@@ -371,15 +371,25 @@ T(n) \leq (2d+c)n - d(1 + \log(n+1)/2) = (2d+c)n - d\log(n+1)
 % --------------------------------------------------------------------------
 \section{Èervenoèerné stromy}
 
-Ka¾dý vrchol je obarven èervenì nebo èernì a platí následující podmínky:
+\begin{defn}
+Binární vyhledávací strom T se nazývá èervenoèerný, jestli¾e ka¾dý 
+vrchol je obarven èervenì nebo èernì a platí následující podmínky:
 \begin{enumerate}
 \item Listy jsou èerné.
 \item Pokud má èervený vrchol otce, je otec èerný.
 \item V¹echny cesty z koøene do listu mají stejný poèet èerných vrcholù.
 \end{enumerate}
+\end{defn}
 
+\mnote{nejdel¹í cesta je max. 2$\times$ del¹í ne¾ nejkrat¹í}
+
+\begin{theorem} % XXX tvrzeni
 Pro binární vyhledávací èervenoèerné stromy reprezentující mno¾inu $S$
-platí: je-li $k$ poèet èerných vrcholù na cestì z koøene do listu, pak
+platí, ¾e jejich hloubka je $O(log n)$.
+\end{theorem}
+
+\begin{proof}
+je-li $k$ poèet èerných vrcholù na cestì z koøene do listu, pak
 \[
 2^k -1 \leq |S| \leq 2^{2k} -1
 \]
@@ -388,8 +398,10 @@ neboli
 k \leq \log_2 |S| +1 \leq 2k
 \]
 pøièem¾ prvky $S$ jsou reprezentovány pouze ve vnitøních vrcholech, ne
-v listech.
+v listech. 
 \mnote{je to novinka?}
+\end{proof}
+
 
 \subsection{Operace INSERT}
 Uvedeme pouze odli¹nost od operace INSERT v obecném binárním

@@ -127,9 +127,9 @@ která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
 $P(n)$,
 $kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
 existuje semidynamická dat. struktura D, øe¹ící f v èase
-$O(Q(n) log(n))$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
+$O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
 amort. slo¾itostí
-$O(\frac{P(n)}{n} \cdot log(n))$.
+$O(\frac{P(n)}{n} \cdot\log n)$.
 \end{theorem}
 
 \begin{proof}
@@ -191,10 +191,10 @@ kdy¾ $Q(n) = \Theta(n^\epsilon) pro \epsilon > 0$, pak platí. ¾e nová
 struktura pro výpoèet f potøebuje
 \begin{multline}
 log|A| + \sum_{i=0}^{log n}Q(2^i) = \\
-|A| + \sum_{i=0}^{log|A|}
-\frac{S(2^i)}{2^i} 2^i \leq |A| + \sum_{i=0}^{log|A|} \frac{S(|A|)}{|A|} 2^i \\
+|A| + \sum_{i=0}^{log |A|}
+\frac{S(2^i)}{2^i} 2^i \leq |A| + \sum_{i=0}^{log |A|} \frac{S(|A|)}{|A|} 2^i \\
 = |A| - \frac{S(|A|)}{|A|} 2^i = |A| -
-\frac{S(|A|)}{|A|}(\sum_{i=0}^{log|A|} 2^i) \\
+\frac{S(|A|)}{|A|}(\sum_{i=0}^{log |A|} 2^i) \\
 = O(S(|A|))
 \end{multline}
 
@@ -223,9 +223,9 @@ tj. $2 \cdot 2^j$ úspì¹ných INSERTù
 
 Amortizovaný èas operace INSERT je 
 $$
-log|A| + \sum_{i=0}^{log|A|} \frac{P(2^j)}{2^{j+1}} \leq
-log|A| + \sum_{i=0}^{log|A|} \frac{P|A|}{|A|} = 
-O(log|A| \cdot \frac{P|A|}{|A|})
+log |A| + \sum_{i=0}^{log |A|} \frac{P(2^j)}{2^{j+1}} \leq
+log |A| + \sum_{i=0}^{log |A|} \frac{P|A|}{|A|} = 
+O(log |A| \cdot \frac{P|A|}{|A|})
 $$
 
 \end{proof}
@@ -236,9 +236,9 @@ která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
 $P(n)$,
 $kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
 existuje semidynamická dat. struktura D, øe¹ící f v èase
-$O(Q(n) log(n))$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
+$O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
 slo¾itostí
-$O(\frac{P(n)}{n} \cdot log(n))$.
+$O(\frac{P(n)}{n} \cdot\log n)$.
 \end{theorem}
 
 Následuje konstrukce takové semidyn. struktury, která bude podporovat
@@ -298,16 +298,16 @@ pro postaverní S struktury, ale je¹tì není dokonèena.
 Pamì»ové nároky
 
 \begin{multline}
-|A| + \sum_{i=0}^{log|A|} 4S(2^i) = 
-|A| + \sum_{i=0}^{log|A|} \frac{S(2^i)}{2^i}2^i \leq 
-|A| + 4 \sum_{i=0}^{log|A|} \frac{S(|A|)}{|A|}2^i = \\
+|A| + \sum_{i=0}^{log |A|} 4S(2^i) = 
+|A| + \sum_{i=0}^{log |A|} \frac{S(2^i)}{2^i}2^i \leq 
+|A| + 4 \sum_{i=0}^{log |A|} \frac{S(|A|)}{|A|}2^i = \\
 |A| + \frac{4S(|A|)}{|A|} (\sum 2^i) = 
 |A| + 4S(|A|) = O(S(|A|))
 \end{multline}
 
 \begin{pozn}
 $|A|$ - pamet pro pom. struktury  \\
-$\sum_{i=0}^{log|A|} 4S(2^i)$ - pamet potrebna na S struktury
+$\sum_{i=0}^{log |A|} 4S(2^i)$ - pamet potrebna na S struktury
 \end{pozn}
 
 Algoritmus pro výpoèet \\
@@ -316,9 +316,9 @@ spoèítáme f(x,A).
 
 èas potøebný pro výpoèet A
 \begin{multline}
-\sum_{i=0}^{log|A|} 3Q(2^i) + 3log(|A|) \leq 
-3\sum_{i=0}^{log|A|} Q(|A|) + 3log|A| = 
-3Q(|A|)log(|A|) = O(Q(|A|)log(|A|))
+\sum_{i=0}^{log |A|} 3Q(2^i) + 3\log |A| \leq 
+3\sum_{i=0}^{log |A|} Q(|A|) + 3\log |A| = 
+3Q(|A|)log |A| = O(Q(|A|)\log |A|)
 \end{multline}
 
 Platí: $Q(n) \geq n^{\epsilon}$ pro nìjaké $\epsilon$, pak èas potøebný pro
@@ -354,13 +354,13 @@ INSERT(x) viz. alg. \ref{alg:dynam.insert}
 
 Èas pro INSERT(x) je \\
 \begin{multline}
-log|A| + \sum_{i=0}^{log|A|} (\frac{P(2^i)}{2^i} + 1) = 
-2log|A| + \sum_{i=0}^{log|A|} \frac{2P(|A|)}{|A|} = \\
-2log|A| + \frac{2P(|A|)}{|A|} \sum_{i=0}^{log|A|} 1 = 
-2log|A| \frac{2P(|A|)}{|A|} log|A| = O(\frac{2P(|A|)}{|A|} log|A|)
+log |A| + \sum_{i=0}^{log |A|} (\frac{P(2^i)}{2^i} + 1) = 
+2log |A| + \sum_{i=0}^{log |A|} \frac{2P(|A|)}{|A|} = \\
+2log |A| + \frac{2P(|A|)}{|A|} \sum_{i=0}^{log |A|} 1 = 
+2log |A| \frac{2P(|A|)}{|A|} log |A| = O(\frac{2P(|A|)}{|A|} log |A|)
 \end{multline}
 
-$log|A|$ - èas pro zji¹tìní zda $x \in A$ \\
+$log |A|$ - èas pro zji¹tìní zda $x \in A$ \\
 
 kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
 vy¾aduje èas $O(\frac{P(n)}{n})$.
@@ -402,7 +402,7 @@ dokonèeno $A_{1,1} = \{x_3,x_4\}$ \\
 Nech» S je statická struktura pro rozlo¾itelný vyhledávací problém f
 a nech» K je "hladká" funkce. Pak existuje semidynamická struktura D
 zalo¾ená na rozkladu urèeném funkcí K, tak ¾e platí: \
-kdy¾ K=O(log(n)), pak èas pro vyhledání je O(K Q(n)) \
+kdy¾ K=O(log n), pak èas pro vyhledání je O(K Q(n)) \
 			  pro INSERT je $O(K(n) n^{\frac{1}{K(n)}}
 			  \frac{P(n)}{n})$ \
 kdy¾ $K = \Omega(log(n))$ pak platí: \

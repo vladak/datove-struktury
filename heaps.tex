@@ -64,7 +64,7 @@ to vyu¾ijeme pro implementaci polem - u¹etøíme místo.
 \par
 
 \begin{pozn}
-nejpopulárnìj¹í jsou 2-reg. haldy, proto¾e synové i-tého vrhocholu
+nejpopulárnìj¹í jsou 2-reg. haldy, proto¾e synové i-tého vrcholu
 jsou na místech $2(i-1)+2=2i, 2(i-1)+3=2i + 1$, otec je na
 $\lceil\frac{i-1}{2}\rceil + 1 = \lceil\frac{i}{2}\rceil$. 
 $\Rightarrow$ snadné poèítání (bitový posun)
@@ -208,8 +208,8 @@ kdy¾ d = 2, pak to je $O(|E|log_2(|V|))$
 $d = max {\frac{|E|}{|V|}, 2}$, vyjde èas $O(|E|log_d(|V|))$ \\
 kdy¾ $\exists \epsilon$ , ¾e $|E| \geq c|V|^{1+\epsilon}$ pro nìjaké cc,
 pak èas je $O(|E|)$. (graf je dostateènì hustý) \\
-$|E| \geq c|V|log^{\epsilon}|V|$ pro nìjaké c, $\epsilon$, pak èas
-$O(|E|loglog|V|)$.
+$|E| \geq c|V|\log^{\epsilon} |V|$ pro nìjaké c, $\epsilon$, pak èas
+$O(|E|\log log |V|)$.
 \par
 
 Dal¹í aplikace: tøídìní \\

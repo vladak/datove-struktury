@@ -98,8 +98,8 @@ pøípadì je poèet
 ulo¾ených slov násobený délkou cesty a poètem synù, tedy $O(|S| l k)$.
 
 \begin{pozn}
-V pøípadì, kdy S obsahuje (skoro) v¹echna slova délky l, tak mù¾e
-mít slo¾itost jen O(|S|).
+V pøípadì, kdy S obsahuje (skoro) v¹echna slova délky $l$, tak mù¾e
+mít slo¾itost jen $O(|S|)$.
 \end{pozn}
 
 % --------------------------------------------------------------------------
@@ -137,6 +137,27 @@ s výjimkou jednoho jsou listy, pro nì¾ $\Nal = \textit{false}$. V¹imnìte si, ¾e
 ka¾dý vnitøní vrchol má právì $k$ synù, které jsou v jednoznaèné 
 korespondenci s písmeny abecedy $\Sigma$.
 
+\begin{pozn}
+\mnote{Koubek 2002/2003}
+Komprimované trie je tvoøený mno¾inou trie, kde pro $\beta$ je
+$hladina(\beta) = |\beta|$ a otec $\beta$ je nejvìt¹í vlastní prefix,
+který patøí do trie + pøidané listy. Listy jsou prvky z S + slova $\beta
+a$, kde $\beta \in$ trie a $\beta a$ není prefixem ¾ádného slova v S. Pro
+prvky z S je Nal = True, jinak false. Platí $prvek(\gamma) = \gamma$ pro ka¾dý
+list.
+\par
+
+Kdy¾ $\beta \in$ trie a $a \in \Sigma \rightarrow$
+$\Bigl\{$
+\begin{tabular}{ll}
+$\beta a$ list, & je a-tým synem $\beta$ \\
+$\exists \delta \in S$, & ¾e $\beta a$ je prefixem $\delta$
+\end{tabular}
+
+Potom a-tý syn $\beta$ je nejkrat¹í prefix v mno¾inì trie v S, který
+obsahuje $\beta a$.
+\end{pozn}
+
 % ..........................................................................
 \subsection{MEMBER}
 
@@ -146,11 +167,11 @@ Viz algoritmus \ref{alg:trie.k.mem}
 \caption{MEMBER pro komprimované trie}
 \label{alg:trie.k.mem}
 \begin{algorithmic}
-\STATE \COMMENT {vyhledání $x$}
+\STATE \COMMENT {vyhledání $x = x_1 \ldots x_l$}
 \STATE $t := \text{koøen}$
 \WHILE {$t \text{ není list}$}
         \STATE $i := \uro(t) + 1$
-        \STATE $t := t[x_i]$
+        \STATE $t := t[x_i]$ // $x_i$-tý list
 \ENDWHILE
 \STATE \COMMENT {test}
 \STATE \textbf{return} $\Nal(t) \land \slo(t) = x$
@@ -230,7 +251,7 @@ Viz algoritmus \ref{alg:trie.k.del}
                 \STATE $v$ := otec $u$
                 \STATE sma¾ $u$ a v¹echny syny $u$ kromì $w$
                 \STATE $j := \uro(v) + 1$
-                \STATE $v[x_j] := w$ (tj. $x_j$-tý syn v je w)
+                \STATE $v[x_j] := w$ // $x_j$-tý syn $v$ je $w$
         \ENDIF
 \ENDIF  
 \end{algorithmic}
@@ -272,7 +293,8 @@ a ka¾dý doplníme v¹emi sufixy délky $l-d+1$. Proto tìchto mno¾in je
 Proto¾e v¹ech podmno¾in velikosti $n$ je $\binom{k^l}{n}$ dostáváme, ¾e 
 \begin{align*}  
 q_d 
- &\leq 1 - \frac{\binom{k^{d-1}}{n} k^{n (l-d+1)}}{\binom{k^l}{n}}\\
+ &\leq 1 - \frac{\binom{k^{d-1}}{n} k^{n (l-d+1)}}{\binom{k^l}{n}} 
+\Biggl\} \text{pravdìpodobnost} \\
  &\leq 1 - \frac{k^{d-1}(k^{d-1}-1)\dots(k^{d-1}-(n-1)) k^{n(l-d+1)}}{k^{ln}}\\
  &   = 1 - \prod_{i=0}^{n-1} \left( 1 - \frac{i}{k^{d-1}} \right) \\
  &\leq 1 - \exp\left( \frac{-n^2}{k^{d-1}} \right)\\
@@ -317,26 +339,26 @@ a èasovými nároky.
 \label{alg:trie.k.ins_unk}
 \begin{algorithmic}
 \STATE INSERT($x=x_1, ..., x_l$)
-\STATE t $\leftarrow$ koøen
-\WHILE {t neni list}
-  \STATE i $\leftarrow$ hladina(t), t $\leftarrow$ $(a_{i+1})$-ní syn t
+\STATE $t$ $\leftarrow$ koøen
+\WHILE {$t$ neni list}
+  \STATE i $\leftarrow$ hladina($t$), $t$ $\leftarrow$ $(a_{i+1})$-ní syn $t$
 \ENDWHILE
-\IF {prvek(t) neni prefix x}
-  \STATE beta = nejvetsi spolecny prefix x a prvek(t)
-  \STATE beta a = prefix alfa
-  \STATE beta b = prefix prvek(t)
+\IF {prvek($t$) neni prefix $x$}
+  \STATE $\beta$ = nejvìt¹í spoleèný prefix $x$ a prvek(t)
+  \STATE $\beta a$ = prefix $\alpha$
+  \STATE $\beta b$ = prefix prvek($t$)
   \STATE while $hladina(t) > |beta|$ do t $\leftarrow$ otec(t) done
-  \IF {hladina(t) < |beta|}
-    \STATE vytvoøíme nový vrchol w, jeho¾ synové, kromì b-tého syna budou listy s
+  \IF {$hladina(t) < |\beta|$}
+    \STATE vytvoøíme nový vrchol $w$, jeho¾ synové, kromì $b$-tého syna budou listy s
     \STATE funkcemi Nal = false
-    \STATE prvek(t) = beta + oznaceni syna
-    \STATE $hladina(w) = |beta|, beta = (a_1, ..., a_i)$
-    \STATE necht $v = a_{hladina(t) + 1}$ - tý syn t, b-ty syn w je v
+    \STATE $prvek(t) = \beta$ + oznaceni syna
+    \STATE $hladina(w) = |\beta|, \beta = (a_1, ..., a_i)$
+    \STATE necht $v = a_{hladina(t) + 1}$ - tý syn t, b-tý syn w je v
     \STATE $w = a_{hladina(t)+1}$-tý syn t
   \ENDIF
-  \STATE z $\leftarrow$ a-ty syn t, Nal(z) = true, prvek(z) = x
+  \STATE z $\leftarrow$ a-tý syn $t$, Nal($z$) = true, prvek($z$) = $x$
 \ELSE
-  \STATE Nal(t) = true, prvek(t) = x
+  \STATE Nal(t) = true, prvek(t) = $x$
 \ENDIF
 \end{algorithmic}
 \end{algorithm}
@@ -670,14 +692,14 @@ dosadíme do odhadu \ref{odh-zak-hodnot} a dostaneme
 15.3m \\
 \text{odhadneme $l_0$: } 
 l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\} \rightarrow l_0 < log(m) \\
-\text{pak } \leq 4m log(log(m)) + 15.3m
+\text{pak } \leq 4m\log log m) + 15.3m
 \end{multline}
 
 Celý algoritmus spoèítá ulo¾ení matice $M$ typu $r \times s$ do vektorù  \\
 $cd$ - dimenze $s$, \\
-$rd$ - dimenze $4m log(log(m)) + 15.3m + r$, \\
+$rd$ - dimenze $4m\log log m) + 15.3m + r$, \\
 $hod$ dimenze $m+s$, \\
-pøitom hodnoty $cd(j) < 4m log(log(m)) + 15.3m$ a $rd(i) < m$.
+pøitom hodnoty $cd(j) < 4m\log log m) + 15.3m$ a $rd(i) < m$.
 \par
 Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde $m$ je poèet míst $\neq
 NIL$ v matici $M$.
@@ -714,7 +736,7 @@ tak, ¾e z ka¾dého øádku vytvoøíme èíslo v soustavì o základu $d+1$: \\
 
 off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
 potøebujeme base(dim n), off (dim n) \\
-smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = log(log(n))$)
+smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = log log n)$)
 \par
 
 Platí následující vztahy: 
@@ -735,7 +757,7 @@ l = l - 1 + base(j) \\
 v(i) = cv(l) \\
 
 Lze pou¾ít pro malé t a $(d+1)^d$ v rozsahu velikosi registru - vhodné napø.
-pro $d \approx log(log(n))$.
+pro $d \approx log log n)$.
 
 Pø.:
 v = 
