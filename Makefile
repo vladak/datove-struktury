@@ -68,5 +68,6 @@ $(MAIN).pdf: pics $(SRCFILES)
 pics-clean:
 	@cd pics; make clean
 
-clean: pics-clean
-	@rm -f ${MAIN}.toc *.ps *.pdf *.aux *.out *.log *.dvi
+clean: 
+	# ${MAIN}.toc 
+	@rm -f *.ps *.pdf *.aux *.out *.log *.dvi
