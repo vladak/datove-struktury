@@ -112,7 +112,7 @@ vrcholu $v$ jsou stejné. To vedlo k idei tyto vrcholy ze stromu vynechat a tím
 zmen¹it (kompresovat) trie.  
    
 \begin{figure}
-\centering\includegraphics{tries}
+\centering\includegraphics{pics/tries}
 \caption{Nekomprimované trie}
 \label{fig:tries}
 \end{figure}
@@ -299,48 +299,48 @@ a èasovými nároky.
 \mnote{XXX k cemu patri nasl. algoritmus ? (Koubek 2002)}
 INSERT($x=x_1, ..., x_l$)
 \begin{algorithmic}
-t <- koøen
-while t neni list do
-  i <- hladina(t), t <- $(a_{i+1})$-ní syn t
-done
-if prvek(t) neni prefix x then
-  beta = nejvetsi spolecny prefix x a prvek(t)
-  beta a = prefix alfa
-  beta b = prefix prvek(t)
-  while hladina(t) > |beta| do t <- otec(t) done
-  if hladina(t) < |beta| then
-    vytvorime novy vrchol w, jehoz synove, krome b-teho syna budou listy s
-    funkcemi Nal = false
-    prvek(t) = beta + oznaceni syna
-    hladina(w) = |beta|, beta = $(a_1, ..., a_i)$
-    necht $v = a_{hladina(t) + 1}$ - tý syn t, b-ty syn w je v
-    $w = a_{hladina(t)+1}$-tý syn t
-  endif
-  z <- a-ty syn t, Nal(z) = true, prvek(z) = x
-else
-  Nal(t) = true, prvek(t) = x
-endif  
+\STATE t <- koøen
+\WHILE {t neni list}
+  \STATE i <- hladina(t), t <- $(a_{i+1})$-ní syn t
+\ENDWHILE
+\IF {prvek(t) neni prefix x}
+  \STATE beta = nejvetsi spolecny prefix x a prvek(t)
+  \STATE beta a = prefix alfa
+  \STATE beta b = prefix prvek(t)
+  \STATE while hladina(t) > |beta| do t <- otec(t) done
+  \IF {hladina(t) < |beta|}
+    \STATE vytvorime novy vrchol w, jehoz synove, krome b-teho syna budou listy s
+    \STATE funkcemi Nal = false
+    \STATE prvek(t) = beta + oznaceni syna
+    \STATE hladina(w) = |beta|, beta = $(a_1, ..., a_i)$
+    \STATE necht $v = a_{hladina(t) + 1}$ - tý syn t, b-ty syn w je v
+    \STATE $w = a_{hladina(t)+1}$-tý syn t
+  \ENDIF
+  \STATE z <- a-ty syn t, Nal(z) = true, prvek(z) = x
+\ELSE
+  \STATE Nal(t) = true, prvek(t) = x
+\ENDIF
 \end{algorithmic}
 
 \mnote{XXX dalsi neznamy algoritmus z prednasky 2002}
 
 DELETE($x=x_1, ..., x_l$)
 \begin{algorithmic}
-t <- koren
-while t neni list do 
-  i <- hladina(t), t <- $(a_{i+1}$-ni syn t
-done
-if Nal(t) = true & prvek(t) = j then
-  Nal(t) = false
-  v <- otec(t)
-  prvek(t) <- prefix prvek(t) o delce hladina v+1
-  if vsichni synove vrchovlu v az na jednoho jsou listy s Nal = false then
-    w <- syn(v), ktery je bud list s Nal(w) = true nebo neni list
-    necht v je a-ty ($a_i$-ty ???) syn sveho otce, v smazeme a smazeme
-    vsechny syny $v \neq w$
-    w <- a-ty ($a_i$-ty ???) syn otce v
-  endif
-endif  
+\STATE t <- koren
+\WHILE {t neni list}
+  \STATE i <- hladina(t), t <- $(a_{i+1}$-ni syn t
+\ENDWHILE
+\IF {Nal(t) = true a prvek(t) = j} 
+  \STATE Nal(t) = false
+  \STATE v <- otec(t)
+  \STATE prvek(t) <- prefix prvek(t) o delce hladina v+1
+  \IF {vsichni synove vrchovlu v az na jednoho jsou listy s Nal = false}
+    \STATE w <- syn(v), ktery je bud list s Nal(w) = true nebo neni list
+    \STATE necht v je a-ty ($a_i$-ty ???) syn sveho otce, v smazeme a smazeme
+    \STATE vsechny syny $v \neq w$
+    \STATE w <- a-ty ($a_i$-ty ???) syn otce v
+  \ENDIF
+\ENDIF
 \end{algorithmic}
 
 
@@ -386,9 +386,9 @@ rd & root & a & b & c \\
 \end{tabular}
 
 II. \\
-\begin{tabular}{|lllllll|}
+\begin{tabular}{|lllllllllll|}
 \hline
-hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL c \\
+hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
 rd & root & a & b & c \\
  & 4 & 7 & 0 & 3 \\
 \hline
@@ -421,11 +421,11 @@ algoritmus vy¾aduje èas O(rsm).
 \end{theorem}
 
 \begin{proof}
-Pøedpokládejme, ¾e hledáme rd pro øádek i, který má l míst \neq NIL. \\
+Pøedpokládejme, ¾e hledáme rd pro øádek i, který má l míst $\neq NIL$. \\
 ve vektoru hod je obsazeno ménì ne¾ m(l-1) míst. \\ 
 zkou¹íme rd(i)=1,2,... \\
 rd(i) = 1,2,... je zakázané, kdy¾ vznikne kolize. \\
-tj. \exist øádek i' pøedcházející a $\exist j,j'$ takové, ¾e $M_{i',j'} \neq
+tj. $\exists$ øádek i' pøedcházející a $\exists j,j'$ takové, ¾e $M_{i',j'} \neq
 NIL \neq M_{i,j}$ a platilo by $rd(i') + j' = rd(i) + j$.
 $\leftarrow$ tìchto mo¾ností je $< lm(l-1) \leq m$. \\
 O(rs) - zjistíme pro ka¾dý øádek poèet míst $\neq NIL$.
@@ -514,8 +514,8 @@ $m_j(l)$ poèet míst $\neq NIL$ v øádcích matice $B_j$, které mají aspoò l+1 míst
 $\neq NIL$
 \par
 
-Budeme chtít, aby \forall j \forall l platilo m_j(l) \leq
-\frac{m}{$f(l,m_j)$}. \\
+Budeme chtít, aby $\forall j \forall l platilo m_j(l) \leq
+\frac{m}{f(l,m_j)}$. \\
 okrajové podmínky na f: f musí splòovat:
 \begin{itemize}
 \item $\forall$ l platí $f(l,m) \geq l+1$
@@ -574,8 +574,8 @@ $\sum_{l=1}^{l_0} \frac{l+1}{l} \frac{(m_j - m_{j-1})}{
 Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m}}$
 \mnote "mystika"
 f splòuje okrajové podmínky
-f(l,m) = 2^l \geq l+1 \forall l=0,1,...
-f(0,m_j) = 1 \leq \frac{m}{m_j} \forall j=0,1,...,s
+$f(l,m) = 2^l \geq l+1 \forall l=0,1,...$ \\
+$f(0,m_j) = 1 \leq \frac{m}{m_j} \forall j=0,1,...,s$
 
 dosadíme do odhadu (*)
 % XXX doplni cislovani
@@ -586,9 +586,8 @@ $$
   \frac{l+1}{l} 
   \frac
     {(m_j - m_{j-1})}
-    { 2^{l ( \frac{m_j}{m} - frac{m_{j-1}}{m} ) }
+    { 2^{l ( \frac{m_j}{m} - frac{m_{j-1}}{m} ) }}
   2^{( 2 - \frac{m_{j-1}}{m} )} \leq 
-
 \sum_{l=1}^{l_0} 
   \frac{l+1}{l} 
   \frac{(m_j - m_{j-1})}{l( \frac{m_j}{m} - frac{m_{j-1}}{m} )} 4 = \\
@@ -607,12 +606,12 @@ Celý algoritmus spoèítá ulo¾ení matice M typu r x s do vrcholù cd -
 dimenze s, rd - dimenze $4m log(log(m)) + 15.3m + r$ a hod dimenze m+s,
 pøitom hodnoty $cd(j) < 4m log(log(m)) + 15.3m$ a $rd(i) < m$.
 \par
-Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde m je poèet míst \neq
-NIL v matici M.
+Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde m je poèet míst $\neq
+NIL$ v matici M.
 
 \subsection{Úsporné ulo¾ení øídkého vektoru}
 
-Mámme vektor v dimenze $n\cdotd$ a $i_0 < i_1 < ... < i_{+}$ jsou v¹echny
+Mámme vektor v dimenze $n \cdot d$ a $i_0 < i_1 < ... < i_{+}$ jsou v¹echny
 indexy i takové, ¾e $v(i) \neq 0$. \\
 Vytvoøíme vektor cv dimenze t, $cv(j)=v(i_j)$.
 ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j.
@@ -620,7 +619,7 @@ base - dimenze m
 
 % XXX sloz. zavorka
 base(j) = -1 kdy¾ $i_k div d \neq j \forall k=0,1,...,t-1$
-          $min{l; i_l div d = j}$ kdy¾ $\exist l, ¾e i_l div d = j$
+          $min{l; i_l div d = j}$ kdy¾ $\exists l, ¾e i_l div d = j$
 
 vektor offset - dimenze n x d
 % opet sloz. zavorka

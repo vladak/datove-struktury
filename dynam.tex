@@ -445,7 +445,7 @@ superplynomiální $O(Q(8n))$
 INSERT(x)
 \begin{algorithmic}
 \IF {$x \not \in A$}
-  \STATE nalezneme nejmen¹í j takové, ¾e $|\bigcup i\leqj A_i| < 2^j$
+  \STATE nalezneme nejmen¹í j takové, ¾e $|\bigcup i \leq j A_i| < 2^j$
 \STATE polo¾íme $A_j = \bigcup{i\leq j}A_i \cup \{x\}$
 \STATE $A_i = \emptyset pro i < j$
 \STATE vytvoøíme S-strukturu a spojový seznam pro $A_j$ (x pøidáme do
@@ -493,7 +493,7 @@ DELETE(x)
       \STATE $B = (A_j \cup A_{j-1}) - \{x\}$\
       \STATE zru¹íme S-struktury pro $A_j, A_{j-1}$ a vybudujeme S-strukturu
       a spojový seznam pro B
-      \IF {$|B| \geq 2^{j-2}$
+      \IF {$|B| \geq 2^{j-2}$}
         \STATE $A_j = B, A_{j-1} = \emptyset$
       \ELSE
         \STATE $A_{j-1} = B, A_j = \emptyset$
@@ -513,7 +513,7 @@ $$
 8\frac{P(|A|)}{|A|})
 $$
 
-$log|A|$ - zji¹tìní zda x \in A \\
+$log|A|$ - zji¹tìní zda $x \in A$ \\
 $D(2^j)$ - fale¹ný DELETE \\
 $\frac{P(2^j)}{2^{j-3}}$ - budování S-struktury - aspoò $2^{j-3}$ ... pøed
 tím

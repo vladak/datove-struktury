@@ -47,7 +47,7 @@
 \BOOKMARK [2][]{subsection.5.2.4}{Èasová a pamì»ová slo¾itost}{section.5.2}
 \BOOKMARK [1][]{section.5.3}{Je¹tì komprimovanìj¹í trie}{chapter.5}
 \BOOKMARK [2][]{subsection.5.3.1}{Popis A a rd}{section.5.3}
-\BOOKMARK [2][]{subsection.5.3.2}{Jak nalézt rd z A}{section.5.3}
+\BOOKMARK [2][]{subsection.5.3.2}{Algoritmus pro hledání rd a hod}{section.5.3}
 \BOOKMARK [2][]{subsection.5.3.3}{Vertikální posun sloupcù}{section.5.3}
 \BOOKMARK [2][]{subsection.5.3.4}{Úsporné ulo¾ení øídkého vektoru}{section.5.3}
 \BOOKMARK [0][]{chapter.6}{Uspoøádaná pole}{}
@@ -136,4 +136,5 @@
 \BOOKMARK [2][]{subsection.11.1.7}{Reprezentace mno¾iny A}{section.11.1}
 \BOOKMARK [2][]{subsection.11.1.8}{Pamì»ové nároky}{section.11.1}
 \BOOKMARK [2][]{subsection.11.1.9}{èas pro výpoèet f}{section.11.1}
+\BOOKMARK [2][]{subsection.11.1.10}{Amortizovaný èas operace DELETE}{section.11.1}
 \BOOKMARK [0][]{chapter.12}{Vícedimenzionální vyhledávání}{}
