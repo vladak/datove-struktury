@@ -21,13 +21,13 @@ reprezentuje vrchol v.
 \end{defn}
 
 $$
-S = { s_1 < s_2 < ... < s_n }
+S = \{ s_1 < s_2 < ... < s_n \} \\
 s_0 = - \infty, s_{n+1} = \infty
 $$
 
 i-tý list (ve smyslu zleva doprava) reprezentuje interval $<s_{i-1}, s_i>$.
 
-Pø: $S = { 1,4, 6, 8, 12, 15, 18, 21 }$
+Pø: $S = \{ 1,4, 6, 8, 12, 15, 18, 21 \}$
 
 XXX obr.
 
@@ -41,7 +41,7 @@ v listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje ty intervaly
 \label{alg:btr.mem}
 \begin{algorithmic}
 \STATE $t \leftarrow$ koøen
-\WHILE {$t$ \text{není list} $t$ nereprezentuje $x$} 
+\WHILE {$t$ \text{není list} \text{ a } $t$ \text{nereprezentuje} $x$} 
 \IF {$x >$ \text{prvek reprezentovaný} $t$}
   \STATE $t \leftarrow$ pravý syn
 \ELSE 
@@ -53,26 +53,36 @@ v listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje ty intervaly
 
 \subsection{Algoritmus INSERT}
 
-XXX dopsat (existuje vùbec obecný alg. pro bin. vyhl. stromy ?)
+XXX dopsat podle nìjakého dùvìryhodného zdroje
 
-\subsection{Algoritmus DELETE}
-
-DELETE(x) provedeme následovnì: \\
-
+% tohle je pouze pokus o alg.
 \begin{itemize}
-\item nalezneme x (vrchol reprezentující x)
-\item pokud jeden jeho syn je list, pak odstraníme vrchol + syna, který je
-  list, druhý syn nahradí odstranìný vrchol
-\item pokud ¾ádný jeho syn není list, pak:
-  nalezneme vrchol u, reprezentující nejmen¹í prvek v S vìt¹í ne¾ x.
-  levý syn tohoto vrcholu je list.
-  pøemístíme prvek reprezentovaný tímto vrcholem do vrcholu
-  reprezentujícího x  odstraníme u a jeho levého syna, pravého syna u dáme
-  na místo u.
-  jsme ve vrcholu t reprezentujícím x a hledáme vrchol u
+\item najdi list kam patøí $x$ ($x_{i-1} < x < x_i$)
+\item udìlej z nìj vnitøní vrchol s hodnotou $x$
+\item pøidej mu dva syny s intervaly $<x_{i-1}, x> , <x, x_i>$
+\item uprav strukturální podmínku na strom
 \end{itemize}
 
 
+\subsection{Algoritmus DELETE}
+
+DELETE(x) provedeme následovnì: 
+
+\begin{itemize}
+\item nalezneme $x$ (vrchol reprezentující $x$)
+\item pokud jeden jeho syn je list, pak odstraníme vrchol + syna, který je
+  list, druhý syn nahradí odstranìný vrchol
+\mnote{co kdy¾ oba synové jsou listy ?}
+\item pokud ¾ádný jeho syn není list, pak:
+  nalezneme vrchol $u$, reprezentující nejmen¹í prvek v $S$ vìt¹í ne¾ $x$.
+  levý syn tohoto vrcholu je list.
+  pøemístíme prvek reprezentovaný tímto vrcholem do vrcholu
+  reprezentujícího $x$ odstraníme $u$ a jeho levého syna, pravého syna $u$ dáme
+  na místo $u$.
+\end{itemize}
+
+Jak nalezneme vrchol reprezentující nejmen¹í prvek v $S$ vìt¹í ne¾ $x$ ?
+Jsme ve vrcholu $t$ reprezentujícím $x$ a hledáme vrchol $u$:
 \begin{algorithmic}
 \STATE $u \leftarrow$ pravý syn $t$
 \WHILE {\text{levý syn} $u \neq list$}
@@ -81,6 +91,7 @@ DELETE(x) provedeme následovnì: \\
 \end{algorithmic}
 
 Èas pro operace MEMBER, INSERT a DELETE v binárním vyhledávacím stromì je
+\\
 $O(\text{délka stromu}) = O(\text{vý¹ka stromu})$.
 
 % --------------------------------------------------------------------------
@@ -103,23 +114,29 @@ $\alpha_1, ..., \alpha_n, \beta_0, ..., \beta_n$, kde
 \begin{itemize}
 \mnote{P znaèí pravdìpodobnost}
 \item $\alpha_i = P($provádìla se operace $MEMBER(x_i))$
-\item $\beta_i = P($provádìla se operace $MEMBER(x)$ pro $x \in (x_i,x_{i+1}))$
+\item $\beta_i = P($provádìla se operace $MEMBER(x)$ pro 
+   $x \in <x_i, x_{i+1}>)$
 \end{itemize}
 
 kde $x_0 = - \infty, x_{n+1} = \infty$.
 \par
+Tedy jsou dány pravdìpodobnosti pøístupu k vnitøním vrcholùm a k listùm.
+\par
 
-Chceme nalézt binární vyhledávací strom reprezentující S takový, ¾e
+Chceme nalézt binární vyhledávací strom reprezentující $S$ takový, ¾e
 operace MEMBER má nejmen¹í oèekávaný èas.
 \par
 Oèekávaný èas operace MEMBER je $\sum_{i=1}^{n} \alpha_i(a_i + 1) +
 \sum_{i=0}^{n} \beta_i b_i$, kde 
+\mnote{oèekávaná hodnota = støední hodnota náhodné velièiny; n.v. s
+diskrétním rozdìlením má stø. hodnotu $\sum x_i p_i$}
 $a_i$ je hloubka prvku reprezentujícího prvek $x_i$, $b_i$ je hloubka
-listu reprezentujícího interval $(x_i,x_{i+1})$.
+listu reprezentujícího interval $<x_i, x_{i+1}>$.
 \par
 
 \subsubsection{Zobecníme úlohu:}
 
+\mnote{XXX sjednotit indexy a závorky - buï $c(i,j)$ nebo $c_{i,j}$}
 Dána mno¾ina $S = \{x_1 < x_2 < ... < x_n \}$ a ohodnocení $\alpha_i$ prvku
 $x_i$ a $\beta_i$ intervalu $(x_i,x_{i+1})$.
 Chceme zkonstruovat binární vyhledávací strom T reprezentující S takový,
@@ -177,6 +194,7 @@ jeho¾ koøen reprezentuje $x_k$.
 Systematicky spoèítáme $w_{i,j} = \sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j}
 \beta_l$ pro v¹echny $1 \leq i \leq j \leq n$. Inicializujeme matice H,K
 typu $n x n, H = K = 0$.
+\mnote{XXX typu n krat n}
 
 \begin{algorithmic}
 \FOR {i=1,2,...,n} 
@@ -188,13 +206,111 @@ $H_{i,j}$ pro $i \leq j$ bude $H_{i,j} = hod(T_{i,j})$ pro opt. bin. vyhl.
 strom reprezentující $S_{i,j}$ a $K_{i,j}$ bude index prvku
 reprezentovaného v koøeni $T_{i,j}$.
 
+\begin{algorithm}[!htb]
+\caption{Výpoèet matic H, K}
+\label{alg:obvs.puv}
+\begin{algorithmic}
+\FOR {every $i=1,2,..,n$}
+  \STATE $H_{i,i} = w_{i,i}, K_{i,i} = i$
+\ENDFOR
+\STATE $j = 1$
+\WHILE {$j < n$}
+  \STATE $i = 1$
+  \WHILE {$i+j \leq n$}
+    \STATE $m = i, hod = H_{i+1,j}$ (1)
+    \STATE $k = i+1$  (2)
+    \WHILE {$k \leq i+j$ (3)} 
+      \IF {$hod > H_{i,k-1} + H_{k+1,i+j}$}
+        \STATE $hod = H_{i,k-1}+H_{k+1,i+j}$
+	\STATE $m = k$
+      \ENDIF
+      \STATE $k = k + 1$
+    \ENDWHILE
+    \STATE $H_{i,i+j} = hod + w_{i,i+j}, K_{i,i+j} = m, i = i + 1$
+  \ENDWHILE
+  \STATE $j = j + 1$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
 
+\begin{theorem}
+Uvedený algoritmus \ref{alg:obvs.puv} spoèítá korektnì matice $H$ a $K$ 
+v èase $O(n^3)$ a vy¾aduje $O(n^2)$ pamìti.
+\end{theorem}
+
+$K_{i,j} \leq K_{i,j+1} \leq K_{i+1,j+1}$
+
+XXX obr. matice
+
+\subsubsection{Konstrukce opt. bin. vyhl, stromu ze znalosti matice $K$}
+\begin{itemize}
+\item koøen stromu bude $x_{K(1,n)}$.
+\item podstrom levého syna bude optim. strom pro $S_{1,K(1,n)-1}$
+\item podstrom pravého syna bude optim. strom pro $S_{K(1,n)+1,n}$
+\end{itemize}
+
+To nám dává rekurzivní algoritmus pro výstavbu opt. bin. vyhl. stromu z
+matice $K$, strom takto zkonstruujeme v èase $O(n)$.
+
+
+% --------------------------------------
 \subsection{Sní¾ení slo¾itosti z kubické na kvadratickou}
+
+XXX slouèit s èástí pøedch subsekce
 
 Chceme sní¾it ryhchlost konstrukce opt. bin. vyhl. stromu z kubické na
 kvadratickou. Pro tento úkol pou¾ijeme kvadratické programování. Pomocí
 této techniky lze modifikovat algoritmus pro konstrukci opt. bin. vyhl.
 strou tak, ¾e bude mít místo slo¾itosti $O(n^3)$ slo¾itost $O(n^2)$.
+
+
+
+Algoritmus pro výpoèet $H$ a $K$ jsme modifikovali, tak ¾e øádky 
+(1),(2),(3) jsme nahradili øádky (1'),(2'),(3').
+
+\begin{algorithm}[!htb]
+\caption{Modifikovaný algoritmus pro výpoèet matic H, K}
+\label{alg:obvs.modif}
+\begin{algorithmic}
+\FOR {every $i=1,2,..,n$}
+  \STATE $H_{i,i} = w_{i,i}, K_{i,i} = i$
+\ENDFOR
+\STATE $j = 1$
+\WHILE {$j < n$}
+  \STATE $i = 1$
+  \WHILE {$i+j \leq n$}
+    \STATE $m = K_{i,i} + j, hod = H_{i,m-1} + H_{m+i,i+j}$ (1')
+    \STATE $k = K_{i,i+j} + 1$ (2')
+    \WHILE {$k \leq K_{i+1,j+1}$ (3')} 
+      \IF {$hod > H_{i,k-1} + H_{k+1,i+j}$}
+        \STATE $hod = H_{i,k-1}+H_{k+1,i+j}$
+	\STATE $m = k$
+      \ENDIF
+      \STATE $k = k + 1$
+    \ENDWHILE
+    \STATE $H_{i,i+j} = hod + w_{i,i+j}, K_{i,i+j} = m, i = i + 1$
+  \ENDWHILE
+  \STATE $j = j + 1$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\par
+Modifikovaný algoritmus: Tøetí vnoøený cyklus vy¾aduje èas 
+$O(K_{i+1,j+1} - K_{i,j})$. Tedy druhý vnoøený cyklus vy¾aduje èas 
+$O(K_{2,2+j} - K_{1,1+j} + K_{3,3+j} - K_{2,2+j} + K_{4,4+j} - K_{3,3+j} +
+... + K_{n-j,n} - K_{n-j-1,n-1}) = O(K_{n-j,n}) = O(n)$.
+
+\begin{theorem}
+Za pøedpokladu $K_{i,j} \leq K_{i,j+1} \leq K_{i+1,j+1}$ pro ka¾dé 
+$1 \leq i \leq j \leq n - 1$ modifikovaný algoritmus korektnì spoèítá
+matice $H$ a $K$ v èase $O(n^2)$ a vy¾aduje pamì» $O(n^2)$.
+\end{theorem}
+
+
+
 \par
 Vstup: dána èísla $w(i,j), 1 \leq i \leq j \leq n$\\
 Výstup: definujeme  $c(i,j) = $
@@ -213,9 +329,8 @@ algoritmu pro hledání opt. bin. vyhl. stromu, pak spoèítáme $c(i,j)$ v
 èase $O(n^3)$.
 \par
 
-definujeme $K(i,j)$:
 \begin{defn}
-$K(i,j) = min\{l, l=i+1, ..., j \text{a platí}
+$K(i,j) = min\{l, l=i+1, ..., j \text{ a platí }
 c(i,l-1) + c(l,j) \leq c(i,k-1) + c(k,j) \forall k = i+1, ...,j\}$ 
 \end{defn}
 
@@ -945,6 +1060,7 @@ To znamená prohledání celého stromu a tedy èas $O(n)$ za ka¾dou rotaci a
 dvojitou rotaci navíc. Pro tyto problémy jsou èervenoèerné stromy obzvlá¹tì 
 vhodné, proto¾e minimalizují poèet pou¾itých rotací a dvojitých rotací. 
 
+\begin{pozn}
 Èervenoèerné stromy se pou¾ívají pøi implementaci $(2,4)$-stromù, se
 kterými se seznámíme v dal¹í kapitole. Vrchol 
 se dvìma syny je nahrazen jedním èerným vrcholem, vrchol se tøemi syny 
@@ -952,6 +1068,7 @@ je nahrazen èerným vrcholem s jedním èerveným synem a vrchol se ètyømi
 syny je nahrazen èerným vrcholem se dvìma syny. Pozor! Aktualizaèní 
 operace pro $(2,4)$-stromy neodpovídají aktualizaèním operacím na 
 èervenoèerných stromech (i reprezentace prvkù je odli¹ná).
+\end{pozn}
 
 Èervenoèerné stromy se pou¾ívají napøíklad ve 
 \href{http://www.sgi.com/tech/stl/}%
