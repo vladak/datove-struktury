@@ -216,7 +216,7 @@ oèekávaný èas MFR.
 \end{pozn}
 
 
-Chceme spoèítat oèekávaný èas pro posloupnosti P aplikované na seznam S,
+Chceme spoèítat oèekávaný èas MFR pro posloupnosti P aplikované na seznam S,
 kde P obsahuje jen operace MEMBER(x) pro x $\in$ S. 
 \par
 Pøedppokládejme, ¾e S={1,2, ... , n} a $\beta_1$ = pravdìpodobnost operace
@@ -278,26 +278,31 @@ $$
 
 Pøedpokládejme, ¾e $\beta_1 \geq \beta_2 \geq ... \geq \beta_n$ \\
 pak nejrychlej¹í algoritmus na seznam $x_1 - x_2 - ... - x_n$ je klasický
-algoritmus bez pøemís»ování prvkù. Oèekávaný èas tohoto algoritmu je 
+algoritmus bez pøemís»ování prvkù. Klasický algoritmus je takový,
+algoritmus, který pøedem ví, jaké jsou pravdìpodobnosti          
+pøístupu a má pøedem seznam srovnaný sestupnì podle tìchto
+pravdìpodobností. Oèekávaný èas tohoto algoritmu je 
 
 \begin{multline}
 \sum_{i=1}^{n}i\beta_i = \\
 1 + \sum_{i,j=1} 2\frac{\beta_j\beta_i}{\beta_i+\beta_j} \leq 1 + 
-  \sum_{\substack{i,j\\j<i}} 2\beta_i = 1 + \sum_{i=1}^{n} 2*(i-1)\beta_i =
-\frac{\beta_j}{\beta_j+\beta_i} \leq 1 = \\
-1 + 2\cdot\sum_{i}i\beta_i - 2\sum_{i}\beta_i = 
+  \sum_{\substack{i,j\\j<i}} 2\beta_i = 1 + \sum_{i=1}^{n} 2(i-1)\beta_i =
+1 + 2\cdot\sum_{i}i\beta_i - 2\sum_{i}\beta_i = \\
 2\sum_{i=1}^{n}i\beta_i - 1
 \end{multline}
+
+Platí
+$$\frac{\beta_j}{\beta_j+\beta_i} \leq 1$$
 
 % --------------------------------------------------------------------------
 \section{Splay stromy}
 % thanks to Jana Skotakova za zapisky, pøepsal Vladimír Kotal
 
-patová struktura - binární vyhledávací stromy s ohodnocenými prvky
+Datová struktura - binární vyhledávací stromy s ohodnocenými prvky
 
 
 \subsection{Operace SPLAY}
-Základní operací je pr práci s tìmito stromy je SPLAY(x), která zjistí,
+Základní operací je pro práci s tìmito stromy je SPLAY(x), která zjistí,
 zda x je reprezentován v dané mno¾inì. Pokud x le¾í v mno¾inì, algoritmus
 ho pøemístí do koøene.
 \par
@@ -361,18 +366,22 @@ Viz algoritmus \ref{alg:splay.join2}
 
 \begin{algorithmic}
 % oprava by M. Macok (nejmensi -> nejvetsi), argumenty SPLAY()
-\STATE SPLAY($T_2$, $\infty$) // nejvetsi prvek\\
+% oprava by T. Matousek - opracne
+\STATE SPLAY($T_2$, -$\infty$) // nejmen¹í prvek\\
 \STATE koøen $T_1$ bude levý syn koøene $T_2$
 \end{algorithmic}
 \end{algorithm}
 
-% obrazek
+Tím se z $T_2$ stane strom, jeho¾ koøen bude (list, vrchol) a místo toho
+listu navìsíme $T_1$. \\
+Pak budou v levém podstromu v¹echny prvky men¹í ne¾ hodnota v rootu a v
+pravém v¹echny vìt¹í, co¾ chceme.
+
+\mnote{chybí obrazek}
 
 \subsection{Algoritmus JOIN3}
 
 Viz algoritmus \ref{alg:splay.join3}
-
-\mnote{jaké mají být argumenty Splay() v algoritmu JOIN3 ?}
 
 \begin{algorithm}[!htb]
 \caption{JOIN3($T_1$, x, $T_2$)}
@@ -380,13 +389,13 @@ Viz algoritmus \ref{alg:splay.join3}
 
 \begin{algorithmic}
 \STATE vytvoøíme vrchol t reprezentující x 
-\STATE Splay()
 \STATE koøen $T_1$ je levý syn t\\
 \STATE koøen $T_2$ je pravý syn t
 \end{algorithmic}
 \end{algorithm}
 
-\mnote{zde chybi obrazek}
+Vytvoøíme nový vrchol reprezentující x a jeho synové budou $T_1$ -- levý,
+$T_2$ -- pravý.
 
 \subsection{Algoritmus SPLIT}
 
@@ -397,24 +406,37 @@ Viz algoritmus \ref{alg:splay.split}
 \label{alg:splay.split}
 
 \begin{algorithmic}
+%\STATE SPLAY(x)
+%\IF {koøen T reprezentuje x}
+%  \STATE $T_1$ podstrom levého syna koøene
+%       \STATE $T_2$ podstrom pravého syna koøene
+%       \STATE výstup $T_1$, $T_2$, x, $x \in S$
+%  \ELSE
+%       \IF {koøen T reprezentuje prvek $<$ x}
+%          \STATE $T_2$ podstrom pravého syna koøene T
+%	       \STATE $T_1 = T - T_2$
+%	  \STATE T1 podstrom pravého syna koøene T
+%	       \STATE $T_2 = T - T_1$
+%       \ENDIF
+%       \STATE výstup $T_1$, $T_2$, $x \in S$
+%\ENDIF
+
 \STATE SPLAY(x)
-\IF {koøen T reprezentuje x}
-  \STATE $T_1$ podstrom levého syna koøene
-       \STATE $T_2$ podstrom pravého syna koøene
-       \STATE výstup $T_1$, $T_2$, x, $x \in S$
-  \ELSE
-       \IF {koøen T reprezentuje prvek $<$ x}
-          \STATE $T_2$ podstrom pravého syna koøene T
-	       \STATE $T_1 = T - T_2$
-	  \STATE T1 podstrom pravého syna koøene T
-	       \STATE $T_2 = T - T_1$
-       \ENDIF
-       \STATE výstup $T_1$, $T_2$, $x \in S$
+\STATE $y$ = prvek reprezentovaný koøenem
+\STATE $T_1$ = podstrom levého syna koøene
+\STATE $T_2$ = podstrom pravého syna koøene
+\IF {$y = x$}
+  \STATE výstup $T_1$, $T_2$
+\ELSIF {$y < x$}
+  \STATE výstup $T \setminus T_2, T_2$
+\ELSE
+  \STATE výstup $T_1, T \setminus T_1$
 \ENDIF
 \end{algorithmic}
 \end{algorithm}
 
-\mnote{zde chybi obrazek}
+\mnote{zde chybi obrazek, ale celkem není pro pochopení potøeba :)}
+
 
 \subsection{Algoritmus DELETE}
 
@@ -426,8 +448,8 @@ Viz algoritmus \ref{alg:splay.delete}
 
 \begin{algorithmic}
 \STATE SPLAY(x)
-\IF {x v koøeni}
-  \STATE $T_1$ je podstrom levéjo syna koøene T
+\IF {koøeni reprezentuje x}
+  \STATE $T_1$ je podstrom levého syna koøene T
        \STATE $T_2$ je podstrom pravého syna koøene T
        \STATE T $\leftarrow$ JOIN2($T_1$, $T_2$)
 \ENDIF
@@ -436,7 +458,7 @@ Viz algoritmus \ref{alg:splay.delete}
 
 jiný zápis:
 $T_1, T_2 \leftarrow SPLIT(x, T)$
-$T \leftarrow JOIN3(T_1, x, T_2)$
+$T \leftarrow JOIN2(T_1, x, T_2)$
 
 \subsection{Algoritmus INSERT}
 
@@ -448,7 +470,7 @@ Viz algoritmus \ref{alg:splay.insert}
 
 \begin{algorithmic}
 \STATE SPLAY(x)
-\IF {x není v koøeni}
+\IF {koøeni nereprezentuje x}
   \IF {koøen stromu reprez. prvek $<$ x}
           \STATE $T_2$ je podstrom pravého syna koøene
                \STATE $T_1$ = T - $T_2$ 
@@ -481,34 +503,34 @@ Viz algoritmus \ref{alg:splay.chgw}
 \end{algorithmic}
 \end{algorithm}
 
-Pøedpokládejme, ¾e W(x) je váha prvku a je to kladné celé èíslo.
-tW(x) - totální váha x, je to souèet vah v¹ech prvkù v podstromì urèeném x
+Pøedpokládejme, ¾e w(x) je váha prvku a je to kladné celé èíslo.
+tw(x) - totální váha x, je to souèet vah v¹ech prvkù v podstromì urèeném x
 
 Pø.
 
 \mnote{chybí obrázek}
 % XXX obr
 
-tW(a) = W(a) + W(b) + W(c)\\
+tw(a) = w(a) + w(b) + w(c)\\
 
 r(x) je rank(x)
-  $r(x) = \lfloor logtW(x) \rfloor$
+  $r(x) = \lfloor logtw(x) \rfloor$
 
-bal(konfigurace) = $\sum{r(W), W je prvek konfigurace}$
+$bal(konfigurace) = \sum \{ r(x) : x \in konfigurace \}$
 
-Pro strom T je tW(x) = tW(koøene T)
+Pro strom T je tw(x) = tw(koøen T)
 	       r(T) = r(koøen T)
 
 \begin{lemma}
-Nech» T je binární vyhledávací strom, t t je vnitøní vrchol a u,v jsou
-synové t. Pak $r(t) > min{r(u), r(v)} (r(list) = -\infty)$.
+Nech» T je binární vyhledávací strom, t je vnitøní vrchol a u,v jsou
+synové t. Pak $r(t) > min\{r(u), r(v)\} (r(list) = -\infty)$.
 \end{lemma}
 
 \begin{proof}
-Pøedpokládejme, ¾e $tW(u) \leq tW(v)$\\
+Pøedpokládejme, ¾e $tw(u) \leq tw(v)$\\
 $$
-r(t) = \lfloor log tW(t) \rfloor \geq \lfloor log 2tW(u) \rfloor =
-1 + \lfloor log tW(u) \rfloor = 1 + r(u)
+r(t) = \lfloor log tw(t) \rfloor \geq \lfloor log 2tw(u) \rfloor =
+1 + \lfloor log tw(u) \rfloor = 1 + r(u)
 $$
 \end{proof}
 
