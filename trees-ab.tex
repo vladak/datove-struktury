@@ -71,6 +71,12 @@ v~podstromu $S_v[i]$
 
 % ..........................................................................
 \subsection{MEMBER($x$) v $(a,b)$ stromu}
+
+viz. algoritmus \ref{alg:abtree.member}
+
+\begin{algorithm}[!htb]
+\caption{MEMBER pro $(a,b)$ stromy}
+\label{alg:abtree.member}
 \begin{algorithmic}
 \STATE \COMMENT{vyhledání $x$}
 \STATE $t := \text{koøen}$
@@ -88,9 +94,16 @@ v~podstromu $S_v[i]$
 	\STATE $x \notin S$
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 % ..........................................................................
 \subsection{INSERT($x$) do $(a,b)$ stromu}
+
+viz. algoritmus \ref{alg:abtree.insert}
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro $(a,b)$ stromy}
+\label{alg:abtree.insert}
 \begin{algorithmic}
 \STATE vyhledání $x$
 \IF {$t$ nereprezentuje $x$}
@@ -116,9 +129,16 @@ v~podstromu $S_v[i]$
 	\ENDWHILE
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 % ..........................................................................
 \subsection{DELETE($x$) z $(a,b)$ stromu}
+
+viz. algoritmus \ref{alg:abtree.delete}
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro $(a,b)$ stromy}
+\label{alg:abtree.delete}
 \begin{algorithmic}
 \STATE vyhledání $x$, navíc si zapamatuj vrchol $u$, 
 	v jeho¾ poli $H_u$ je $x$
@@ -147,9 +167,11 @@ v~podstromu $S_v[i]$
 	\ENDIF
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 % ..........................................................................
 \subsection{Shrnutí}
+
 Operace ¹tìpení, pøesun i spojení vy¾adují konstantní èas. 
 \begin{theorem}
 Operace MEMBER, INSERT a DELETE pro $(a,b)$ stromy vy¾adují èas
@@ -173,13 +195,19 @@ pro minimalizaci èasových nárokù je výhodné $b = 2a$.
 % --------------------------------------------------------------------------
 \section{Dal¹í operace}
 
-%MIN, MAX
+MIN, MAX (XXX)
 
 % ..........................................................................
 Pro operaci JOIN je vhodné spolu se stromem uchovávat také 
 nejvìt¹í prvek reprezentované mno¾iny.
 
 \subsection{Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}
+
+viz. algoritmus \ref{alg:abtree.join}
+
+\begin{algorithm}[!htb]
+\caption{JOIN pro $(a,b)$ stromy}
+\label{alg:abtree.join}
 \begin{algorithmic}
 \REQUIRE {$T_1$ reprezentuje $S_1$, $T_2$ reprezentuje $S_2$ 
 	a $\max S_1 < \min S_2$ }
@@ -200,12 +228,19 @@ nejvìt¹í prvek reprezentované mno¾iny.
 	\STATE \COMMENT {analogicky: koøen $T_2$, první syn \dots}
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 JOIN vy¾aduje èas $O(\text{rozdíl hloubek stromù}) 
 \leq O(\log(|S_1| + |S_2|))$.
 
 % ..........................................................................
 \subsection{Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}
+
+viz. algoritmus \ref{alg:abtree.split}
+
+\begin{algorithm}[!htb]
+\caption{SPLIT pro $(a,b)$ stromy}
+\label{alg:abtree.split}
 \begin{algorithmic}
 \ENSURE {Vytvoøí 
 	$T_1$ reprezentující $\{ s \in S: s < x \}$ a
@@ -236,12 +271,19 @@ JOIN vy¾aduje èas $O(\text{rozdíl hloubek stromù})
 \STATE $T_1 := \text{STACKJOIN}(Z_1)$ \COMMENT {viz dále}
 \STATE $T_2 := \text{STACKJOIN}(Z_2)$
 \end{algorithmic}
+\end{algorithm}
 
 Èas rozøezávání stromu je úmìrný jeho hloubce. Celkový èas operace
 SPLIT ov¹em závisí je¹tì na slo¾itosti operace STACKJOIN.
 
 % ..........................................................................
 \subsection{Algoritmus STACKJOIN($Z$) pro zásobník $(a,b)$ stromù}
+
+viz. algoritmus \ref{alg:abtree.stackjoin}
+
+\begin{algorithm}[!htb]
+\caption{STACKJOIN pro $(a,b)$ stromy}
+\label{alg:abtree.stackjoin}
 \begin{algorithmic}
 \STATE $T := \text{Pop}(Z)$
 \WHILE {$Z \ne \emptyset$}
@@ -249,6 +291,7 @@ SPLIT ov¹em závisí je¹tì na slo¾itosti operace STACKJOIN.
 	\STATE $T := \text{JOIN}(T, T')$
 \ENDWHILE
 \end{algorithmic}
+\end{algorithm}
 
 Nech» $Z$ obsahuje $(a,b)$ stromy $T_1 \dots T_k$, pøièem¾ $T_1$ je
 vrchol zásobníku.
@@ -270,6 +313,7 @@ Tedy i operace SPLIT vy¾aduje èas $O(\log |S|)$.
 
 % ..........................................................................
 \subsection{Algoritmus FIND($T, k$) pro $(a,b)$ strom}
+
 Nalezení $k$-tého nejmen¹ího prvku.
 
 Roz¹íøíme reprezentaci stromu a ka¾dému vnitønímu vrcholu $v$ pøidáme:
@@ -278,6 +322,11 @@ Roz¹íøíme reprezentaci stromu a ka¾dému vnitønímu vrcholu $v$ pøidáme:
 v~podstromu $S_v[i]$ 
 \end{itemize}
 
+viz. algoritmus \ref{alg:abtree.find}
+
+\begin{algorithm}[!htb]
+\caption{FIND pro $(a,b)$ stromy}
+\label{alg:abtree.find}
 \begin{algorithmic}
 \STATE $t := \text{koøen }T$
 \WHILE {$t$ není list}
@@ -294,6 +343,7 @@ v~podstromu $S_v[i]$
 	\STATE \textbf{return} $t$
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 Èasová slo¾itost je opìt logaritmická, pøièem¾ døíve uvedené operace
 nejsou zpomaleny tím, ¾e aktualizují pole (seznam) $K$.
@@ -441,7 +491,7 @@ vrcholy. To znemo¾òuje dovolit paralelní pøístup do stromu. Procesu,
 který je ve fázi vyhledání, by se mohlo stát, ¾e mu jiný proces zmìní
 strom ``pod rukama''. Stávající operace INSERT a DELETE tedy po¾adují
 výluèný pøístup ke stromu.
-
+\par
 Nyní pøedvedeme paralelní verzi tìchto operací, kde se ¹tìpení nebo
 spojování provádí ji¾ pøi sestupu. Potom ji¾ není nutné se vracet a je
 tedy mo¾né rovnou odemykat èásti stromu, ke kterým ji¾ daný proces
@@ -456,6 +506,12 @@ Potøebujeme omezit $b$: podmínku $b \geq 2a - 1$ zpøísníme na
 
 % ..........................................................................
 \subsection{Paralelní INSERT($x$) do $(a,b)$ stromu}
+
+viz. algoritmus \ref{alg:abtree.par.insert}
+
+\begin{algorithm}[!htb]
+\caption{paralelní INSERT pro $(a,b)$ stromy}
+\label{alg:abtree.par.insert}
 \begin{algorithmic}
 \STATE $o := \text{lock}(\text{nadkoøen})$ \COMMENT {Nadkoøen
 je implementaèní pomùcka. Slou¾í k zamknutí
@@ -498,9 +554,16 @@ pøístupu k celému stromu a uchovává $\max(S)$}
 \ENDIF
 \STATE unlock($o$)
 \end{algorithmic}
+\end{algorithm}
 
 % ..........................................................................
 \subsection{Paralelní DELETE($x$) z $(a,b)$ stromu}
+
+viz. algoritmus \ref{alg:abtree.par.delete}
+
+\begin{algorithm}[!htb]
+\caption{paralelní DELETE pro $(a,b)$ stromy}
+\label{alg:abtree.par.delete}
 \begin{algorithmic}
 \STATE $o := \text{lock}(\text{nadkoøen})$ \COMMENT {Nadkoøen
 je implementaèní pomùcka. Slou¾í k zamknutí
@@ -550,6 +613,7 @@ pøístupu k celému stromu a uchovává $\max(S)$}
 \ENDIF
 \STATE unlock($o$)
 \end{algorithmic}
+\end{algorithm}
 
 
 % --------------------------------------------------------------------------
@@ -667,7 +731,8 @@ Z definice zùstatku vyplývají tyto vlastnosti:
   |\rho_u - \rho_v| \leq 1      &\implies z(u) \geq z(v) - 1
 \end{align}
 
-\subsection{pøidání/ubrání listu}
+\subsection{Pøidání/ubrání listu}
+
 Mìjme $(a,b)$-strom $T$ a pøidáme nebo ubereme list, jeho¾ otec je $v$.
 Pak vznikne parciální $(a,b)$-strom $(T',v)$ a platí:
 \begin{align}
@@ -676,7 +741,8 @@ Pak vznikne parciální $(a,b)$-strom $(T',v)$ a platí:
   z(T')          & \geq z(T) - 1
 \end{align}
 
-\subsection{¹tìpení}
+\subsection{©tìpení}
+
 Mìjme parciální $(a,b)$-strom $(T,v)$, kde $v$ je ve vý¹ce $h$.
 Nech» $T'$ vznikl \emph{¹tìpením $v$}. 
 Pak $(T',\text{otec }v$ je parciální $(a,b)$-strom a platí:
@@ -688,7 +754,8 @@ Pak $(T',\text{otec }v$ je parciální $(a,b)$-strom a platí:
   z(T')         & \geq z(T) + 2c - 1
 \end{align}
 
-\subsection{spojení}
+\subsection{Spojení}
+
 Mìjme parciální $(a,b)$-strom $(T,v)$, kde $\rho_v = a-1$ a 
 $v$ je ve vý¹ce $h$, $y$ je bezprostøední bratr $v$.
 Nech» $\rho_y = a$ a $T'$ vznikl \emph{spojením $v$ a $y$}. 
@@ -701,7 +768,8 @@ Pak $(T',\text{otec }v$ je parciální $(a,b)$-strom a platí:
   z(T')         & \geq z(T) + c
 \end{align}
 
-\subsection{pøesun}
+\subsection{Pøesun}
+
 Mìjme parciální $(a,b)$-strom $(T,v)$, kde $\rho_v = a-1$ a 
 $v$ je ve vý¹ce $h$, $y$ je bezprostøední bratr $v$.
 Nech» $\rho_y > a$ a $T'$ vznikl \emph{pøesunem syna od $y$ k $v$}. 
@@ -828,15 +896,25 @@ Tím dostáváme \ref{ab-v-sthsph}:
 \[
 ST_h + SP_h + P_h \leq \frac{2 n (c+2)}{(c+1)^h}
 \]
+
+
 % --------------------------------------------------------------------------
 \section{Propojené $(a,b)$ stromy s prstem}
 
-Struktura vnitøního vrcholu $v$: \\
-$\rho(v) =$ poèet synù $v$ \\
-$Syn[1..\rho(v)]$ je pole ukazatelù na syny vrcholu v \\
-$Hod[1..\rho(v)]$ je pole hodnot, platí \\
-$Hod(i-1) <$ prvky reprezentované v podstromu i-tého syna $\leq Hod(i)$ \\ 
-$otec(v)$ = ukazatel na otce v
+Variantou $(a,b)$ stromù jsou $(a,b)$ stromy, které mají propojené
+jednotlivé hladiny a dále obsahují ukazatel na jeden z listù.
+Tìmto stromùm se také nìkdy øíká jenom stromy s prstem (pøedpokládá se, ¾e
+jsou propojené) nebo hladinovì propojené. V anglické literatuøe se
+vyskytují pod pojmem \emph{finger trees}.
+\par
+Struktura vnitøního vrcholu $v$ obsahuje následující polo¾ky: 
+\begin{itemize}
+\item $\rho(v) =$ poèet synù $v$ 
+\item $Syn[1..\rho(v)]$ je pole ukazatelù na syny vrcholu $v$
+\item $Hod[1..\rho(v)]$ je pole hodnot, platí 
+\item $Hod(i-1) <$ prvky reprezentované v podstromu $i$-tého syna $\leq Hod(i)$ 
+\item $otec(v)$ = ukazatel na otce vrcholu $v$
+\end{itemize}
 
 \begin{tabular}{l}
 Pøedchùdce$(v)$ \\
@@ -844,13 +922,13 @@ Následník$(v)$
 \end{tabular}
 $\Bigl\}$
 \begin{tabular}{l}
-ukazatele na bezprostø. pøedchùdce (následníka) v na hladinì vrcholu v \\
+ukazatele na bezprostø. pøedchùdce (následníka) v na hladinì vrcholu $v$ \\
 (v lexikogr. uspoøádání)
 \end{tabular}
 \par
 
-h - hodnota, která le¾í mezi nejvìt¹ím prvkem podstromu v a nejmen¹ím
-prvek podstromu následníka
+$h$ - hodnota, která le¾í mezi nejvìt¹ím prvkem podstromu v a nejmen¹ím
+prvek podstromu následníka.
 
 \mnote{zde chybí vìt¹í obrázek}
 
@@ -911,13 +989,16 @@ slo¾itost.
 
 \subsubsection{Bankovní paradigma}
 
+Pou¾ijeme následující znaèení pro pøechodu mezi stavy (situacemi):
 $D \stackrel{o}{\rightarrow} D'$
 
-$D$ - vstupní situace \\
-$o$ - operace \\
-$D'$ - výstupní operace \\
+\begin{itemize}
+\item $D$ - vstupní situace 
+\item $o$ - operace 
+\item $D'$ - výstupní operace 
+\end{itemize}
 
-Amortizovaná slo¾itost operace o je Èas$(O) + bal(D') - bal(D)$,
+Amortizovaná slo¾itost operace $o$ je Èas$(O) + bal(D') - bal(D)$,
 kde $bal()$ je ohodnocení konfigurace.
 
 $D_0 \stackrel{O_1}{\rightarrow} D_1 \stackrel{O_2}{\rightarrow} D_2 \rightarrow \ldots \rightarrow D_n$
@@ -931,4 +1012,8 @@ Kdy¾ $bal \geq 0$, pak: \\
 Kdy¾ $bal \leq 0$, pak \\
   $$\sum \text{èas}(O_i) \leq \sum a(O_i) - bal(D_n) \leq \sum i(O_i) - bal(D_0)$$
 
-zaèínáme na prázdném (a,b) stromì $\rightarrow bal = 0$.
+Zaèínáme na prázdném (a,b) stromì $\rightarrow bal = 0$.
+
+XXX nechybi tady neco ?
+
+
