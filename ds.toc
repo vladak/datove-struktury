@@ -123,37 +123,38 @@
 \contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{62}{subsection.9.3.9}
 \contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{62}{subsection.9.3.10}
 \contentsline {subsection}{\numberline {9.3.11}Amortizovaná slo¾itost SPLAY}{62}{subsection.9.3.11}
-\contentsline {subsection}{\numberline {9.3.12}Amortizovaná slo¾itost ostatních operací}{63}{subsection.9.3.12}
-\contentsline {chapter}{\numberline {10}Haldy}{64}{chapter.10}
-\contentsline {section}{\numberline {10.1}$d$-regulární haldy}{64}{section.10.1}
-\contentsline {subsection}{\numberline {10.1.1}Algoritmus UP}{64}{subsection.10.1.1}
-\contentsline {subsection}{\numberline {10.1.2}Algoritmus DOWN}{65}{subsection.10.1.2}
-\contentsline {subsection}{\numberline {10.1.3}Operace na haldì}{65}{subsection.10.1.3}
-\contentsline {subsubsection}{INSERT}{65}{subsection.10.1.3}
-\contentsline {subsubsection}{MIN}{65}{subsection.10.1.3}
-\contentsline {subsubsection}{DELETEMIN}{65}{subsection.10.1.3}
-\contentsline {subsubsection}{DECREASEKEY(x)}{65}{subsection.10.1.3}
-\contentsline {subsubsection}{INCREASEKEY}{65}{subsection.10.1.3}
-\contentsline {subsubsection}{DELETE}{65}{subsection.10.1.3}
-\contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{65}{subsection.10.1.4}
-\contentsline {subsection}{\numberline {10.1.5}Slo¾itost operací}{65}{subsection.10.1.5}
-\contentsline {subsection}{\numberline {10.1.6}Dijkstrùv algoritmus}{66}{subsection.10.1.6}
-\contentsline {section}{\numberline {10.2}Leftist haldy}{67}{section.10.2}
-\contentsline {section}{\numberline {10.3}Binomiální haldy}{68}{section.10.3}
-\contentsline {subsection}{\numberline {10.3.1}Operace}{68}{subsection.10.3.1}
-\contentsline {subsection}{\numberline {10.3.2}Líná implementace binom. hald}{69}{subsection.10.3.2}
-\contentsline {subsection}{\numberline {10.3.3}Zobecnìné binomiální haldy}{70}{subsection.10.3.3}
-\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{70}{section.10.4}
-\contentsline {chapter}{\numberline {11}Dynamizace}{71}{chapter.11}
-\contentsline {section}{\numberline {11.1}Zobecnìný vyhledávací problém}{71}{section.11.1}
-\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{71}{subsection.11.1.1}
-\contentsline {subsection}{\numberline {11.1.2}Amortizovaný èas operace INSERT}{73}{subsection.11.1.2}
-\contentsline {subsection}{\numberline {11.1.3}Pamì»ové nároky}{74}{subsection.11.1.3}
-\contentsline {subsection}{\numberline {11.1.4}Algoritmus pro výpoèet}{74}{subsection.11.1.4}
-\contentsline {subsection}{\numberline {11.1.5}Èas pro INSERT(x)}{75}{subsection.11.1.5}
-\contentsline {subsection}{\numberline {11.1.6}Dynamizace}{75}{subsection.11.1.6}
-\contentsline {subsection}{\numberline {11.1.7}Reprezentace mno¾iny A}{75}{subsection.11.1.7}
-\contentsline {subsection}{\numberline {11.1.8}Pamì»ové nároky}{76}{subsection.11.1.8}
-\contentsline {subsection}{\numberline {11.1.9}èas pro výpoèet f}{76}{subsection.11.1.9}
-\contentsline {subsection}{\numberline {11.1.10}Amortizovaný èas operace DELETE}{77}{subsection.11.1.10}
-\contentsline {chapter}{\numberline {12}Vícedimenzionální vyhledávání}{78}{chapter.12}
+\contentsline {subsection}{\numberline {9.3.12}Amortizovaná slo¾itost ostatních operací}{64}{subsection.9.3.12}
+\contentsline {chapter}{\numberline {10}Haldy}{65}{chapter.10}
+\contentsline {section}{\numberline {10.1}$d$-regulární haldy}{65}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Algoritmus UP}{65}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Algoritmus DOWN}{66}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Operace na haldì}{66}{subsection.10.1.3}
+\contentsline {subsubsection}{INSERT}{66}{subsection.10.1.3}
+\contentsline {subsubsection}{MIN}{66}{subsection.10.1.3}
+\contentsline {subsubsection}{DELETEMIN}{66}{subsection.10.1.3}
+\contentsline {subsubsection}{DECREASEKEY(x)}{66}{subsection.10.1.3}
+\contentsline {subsubsection}{INCREASEKEY}{66}{subsection.10.1.3}
+\contentsline {subsubsection}{DELETE}{66}{subsection.10.1.3}
+\contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{66}{subsection.10.1.4}
+\contentsline {subsection}{\numberline {10.1.5}Slo¾itost operací}{66}{subsection.10.1.5}
+\contentsline {subsection}{\numberline {10.1.6}Dijkstrùv algoritmus}{67}{subsection.10.1.6}
+\contentsline {section}{\numberline {10.2}Leftist haldy}{68}{section.10.2}
+\contentsline {section}{\numberline {10.3}Binomiální haldy}{69}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Operace}{70}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Líná implementace binom. hald}{71}{subsection.10.3.2}
+\contentsline {subsubsection}{Amort. slo¾.}{71}{pozn.10.3.6}
+\contentsline {subsection}{\numberline {10.3.3}Zobecnìné binomiální haldy}{72}{subsection.10.3.3}
+\contentsline {section}{\numberline {10.4}Fibonacciho haldy}{72}{section.10.4}
+\contentsline {chapter}{\numberline {11}Dynamizace}{73}{chapter.11}
+\contentsline {section}{\numberline {11.1}Zobecnìný vyhledávací problém}{73}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{73}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Amortizovaný èas operace INSERT}{75}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}Pamì»ové nároky}{76}{subsection.11.1.3}
+\contentsline {subsection}{\numberline {11.1.4}Algoritmus pro výpoèet}{76}{subsection.11.1.4}
+\contentsline {subsection}{\numberline {11.1.5}Èas pro INSERT(x)}{76}{subsection.11.1.5}
+\contentsline {subsection}{\numberline {11.1.6}Dynamizace}{77}{subsection.11.1.6}
+\contentsline {subsection}{\numberline {11.1.7}Reprezentace mno¾iny A}{78}{subsection.11.1.7}
+\contentsline {subsection}{\numberline {11.1.8}Pamì»ové nároky}{78}{subsection.11.1.8}
+\contentsline {subsection}{\numberline {11.1.9}èas pro výpoèet f}{78}{subsection.11.1.9}
+\contentsline {subsection}{\numberline {11.1.10}Amortizovaný èas operace DELETE}{79}{subsection.11.1.10}
+\contentsline {chapter}{\numberline {12}Vícedimenzionální vyhledávání}{80}{chapter.12}

@@ -277,14 +277,17 @@ pro postaverní S struktury, ale je¹tì není dokonèena.
 \subsection{Pamì»ové nároky}
 
 \begin{multline}
-% XXX \underbrace{|A|}{pamet pro pom. struktury} + 
-% \underbrace{\sum_{i=0}^{log|A|} 4S(2^i)}{pamet potrebna na S struktury} = 
-\underbrace{|A|} + \sum_{i=0}^{log|A|} 4S(2^i) = 
+|A| + \sum_{i=0}^{log|A|} 4S(2^i) = 
 |A| + \sum_{i=0}^{log|A|} \frac{S(2^i)}{2^i}2^i \leq 
 |A| + 4 \sum_{i=0}^{log|A|} \frac{S(|A|)}{|A|}2^i = \\
 |A| + \frac{4S(|A|)}{|A|} (\sum 2^i) = 
 |A| + 4S(|A|) = O(S(|A|))
 \end{multline}
+
+\begin{pozn}
+$|A|$ - pamet pro pom. struktury  \\
+$\sum_{i=0}^{log|A|} 4S(2^i)$ - pamet potrebna na S struktury
+\end{pozn}
 
 \subsection{Algoritmus pro výpoèet}
 spoèítáme $f(x,A_{i,j})$ pro ka¾dou $A_{i,j}$ a pomocí operace $\oplus$
@@ -300,7 +303,11 @@ spoèítáme f(x,A).
 Platí: $Q(n) \geq n^{\epsilon}$ pro nìjaké $\epsilon$, pak èas potøebný pro
 výpoèet f je $O(Q(N))$.
 
-INSERT(x)
+INSERT(x) viz. alg. \ref{alg:dynam.insert}
+
+\begin{algorithm}[!htb]
+\caption{Operace INSERT}
+\label{alg:dynam.insert}
 \begin{algorithmic}
 \STATE kdy¾ $x \notin A$ jinak provedeme:
   \STATE vytvoøíme S strukturu pro $A_{0,j_i+1} = \{x\}$ (zvìt¹íme $j_0$ o 1)
@@ -321,15 +328,18 @@ INSERT(x)
     \STATE mno¾inu $A_{1,j_i+1 + \lceil \frac{j_i}{2}} = A_{i,j_i} \cup A_{i,j_i-1}$.
   \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 
 \subsection{Èas pro INSERT(x)}
 \begin{multline}
-\underbrace{log|A|}{èas pro zji¹tìní zda x \in A} + \sum_{i=0}^{log|A|} (\frac{P(2^i)}{2^i} + 1) = 
+log|A| + \sum_{i=0}^{log|A|} (\frac{P(2^i)}{2^i} + 1) = 
 2log|A| + \sum_{i=0}^{log|A|} \frac{2P(|A|)}{|A|} = \\
 2log|A| + \frac{2P(|A|)}{|A|} \sum_{i=0}^{log|A|} 1 = 
 2log|A| \frac{2P(|A|)}{|A|} log|A| = O(\frac{2P(|A|)}{|A|} log|A|)
 \end{multline}
+
+$log|A|$ - èas pro zji¹tìní zda $x \in A$ \\
 
 kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
 vy¾aduje èas $O(\frac{P(n)}{n})$.
@@ -412,15 +422,15 @@ ukazatel na prvek a v odpovídajícím spojovém seznamu.
 \subsection{Pamì»ové nároky}
 \begin{multline}
 |A| + \sum_{i=0}^{log|A|+3} S(2^i) = |A| + \sum \frac{S(2^i)}{2^i} 2^i
-% XXX dopsat nasledujici: (jako poznamku pod to ?)
-% |A| - pomocne struktury
-% suma - pamet pro S struktury
 \leq |A| + \sum_{i=0}^{log|A|+3} \frac{S(8|A|)}{8|A|} 2^i = \\
 |A| + \frac{S(8|A|)}{8|A|} 2^i = |A| + \frac{S(8|A|)}{8|A|} \sum 2^i = 
 |A| + S(8|A|) = O(S(8|A|))
 \end{multline}
 \par
 
+$|A|$ - pomocne struktury \\
+suma - pamet pro S struktury
+\par
 závìr: kdy¾ S je omezená polynomem, pak pamì»ové nároky jsou O(S(n)). pokud
 S je superpolynomiální, pak pamì». nároky jsou O(S(8n)) (a platí S(n) =
 o(S(8n)) )
@@ -432,17 +442,24 @@ spoèítáme $f(x,A_j)$ a pomocí operace $\oplus$ spoèítáme f(x,A).
 \subsection{èas pro výpoèet f}
 $log(n) + \sum_{i=0}^{log|A|+3} Q(2^i) = log(n) + \sum Q(8|A|) =
 O(Q(8|A|) log|A|)$.
+\par
 
-% XXX udelat slo¾enou svorku
 závìr: èas na výpoèet f je
-kdy¾ Q je subpolynomiální $O(Q(n)log(n))$
-polynomiální $O(Q(n))$
-superplynomiální $O(Q(8n))$
+$\Biggl\{$
+\begin{tabular}{ll}
+kdy¾ Q je subpolynomiální & $O(Q(n)log(n))$ \\
+polynomiální & $O(Q(n))$ \\
+superplynomiální & $O(Q(8n))$ \\
+\end{tabular}
 
 % zde zaèíná poslední pøedná¹ka ze ¹k.r.2002/2003
 % thanks to Jana Skotaková za zapùjèení, pøepsal Vladimír Kotal
 
-INSERT(x)
+INSERT(x) viz. alg. \ref{alg:dynam.insert_f}
+
+\begin{algorithm}[!htb]
+\caption{Operace INSERT (f)}
+\label{alg:dynam.insert_f}
 \begin{algorithmic}
 \IF {$x \not \in A$}
   \STATE nalezneme nejmen¹í j takové, ¾e $|\bigcup i \leq j A_i| < 2^j$
@@ -452,6 +469,7 @@ INSERT(x)
 struktury reprezentující A a pøidáme po¾adované ukazatele)
 \ENDIF  
 \end{algorithmic}
+\end{algorithm}
 
 \par
 Pozorování:\\
@@ -462,7 +480,11 @@ Kdy¾ vytváøíme pøi INSERTu S-strukturu pro $A_j$, pak $2^{j-1} < |A_j|
 \par
 
 % viz. poznamky/datstr_054.jpg
-DELETE(x)
+DELETE(x) viz. alg. \ref{alg:dynam.delete_f}
+
+\begin{algorithm}[!htb]
+\caption{Operace INSERT (f)}
+\label{alg:dynam.delete_f}
 \begin{algorithmic}
 \IF {$x \not \in A$}
   \STATE odstraníme x ze struktury pro A
@@ -482,7 +504,7 @@ DELETE(x)
        \STATE $A_{j-1} = A_{j-1} - \{x\}, A_j = \emptyset$
        \STATE vybudujeme novou S-strukturu pro $A_{j-1}$
        (x odstraníme ze spojového seznamu pro $A_{j-1} - 1$)
-\mnote{tady nevím jestli nemá být jenom $A_{j-1}$}
+% XXX \mnote{tady nevím jestli nemá být jenom $A_{j-1}$}
     \ENDIF
     \IF {$A_{j-1} = \emptyset$ a zároveò $|A_{j-1}| > 2^{j-2}$}
       \STATE vymìním $A_j a A_{j-1}$
@@ -502,6 +524,7 @@ DELETE(x)
   \ENDIF
 \ENDIF  
 \end{algorithmic}
+\end{algorithm}
 
 Pozorování: \\
 Kdy¾ operace DELETE buduje S-strukturu pro mno¾inu $A_j$, pak platí:

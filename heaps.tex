@@ -162,7 +162,7 @@ Budeme poèítat
 \begin{multline}\bigparens
 dS - S = \sum{i=0}{h-1}d^{i+1}(h-i) - \sum{i=0}{h-1}d^{i}(h-i) = \\
 d^h - h + \sum{i=0}{h-1}d^{i}(h-i-(h-i-1)) = d^h - h\frac{d^h - 1}{d-1} \\
-\Rightarrow S = \frac{d^h - h}{d-1} + d\frac{d^{h-1} - 1}{(d-1)^2}, \\
+\Rightarrow S = \frac{d^h - h}{d-1} + d\frac{d^{h-1} - 1}{(d-1)^2}, 
 h = log_d(n) \Rightarrow S \approx O(\frac{n}{d})
 \end{multline}
 
@@ -176,9 +176,12 @@ algoritmu.
 Vstup: orientovaný graf (V,E), fce c:E->R+, vrchol z \\
 Výstup: d(v), $v \in V$ \\
 	d(v) je délka nejkrat¹í cesty ze z do v \\
-Alg: $d(z) = 0, d(v) = \infty \forall v \in V, v \neq z, U = {z}$\\
 
+\begin{algorithm}[!htb]
+\caption{Dijkstra pro d-regularni haldy}
+\label{alg:heaps.d-reg.dijkstra}
 \begin{algorithmic}
+\STATE $d(z) = 0, d(v) = \infty \forall v \in V, v \neq z, U = {z}$\\
 \WHILE {$U \neq \emptyset$}
   \STATE vezmeme z U prvek $u \in U$ s nejmen¹í hodnotou d(u),
     \STATE odstraníme ho z U.
@@ -189,6 +192,7 @@ Alg: $d(z) = 0, d(v) = \infty \forall v \in V, v \neq z, U = {z}$\\
   \ENDFOR
 \ENDWHILE
 \end{algorithmic}
+\end{algorithm}
 \par
 
 U reprezentujeme pomocí d-reg. haldy. Pak èas Dijkstrova algoritmu je 
@@ -206,12 +210,15 @@ $O(|E|loglog|V|)$.
 
 Dal¹í aplikace: tøídìní \\
 
-HEAPSORT \\
+HEAPSORT - viz. alg. \ref{alg:heaps.d-reg.heapsort} \\
 Vstup: prostá posloupnost prvkù $x_1, x_2, ..., x_n$. \\
 Výstup: uspoøádaná psl. pvrkù $x_1, x_2, ..., x_n$. \\
-Alg: MAKEHEAP($x_1, x_2, ..., x_n$)
 
+\begin{algorithm}[!htb]
+\caption{Heapsort pro d-regularni haldy}
+\label{alg:heaps.d-reg.heapsort}
 \begin{algorithmic}
+\STATE MAKEHEAP($x_1, x_2, ..., x_n$)
   \STATE i = 1
   \WHILE {$HEAP \neq \emptyset$}
     \STATE $x_1$ = MIN(HEAP)
@@ -219,6 +226,7 @@ Alg: MAKEHEAP($x_1, x_2, ..., x_n$)
     \STATE i = i + 1
   \ENDWHILE
 \end{algorithmic}
+\end{algorithm}
 \par
 
 \begin{pozn}
@@ -270,8 +278,11 @@ Výsledek: halda reprezentující $S_1 \cup S_2$.
 podobné operaci JOIN v AVL stromech (ale...)
 \end{pozn}
 
-MERGE($T_1$, $T_2$)
+\begin{algorithm}[!htb]
+\caption{MERGE pro leftist haldy}
+\label{alg:heaps.leftist.merge}
 \begin{algorithmic}
+\STATE MERGE($T_1$, $T_2$)
 \IF {$T_1$ = 0}
   \STATE MERGE($T_1$, $T_2$) $\rightarrow T_2$ konec 
 \ENDIF
@@ -288,14 +299,18 @@ MERGE($T_1$, $T_2$)
 \STATE npl(koøene $T_1$) = npl(pravého syna koøene $T_1$) + 1
 \STATE MERGE($T_1$, $T_2$) $\rightarrow T_1$ 
 \end{algorithmic}
+\end{algorithm}
 
 \begin{pozn}
 Èasová slo¾itost operace MERGE v leftist haldách je $O(log(n_1+n_2))$, kde
 $n_1, n_2$ jsou velikosti reprezentovaných mno¾in.
 \end{pozn}
 
-INSERT(x)
+\begin{algorithm}[!htb]
+\caption{INSERT pro leftist haldy}
+\label{alg:heaps.leftist.insert}
 \begin{algorithmic}
+\STATE INSERT(x)
 \STATE vytvoøíme novou haldu $T_1$ reprezentující pouze prvek x
 \STATE T $\rightarrow$ MERGE($T_1$, $T_2$)
 \STATE DELETEMIN
@@ -303,6 +318,7 @@ INSERT(x)
 \STATE $T_2 \rightarrow$ podstrom pravého syna koøene T
 \STATE T $\rightarrow$ MERGE($T_1$, $T_2$)
 \end{algorithmic}
+\end{algorithm}
 
 \begin{theorem}
 Operace MIN v leftist haldách vy¾aduje èas O(1), operace MERGE, INSERT, a
@@ -316,8 +332,11 @@ jsme nìco museli provádìt - tyto vrcholy le¾í na pravé cestì, tj. je jich
 omezený poèet.
 \end{pozn}
 
-DECREASEKEY(x)
+\begin{algorithm}[!htb]
+\caption{DECREASEKEY pro leftist haldy}
+\label{alg:heaps.leftist.decreasekey}
 \begin{algorithmic}
+\STATE DECREASEKEY(x)
 \STATE odtrhneme podstrom $T_1$ vrcholu x, y $\rightarrow$ otec(x)
 \STATE $T_2 = T - T_1$
 \STATE zmen¹íme ohodnocení koøene stromu $T_1$
@@ -333,6 +352,7 @@ DECREASEKEY(x)
 \ENDWHILE
 \STATE T $\rightarrow$ MERGE($T_1$, $T_2$)
 \end{algorithmic}
+\end{algorithm}
 
 \begin{pozn}
 npl, které jsem musel pøepisovat je v¾dycky pravý syn
@@ -366,17 +386,22 @@ Dùkaz: indukcí pøes i (elementární)
 
 \begin{defn}
 Binomická halda je soubor stromù takových, ¾e
+\begin{itemize}
 \item ka¾dý strom je izomorfní s nìjakým $H_i$
 \item ¾ádné dva stromy nejsou izomorfní
 \item existuje jednoznaèná korespondence mezi vrcholy reprezentované
 mno¾iny a vrcholy stromù taková, ¾e prvek odpovídající otci je men¹í ne¾
 prvek odpovídající vrcholu.
+\end{itemize}
 \end{defn}
 
 \subsection{Operace}
 
-MERGE($T_1$, $T_2$)
+\begin{algorithm}[!htb]
+\caption{MERGE pro binomialni haldy}
+\label{alg:heaps.binom.merge}
 \begin{algorithmic}
+\STATE MERGE($T_1$, $T_2$)
 \STATE ($T_1, T_2$ binom. haldy velikosti $n_1,n_2$)
 \STATE P = 0, i = 0, T = 0 
 \WHILE {i $leq$ log($n_1 + n_2$)}
@@ -399,13 +424,17 @@ MERGE($T_1$, $T_2$)
   \STATE i = i + 1
 \ENDWHILE
 \end{algorithmic}
+\end{algorithm}
 
 \begin{pozn}
 P odpovídá pøenosu v binárním sèítání, T je výsledná halda
 \end{pozn}
 
-Spojeni($S_1$, $S_2$)
+\begin{algorithm}[!htb]
+\caption{Spojeni dvou binomi. hald}
+\label{alg:heaps.binom.spoj}
 \begin{algorithmic}
+\STATE Spojeni($S_1$, $S_2$)
 \STATE $S_1, S_2$ jsou stromy izomorfní s $H_i$ pro nìjaké i
 \IF {prvek reprezentovaný koøenem $S_1 \leq$ prvek reprezentovaný koøenem $S_2$}
   \STATE koøen $S_2$ se stane dal¹ík synem koøene $S_1$
@@ -413,17 +442,24 @@ Spojeni($S_1$, $S_2$)
   \STATE koøen $S_1$ se stane dal¹ík synem koøene $S_2$
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
-INSERT - stejný jako v leftist haldách
+\begin{pozn}
+INSERT - stejný jako v leftist haldách \\
 MIN - prohledáme prvky reprezentované koøeny stromù a najdeme nejmen¹í
+\end{pozn}
 
-DELETEMIN
+\begin{algorithm}[!htb]
+\caption{DELETEMIN pro binom. haldu}
+\label{alg:heaps.binom.deletemin}
 \begin{algorithmic}
+\STATE DELETEMIN
 \STATE prohledáním prvkù reprezentovaných koøeny stromù naleznu strom S, jeho¾ koøen reprezentuje nejmen¹í prvek
 \STATE $T_1 = T \ {S}, T_2$ je tvoøen podstormy v¹echn synù koøene S
 \STATE (tj. utrhnu koøen a zbytek dám do haldy) - je to halda díky vlastnosti 4
 \STATE T $\rightarrow$ MERGE($T_1, T_2$)
 \end{algorithmic}
+\end{algorithm}
 
 \begin{pozn}
 operace DELETE se nedá rozumnì provést,museli bychom pøebudovat celý strom
@@ -458,8 +494,11 @@ být izomorfní stromy.
 Operace MERGE($T_1, T_2$) - provedeme konkatenaci seznamù $T_1 a T_2$.
 Jenom to by nefungovalo, musíme je¹tì zmìnit operace MIN, DELETEMIN.
 
-MIN
+\begin{algorithm}[!htb]
+\caption{DELETEMIN pro line binom. haldy}
+\label{alg:heaps.binom-line.min}
 \begin{algorithmic}
+\STATE MIN
 \STATE pøi prohledávání prvkù reprezentovaných koøeny stromù seøadíme stromy do mno¾in $Q_i$, i=0,...,n , kde $Q_i$ je mno¾ina v¹ech stromù v T izomorfních s $H_i$.
 \STATE i = 0, T = 0
 \WHILE {$\exists Q_i \neq 0$}
@@ -472,6 +511,7 @@ MIN
   \STATE i = i + 1
 \ENDWHILE
 \end{algorithmic}
+\end{algorithm}
 
 DELETEMIN
 dá stromy po odtr¾ení nejmen¹ího prvku do odpovídajících mno¾in $Q_i$
@@ -481,16 +521,20 @@ Operace MERGE a INSERT pøi líné implementaci vy¾adují èas O(1), operace
 DELETEMIN a MIn vy¾adují èas O(poèet stromù).
 \end{theorem}
 
+\begin{pozn}
 bal(konfigurace) = poèet v¹ech stromù ve v¹ech haldách v konfiguraci
+\end{pozn}
 
-Amort. slo¾.
-MERGE O(1)
-INSERT O(1)
-MIN O(log n)
-DELETEMIN O(log n)
-
+\subsubsection{Amort. slo¾.}
 amort. slo¾. = èas pro operaci + bal(výsledné konfigurace) - bal(pùvodní
 konfigurace)
+
+\begin{tabular}{ll}
+MERGE & O(1) \\
+INSERT & O(1) \\
+MIN & O(log n) \\
+DELETEMIN & O(log n) \\
+\end{tabular}
 
 \subsection{Zobecnìné binomiální haldy}
 

@@ -554,47 +554,49 @@ a) while cyklus provádí rotace
 \mnote{chybí obrázek}
 % XXX obr
 
-Amortizovaná slo¾itost tohoto kroku = 
+Amortizovaná slo¾itost tohoto kroku 
 \mnote{tady je dìsný zmatek}
-\begin{multline}
-= èas operace + bal(nová konf.) - bal(pùvodní konf.) 
-= 1 + r'(u) - r(v) \leq 1 + r(u) + r(v)
-\leq 1 + 3(r(u) - r(v))
-\end{multline}
+= èas operace + bal(nová konf.) - bal(pùvodní konf.) \\ 
+$= 1 + r'(u) - r(v) \leq 1 + r(u) + r(v)$ \\
+$\leq 1 + 3(r(u) - r(v))$
 
 proto¾e x má v pùvodním i novém stromì stejné prvky
 \mnote{neèitelné}
-\begin{multline}
-  r(u) = r'(t)
-  r'(u) \leq r'() = r(u)
-\end{multline}
+$r(u) = r'(t)$ \\
+$r'(u) \leq r'() = r(u)$
 
+\par
 b) while cyklus provádí dvojitou rotaci
 
-% XXX obr
-% obr.
+\mnote{tady chybi obr.}
 
-Amortizovaná slo¾itost této operace =
-= èas operace + bal(nová konf.) - bal(pùvodní konf.) =
-= 1 + r'(u) - r(v) - r(u) - r(t) (*)
+\begin{multline}
+\label{amort-dvojrotace}
+\text{ Amortizovaná slo¾itost této operace} \\
+\text{ = èas operace + bal(nová konf.) - bal(pùvodní konf.) =} \\
+= 1 + r'(u) - r(v) - r(u) - r(t)
+\end{multline}
 
-pro $x \neq t,u,v$ platí $r(x) = r'(x)$
-r(v) = r'(t)
+pro $x \neq t,u,v$ platí $r(x) = r'(x)$ \\
+$r(v) = r'(t)$
 
 b1) 
-$$
+\begin{multline}
 r(v) > r(t), pak r'(u),r'(v) \leq r'(t) = r(v)\\
-r(u) \geq r(t), 1 \leq r(v) - r(t)
-(*) \leq r(v) - r(t) + 2r(u) - 2r(t) = 3(r(v) - r(t))
-$$
+r(u) \geq r(t), 1 \leq r(v) - r(t) \stackrel{\text{ \ref{amort-dvojrotace}
+}}{\leq} \\
+r(v) - r(t) + 2r(u) - 2r(t) = 3(r(v) - r(t))
+\end{multline}
 
 b2) 
-$$
-r(v) = r(t), pak podle lemmatu r'(t) > min{r'(u), r'(v)}
-pak 2r'(t) \geq r'(u) + r'(v) + 1
-(*) \leq 2r(u) - 2(r(t) = 2(r(v) - r(t)) = (r(t) = 0) 3(r(u) - 3r(t))
-$$
+r(v) = r(t), pak podle lemmatu $r'(t) > min\{r'(u), r'(v)\}$ plati \\
+\begin{multline}
+2r'(t) \geq r'(u) + r'(v) + 1 
+  \stackrel{\text{ \ref{amort-dvojrotace} }}{\leq} \\
+2r(u) - 2(r(t) = 2(r(v) - r(t)) = (r(t) = 0) 3(r(u) - 3r(t))
+\end{multline}
 \end{proof}
+
 
 \subsection{Amortizovaná slo¾itost ostatních operací}
 
