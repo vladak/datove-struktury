@@ -83,6 +83,7 @@ bal(S1,S2) $\leq$ $\binom{|S|}{2}$ (v¹echny dvojice jsou pøeházené)
 \end{pozn}
 
 \begin{proof}[Dùkaz vìty \ref{theor:samoop.MFRtime}] 
+\mnote{tento dukaz je nejaky podivny}
 Pøes amortizovanou slo¾itost A. \\
 Pøedpokládejme, ¾e A i MFR mají provést operaci O.\\
 A ... provádí na seznam $S_A$, výsledek bude $S_A'$ \\
@@ -196,6 +197,38 @@ P - poèet volných výmìn A pøi P - $|P|$ + bal($S_1$, $S_2$)
 kdy¾ $S_1$ = $S_2$ pak bal($S_1$, $S_2$)=0 a platí a)
      $S_1$ $\neq$ $S_2$ pak bal($S_1$, $S_2$) $\leq$ $\binom{|S|}{2}$ a
 platí b)
+\end{proof}
+
+\mnote{temporary solution by T.Matousek}
+
+ocekavana slozitost MFR: \\
+\begin{proof}
+$E_{MFR} = \sum l_i p_i$
+kde $l_i$ je ocekavana vzdalenost $x_i$ od zacatku seznamu a $p_i$ je pst., ze
+se
+budeme ptat an $x_i$.
+$l_i = 1 + E(\sum\limits_{j=1}^n Y_{ij})$              //jednicka je tam za
+prvek $x_i$
+kde $Y_{ij}$ je nahodna promenna s alternativnim rozdelenim s psti $p_{ij}$ a
+rika, jestli je prvek $x_j$ pred $x_i$
+Jak znamu prumer souctu je soucet prumeru, takze:
+$l_i = 1 + \sum\limits_{j=1}^n EY_{ij}$
+A jak take znamo $EY_{ij} = p_{ij}$, nebo-li
+$l_i = 1 + \sum\limits_{j=1}^n p_{ij}$
+ 
+Zbyva tedy spocitat $p_{ij}$ \\
+
+$p_{ij}$ = p("$x_j$ bude pred $x_i$") = p("posledni MEMBER, ktery byl na $x_i$
+nebo $x_j$, byl na $x_j$")
+= p("posledni zavolani MEMBER bylo na $x_j$" | "posledni zavolani MEMBER
+bylo na $x_i$ nebo $x_j$") =
+// kazde volani MEMBER na dany prvek je stejne pravdepodobne
+= p("zavolani MEMBER na $x_j$" | "zavolani MEMBER na $x_i$ nebo $x_j$")
+$= \frac{p_j}{p_i + p_j}$
+
+Kdyz to dame dohromady:
+$E_{MFR} = \sum l_i p_i = \sum [1 + \sum\limits_{j=1}^n \frac{p_j}{p_i +
+p_j}] p_i = = 1 + \sum\limits_{i, j = 1}^{n} {p_i p_j}{p_i + p_j}$
 \end{proof}
 
 \begin{pozn}
