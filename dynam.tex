@@ -2,7 +2,7 @@
 \markright{$ $Id$ $}
 % pøepsal Vladimír Kotal
 
-\chapter{Dynamizace}
+\chapter{Dynamizace a semidynamizace}
 
 V uspoøádaném poli umíme rychle vyhledávat, ale pøidat prvky znamená
 celé ho pøebudovat. Ve strùstajícím ha¹ování zase ne¹ly prvky mazat,
@@ -64,6 +64,7 @@ Pø.:
 	\end{cases}\)
 	(není rozlo¾itelný problém)
 % XXX obr.
+\mnote{chybí obrázek}
 \end{description}
 
 
@@ -144,10 +145,10 @@ Mìjme $A_0, A_1, \cdots$ takové, ¾e
 
 Nová struktura \dynamicka\ reprezentující $A$ je potom
 \begin{itemize}
-% \item Seznam statických struktur pro $A_i \neq \emptyset$, $\staticka_i$
+% \item XXX Seznam statických struktur pro $A_i \neq \emptyset$, $\staticka_i$
 \item nìjaká dynamická struktura reprezentující A
 (napø. (a,b)-strom, èerveno-èerný strom, AVL-strom)
-% \item Vyhledávací strom reprezentující $A$
+% \item XXX Vyhledávací strom reprezentující $A$
 \item Pro ka¾dé $A_i \neq \emptyset$ máme S strukturu reprezentující $A_i$.
 \item Pro ka¾dé $A_i \neq \emptyset$ seznam prvkù v $A_i$; prvky
 tìchto seznamù jsou projpojeny s odpovídajícími prvky ve stromì.
@@ -250,7 +251,7 @@ tj. bylo provedeno nìkolik krokù pro její vytvoøení, ale není dokonèena.
 \end{enumerate}
 
 
-% nasleduje prednaska z 12.5.
+% nasleduje prednaska z 12.5.2003, pøepsal Vladimír Kotal
 
 
 $A \subseteq U_2, i_0 \in N$ \\
@@ -345,7 +346,8 @@ $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_1\}$ \\
  & & $\frac{P(2)}{2}$ krokù pro $A_{1,0} = \{x_1,x_2\}$ \\
 \hline
 INSERT($x_4$) & INSERT($x_5$) & INSERT($x_6$) \\
-% prvni dva radky skrtneme 
+% XXX prvni dva radky skrtneme 
+% prepsat skrtani poradne ze zapisku
 $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_3\}$ & $A_{0,0} = \{x_3\}$ \\
 $A_{0,1} = \{x_2\}$ & $A_{0,1} = \{x_4\}$ & $A_{0,1} = \{x_4\}$ \\
 $A_{0,2} = \{x_3\} \rightarrow A_{0,0} = \{x_3\}$ &
@@ -387,7 +389,7 @@ ani nezhor¹í)
 \begin{defn}
 fale¹ný DELETE je operace, která vy¹krtne prvek z mno¾iny - tj. umo¾ní
 poèítat $f(x,A-\{a\})$ (kde a je vy¹krtnutý prvek) tak, ¾e èasové nároky
-budou stejné jako kdy¾ nebyl ¾ádný prvek vy¹krtnut).
+budou stejné jako kdy¾ nebyl ¾ádný prvek vy¹krtnut.
 \end{defn}
 
 Budeme pøedpokládat, ¾e èas pro fale¹ný DELETE je O(n), kde n je velikost
@@ -410,6 +412,7 @@ ukazatel na prvek a v odpovídajícím spojovém seznamu.
 \subsection{Pamì»ové nároky}
 \begin{multline}
 |A| + \sum_{i=0}^{log|A|+3} S(2^i) = |A| + \sum \frac{S(2^i)}{2^i} 2^i
+% XXX dopsat nasledujici: (jako poznamku pod to ?)
 % |A| - pomocne struktury
 % suma - pamet pro S struktury
 \leq |A| + \sum_{i=0}^{log|A|+3} \frac{S(8|A|)}{8|A|} 2^i = \\
@@ -430,10 +433,93 @@ spoèítáme $f(x,A_j)$ a pomocí operace $\oplus$ spoèítáme f(x,A).
 $log(n) + \sum_{i=0}^{log|A|+3} Q(2^i) = log(n) + \sum Q(8|A|) =
 O(Q(8|A|) log|A|)$.
 
+% XXX udelat slo¾enou svorku
 závìr: èas na výpoèet f je
 kdy¾ Q je subpolynomiální $O(Q(n)log(n))$
 polynomiální $O(Q(n))$
 superplynomiální $O(Q(8n))$
+
+% zde zaèíná poslední pøedná¹ka ze ¹k.r.2002/2003
+% thanks to Jana Skotaková za zapùjèení, pøepsal Vladimír Kotal
+
+INSERT(x)
+\begin{algorithmic}
+\IF {$x \not \in A$}
+  \STATE nalezneme nejmen¹í j takové, ¾e $|\bigcup i\leqj A_i| < 2^j$
+\STATE polo¾íme $A_j = \bigcup{i\leq j}A_i \cup \{x\}$
+\STATE $A_i = \emptyset pro i < j$
+\STATE vytvoøíme S-strukturu a spojový seznam pro $A_j$ (x pøidáme do
+struktury reprezentující A a pøidáme po¾adované ukazatele)
+\ENDIF  
+\end{algorithmic}
+
+\par
+Pozorování:\\
+Kdy¾ vytváøíme pøi INSERTu S-strukturu pro $A_j$, pak $2^{j-1} < |A_j|
+\leq 2^j$. \\
+(kdy¾ toto neplatí, pak pro j-1 je splnìna nerovnost $|\bigcup{i<j-1} A_i|
+< 2^{j-1}$ a to je spor s minimalitou j.
+\par
+
+% viz. poznamky/datstr_054.jpg
+DELETE(x)
+\begin{algorithmic}
+\IF {$x \not \in A$}
+  \STATE odstraníme x ze struktury pro A
+  \STATE nalezneme j takové, ¾e $x \in A_j$ (budeme znát pøímo místo x v seznamu
+  pro $A_j$)
+  \IF {$|A_j| = 1$}
+    \STATE sma¾eme $A_j$ (odpovídající S-strukturu 
+% tady to snad pokracuje     
+     a spojový seznam) $\rightarrow A_j = \emptyset$
+  \ENDIF
+  \IF {$|A_j| > 1$ a zároveò $|A_j| > 2^{j-3} + 1$}
+    \STATE na S strukturu pro $A_j$ provedeme fale¹ný DELETE9x0, x sma¾eme
+    ze spojového seznamu pro $A_j \rightarrow A_j = A_j - \{x\}$
+  \ENDIF  
+  \IF {$|A_j| > 1$ a zároveò $|A_j| = 2^{j-3} + 1$}
+    \IF {$A_{j-1} = \emptyset$}
+       \STATE $A_{j-1} = A_{j-1} - \{x\}, A_j = \emptyset$
+       \STATE vybudujeme novou S-strukturu pro $A_{j-1}$
+       (x odstraníme ze spojového seznamu pro $A_{j-1} - 1$)
+\mnote{tady nevím jestli nemá být jenom $A_{j-1}$}
+    \ENDIF
+    \IF {$A_{j-1} = \emptyset$ a zároveò $|A_{j-1}| > 2^{j-2}$}
+      \STATE vymìním $A_j a A_{j-1}$
+      \STATE z $A_{j-1}$ odstraníme x a vytvoøíme novou S-strukturu pro
+      $A_{j-1}$ (pùvodní struktura mohla mít a¾ $2^j$ prvkù)
+    \ENDIF
+    \IF {$A_{j-1} = \emptyset$ a zároveò $|A_{j-1}| \leq 2^{j-2}$}
+      \STATE $B = (A_j \cup A_{j-1}) - \{x\}$\
+      \STATE zru¹íme S-struktury pro $A_j, A_{j-1}$ a vybudujeme S-strukturu
+      a spojový seznam pro B
+      \IF {$|B| \geq 2^{j-2}$
+        \STATE $A_j = B, A_{j-1} = \emptyset$
+      \ELSE
+        \STATE $A_{j-1} = B, A_j = \emptyset$
+      \ENDIF	
+    \ENDIF
+  \ENDIF
+\ENDIF  
+\end{algorithmic}
+
+Pozorování: \\
+Kdy¾ operace DELETE buduje S-strukturu pro mno¾inu $A_j$, pak platí:
+$2^{j-1} \leq |A_j| \leq 2^{j-1}$.
+
+\subsection{Amortizovaný èas operace DELETE}
+$$
+(log|A| + D(2^j) + \frac{P(2^j)}{2^{j-3}}) = O(log|A| + D(|A|) +
+8\frac{P(|A|)}{|A|})
+$$
+
+$log|A|$ - zji¹tìní zda x \in A \\
+$D(2^j)$ - fale¹ný DELETE \\
+$\frac{P(2^j)}{2^{j-3}}$ - budování S-struktury - aspoò $2^{j-3}$ ... pøed
+tím
+
+
+\mnote{zbytek poslední pøedná¹ky chybí}
 
 
 % EOF

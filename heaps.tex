@@ -8,10 +8,13 @@ Haldy jsou stromové struktury, které splòují
 \begin{itemize}
 \item lokální podmínku na uspoøádání
   - prvek reprezentující otce je men¹í ne¾ prvek repreentovaný synem
-\item strukturální podmínku na stromy, ze kterých jsou vytvoøené
-  - kdy¾ je prvek v sudé hladinì, pak je men¹í ne¾ prvky, které jsou
-    reprezentovány jeho syny a vnuky, pokud je v liché, pak je vìt¹í (?)
-    ne¾ prvky reprezentované jeho syny a vnuky.
+% oprava by M. Macok:
+% "strukturalni podminky" na stromy jsou podminky na tvar
+% stromu (event. lesu), podle kterejch se ty haldy rozdelujou na Fib.,
+% leftlist apod... neni tam nic o tom, jestli jsou synove vetsi/mensi
+% nez otcove apod., od toho je tam ta prvni podminka...
+\item strukturální podmínku na stromy, ze kterých jsou vytvoøené - podle
+nich se haldy rozdeluji na Fibonacciho, Leftist apod.
 \end{itemize}
 \end{defn}
 
@@ -37,7 +40,9 @@ $\leq$ x
 \item strom T splòuje podmínky (i),(ii),(iii)
 pak po oèísllování prùchodem do ¹íøky platí:
 kdy¾ vrchol má èíslo i, jeho synové mají èísla
-d(i-1)+1,d(i-1)+3,...,di+1 a otec má èíslo 
+% oprava by M.Macok :
+% strana 70, prvni syn vrcholu neni na pozici d(i-1)+1 ale ..+2
+d(i-1)+2,d(i-1)+3,...,di+1 a otec má èíslo 
 $\lceil\frac{i-1}{d}\rceil$.
 \end{enumerate}
 \end{defn}

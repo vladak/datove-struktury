@@ -1,60 +1,8 @@
 % Souèást skript na Datové struktury. Viz main.tex
-% Vladimir Kotal, 2003
-
-%\documentclass{report}
-%\usepackage{amsmath}
-%\usepackage{amssymb}
-%\usepackage{amsthm}
-%\usepackage{czech}
-%\usepackage[bookmarks,bookmarksopen]{hyperref}
-%\usepackage{graphicx}%eps files
-%%\usepackage{a4wide}
-%\usepackage[textwidth=15cm, marginparwidth=2cm]{geometry}
-%\usepackage{url}% \path
-%
-%\usepackage{algorithmic}
-%\usepackage[chapter]{algorithm}
-%\floatname{algorithm}{Algoritmus}
-%\renewcommand{\listalgorithmname}{Seznam algoritmù}
-%
-%\newcommand{\pr}{{\cal P}}
-%\newcommand{\rozvoj}[3]{\binom{#1}{#2}\left(#3\right)^{#2}\left(1-#3\right)^{#1-#2}}
-%\newcommand{\invm}{\frac{1}{m}}
-%\newcommand{\intrange}[2]{\{{#1}\ ..\ {#2}\}}
-%\def\<#1>{\text{\it #1}} % viceznakova jmena promennych
-%
-%\newcommand{\lparen}{(}
-%\newcommand{\rparen}{)}
-%{
-%\catcode`\(=13
-%\catcode`\)=13
-%\gdef({\left\lparen\begingroup}
-%\gdef){\endgroup\right\rparen}
-%\gdef\bigparens{%
-%	\catcode`\(=13%
-%	\catcode`\)=13%
-%}
-%}
-%
-%\newcommand{\mnote}[1]{\marginpar{\scriptsize\raggedright #1}}
-%\newcommand{\exercise}[2]{\mnote{Cvièení: #1}} %TODO: co s odpovìdí?
-%
-%\newtheorem{theorem}{Vìta}[section]
-%\newtheorem{lemma}{Lemma}[section]
-%\theoremstyle{definition}
-%\newtheorem{defn}{Definice}[section]
-%
-%% V. Kotal
-%
-%\pagestyle{myheadings}
-%
-%%\includeonly{trees-ab}
-%\begin{document}
-%
+% pøepsal Vladimír Kotal, 2003
 
 
-% moje (vlada)
-\newtheorem{pozn}{Poznámka}[section]
+% nasleduje prednaska z 19.3.2003, pøepsal Vladimír Kotal
 
 \markright{$ $Id$ $}
 
@@ -79,12 +27,24 @@ Pokud x není v seznamu pøi operaci INSERT(x), tak pøedpokládejme, ¾e je na
 % --------------------------------------------------------------------------
 \section{Amortizovaná slo¾itost}
 
+XXX
+
 % --------------------------------------------------------------------------
 \section{Seznamy}
 
+XXX
+
 \subsection{Algoritmus MEMBER}
+
+XXX
+
 \subsection{Algoritmus INSERT}
+
+XXX
+
 \subsection{Algoritmus DELETE}
+
+XXX
 
 \subsection{Algoritmus MFR (Move Front Rule)}
 % pøedná¹ka z 18.3.2003
@@ -96,6 +56,7 @@ Mìjme posloupnost P operací MEMBER, INSERT a DELETE a mìjme dva
 prosté seznamy S1, S2 mno¾iny S. \\
 Pak pro ka¾dý upravující algoritmus A platí:\\
 Kdy¾ MFR provede P na seznam S1 a A provede P a seznam S2, tak platí:\\
+% XXX udelat seznam
 a) èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
 výmìn A - $|P|$ 
   kdy¾ S1 = S2 \\
@@ -315,7 +276,7 @@ algoritmus bez pøemís»ování prvkù. Oèekávaný èas tohoto algoritmu je
 
 % --------------------------------------------------------------------------
 \section{Splay stromy}
-% thanks to Jana Skotakova za zapisky
+% thanks to Jana Skotakova za zapisky, pøepsal Vladimír Kotal
 
 patová struktura - binární vyhledávací stromy s ohodnocenými prvky
 
@@ -381,7 +342,8 @@ Viz algoritmus \ref{alg:splay.join2}
 \label{alg:splay.join2}
 
 \begin{algorithmic}
-\STATE Splay($\infty$, $T_2$) // nejmen¹í prvek\\
+% oprava by M. Macok (nejmensi -> nejvetsi), argumenty SPLAY()
+\STATE SPLAY($T_2$, $\infty$) // nejvetsi prvek\\
 \STATE koøen $T_1$ bude levý syn koøene $T_2$
 \end{algorithmic}
 \end{algorithm}
@@ -506,7 +468,8 @@ tW(x) - totální váha x, je to souèet vah v¹ech prvkù v podstromì urèeném x
 
 Pø.
 
-% obr
+\mnote{chybí obrázek}
+% XXX obr
 
 tW(a) = W(a) + W(b) + W(c)\\
 
@@ -567,7 +530,8 @@ Viz algoritmus \ref{alg:splay.spl}
 \end{algorithmic}
 \end{algorithm}
 
-% obrazky
+\mnote{chybí obrázky}
+% XXX obrazky
 
 t se po skonèení operace SPLAY(x) dostane do koøene
 
@@ -586,7 +550,8 @@ nejvìt¹í nebo nejmen¹í prevek men¹í (vìt¹í) ne¾ x)
 rozdìlíme podle akce, která se provádí ve while cyklu
 a) while cyklus provádí rotace
 
-% obr
+\mnote{chybí obrázek}
+% XXX obr
 
 Amortizovaná slo¾itost tohoto kroku = 
 \mnote{tady je dìsný zmatek}
@@ -605,6 +570,7 @@ proto¾e x má v pùvodním i novém stromì stejné prvky
 
 b) while cyklus provádí dvojitou rotaci
 
+% XXX obr
 % obr.
 
 Amortizovaná slo¾itost této operace =
@@ -631,4 +597,4 @@ $$
 
 \subsection{Amortizovaná slo¾itost ostatních operací}
 
-
+XXX
