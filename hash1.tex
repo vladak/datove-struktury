@@ -682,7 +682,8 @@ neúspì¹ném jsou samozøejmì shodné).
 
 Standardní srùstající ha¹ování má tu nevýhodu, ¾e se pøi vìt¹ím
 zaplnìní tabulky mohou vytvoøit dlouhé øetìzce. Tabulku tedy prodlou¾íme o
-pomocnou pamìt (\uv{sklep}), do které se nedostane ha¹ovací funkce, a
+% tady bylo {\uv sklep} ale nejak to nefunguje XXX
+pomocnou pamìt (sklep), do které se nedostane ha¹ovací funkce, a
 kolidující prvky pøidáváme odspodu. Øetìzce tedy srostou a¾ po
 zaplnìní sklepa.
 
@@ -919,7 +920,7 @@ k nové ha¹ovací funkci $h_i$.
 
 DELETE: Provedeme operaci DELETE a kdy¾ máme odstranit prvek, testujeme,
 zda $i>0$ a $|S|-1 = 2^{i-2} m$. Pokud rovnost neplatí, dokonèíme DELETE. Pokud
-platí, zmen¹íme $i$ o 1 a spoèítáme ulo¾ení $S \minus \{x\}$ vzhledem
+platí, zmen¹íme $i$ o 1 a spoèítáme ulo¾ení $S - \{x\}$ vzhledem
 k nové ha¹ovací funkci $h_i$.
 
 Tato metoda má malou amortizovanou slo¾itost. Kdy¾ se spoèítá ha¹ovací 
