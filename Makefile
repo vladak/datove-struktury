@@ -8,6 +8,7 @@
 MAIN=ds
 ERRFILE=/tmp/ds.$$
 DISTDIR=../webt/skola/ds
+HTMLFILE=$(DISTDIR)/ds.html
 
 SRCFILES= array.tex \
 	compr-trie.tex \
@@ -35,6 +36,7 @@ dist: $(MAIN).pdf $(MAIN).ps
 src-dist:
 	@echo "nothing yet"
 	# XXX FIXME tar
+	@sh snapdate.sh $(HTMLFILE)
 
 commit:
 	cvs commit
