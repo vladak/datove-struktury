@@ -1,6 +1,6 @@
 % Souèást skript na Datové struktury. Viz main.tex
 \markright{$ $Id$ $}
-% doplnil Vladimír Kotal
+% pøepsal Vladimír Kotal
 
 \chapter{Dynamizace}
 
@@ -249,3 +249,191 @@ A_{i,1}$.
 tj. bylo provedeno nìkolik krokù pro její vytvoøení, ale není dokonèena.
 \end{enumerate}
 
+
+% nasleduje prednaska z 12.5.
+
+
+$A \subseteq U_2, i_0 \in N$ \\
+$\forall i = 0,1,...,i_0$ je dáno $j_i \in {0,1,2}$ takové, ¾e $j_i > 0$
+kdy¾ $i < i_0$. \\
+$\forall i = 0,1,...,i_0$ a $\forall j = 0,1,...,j_i$ je $A_{i,j} \in A$
+taková, ¾e $|A_{i,j}| < 2^i$.
+
+\begin{defn}
+${ A_{i,j}, i=0,1,...,i_0, j=1,2,...,j_i }$ je rozklad A.
+\end{defn}
+
+Pro ka¾dé $A_{i,j}$ je dána S struktura reprezentující $A_{i,j}$ a spojový
+seznam prvkù z $A_{i,j}$, navíc dána dat. struktura reprezentující A.
+Kdy¾ $A_{i,1}$ existuje, pak je rozpracovaná S struktura pro
+$A_{i+1,j_{i+1}+1} = A_{1,0} \cup A_{i,1}$.
+
+pozn. struktura je rozpracovaná, jestli¾e bylo provedeno nìkolikj krokù
+pro postaverní S struktury, ale je¹tì není dokonèena.
+
+- toto je definice nové semidynamické struktury
+
+\subsection{Pamì»ové nároky}
+
+\begin{multline}
+% XXX \underbrace{|A|}{pamet pro pom. struktury} + 
+% \underbrace{\sum_{i=0}^{log|A|} 4S(2^i)}{pamet potrebna na S struktury} = 
+\underbrace{|A|} + \sum_{i=0}^{log|A|} 4S(2^i) = 
+|A| + \sum_{i=0}^{log|A|} \frac{S(2^i)}{2^i}2^i \leq 
+|A| + 4 \sum_{i=0}^{log|A|} \frac{S(|A|)}{|A|}2^i = \\
+|A| + \frac{4S(|A|)}{|A|} (\sum 2^i) = 
+|A| + 4S(|A|) = O(S(|A|))
+\end{multline}
+
+\subsection{Algoritmus pro výpoèet}
+spoèítáme $f(x,A_{i,j})$ pro ka¾dou $A_{i,j}$ a pomocí operace $\oplus$
+spoèítáme f(x,A). 
+
+èas potøebný pro výpoèet A
+\begin{multline}
+\sum_{i=0}^{log|A|} 3Q(2^i) + 3log(|A|) \leq 
+3\sum_{i=0}^{log|A|} Q(|A|) + 3log|A| = 
+3Q(|A|)log(|A|) = O(Q(|A|)log(|A|))
+\end{multline}
+
+Platí: $Q(n) \geq n^{\epsilon}$ pro nìjaké $\epsilon$, pak èas potøebný pro
+výpoèet f je $O(Q(N))$.
+
+INSERT(x)
+\begin{algorithmic}
+\STATE kdy¾ $x \notin A$ jinak provedeme:
+  \STATE vytvoøíme S strukturu pro $A_{0,j_i+1} = \{x\}$ (zvìt¹íme $j_0$ o 1)
+  \IF {$j_o$ je liché}
+      \STATE pak provedeme 1.krok pro vytvoøení S struktury
+      \STATE pro mno¾inu $A_{1,j_1 + \lceil \frac{j_0}{2} \rceil} = A_{0,j_0 - 1}
+      \cup A_{0,j_0}$
+  \ENDIF
+  \STATE pro $i = 1,2,...,i_0+1$ v roustoucím poøadí:
+  \IF {S je rozpracovaná struktura pro $A_{i,j_i+1}$}
+    \STATE provedeme dal¹ích $\frac{P(2^i)}{2^i}$ krokù pro její vybudování
+  \ENDIF
+  \STATE kdy¾ jsme dobudovali S strukturu pro $A_{i,j_i+1}$, zvìt¹íme $j_i$ o 1
+  \STATE zru¹íme $A_{i-1,0} \cup A_{i-1,1}$, zmen¹íme $j_i$ o 2 a $A_{i-1,j}$ pøepí¹eme
+  na $A_{i-1,j_i+2}$.
+  \IF {$j_i$ liché} 
+    \STATE provedeme 1.krok pro vytvoøení Q struktury pro
+    \STATE mno¾inu $A_{1,j_i+1 + \lceil \frac{j_i}{2}} = A_{i,j_i} \cup A_{i,j_i-1}$.
+  \ENDIF
+\end{algorithmic}
+
+
+\subsection{Èas pro INSERT(x)}
+\begin{multline}
+\underbrace{log|A|}{èas pro zji¹tìní zda x \in A} + \sum_{i=0}^{log|A|} (\frac{P(2^i)}{2^i} + 1) = 
+2log|A| + \sum_{i=0}^{log|A|} \frac{2P(|A|)}{|A|} = \\
+2log|A| + \frac{2P(|A|)}{|A|} \sum_{i=0}^{log|A|} 1 = 
+2log|A| \frac{2P(|A|)}{|A|} log|A| = O(\frac{2P(|A|)}{|A|} log|A|)
+\end{multline}
+
+kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
+vy¾aduje èas $O(\frac{P(n)}{n})$.
+
+\par
+Pø.:
+
+\begin{tabular}{|l|l|l|}
+\hline
+INSERT($x_1$) & INSERT($x_2$) & INSERT($x_3$) \\
+$A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_1\}$ \\
+ & $A_{0,1} = \{x_2\}$ & $A_{0,1} = \{x_2\}$ \\
+ & 1. krok pro $A_{1,0} = \{x_1,x_2\}$ & $A_{0,2} = \{x_3\}$ \\
+ & & $\frac{P(2)}{2}$ krokù pro $A_{1,0} = \{x_1,x_2\}$ \\
+\hline
+INSERT($x_4$) & INSERT($x_5$) & INSERT($x_6$) \\
+% prvni dva radky skrtneme 
+$A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_3\}$ & $A_{0,0} = \{x_3\}$ \\
+$A_{0,1} = \{x_2\}$ & $A_{0,1} = \{x_4\}$ & $A_{0,1} = \{x_4\}$ \\
+$A_{0,2} = \{x_3\} \rightarrow A_{0,0} = \{x_3\}$ &
+$A_{0,2} = \{x_5\}$ &
+$A_{0,2} = \{x_5\} \rightarrow A_{0,0} = \{x_5\}$ \\
+$A_{0,3} = \{x_4\} \rightarrow A_{0,1} = \{x_4\}$ &
+$A_{1,0} = \{x_1,x_2\}$ &
+$A_{0,3} = \{x_6\} \rightarrow A_{0,1} = \{x_6\}$ \\
+dokonèíme $A_{1,0} = \{x_1,x_2\}$ &
+$\frac{P(2)}{2}$ krokù pro $A_{1,1} = \{x_3,x_4\}$ &
+$A_{1,0} = \{x_1,x_2\}$ \\
+1. krok pro $A_{1,1} = \{x_3,x_4\}$ & &
+dokonèeno $A_{1,1} = \{x_3,x_4\}$ \\
+& & 1. krok pro $A_{1,2} = \{x_5,x_6\}$  \\
+& & 1. krok pro $A_{2,0} = \{x_1,x_2,x_3,x_4\}$ \\
+& & $\frac{P(4)}{4}$ krokù \\
+\hline
+\end{tabular}
+
+\begin{theorem}
+Nech» S je statická struktura pro rozlo¾itelný vyhledávací problém f
+a nech» K je "hladká" funkce. Pak existuje semidynamická struktura D
+zalo¾ená na rozkladu urèeném funkcí K, tak ¾e platí: \
+kdy¾ K=O(log(n)), pak èas pro vyhledání je O(K Q(n)) \
+			  pro INSERT je $O(K(n) n^{\frac{1}{K(n)}}
+			  \frac{P(n)}{n})$ \
+kdy¾ $K = \Omega(log(n))$ pak platí: \
+èas pro vyhledání je $O(K(n)) Q(n))$ \
+pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
+\frac{P(n)}{n})$.
+\end{theorem}
+
+
+\subsection{Dynamizace}
+Potøebujeme, aby struktura S pøipou¹tìla fale¹ný DELETE (prvek pouze
+¹krtneme, ale zùstane tam. fale¹ný - èas. ani pamì»ové nároky se nezlep¹í
+ani nezhor¹í)
+
+\begin{defn}
+fale¹ný DELETE je operace, která vy¹krtne prvek z mno¾iny - tj. umo¾ní
+poèítat $f(x,A-\{a\})$ (kde a je vy¹krtnutý prvek) tak, ¾e èasové nároky
+budou stejné jako kdy¾ nebyl ¾ádný prvek vy¹krtnut).
+\end{defn}
+
+Budeme pøedpokládat, ¾e èas pro fale¹ný DELETE je O(n), kde n je velikost
+pùvodní reprezentvané mno¾iny.
+
+\subsection{Reprezentace mno¾iny A}
+rozlo¾íme A na disjunktní mno¾iny $A_j, j=0,1,...,log|A|+3$
+takové, ¾e buï $A_j = \emptyset$ nebo $2^{j-3} < |A_j| \leq 2^j$.
+\par
+ka¾dá mno¾ina $A_j$ bude reprezentována strukturou, která pùvodnì (kdy¾
+nebyly vy¹krtnuté ¾ádné prvky) mìla velikost $\leq 2^j$.
+\par
+Dále $\forall A_j \neq \emptyset$ bude dán spojový seznam prvkù v $A_j$.
+
+Bude dána datová reprezentace mno¾iny A. Pro ka¾dý prvek a v spojovém
+seznamu mno¾iny $A_j$ bude dán ukazatel na prvek a  v dat. struktuøe
+reprezentující A a naopak. Pro ka¾dý prvek v dat. struktuøe repr. A je dán
+ukazatel na prvek a v odpovídajícím spojovém seznamu.
+
+\subsection{Pamì»ové nároky}
+\begin{multline}
+|A| + \sum_{i=0}^{log|A|+3} S(2^i) = |A| + \sum \frac{S(2^i)}{2^i} 2^i
+% |A| - pomocne struktury
+% suma - pamet pro S struktury
+\leq |A| + \sum_{i=0}^{log|A|+3} \frac{S(8|A|)}{8|A|} 2^i = \\
+|A| + \frac{S(8|A|)}{8|A|} 2^i = |A| + \frac{S(8|A|)}{8|A|} \sum 2^i = 
+|A| + S(8|A|) = O(S(8|A|))
+\end{multline}
+\par
+
+závìr: kdy¾ S je omezená polynomem, pak pamì»ové nároky jsou O(S(n)). pokud
+S je superpolynomiální, pak pamì». nároky jsou O(S(8n)) (a platí S(n) =
+o(S(8n)) )
+\par
+
+výpoèet f: \\
+spoèítáme $f(x,A_j)$ a pomocí operace $\oplus$ spoèítáme f(x,A).
+
+\subsection{èas pro výpoèet f}
+$log(n) + \sum_{i=0}^{log|A|+3} Q(2^i) = log(n) + \sum Q(8|A|) =
+O(Q(8|A|) log|A|)$.
+
+závìr: èas na výpoèet f je
+kdy¾ Q je subpolynomiální $O(Q(n)log(n))$
+polynomiální $O(Q(n))$
+superplynomiální $O(Q(8n))$
+
+
+% EOF
