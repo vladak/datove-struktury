@@ -116,46 +116,16 @@ Zaveïme
 Tedy  prùmìrná hodnota $\delta_h(x,S) \leq \frac{cn}m$.
 
 \begin{theorem}
+\label{veta-ocek-pocet}
 Pro ka¾dou mno¾inu $S \subseteq U$, $|S| = n$ a ka¾dé $x$ je oèekávaný
 èas operací MEMBER, INSERT, DELETE $O(c \cdot n/m)$, pøièem¾ je braný
 pøes v¹echny funkce $h \in H$ pøi jejich rovnomìrném rozdìlení.
 \end{theorem}
 
-Varianta Markovovy nerovnosti:
-\mnote{\scriptsize Markovova: $\pr(X \geq t \mathrm{E}X) \leq 1/t$}
 \begin{theorem}
-Za stejných pøedpokladù jako u pøedchozí vìty, kdy¾ $\mu$ je prùmìrná
-délka øetìzce $S_{h,x}$, pak 
-\[
-\forall t > 1\ 
- \pr(|S_{h,x}| \geq t \mu)
- < \frac 1t
-\]
+Markovova nerovnost: $\pr(X \geq t \mathrm{E}X) \leq 1/t$
 \end{theorem}
-\begin{proof}
-H je $c$-univerzální systém. Nech» 
-$H' = \{ h \in H; |S_{h,x}| \geq t \mu \}$. 
-\begin{align*}
-\mu  
-&= \frac 1{|H|} \sum_{h \in H} |S_{h,x}|
-	&& H' \subset H\\
-& > \frac 1{|H|} \sum_{h \in H'} |S_{h,x}|
-	&& \text{z definice } H'\\
-& \geq \frac 1{|H|} \sum_{h \in H'} t \mu\\
-& = \frac {|H'|}{|H|} t \mu
-\end{align*}
-a tedy
-\[
-\pr(|S_{h,x}| \geq t \mu) =  \frac {|H'|}{|H|} < \frac 1t
-\]
-\end{proof}
 
-\begin{pozn}
-\mnote{T.Matou¹ek}
-Mo¾ná by stálo za to tam dokázat Markovovu nerovnost a pak jenom øíct,
-¾e to z ní plyne, proto¾e dùkaz Markova by mìl být úplnì stejný:                   
-\end{pozn}
-                                                                                
 \begin{proof}                                                                   
 X je rovnomìrnì rozdìlená náhodná velièina nabývající hodnot $\{x_i : i
 \in     
@@ -175,6 +145,40 @@ a tedy
 \pr(X \geq t \mu) =  \frac {|I'|}{|I|} < \frac 1t                               
 \]                                                                              
 \end{proof}
+
+Varianta Markovovy nerovnosti:
+\begin{theorem}
+Za stejných pøedpokladù jako u 
+% pøedchozí 
+vìty \ref{veta-ocek-pocet}, kdy¾ $\mu$ je prùmìrná
+délka øetìzce $S_{h,x}$, pak 
+\[
+\forall t > 1\ 
+ \pr(|S_{h,x}| \geq t \mu)
+ < \frac 1t
+\]
+\end{theorem}
+
+\begin{proof}
+plyne z Markovovy nerovnosti.
+%H je $c$-univerzální systém. Nech» 
+%$H' = \{ h \in H; |S_{h,x}| \geq t \mu \}$. 
+%\begin{align*}
+%\mu  
+%&= \frac 1{|H|} \sum_{h \in H} |S_{h,x}|
+%	&& H' \subset H\\
+%& > \frac 1{|H|} \sum_{h \in H'} |S_{h,x}|
+%	&& \text{z definice } H'\\
+%& \geq \frac 1{|H|} \sum_{h \in H'} t \mu\\
+%& = \frac {|H'|}{|H|} t \mu
+%\end{align*}
+%a tedy
+%\[
+%\pr(|S_{h,x}| \geq t \mu) =  \frac {|H'|}{|H|} < \frac 1t
+%\]
+\end{proof}
+
+
 
 
 % ..........................................................................
@@ -264,7 +268,7 @@ odvozenou vý¹e.
 
 Doká¾eme, ¾e $H$ je 5-univerzální systém.
 
-Zvolme \( x\neq y\in U \) , spoèteme odhad 
+Zvolme \( x\neq y\in U\), spoèteme odhad 
 \( |\{ h\in H : h_{c,d,l}(x) = h_{c,d,l}(y) \}|  \),
 tedy musíme odhadnout ze shora poèet trojic $c, d, l$ takových, ¾e 
 $h_{c,d,l}(x)=h_{c,d,l}(y)$.
@@ -477,8 +481,12 @@ $\exists j : b_k(j) \geq 2$
 a
 $\sum ( b_k(i) )^2 \geq (n-2) 1^2 + 1 \cdot 2^2 = n + 2$,
 spor.
-Pøi hledání $k^*$ ovìøíme perfektnost $h_k$ v èase $O(n)$.
-% XXX TODO! k jako sèítací index i optimální hodnota
+Pøi hledání $k$ ovìøíme perfektnost $h_k$ v èase $O(n)$.
+% zmatek s indexy u k (T. Matousek):
+% Tohle by melo byt vporadku. k je jako scitaci index jen v (4.8) a (4.10)
+% a dal uz ne.
+% Ten soucet v d jde pres vsechny hashovaci funkce a jedna z nich je ta
+% prava. Ja bych to tak nechal, je to ok. Staci smazat tu *.
 \end{enumerate}
 \end{proof}
 

@@ -93,8 +93,14 @@ v¹ech stromových struktur.
 \subsection{Èasová a pamì»ová slo¾itost}
 
 Jedna iterace cyklu zabere konstantní èas. Èas pro MEMBER je $O(l)$,
-èas pro INSERT a DELETE je $O(l k)$. Pamì»ová slo¾itost trie je poèet
-ulo¾ených slov násobená délkou cesty a poètem synù, tedy $O(|S| l k)$.
+èas pro INSERT a DELETE je $O(l k)$. Pamì»ová slo¾itost trie v nejhor¹ím
+pøípadì je poèet
+ulo¾ených slov násobený délkou cesty a poètem synù, tedy $O(|S| l k)$.
+
+\begin{pozn}
+V pøípadì, kdy S obsahuje (skoro) v¹echna slova délky l, tak mù¾e
+mít slo¾itost jen O(|S|).
+\end{pozn}
 
 % --------------------------------------------------------------------------
 \section{Komprimované trie}
@@ -105,11 +111,11 @@ Nekomprimované trie pro tuto mno¾inu je na obrázku \ref{fig:tries}.
 Vidíme, ¾e písmena na druhé a¾ páté pozici jsou v¾dy stejná a
 pøedchozí algoritmy se jimi musí \uv{prokousat}. Pøesnì 
 øeèeno, prohlí¾ení vrcholu $v$, který má jediného 
-syna, který není list s funkci $\Nal = \textit{false}$, nepøiná¹í 
+syna, který není list s hodnotou $\Nal = \textit{false}$, nepøiná¹í 
 ¾ádnou kladnou informaci, proto¾e mno¾iny prvkù z $S$, 
 které jsou reprezentovány vrcholy v podstromu otce $v$ a v podstromu 
 vrcholu $v$ jsou stejné. To vedlo k idei tyto vrcholy ze stromu vynechat a tím 
-zmen¹it (kompresovat) trie.  
+zmen¹it (komprimovat) trie.  
    
 \begin{figure}
 \centering\includegraphics{pics/tries}
@@ -235,10 +241,10 @@ Viz algoritmus \ref{alg:trie.k.del}
 
 Pamì»ová slo¾itost takto komprimovaných trie je $O(nk)$, kde 
 % oprava by Ladislav Prosek O(nl + kl) -> O(nk)
-$n$ je velikost reprezentované mno¾iny. (maximálnì n-1 vnitøních vrcholù,
-ka¾dý s polem délky k).
+$n$ je velikost reprezentované mno¾iny. (maximálnì $n-1$ vnitøních vrcholù,
+ka¾dý s polem délky $k$).
 Èasová slo¾itost operace MEMBER je v nejhor¹ím
-pøípadì $O(l)$, pro INSERT a DELETE je to O(l+k). 
+pøípadì $O(l)$, pro INSERT a DELETE je to $O(l+k)$. 
 (mù¾e být nutné pøidat/odebrat jeden vnitøní vrchol).
 % oprava slozitosti v nejhorsim pripade by Ladislav Prosek 
 
@@ -306,9 +312,8 @@ a èasovými nároky.
 % . . . .. . . .. .. .. . .  . .. .. .. . . ..  ..  .... . . .. . .. . .
 % nasledujici sekci (jeste kompr. trie atd.) dopsal Vladimir Kotal, 2003
 
-\mnote{XXX k èemu patøí násl. algoritmus ? (Koubek 2002)}
 \begin{algorithm}[!htb]
-\caption{INSERT pro komprimované trie (?)}
+	\caption{INSERT pro komprimované trie, analogie \ref{alg:trie.k.ins} (verze Koubek 2002)}
 \label{alg:trie.k.ins_unk}
 \begin{algorithmic}
 \STATE INSERT($x=x_1, ..., x_l$)
