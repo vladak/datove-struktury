@@ -36,40 +36,33 @@ XXX
 
 XXX
 
-\subsection{Algoritmus MEMBER}
+MEMBER
+INSERT
+DELETE
 
-XXX
-
-\subsection{Algoritmus INSERT}
-
-XXX
-
-\subsection{Algoritmus DELETE}
-
-XXX
 
 % MFR -----------------------------------------------------------------------
 
 \subsection{Algoritmus MFR (Move Front Rule)}
 \mnote{pøedná¹ka z 18.3.2003}
 
-{\bf Pravidlo MFR}: Pøi operaci MEMBER(x) je x v seznamu nebo pøi operaci INSERT(x)
-bude x po skonèení operace na 1. místì seznamu.
+{\bf Pravidlo MFR}: Pøi operaci MEMBER(x) je $x$ v seznamu nebo pøi 
+operaci INSERT($x$) bude $x$ po skonèení operace na 1. místì seznamu.
 
 \begin{theorem}
 \label{theor:samoop.MFRtime}
-Mìjme posloupnost P operací MEMBER, INSERT a DELETE a mìjme dva
-prosté seznamy S1, S2 mno¾iny S. \\
-Pak pro ka¾dý upravující algoritmus A platí:\\
-Kdy¾ MFR provede $P$ na seznam $S1$ a $A$ provede $P$ na seznam $S2,$ 
+Mìjme posloupnost $P$ operací MEMBER, INSERT a DELETE a mìjme dva
+prosté seznamy $S1$, $S2$ mno¾iny $S$. \\
+Pak pro ka¾dý upravující algoritmus $A$ platí:\\
+Kdy¾ MFR provede $P$ na seznam $S1$ a A provede $P$ na seznam $S2,$ 
 tak platí:
 \par
 
 Oznaèíme:
 \begin{itemize}
-\item s = èas na vyhledání A
-\item p = poèet placených výmìn A
-\item f = poèet volných výmìn A
+\item $s$ = èas na vyhledání A
+\item $p$ = poèet placených výmìn A
+\item $f$ = poèet volných výmìn A
 \end{itemize}
 
 Pak èas MFR $\leq$ 
@@ -107,17 +100,18 @@ Pøedpokládejme, ¾e A i MFR mají provést operaci O.\\
 A ... provádí na seznam $S_A$, výsledek bude $S_A'$ \\
 MFR .. provádí O na seznam $S_{MFR}$, výsledek bude $S_{MFR}'$\\
 amortizovaná slo¾itost operace O bude: 
-\par
-  $\text{èas MFR pro operaci } O + bal(S_A', S_{MFR}') 
-  - bal(S_A, S_{MFR})$ 
-\par
+$$
+= \text{èas MFR pro operaci } O + bal(S_A', S_{MFR}') 
+  - bal(S_A, S_{MFR})
+$$
 Balance $bal$ je definována vzhledem k algoritmu A.
 \par
 
 Uká¾eme, ¾e amortizovaná slo¾itost $O$ pro MFR 
-$\leq 2*\text{èas na vyhledání A} +
-\text{poèet placených výmìn A} - \text{poèet volných výmìn A} - 1$.
-\par
+$$
+\leq 2*\text{èas na vyhledání A} +
+\text{poèet placených výmìn A} - \text{poèet volných výmìn A} - 1
+$$
 
 $$
 {\rm S_A}\stackrel{\text{vyhledání}}{\rightarrow} S_A''
@@ -141,6 +135,8 @@ INSERT(x) & $x$ je v seznamu , $S_A''$ = $S_A$\\
 \hline
 \end{tabular}
 
+\hspace{8mm}
+
 % \(
 % \begin{cases}
 %  x\ je\ v\ seznamu , S_A'' = S_A\\
@@ -159,14 +155,14 @@ Amort. slo¾itost druhé èásti $= \text{poèet placených výmìn A} -
 
 % XXX jak donutit itemize aby cislovalo pomoci i, ii, iii, ... ?
 \begin{itemize}
-\item{(i)}
+\item[(i)]
 Pøedpokládejme, ¾e x není v seznamu a délka seznamù je n.
 Èas MFR je n+1 , èas na vyhledání pro algoritmus je n+1
 operace MEMBER(x) a DELETE(x) $S_A''$ = $S_{MFR}'$
-a tady amort. slo¾. MFR = èas operace = n+1 $\leq$ 2(n+1) - 1\\
-n+1 je èas na vyhledání pro A - 1\\
-$S_A''$ vznikne z $S_A$ pøidáním x za posl. prvek $S_A$\\
-$S_{MFR}'$ vznikne z $S_{MFR}$ pøidáním x na zaè. seznamu
+a tedy amort. slo¾. MFR = èas operace = $n+1 \leq 2(n+1) - 1$ \\
+$n+1$ je èas na vyhledání pro $A - 1$ \\
+$S_A''$ vznikne z $S_A$ pøidáním $x$ za posl. prvek $S_A$ \\
+$S_{MFR}'$ vznikne z $S_{MFR}$ pøidáním $x$ na zaè. seznamu
 tedy 
 $$
 bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR}) = n
@@ -174,7 +170,7 @@ $$
 Amort. slo¾. operace MFR 
 $= n+1 + n=2n + 1=2(n+1) - 1 = 2*\text{èas na vyhledání A} - 1$
 
-\item{(ii)} x je v seznamu. Pøedpokládejme, ¾e x je na i-tém místì v
+\item[(ii)] $x$ je v seznamu. Pøedpokládejme, ¾e $x$ je na $i$-tém místì v
 seznamu $S_A$ na $j$-tém místì v seznamu $S_{MFR}$
 Èas operace pro MFR je $j$, èas na vyhledání pro $A$ je $i$.
 Oznaème $k$ poèet $y$ v seznamu takových, ¾e $y$ je v $S_A$ za $x$, v
@@ -185,17 +181,17 @@ amort. slo¾. pro MFR
 $= j + bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR})$
 \par
 
-DELETE(x)\\
-$bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR}) \leq -k$ \\
-amort. slo¾. $\leq j - k \leq 2i - 1 = 2*\text{èas na vyhledání A - 1}$
-\par
-
-MEMBER(x), INSERT(x) \\
-$bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR}) \leq -k + i-1$
-(nìjaké dvojice mohly pøibýt)
-amort. slo¾. operace MFR 
-$\leq j-k+i-1 \leq i+i-1 = 2i - 1 = 2*\text{èas na vyhledání A} - 1$
-\par
+\begin{itemize}
+  \item DELETE(x)\\
+  $bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR}) \leq -k$ \\
+  amort. slo¾. $\leq j - k \leq 2i - 1 = 2*\text{èas na vyhledání A - 1}$
+  
+  \item MEMBER(x), INSERT(x) \\
+  $bal(S_A'', S_{MFR}') - bal(S_A, S_{MFR}) \leq -k + i-1$
+  (nìjaké dvojice mohly pøibýt) \\
+  amort. slo¾. operace MFR 
+  $\leq j-k+i-1 \leq i+i-1 = 2i - 1 = 2*\text{èas na vyhledání A} - 1$
+\end{itemize}
 \end{itemize}
 
 
@@ -212,6 +208,7 @@ Pøi placené výmìnì si v seznamu $S_A''$ vymìní $x$ místo $z$ za $x$, tedy
 dvojice $\{x,z\}$ pøibude pøi poèítání 
 $bal(S_A', S_{MFR}') - bal(S_A'', S_{MFR}')$ \\
 (v $S_{MFR}$ je x první)
+\par
 Pøi volné výmìnì se v seznamu $S_A''$ vymìní $x$ místo s prvkem $u$ pøed
 $x$, tedy dvojice $\{x,u\}$ se vynechá pøi poèítání $bal$.
 Amort. slo¾. MFR $\leq 2*\text{èas na vyhledání A} +
@@ -236,64 +233,86 @@ platí b)
 
 \mnote{temporary solution by T.Matousek}
 
-ocekavana slozitost MFR: \\
+oèekávaná slo¾itost MFR: \\
 \begin{proof}
 $E_{MFR} = \sum l_i p_i$
-kde $l_i$ je ocekavana vzdalenost $x_i$ od zacatku seznamu a $p_i$ je pst., ze
-se
-budeme ptat an $x_i$.
-$l_i = 1 + E(\sum\limits_{j=1}^n Y_{ij})$              //jednicka je tam za
-prvek $x_i$
-kde $Y_{ij}$ je nahodna promenna s alternativnim rozdelenim s psti $p_{ij}$ a
-rika, jestli je prvek $x_j$ pred $x_i$
-Jak znamu prumer souctu je soucet prumeru, takze:
-$l_i = 1 + \sum\limits_{j=1}^n EY_{ij}$
-A jak take znamo $EY_{ij} = p_{ij}$, nebo-li
-$l_i = 1 + \sum\limits_{j=1}^n p_{ij}$
- 
-Zbyva tedy spocitat $p_{ij}$ \\
+kde $l_i$ je oèekávaná vzdálenost $x_i$ od zaèátku seznamu a $p_i$ je
+pravdìpodobnost, ¾e se budeme ptát na $x_i$.
+\par
+$$
+l_i = 1 + E(\sum\limits_{j=1}^n Y_{ij})
+$$
 
-$p_{ij}$ = p("$x_j$ bude pred $x_i$") = p("posledni MEMBER, ktery byl na $x_i$
-nebo $x_j$, byl na $x_j$")
-= p("posledni zavolani MEMBER bylo na $x_j$" | "posledni zavolani MEMBER
-bylo na $x_i$ nebo $x_j$") =
-// kazde volani MEMBER na dany prvek je stejne pravdepodobne
-= p("zavolani MEMBER na $x_j$" | "zavolani MEMBER na $x_i$ nebo $x_j$")
-$= \frac{p_j}{p_i + p_j}$
+Jednièka je tam za prvek $x_i$, kde $Y_{ij}$ je náhodná promìnná s 
+alternativním rozdìlením s pravdìpodobností $p_{ij}$ a
+øíká, jestli je prvek $x_j$ pøed $x_i$.
+\par
+Prùmìr souètu je souèet prùmìrù, tak¾e platí: \\
+$$
+l_i = 1 + \sum\limits_{j=1}^n EY_{ij}
+$$
 
-Kdyz to dame dohromady:
-$E_{MFR} = \sum l_i p_i = \sum [1 + \sum\limits_{j=1}^n \frac{p_j}{p_i +
-p_j}] p_i = = 1 + \sum\limits_{i, j = 1}^{n} {p_i p_j}{p_i + p_j}$
+Dále víme, ¾e $EY_{ij} = p_{ij}$, nebo-li
+$$
+l_i = 1 + \sum\limits_{j=1}^n p_{ij}
+$$
+\par
+
+Zbývá tedy spoèítat $p_{ij}$ : \\
+
+\begin{equation}
+\begin{split}
+p_{ij} & = p(\text{"} x_j \text{ bude pøed } x_i \text{"}) \\
+& = p(\text{"poslední MEMBER, který byl na }x_i \text{ nebo } x_j\text{,}
+\text{byl na } x_j \text{"}) \\
+& = p(\text{"poslední zavolání MEMBER bylo na } x_j \text{"} | 
+\text{"poslední zavolání MEMBER bylo na } x_i \text{ nebo } x_j \text{"}) \\
+& \stackrel{*}{=} p(\text{"zavolání MEMBER na } x_j \text{"} | 
+\text{"zavolání MEMBER na } x_i \text{ nebo } x_j \text{"}) \\
+& = \frac{p_j}{p_i + p_j}
+\end{split}
+\end{equation}
+\mnote{* - ka¾dé volání MEMBER na daný prvek je stejne pravdìpodobné}
+
+Kdy¾ to dáme dohromady:
+$$
+E_{MFR} = \sum l_i p_i = \sum [1 + \sum\limits_{j=1}^n \frac{p_j}{p_i +
+p_j}] p_i = 1 + \sum\limits_{i, j = 1}^{n} {p_i p_j}{p_i + p_j}
+$$
 \end{proof}
 
 \begin{pozn}
-S tímto jsme se setkali pøi EISCH \\
-       je to dùvod, proè je EISCH lep¹í ne¾ LISCH
-			    VICH lep¹í ne¾ LICH
+S tímto jsme se setkali pøi EISCH. \\
+Je to dùvod, proè je EISCH lep¹í ne¾ LISCH, VICH lep¹í ne¾ LICH.
 \end{pozn}
 
 % TR -----------------------------------------------------------------------
 
 \subsection{Algoritmus TR (Transposition Rule)}
 
-Kdy¾ je x pøi operaci MEMBER(x) a INSERT(x) na i-tém místì, tak ho dá na
-(i-1)-ní místo, pøi INSERT(x), kdy x není v seznamu, dá x na pøedposl. místo.
+Kdy¾ je $x$ pøi operaci MEMBER($x$) a INSERT($x$) na $i$-tém místì, 
+tak ho dá pøísl. operace na ($i-1$)-ní místo.
+\par
+Pokud pøi INSERT($x$) není $x$ v seznamu, INSERT umístí $x$ na pøedposlední 
+místo.
 \par
 
 \begin{pozn}
-Lze najít posloupnost pøíkazù P lib. délky, ¾e MFR vy¾aduje èas $(|P|)$ a
+Lze najít posloupnost pøíkazù $P$ lib. délky, ¾e MFR vy¾aduje èas $(|P|)$ a
 TR vy¾aduje èas $(|P|^2)$. Na druhou stranu oèekávaný èas TR $\leq$
 oèekávaný èas MFR.
 \end{pozn}
 
 
-Chceme spoèítat oèekávaný èas MFR pro posloupnosti P aplikované na seznam S,
-kde P obsahuje jen operace MEMBER(x) pro x $\in$ S. 
+Chceme spoèítat oèekávaný èas MFR pro posloupnosti $P$ aplikované na
+seznam $S$,
+kde $P$ obsahuje jen operace MEMBER($x$) pro $x \in S$. 
 \par
-Pøedppokládejme, ¾e S={1,2, ... , n} a $\beta_1$ = pravdìpodobnost operace
-MEMBER(x) pro $x$ $\in$ S.
+Pøedppokládejme, ¾e $S={1,2, ... , n}$ a $\beta_1$ = pravdìpodobnost operace
+MEMBER(x) pro $x \in S$.
 $S = \{1,2,3\}$ ... stavy Markovova øetìzce jsou v¹echny permutace $S$
-pravdìpodobnost pøechodu je pst. operace pøevádìjící jeden stav do druhého
+pravdìpodobnost pøechodu je pst. operace pøevádìjící jeden stav do
+druhého.
 \par
 
 \begin{figure}[!htb]
@@ -310,26 +329,29 @@ daným rozlo¾ením operací skonèíme u seznamu $\Pi$.
 \par
 
 Pak oèekávaný èas je $\sum_{\Pi}{\kappa}_{\Pi}\sum_{i}{\beta}_i\Pi(i)$, 
-$\Pi(i)$ je pozice $i$ v seznamu $\Pi$.\\
-$p_1 = \sum_{\Pi}{\kappa}_{\Pi}\Pi(i)$ ... oèekávaná pozice prvku i
-$\delta(j,i)$ = asmyptot. pst., ¾e prvek j je pøed i, pak platí\\
+$\Pi(i)$ je pozice $i$ v seznamu $\Pi$.
+\par
+$p_1 = \sum_{\Pi}{\kappa}_{\Pi}\Pi(i)$ ... oèekávaná pozice prvku $i$
+\par
+$\delta(j,i)$ = asmyptot. pst., ¾e prvek $j$ je pøed $i$, pak platí \\
 $$
 \delta(j,i) = \sum\{\kappa_\Pi , \Pi\ seznam, \Pi(j) < \Pi(i)\}
 $$
 
 pak 
-\begin{multline}\bigparens
-\label{XXX-uprava}
-p_i
-= \sum_{\Pi}\kappa_\Pi\Pi(i)
-= \sum_{\Pi}\kappa_\Pi(1 + |{j, \Pi(j) < \Pi(i)|}\\
-= 1 + \sum{j,\Pi}\{\kappa_\Pi, \Pi(j) < \Pi(i)\} = 1 + \sum_{j}\delta(j,i) (1)
-\end{multline}
+\begin{equation}
+\begin{split}
+p_i & = \sum_{\Pi}\kappa_\Pi\Pi(i) \\
+& = \sum_{\Pi}\kappa_\Pi(1 + |{j, \Pi(j) < \Pi(i)|} \\
+& = 1 + \sum{j,\Pi}\{\kappa_\Pi, \Pi(j) < \Pi(i)\} \\
+& = 1 + \sum_{j}\delta(j,i) (1)
+\end{split}
+\end{equation}
 
-Zkusíme $\delta(j,i)$ spoèítat jiným zpùsobem:\\
+Zkusíme $\delta(j,i)$ spoèítat jiným zpùsobem: \\
 Idea: jak se mù¾e stát, ¾e ve výsledném seznamu je $j$ pøed $i$ ?
-V posloupnosti $P$ existovala operace MEMBER(x) a po ní se u¾ nevyskytovala
-operace MEMBER(i) ani MEMBER(j).
+V posloupnosti $P$ existovala operace MEMBER($x$) a po ní se u¾ nevyskytovala
+operace MEMBER($i$) ani MEMBER($j$).
 \par
 
 Jaká je pravdìpodobnost tohoto jevu ?
@@ -340,7 +362,7 @@ Jaká je pravdìpodobnost tohoto jevu ?
 1 + \sum_{\substack{j,i\\j \ne i}} \frac{\beta_j}{\beta_j+\beta_i}
 \end{multline}
 
-oèekávaný èas operace je 
+Oèekávaný èas operace \mnote{jake operace ? XXX} je 
 $$
 \sum_{i} \beta_i p_i 
 = \sum_{\substack{j,i\\j \ne i}} \frac{\beta_i\beta_j}{\beta_i+\beta_j}
@@ -351,22 +373,25 @@ pak nejrychlej¹í algoritmus na seznam $x_1 - x_2 - ... - x_n$ je klasický
 algoritmus bez pøemís»ování prvkù. Klasický algoritmus je takový
 algoritmus, který pøedem ví, jaké jsou pravdìpodobnosti
 pøístupu k jednotlivým prvkùm a má pøedem seznam srovnaný 
-sestupnì podle tìchto pravdìpodobností. 
+sestupnì podle tìchto pravdìpodobností.
+\par
 Oèekávaný èas tohoto algoritmu je 
 
 \begin{equation}
 \begin{split}
-& \sum_{i=1}^{n}i\beta_i = \\
-1 + \sum_{i,j=1} 2\frac{\beta_j\beta_i}{\beta_i+\beta_j} \\
+\sum_{i=1}^{n}i\beta_i 
+& = 1 + \sum_{i,j=1} 2\frac{\beta_j\beta_i}{\beta_i+\beta_j} \\
 & \leq 1 + \sum_{\substack{i,j\\j<i}} 2\beta_i 
 = 1 + \sum_{i=1}^{n} 2(i-1)\beta_i \\
 & = 1 + 2\cdot\sum_{i}i\beta_i - 2\sum_{i}\beta_i \\
-= 2\sum_{i=1}^{n}i\beta_i - 1
+& = 2\sum_{i=1}^{n}i\beta_i - 1
 \end{split}
 \end{equation}
 
 Platí
-$$\frac{\beta_j}{\beta_j+\beta_i} \leq 1$$
+$$
+\frac{\beta_j}{\beta_j+\beta_i} \leq 1
+$$
 
 
 % Splay stromy -------------------------------------------------------------
@@ -573,7 +598,7 @@ dostane do pozice koøene levého podstromu. Podle pravidel vyhledávacího
 stromu musí být v¹echny uzly levého podstromu men¹í ne¾ jeho koøen a 
 v¹echny uzly pravého podstromu vìt¹í. Proto musí mít levý podstrom koøen 
 vpravo volný a na toto místo se pøipojí pravý podstrom. Tento postup má 
-symetrickou - levou versi. Operace "Splay Delete", ru¹ící uzel D je 
+symetrickou - levou versi. Operace "Splay Delete", ru¹ící uzel D XXX je 
 uvedena na obr.2.2. XXX
 \par
 Viz algoritmus \ref{alg:splay.delete}
@@ -583,7 +608,7 @@ Viz algoritmus \ref{alg:splay.delete}
 \label{alg:splay.delete}
 \begin{algorithmic}
 \STATE SPLAY(x)
-\IF {koøeni reprezentuje x}
+\IF {koøen reprezentuje x}
   \STATE $T_1$ je podstrom levého syna koøene T
        \STATE $T_2$ je podstrom pravého syna koøene T
        \STATE T $\leftarrow$ JOIN2($T_1$, $T_2$)
@@ -654,17 +679,19 @@ Viz algoritmus \ref{alg:splay.chgw}
 \end{algorithmic}
 \end{algorithm}
 
-Pøedpokládejme, ¾e w(x) je váha prvku a je to kladné celé èíslo.
-tw(x) - totální váha x, je to souèet vah v¹ech prvkù v podstromì urèeném x
+Pøedpokládejme, ¾e $w(x)$ je váha prvku a je to kladné celé èíslo.
+\par
+$tw(x)$ - totální váha $x$, je to souèet vah v¹ech prvkù v podstromì
+urèeném $x$.
 
 \begin{priklad}
-\mnote{chybí obrázek}
+\mnote{chybí obrázek, tady je to nejake zmatene}
 % XXX obr
 
 $tw(a) = w(a) + w(b) + w(c)$ \\
 
 $r(x)$ je $rank(x)$ \\
-  $r(x) = \lfloor log tw(x) \rfloor$
+$r(x) = \lfloor log tw(x) \rfloor$
 
 $bal(konfigurace) = \sum \{ r(x) : x \in konfigurace \}$
 
@@ -692,8 +719,6 @@ neuvádíme strom, na kterém je operace provádìna - to vìt¹inou vyplyne z
 kontextu. Tam, kde je nutné uvést, na kterém stromì se operace SPLAY
 provádí (napø. v implementaci operace JOIN2, pí¹eme volání jako 
 SPLAY($x$,$T$).
-
-
 
 Viz algoritmus \ref{alg:splay.spl}
 
@@ -763,7 +788,7 @@ r(T) = r(\text{koøen}(T))$$
 bal(konfigurace) = souèet rankù v¹ech vrcholù v mno¾inách tvoøících
 konfigurace
 \par
-Ná¹ cíl : budeme chtít ukázat, ¾e amortizovaná slo¾itost operací je
+Ná¹ cíl : Budeme chtít ukázat, ¾e amortizovaná slo¾itost operací je
 $O(log\frac{w(T)}{v(x)})$, kdy¾ $T$ reprezentuje $S$.
 \par
 Èas operace SPLAY = poèet bìhù druhého cyklu, který vrchol $t$ 
@@ -791,7 +816,8 @@ Zøejmì $r(a) \geq r(b_1)$ a $r(a) \geq r(b_2)$, tedy $r(b_1) \neq r(b_2)
 \par
 \begin{equation}
 \begin{split}
-& r(a) = \lfloor log_2 w(a) \rfloor \geq \lfloor (w(b_1) + w(b_2)) \rfloor \\
+r(a) 
+& = \lfloor log_2 w(a) \rfloor \geq \lfloor (w(b_1) + w(b_2)) \rfloor \\
 & \geq \lfloor log_2(2 - min\{w(b_1),w(b_2)\}) \\
 & = 1 + log_2 min\{w(b_1),w(b_2)\} \\
 & = 1 + min\{w(b_1),w(b_2)\}
@@ -891,17 +917,17 @@ $1 + bal(T_i) - bal(T_{i-1}) = ...
 = 1 + r_i(u_{i-1}) + r_i(v_{i-1}) - _{i-1}(t) - r_{i-1}(u_{i-1}) \leq$
 
   \begin{itemize}
-  \item $\alpha$ \\
+  \item{$\alpha$} \\
     Pøedpoklad: $r_{i-1}(t) < r_i(v_{i-1})$ \\
     Pak platí: \\
     $\leq 1 + 2(r_{i-1}(v_{i-1}) - r_{i-1}(t)) 
     \leq 3(r_i(v_{i-1}) - r_{i-1}(t))$
-  \item $\beta$ \\
+  \item{$\beta$} \\
     Pøedpoklad: $r_{i-1}(t) = r_i(v_{i-1})$, $r_i(t) > r_i(v_{i-1})$ \\
     $... = 1 + r_i(u_{i-1}) + r_i(v_{i-1}) - r_{i-1}(t) - r_{i-1}(u_{i-1})
     \leq 2(2(r_{i-1}(v_{i-1}) - r_{i-1}(t))
     \leq 3(r_i(v_{i-1}) - r_{i-1}(t))$
-  \item $\gamma$ \\
+  \item{$\gamma$} \\
     Pøedpoklad: $r_i(t) = r_i(v_{i-1}) - r_{i-1}(v_{i-1}) = r_{i-1}(t)$ \\
     Vím: $r_{i-1}(t) = r'(t) = r_{i-1}(v_{i-1}) = r'(u_{i-1}) 
     = r_i(t) = r_i(v_{i-1}) = r'(v_{i-1})$

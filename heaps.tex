@@ -250,9 +250,11 @@ K èemu jsou d-reg. haldy dobré ? napø. pro implementaci Dijkstrova
 algoritmu.
 \par
 
-Vstup: orientovaný graf $(V,E)$, fce $c:E \rightarrow R^+$, vrchol $z$ \\
-Výstup: $d(v)$, $v \in V$ \\
+\begin{itemize}
+\item[Vstup:] orientovaný graf $(V,E)$, fce $c:E \rightarrow R^+$, vrchol $z$
+\item[Výstup:] $d(v)$, $v \in V$ \\
 	$d(v)$ je délka nejkrat¹í cesty ze $z$ do $v$ \\
+\end{itemize}
 
 \begin{algorithm}[!htb]
 \caption{Dijkstra pro d-regularni haldy}
@@ -272,16 +274,19 @@ Výstup: $d(v)$, $v \in V$ \\
 \end{algorithm}
 \par
 
-$U$ reprezentujeme pomocí d-reg. haldy. Pak èas Dijkstrova algoritmu je 
-O($|V| \cdot$ èas na INSERT + $|V| \cdot$ èas na DELETEMIN + $|E| \cdot$ èas na
-DESCREASEKEY) 
-\par
+$U$ reprezentujeme pomocí d-reg. haldy.  Pak èas Dijkstrova algoritmu je 
+$$
+O(|V| \cdot \text{èas na INSERT } + |V| \cdot 
+\text{èas na DELETEMIN } + |E| \cdot \text{èas na DESCREASEKEY}) 
+$$
 
-kdy¾ $d = 2$, pak to je $O(|E|log_2(|V|))$
-$d = max {\frac{|E|}{|V|}, 2}$, vyjde èas $O(|E|log_d(|V|))$ \\
-kdy¾ $\exists \epsilon$ , ¾e $|E| \geq c|V|^{1+\epsilon}$ pro nìjaké cc,
+Kdy¾ $d = 2$, pak to je $O(|E|log_2(|V|))$
+\par
+$d = max {\frac{|E|}{|V|}, 2}$, vyjde èas $O(|E|log_d(|V|))$ 
+\par
+Kdy¾ $\exists \epsilon$ , ¾e $|E| \geq c|V|^{1+\epsilon}$ pro nìjaké $c$,
 pak èas je $O(|E|)$. (graf je dostateènì hustý) \\
-$|E| \geq c|V|\log^{\epsilon} |V|$ pro nìjaké c, $\epsilon$, pak èas
+$|E| \geq c|V|\log^{\epsilon} |V|$ pro nìjaké $c$, $\epsilon$, pak èas je
 $O(|E|\log log |V|)$.
 \par
 
@@ -292,6 +297,7 @@ Tøídící algoritmus Heapsort je dal¹í aplikací d-regulárních hald.
 \par
 HEAPSORT - viz. alg. \ref{alg:heaps.d-reg.heapsort} 
 \par
+
 \begin{itemize}
 \item[Vstup:] prostá posloupnost prvkù $x_1, x_2, ..., x_n$
 \item[Výstup:] uspoøádaná psl. prvkù $x_1, x_2, ..., x_n$
@@ -326,23 +332,23 @@ vrcholu v podstromu v s nejvý¹e jedním synem.
 \par
 Binární strom je LEFTIST, kdy¾ 
 \begin{itemize}
-\item[a)] kdy¾ v má jednoho syna, pak je to levý syn
-\item[b)] kd¾ v má dva syny, pak 
+\item[a)] kdy¾ vrchol $v$ má jednoho syna, pak je to levý syn
+\item[b)] kdy¾ vrchol $v$ má dva syny, pak 
 	$npl(\text{levého syna}) \geq npl(\text{pravého syna})$
 \end{itemize}
 \end{defn}
 
 \begin{defn}
 Cesta $x_1, x_2, ..., x_n$ se nazývá {\emph pravá}, kdy¾ $x_i$ je pravý syn
-$x_{i-1}$ pro i=2,3,...,n a $x_n$ nemá pravého syna.
+$x_{i-1}$ pro $i=2,3,...,n$ a $x_n$ nemá pravého syna.
 \end{defn}
 \par
 
 Vlastnosti: 
 \begin{enumerate}
 \item ka¾dý podstrom leftist stromu je leftist 
-\item délka pravé cesty z $\forall$ vrcholu v je $\leq$ log(poèet vrcholù v
-podstromu vrcholu v)
+\item délka pravé cesty z $\forall$ vrcholu $v$ je 
+$\leq log(\text{poèet vrcholù v podstromu vrcholu } v)$
 \end{enumerate}
 
 \begin{defn}
@@ -449,7 +455,7 @@ $npl$, které jsem musel pøepisovat, je v¾dycky pravý syn.
 
 \begin{theorem}
 Operace DECREASEKEY, INCREASEKEY a DELETE vy¾adují èas $O(log n)$ v leftist
-haldách. (a poèet prvkù výsledné reprez. mno¾iny)
+haldách. ($n$ je poèet prvkù výsledné reprez. mno¾iny)
 \end{theorem}
 
 % --------------------------------------------------------------------------
@@ -564,13 +570,20 @@ Operace INCREASEKEY vy¾aduje èas $O(log^2 n)$.
 \end{theorem}
 
 \begin{pozn}
-XXX
-Sèítání v binárních èíslech má (XXX amort?) slo¾itost $O(1)$.
+Sèítání v binárních èíslech má slo¾itost $O(1)$.
 \par
+
+\begin{tabular}{|l|}
+\hline
 1 0 0 ... 0 \\
+\hline
 1 1 1 ... 1 \\
+\hline
+\end{tabular}
+\hspace{5mm}
+
 \par
-amort. slo¾. \\
+XXX amort. slo¾. \\
 Neplatí nìco podobného pro binom. stromy ? Ano, pro operaci INSERT.
 \end{pozn}
 
@@ -629,12 +642,15 @@ konfiguraci}$
 $\text{amort. slo¾.} = \text{èas pro operaci} + 
 bal(\text{výsledné konfigurace}) - bal(\text{pùvodní konfigurace})$
 
-\begin{tabular}{ll}
+\begin{tabular}{|l|l|}
+\hline
 MERGE & $O(1)$ \\
 INSERT & $O(1)$ \\
 MIN & $O(log n)$ \\
 DELETEMIN & $O(log n)$ \\
+\hline
 \end{tabular}
+
 
 \subsection{Zobecnìné binomiální haldy}
 

@@ -73,24 +73,30 @@ Pø.:
 
 
 \subsection{Operace INSERT a DELETE}
+
 Pro mno¾inu $A \subseteq U_2$ a pro statickou strukturu {\cal S}
 øe¹ící vyhledávací problémf pro $x \in U_2$.
-INSERT(x,A) - vybudování struktury øe¹ící vyhledávací problém pro mono¾inu
-$A \cup \{x\}$.
-DELETE(x,A) - vytvoøení struktury øe¹ící vyhl. problém pro mno¾inu 
-$A - \{x\}$.
+\par
+\begin{itemize}
+\item[INSERT($x$,$A$)] - vybudování struktury øe¹ící vyhledávací problém pro mno¾inu
+$A \cup \{x\}$
+\item[DELETE($x$,$A$)] - vytvoøení struktury øe¹ící vyhl. problém pro mno¾inu 
+$A - \{x\}$
+\end{itemize}
 
 \begin{pozn}
 Ze statické struktury chce vytovoøit dynamickou (dynamizace). INSERT je
-obvykle jednodu¹¹í ne¾ DELETE, na tu budeme potøeboivat dodateèné
+obvykle jednodu¹¹í ne¾ DELETE, na ten budeme potøebovat dodateèné
 pøedpoklady.
 \end{pozn}
 
 Nároky na dynamizaci
-- chceme aby se f(x,A) v nové struktuøe spoèítalo pøibli¾nì stejnì rychle
-  jako v pùvodní struktuøe
-- kdy¾ vytvoøení pùvodní struktury pro n prvnkovou mno¾inu trvalo
-  t, pak operace INSERT by pøibli¾nì mìla vy¾adovat èas t $t/n$.
+\begin{itemize}
+\item chceme aby se $f(x,A)$ v nové struktuøe spoèítalo pøibli¾nì 
+  stejnì rychle jako v pùvodní struktuøe
+\item kdy¾ vytvoøení pùvodní struktury pro $n$ prvnkovou mno¾inu trvalo
+  $t$, pak operace INSERT by pøibli¾nì mìla vy¾adovat èas $t/n$.
+\end{itemize}
 
 \begin{defn}
 Vyhledávací problém je \emph{rozlo¾itelný}, kdy¾
@@ -127,12 +133,12 @@ P_\staticka(n) & = \text{èas potøebný pro vybudování \staticka}
 \section{Semi-dynamizace}
 
 \begin{theorem}
-Máme rozlo¾itelný vyhled. problém f a máme pro nìj statickou strukturu,
+Máme rozlo¾itelný vyhled. problém $f$ a máme pro nìj statickou strukturu,
 která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
 $P(n)$,
 $kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
-existuje semidynamická dat. struktura D, øe¹ící f v èase
-$O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
+existuje semidynamická dat. struktura $D$, øe¹ící $f$ v èase
+$O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERT s 
 amort. slo¾itostí
 $O(\frac{P(n)}{n} \cdot\log n)$.
 \end{theorem}
@@ -141,13 +147,13 @@ $O(\frac{P(n)}{n} \cdot\log n)$.
 Budeme pøedpokládat, ¾e $Q_\staticka(n)$, $S_\staticka(n)/n$ a
 $P_\staticka(n)/n$ jsou neklesající funkce.
 
-Máme mno¾inu A a vytvoøíme pro ni novou strukturu D.
+Máme mno¾inu $A$ a vytvoøíme pro ni novou strukturu $D$.
 Nech» $A_i \subseteq A$ taková, ¾e buï $|A_i| = 2^i$ nebo $A_i = \emptyset$ \\
 $A_i \cap A_j = \emptyset pro i \neq j$.
 $\bigcup A_i = A$
 
-Platí $A_i \neq \emptyset$ právì kdy¾ (i+1)-ní bit v dvojkovém rozvoji èísla
-|A| je 1.
+Platí $A_i \neq \emptyset$ právì kdy¾ $(i+1)$-ní bit v dvojkovém rozvoji èísla
+$|A|$ je 1.
 
 Chceme navrhnout strukturu, která by umìla
 \begin{enumerate}
@@ -173,14 +179,15 @@ Nová struktura \dynamicka\ reprezentující $A$ je potom
 tìchto seznamù jsou projpojeny s odpovídajícími prvky ve stromì.
 \end{itemize}
 
-Jak v nové struktuøe spoèítáme f(x,A) ?
-pro ka¾dou $A_i \neq \emptyset$ spoèítáme $f(x,A_i)$ a pomocí operace
-$\oplus$ pak spoèítáme f(x,A).
+Jak v nové struktuøe spoèítáme $f(x,A)$ ? \\
+Pro ka¾dou $A_i \neq \emptyset$ spoèítáme $f(x,A_i)$ a pomocí operace
+$\oplus$ pak spoèítáme $f(x,A)$.
 
 \begin{pozn}
- platí, kdy¾ $A_i \neq \emptyset$, pak 
+Platí, ¾e kdy¾ $A_i \neq \emptyset$, pak 
 $i \leq \lceil log_2|A| \rceil$
-èas, který je potøeba v nové struktuøe na výpoèet f(x,A)
+\mnote{XXX jak ma vypadat tento vzorec ?}
+èas, který je potøeba v nové struktuøe na výpoèet $f(x,A)$
 \end{pozn}
 
 \begin{multline}
@@ -191,31 +198,39 @@ log_2|A| + \sum_{i=0}^{log|A|}Q(2^i) \leq log|A| + \sum_{i=0}^{log|A|}Q(|A|)
 $log_2(|A|)$ - vyhodnocení $f(x,A)$ z $f(x,A_i), i=0,1,...$
 \par
 
-tedy algoritmus potøebuje O(log|A| Q(|A|)) èasu
-kdy¾ $Q(n) = \Theta(n^\epsilon) pro \epsilon > 0$, pak platí. ¾e nová
-struktura pro výpoèet f potøebuje
-\begin{multline}
-log|A| + \sum_{i=0}^{log n}Q(2^i) = \\
-|A| + \sum_{i=0}^{log |A|}
+Tedy algoritmus potøebuje $O(log|A| Q(|A|))$ èasu
+kdy¾ $Q(n) = \Theta(n^\epsilon) pro \epsilon > 0$, pak platí, ¾e nová
+struktura pro výpoèet $f$ potøebuje
+\begin{equation}
+\begin{split}
+& log|A| + \sum_{i=0}^{log n}Q(2^i)  \\
+& = |A| + \sum_{i=0}^{log |A|}
 \frac{S(2^i)}{2^i} 2^i \leq |A| + \sum_{i=0}^{log |A|} \frac{S(|A|)}{|A|} 2^i \\
-= |A| - \frac{S(|A|)}{|A|} 2^i = |A| -
+& = |A| - \frac{S(|A|)}{|A|} 2^i = |A| -
 \frac{S(|A|)}{|A|}(\sum_{i=0}^{log |A|} 2^i) \\
-= O(S(|A|))
-\end{multline}
+& = O(S(|A|))
+\end{split}
+\end{equation}
 
+\subsection{INSERT}
 
 INSERT(x)
+
+\begin{algorithm}[!htb]
+\caption{INSERT}
+\label{alg:semidyn.insert}
 \begin{algorithmic}
 \IF {$x \not\in A$} 
-  \STATE nalezneme nejmen¹í j, ¾e $A_j = \emptyset$
+  \STATE nalezneme nejmen¹í $j$, ¾e $A_j = \emptyset$
 \ENDIF
 \STATE $A_j = \{x\} \cup \bigcup{i<j} A_i, A_i = \emptyset pro i<j$
-\STATE vytvoøíme strukturu S spojový seznam pro $A_j$
-\STATE x pøidáme do reprezentace A.
+\STATE vytvoøíme strukturu $S$ spojový seznam pro $A_j$
+\STATE $x$ pøidáme do reprezentace $A$.
 \end{algorithmic}
+\end{algorithm}
 
 
-Kdy se buduje znovu S struktura pro $A_j$ ? 
+Kdy se buduje znovu $S$ struktura pro $A_j$ ? 
 \begin{enumerate}
 \item musí se naplnit v¹echny $A_i$ pro i<j 
 to je $2^j-1$ úspì¹ných INSERTù (ty, které pøidaly prvek)
@@ -224,7 +239,7 @@ to je $2^j-1$ úspì¹ných INSERTù (ty, které pøidaly prvek)
 \item da¹í úspe¹ný INSERT vytvoøí teprve S strukturu pro $A_j$
 \end{enumerate}
 
-tj. $2 \cdot 2^j$ úspì¹ných INSERTù
+tj. $2 \cdot 2^j$ úspì¹ných INSERTù.
 
 Amortizovaný èas operace INSERT je 
 $$
@@ -236,27 +251,27 @@ $$
 \end{proof}
 
 \begin{theorem}
-Máme rozlo¾itelný vyhled. problém f a máme pro nìj statickou strukturu,
+Máme rozlo¾itelný vyhledávací problém $f$ a máme pro nìj statickou strukturu,
 která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
 $P(n)$,
 $kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
-existuje semidynamická dat. struktura D, øe¹ící f v èase
-$O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
+existuje semidynamická dat. struktura $D$, øe¹ící $f$ v èase
+$O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERT se
 slo¾itostí
 $O(\frac{P(n)}{n} \cdot\log n)$.
 \end{theorem}
 
-Následuje konstrukce takové semidyn. struktury, která bude podporovat
+Následuje konstrukce takové semidynamické struktury, která bude podporovat
 INSERT se slo¾itostí v nejhor¹ím pøípadì.
 \par
 
 \begin{pozn}
-pokud $\frac{P(n)}{n} = \Theta(n^\epsilon) pro \epsilon > 0$, pak
+Pokud $\frac{P(n)}{n} = \Theta(n^\epsilon) pro \epsilon > 0$, pak
 amortizovaný èas pro operaci INSERT bude $O(\frac{P|A|}{|A|})$.
 \end{pozn}
 
-Máme mno¾inu A \\
-budeme mít roklad A na disjunktní mno¾iny $A_{i,j}, i=0,1,..., j \in
+Máme mno¾inu $A$ \\
+budeme mít roklad $A$ na disjunktní mno¾iny $A_{i,j}, i=0,1,..., j \in
 {0,1,...,k_j}$, kde $k_j \in {0,1,2}$. \\
 $|A_{i,j}| = 2^i$ a platí: \\
 kdy¾ $A_{i,0}$ existuje pro $i > 0$, pak existují $A_{i-1,0}, A_{i-1,1}$.
@@ -264,19 +279,19 @@ kdy¾ $A_{i,0}$ existuje pro $i > 0$, pak existují $A_{i-1,0}, A_{i-1,1}$.
 
 Struktura: 
 \begin{enumerate}
-\item reprezentace A (pomocí (a,b)-stromù, èerveno-èerných stromù, ...)
-\item $\forall$ existující $A_{i,j}$ je S struktura reprezentující
+\item reprezentace $A$ (pomocí (a,b)-stromù, èerveno-èerných stromù, ...)
+\item $\forall$ existující $A_{i,j}$ je $S$ struktura reprezentující
 $A_{i,j}$ 
 \item $\forall$ existující $A_{i,j}$ je spojový seznam reprezentující
 $A_{i,j}$
 \item kdy¾ $A_{i,0}$ a $A_{i,1}$ existují pro nìjaké i, pak je 
-"rozpracovaná" S struktura pro mno¾inu $A_{i-1,k_i+1} = A{i,0} \cup
+"rozpracovaná" $S$ struktura pro mno¾inu $A_{i-1,k_i+1} = A{i,0} \cup
 A_{i,1}$.
 tj. bylo provedeno nìkolik krokù pro její vytvoøení, ale není dokonèena.
 \end{enumerate}
 
 
-% nasleduje prednaska z 12.5.2003, pøepsal Vladimír Kotal
+% nasleduje prednaska z 12.5.2003, prepsal Vladimír Kotal
 
 
 $A \subseteq U_2, i_0 \in N$ \\
@@ -286,40 +301,44 @@ $\forall i = 0,1,...,i_0$ a $\forall j = 0,1,...,j_i$ je $A_{i,j} \in A$
 taková, ¾e $|A_{i,j}| < 2^i$.
 
 \begin{defn}
-${ A_{i,j}, i=0,1,...,i_0, j=1,2,...,j_i }$ je rozklad A.
+${ A_{i,j}, i=0,1,...,i_0, j=1,2,...,j_i }$ je rozklad $A$.
 \end{defn}
 
-Pro ka¾dé $A_{i,j}$ je dána S struktura reprezentující $A_{i,j}$ a spojový
+Pro ka¾dé $A_{i,j}$ je dána $S$ struktura reprezentující $A_{i,j}$ a spojový
 seznam prvkù z $A_{i,j}$, navíc dána dat. struktura reprezentující A.
 Kdy¾ $A_{i,1}$ existuje, pak je rozpracovaná S struktura pro
 $A_{i+1,j_{i+1}+1} = A_{1,0} \cup A_{i,1}$.
 
-pozn. struktura je rozpracovaná, jestli¾e bylo provedeno nìkolikj krokù
-pro postaverní S struktury, ale je¹tì není dokonèena.
+\begin{pozn}
+Struktura je rozpracovaná, jestli¾e bylo provedeno nìkolik krokù
+pro postaverní $S$ struktury, ale je¹tì není dokonèena.
+\end{pozn}
 
-- toto je definice nové semidynamické struktury
+- toto je definice nové semidynamické struktury.
 \par
 
 Pamì»ové nároky
 
-\begin{multline}
-|A| + \sum_{i=0}^{log |A|} 4S(2^i) = 
-|A| + \sum_{i=0}^{log |A|} \frac{S(2^i)}{2^i}2^i \leq 
-|A| + 4 \sum_{i=0}^{log |A|} \frac{S(|A|)}{|A|}2^i = \\
-|A| + \frac{4S(|A|)}{|A|} (\sum 2^i) = 
-|A| + 4S(|A|) = O(S(|A|))
-\end{multline}
+\begin{equation}
+\begin{split}
+& |A| + \sum_{i=0}^{log |A|} 4S(2^i) \\
+& = |A| + \sum_{i=0}^{log |A|} \frac{S(2^i)}{2^i}2^i \leq 
+|A| + 4 \sum_{i=0}^{log |A|} \frac{S(|A|)}{|A|}2^i \\
+& = |A| + \frac{4S(|A|)}{|A|} (\sum 2^i) = |A| + 4S(|A|) \\
+& = O(S(|A|))
+\end{split}
+\end{equation}
 
 \begin{pozn}
-$|A|$ - pamet pro pom. struktury  \\
-$\sum_{i=0}^{log |A|} 4S(2^i)$ - pamet potrebna na S struktury
+$|A|$ - pamì» pro pom. struktury  \\
+$\sum_{i=0}^{log |A|} 4S(2^i)$ - pamì» potøebná na S struktury
 \end{pozn}
 
-Algoritmus pro výpoèet \\
+Algoritmus pro výpoèet : \\
 spoèítáme $f(x,A_{i,j})$ pro ka¾dou $A_{i,j}$ a pomocí operace $\oplus$
-spoèítáme f(x,A). 
+spoèítáme $f(x,A)$. 
 
-èas potøebný pro výpoèet A
+Èas potøebný pro výpoèet $A$
 \begin{multline}
 \sum_{i=0}^{log |A|} 3Q(2^i) + 3\log |A| \leq 
 3\sum_{i=0}^{log |A|} Q(|A|) + 3\log |A| = 
@@ -367,7 +386,7 @@ log |A| + \sum_{i=0}^{log |A|} (\frac{P(2^i)}{2^i} + 1) =
 
 $log |A|$ - èas pro zji¹tìní zda $x \in A$ \\
 
-kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
+Kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
 vy¾aduje èas $O(\frac{P(n)}{n})$.
 
 \par
@@ -409,15 +428,15 @@ dokonèeno $A_{1,1} = \{x_3,x_4\}$ \\
 \end{priklad}
 
 \begin{theorem}
-Nech» S je statická struktura pro rozlo¾itelný vyhledávací problém f
-a nech» K je "hladká" funkce. Pak existuje semidynamická struktura D
-zalo¾ená na rozkladu urèeném funkcí K, tak ¾e platí: \
-kdy¾ K=O(log n), pak èas pro vyhledání je O(K Q(n)) \
+Nech» $S$ je statická struktura pro rozlo¾itelný vyhledávací problém $f$
+a nech» $K$ je "hladká" funkce. Pak existuje semidynamická struktura $D$
+zalo¾ená na rozkladu urèeném funkcí $K$, tak ¾e platí: \\
+kdy¾ $K=O(log n)$, pak èas pro vyhledání je $O(K Q(n))$ \\
 			  pro INSERT je $O(K(n) n^{\frac{1}{K(n)}}
-			  \frac{P(n)}{n})$ \
-kdy¾ $K = \Omega(log(n))$ pak platí: \
-èas pro vyhledání je $O(K(n)) Q(n))$ \
-pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
+			  \frac{P(n)}{n})$ \\
+Kdy¾ $K = \Omega(log(n))$, pak platí: \\
+èas pro vyhledání je $O(K(n)) Q(n))$ \\
+Pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
 \frac{P(n)}{n})$.
 \end{theorem}
 
@@ -429,34 +448,36 @@ Dùkaz viz. \cite{mehlhorn-overmars}
 
 \section{Dynamizace}
 
-Potøebujeme, aby struktura S pøipou¹tìla fale¹ný DELETE (prvek pouze
+Potøebujeme, aby struktura $S$ pøipou¹tìla fale¹ný DELETE (prvek pouze
 ¹krtneme, ale zùstane tam. fale¹ný - èas. ani pamì»ové nároky se nezlep¹í
 ani nezhor¹í)
 
 \begin{defn}
-fale¹ný DELETE je operace, která vy¹krtne prvek z mno¾iny - tj. umo¾ní
+\emph{Fale¹ný DELETE} je operace, která vy¹krtne prvek z mno¾iny - tj. umo¾ní
 poèítat $f(x,A-\{a\})$ (kde a je vy¹krtnutý prvek) tak, ¾e èasové nároky
 budou stejné jako kdy¾ nebyl ¾ádný prvek vy¹krtnut.
 \end{defn}
 
-Budeme pøedpokládat, ¾e èas pro fale¹ný DELETE je O(n), kde n je velikost
-pùvodní reprezentvané mno¾iny.
+Budeme pøedpokládat, ¾e èas pro fale¹ný DELETE je $O(n)$, kde $n$ je velikost
+pùvodní reprezentované mno¾iny.
 
 \subsection{Reprezentace mno¾iny A}
-rozlo¾íme A na disjunktní mno¾iny $A_j, j=0,1,...,log|A|+3$
+
+Rozlo¾íme $A$ na disjunktní mno¾iny $A_j, j=0,1,...,log|A|+3$
 takové, ¾e buï $A_j = \emptyset$ nebo $2^{j-3} < |A_j| \leq 2^j$.
 \par
 ka¾dá mno¾ina $A_j$ bude reprezentována strukturou, která pùvodnì (kdy¾
 nebyly vy¹krtnuté ¾ádné prvky) mìla velikost $\leq 2^j$.
 \par
 Dále $\forall A_j \neq \emptyset$ bude dán spojový seznam prvkù v $A_j$.
-
-Bude dána datová reprezentace mno¾iny A. Pro ka¾dý prvek a v spojovém
+\par
+Bude dána datová reprezentace mno¾iny $A$. Pro ka¾dý prvek a v spojovém
 seznamu mno¾iny $A_j$ bude dán ukazatel na prvek a  v dat. struktuøe
-reprezentující A a naopak. Pro ka¾dý prvek v dat. struktuøe repr. A je dán
+reprezentující A a naopak. Pro ka¾dý prvek v dat. struktuøe repr. $A$ je dán
 ukazatel na prvek a v odpovídajícím spojovém seznamu.
 
 \subsection{Pamì»ové nároky}
+
 \begin{multline}
 |A| + \sum_{i=0}^{log|A|+3} S(2^i) = |A| + \sum \frac{S(2^i)}{2^i} 2^i
 \leq |A| + \sum_{i=0}^{log|A|+3} \frac{S(8|A|)}{8|A|} 2^i = \\
@@ -465,26 +486,27 @@ ukazatel na prvek a v odpovídajícím spojovém seznamu.
 \end{multline}
 \par
 
-$|A|$ - pomocne struktury \\
-suma - pamet pro S struktury
+$|A|$ - pomocné struktury \\
+suma - pamì» pro $S$ struktury
 \par
-závìr: kdy¾ S je omezená polynomem, pak pamì»ové nároky jsou O(S(n)). pokud
-S je superpolynomiální, pak pamì». nároky jsou O(S(8n)) (a platí S(n) =
-o(S(8n)) )
+Závìr: Kdy¾ $S$ je omezená polynomem, pak pamì»ové nároky jsou $O(S(n))$.
+Pokud $S$ je superpolynomiální, pak pamì». nároky jsou $O(S(8n))$
+(a platí $S(n) = o(S(8n))$)
 \par
 
-výpoèet f: \\
-spoèítáme $f(x,A_j)$ a pomocí operace $\oplus$ spoèítáme f(x,A).
+Výpoèet $f$: \\
+spoèítáme $f(x,A_j)$ a pomocí operace $\oplus$ spoèítáme $f(x,A)$.
 
-\subsection{èas pro výpoèet f}
+\subsection{Èas pro výpoèet $f$}
+
 $log(n) + \sum_{i=0}^{log|A|+3} Q(2^i) = log(n) + \sum Q(8|A|) =
 O(Q(8|A|) log|A|)$.
 \par
 
-závìr: èas na výpoèet f je
+Závìr: èas na výpoèet $f$ je
 $\Biggl\{$
 \begin{tabular}{ll}
-kdy¾ Q je subpolynomiální & $O(Q(n)log(n))$ \\
+kdy¾ $Q$ je subpolynomiální & $O(Q(n)log(n))$ \\
 polynomiální & $O(Q(n))$ \\
 superplynomiální & $O(Q(8n))$ \\
 \end{tabular}
@@ -512,8 +534,8 @@ struktury reprezentující A a pøidáme po¾adované ukazatele)
 Pozorování:\\
 Kdy¾ vytváøíme pøi INSERTu S-strukturu pro $A_j$, pak $2^{j-1} < |A_j|
 \leq 2^j$. \\
-(kdy¾ toto neplatí, pak pro j-1 je splnìna nerovnost $|\bigcup{i<j-1} A_i|
-< 2^{j-1}$ a to je spor s minimalitou j.
+(kdy¾ toto neplatí, pak pro $j-1$ je splnìna nerovnost $|\bigcup{i<j-1} A_i|
+< 2^{j-1}$ a to je spor s minimalitou $j$.
 \par
 
 % viz. poznamky/datstr_054.jpg
@@ -533,15 +555,15 @@ DELETE(x) viz. alg. \ref{alg:dynam.delete_f}
      a spojový seznam) $\rightarrow A_j = \emptyset$
   \ENDIF
   \IF {$|A_j| > 1$ a zároveò $|A_j| > 2^{j-3} + 1$}
-    \STATE na S strukturu pro $A_j$ provedeme fale¹ný DELETE9x0, x sma¾eme
+    \STATE na $S$ strukturu pro $A_j$ provedeme fale¹ný DELETE($x$), $x$ sma¾eme
     ze spojového seznamu pro $A_j \rightarrow A_j = A_j - \{x\}$
   \ENDIF  
   \IF {$|A_j| > 1$ a zároveò $|A_j| = 2^{j-3} + 1$}
     \IF {$A_{j-1} = \emptyset$}
        \STATE $A_{j-1} = A_{j-1} - \{x\}, A_j = \emptyset$
        \STATE vybudujeme novou S-strukturu pro $A_{j-1}$
-       (x odstraníme ze spojového seznamu pro $A_{j-1} - 1$)
-% XXX \mnote{tady nevím jestli nemá být jenom $A_{j-1}$}
+       ($x$ odstraníme ze spojového seznamu pro $A_{j-1} - 1$)
+% \mnote{XXX tady nevím jestli nemá být jenom $A_{j-1}$}
     \ENDIF
     \IF {$A_{j-1} = \emptyset$ a zároveò $|A_{j-1}| > 2^{j-2}$}
       \STATE vymìním $A_j a A_{j-1}$
@@ -564,7 +586,7 @@ DELETE(x) viz. alg. \ref{alg:dynam.delete_f}
 \end{algorithm}
 
 Pozorování: \\
-Kdy¾ operace DELETE buduje S-strukturu pro mno¾inu $A_j$, pak platí:
+Kdy¾ operace DELETE buduje $S$-strukturu pro mno¾inu $A_j$, pak platí:
 $2^{j-1} \leq |A_j| \leq 2^{j-1}$.
 
 \subsection{Amortizovaný èas operace DELETE}

@@ -127,24 +127,21 @@
 \contentsline {chapter}{\numberline {9}Samoopravuj\IeC {\'\i }c\IeC {\'\i } se struktury}{89}{chapter.9}
 \contentsline {section}{\numberline {9.1}Amortizovan\'a slo\v zitost}{89}{section.9.1}
 \contentsline {section}{\numberline {9.2}Seznamy}{89}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Algoritmus MEMBER}{89}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Algoritmus INSERT}{89}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}Algoritmus DELETE}{89}{subsection.9.2.3}
-\contentsline {subsection}{\numberline {9.2.4}Algoritmus MFR (Move Front Rule)}{90}{subsection.9.2.4}
+\contentsline {subsection}{\numberline {9.2.1}Algoritmus MFR (Move Front Rule)}{89}{subsection.9.2.1}
 \contentsline {subsubsection}{Amort. slo\v zitost}{91}{section*.19}
-\contentsline {subsection}{\numberline {9.2.5}Algoritmus TR (Transposition Rule)}{92}{subsection.9.2.5}
+\contentsline {subsection}{\numberline {9.2.2}Algoritmus TR (Transposition Rule)}{92}{subsection.9.2.2}
 \contentsline {section}{\numberline {9.3}Splay stromy}{94}{section.9.3}
 \contentsline {subsection}{\numberline {9.3.1}Operace SPLAY}{94}{subsection.9.3.1}
 \contentsline {subsection}{\numberline {9.3.2}Podporovan\'e operace}{95}{subsection.9.3.2}
 \contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{95}{subsection.9.3.3}
-\contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{95}{subsection.9.3.4}
+\contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{96}{subsection.9.3.4}
 \contentsline {subsection}{\numberline {9.3.5}Algoritmus JOIN3}{96}{subsection.9.3.5}
-\contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{96}{subsection.9.3.6}
+\contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{97}{subsection.9.3.6}
 \contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{97}{subsection.9.3.7}
-\contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{97}{subsection.9.3.8}
-\contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{98}{subsection.9.3.9}
+\contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{98}{subsection.9.3.8}
+\contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{99}{subsection.9.3.9}
 \contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{99}{subsection.9.3.10}
-\contentsline {subsection}{\numberline {9.3.11}Amortizovan\'a slo\v zitost SPLAY}{99}{subsection.9.3.11}
+\contentsline {subsection}{\numberline {9.3.11}Amortizovan\'a slo\v zitost SPLAY}{100}{subsection.9.3.11}
 \contentsline {subsection}{\numberline {9.3.12}Amortizovan\'a slo\v zitost ostatn\IeC {\'\i }ch operac\IeC {\'\i }}{104}{subsection.9.3.12}
 \contentsline {chapter}{\numberline {10}Haldy}{106}{chapter.10}
 \contentsline {section}{\numberline {10.1}$d$-regul\'arn\IeC {\'\i } haldy}{106}{section.10.1}
@@ -163,18 +160,19 @@
 \contentsline {subsection}{\numberline {10.1.7}Heapsort}{110}{subsection.10.1.7}
 \contentsline {section}{\numberline {10.2}Leftist haldy}{110}{section.10.2}
 \contentsline {section}{\numberline {10.3}Binomi\'aln\IeC {\'\i } haldy}{112}{section.10.3}
-\contentsline {subsection}{\numberline {10.3.1}Operace}{112}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.1}Operace}{113}{subsection.10.3.1}
 \contentsline {subsection}{\numberline {10.3.2}L\IeC {\'\i }n\'a implementace binom. hald}{114}{subsection.10.3.2}
-\contentsline {subsubsection}{Amort. slo\v z.}{114}{section*.26}
+\contentsline {subsubsection}{Amort. slo\v z.}{115}{section*.26}
 \contentsline {subsection}{\numberline {10.3.3}Zobecn\v en\'e binomi\'aln\IeC {\'\i } haldy}{115}{subsection.10.3.3}
 \contentsline {section}{\numberline {10.4}Fibonacciho haldy}{115}{section.10.4}
 \contentsline {chapter}{\numberline {11}Dynamizace}{116}{chapter.11}
 \contentsline {section}{\numberline {11.1}Zobecn\v en\'y vyhled\'avac\IeC {\'\i } probl\'em}{116}{section.11.1}
 \contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{117}{subsection.11.1.1}
-\contentsline {section}{\numberline {11.2}Semi-dynamizace}{117}{section.11.2}
+\contentsline {section}{\numberline {11.2}Semi-dynamizace}{118}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}INSERT}{119}{subsection.11.2.1}
 \contentsline {section}{\numberline {11.3}Dynamizace}{122}{section.11.3}
 \contentsline {subsection}{\numberline {11.3.1}Reprezentace mno\v ziny A}{122}{subsection.11.3.1}
-\contentsline {subsection}{\numberline {11.3.2}Pam\v e\v tov\'e n\'aroky}{122}{subsection.11.3.2}
-\contentsline {subsection}{\numberline {11.3.3}\v cas pro v\'ypo\v cet f}{122}{subsection.11.3.3}
-\contentsline {subsection}{\numberline {11.3.4}Amortizovan\'y \v cas operace DELETE}{123}{subsection.11.3.4}
-\contentsline {subsection}{\numberline {11.3.5}Amortizovan\'y \v cas operace INSERT}{123}{subsection.11.3.5}
+\contentsline {subsection}{\numberline {11.3.2}Pam\v e\v tov\'e n\'aroky}{123}{subsection.11.3.2}
+\contentsline {subsection}{\numberline {11.3.3}\v Cas pro v\'ypo\v cet $f$}{123}{subsection.11.3.3}
+\contentsline {subsection}{\numberline {11.3.4}Amortizovan\'y \v cas operace DELETE}{124}{subsection.11.3.4}
+\contentsline {subsection}{\numberline {11.3.5}Amortizovan\'y \v cas operace INSERT}{125}{subsection.11.3.5}
