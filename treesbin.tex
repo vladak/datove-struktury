@@ -1,0 +1,236 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{Binární stromy}
+% --------------------------------------------------------------------------
+\section{Obecnì}
+
+\subsection{Algoritmus MEMBER}
+\subsection{Algoritmus INSERT}
+\subsection{Algoritmus DELETE}
+
+% --------------------------------------------------------------------------
+\section{Optimální binární vyhledávací stromy}
+
+\subsection{Algoritmus konstrukce}
+\subsection{Sní¾ení slo¾itosti z kubické na kvadratickou}
+
+% --------------------------------------------------------------------------
+\section{Skorooptimální binární vyhledávací stromy}
+Jenom ¾e existují, lineární konstrukce. Aha --- viz cvièení.
+
+% --------------------------------------------------------------------------
+\section{Èervenoèerné stromy}
+
+Ka¾dý vrchol je obarven èervenì nebo èernì a platí následující podmínky:
+\begin{itemize}
+\item{1} Listy jsou èerné.
+\item{2} Pokud má èervený vrchol otce, je otec èerný.
+\item{3} V¹echny cesty z koøene do listu mají stejný poèet èerných vrcholù.
+\end{itemize}
+
+Pro binární vyhledávací èervenoèerné stromy reprezentující mno¾inu $S$
+platí: je-li $k$ poèet èerných vrcholù na cestì z koøene do listu, pak
+\[
+2^k -1 \leq |S| \leq 2^{2k} -1
+\]
+neboli
+\[
+k \leq \log_2 |S| +1 \leq 2k
+\]
+pøièem¾ prvky $S$ jsou reprezentovány pouze ve vnitøních vrcholech, ne
+v listech.
+\mnote{je to novinka?}
+
+\subsection{Operace INSERT}
+Uvedeme pouze odli¹nost od operace INSERT v obecném binárním
+vyhledávacím stromì.
+
+Situace: list $t$ se zmìnil na vnitøní vrchol reprezentující prvek $x$
+a pøidali jsme mu 2 listy.
+
+Vrchol $t$ obarvíme èervenì a jeho syny èernì. Podmínky 1 a 3 stále
+platí, ale podmínka 2 platit nemusí.
+\begin{defn}
+Strom a jeho vrchol $(T,t)$ nazveme \emph{2-témìø èervenoèerný strom
+(2tèès),} jestli¾e platí
+\begin{itemize}
+\item{1} Listy jsou èerné. {\it (nezmìnìno)}
+\item{2'} Pokud má èervený vrchol \emph{rùzný od $t$} otce, je otec
+èerný.
+\mnote{Srovnej: Ka¾dý èervený vrchol rùzný od $t$ má èerného otce.}
+\item{3} V¹echny cesty z koøene do listu mají stejný poèet èerných
+vrcholù. {\it (nezmìnìno)}
+\end{itemize}
+\end{defn}
+\begin{defn}
+Je-li vrchol $t$ èervený a jeho otec je také èervený, pak øekneme, ¾e
+$t$ je \emph{porucha}.
+\end{defn}
+Tedy nyní máme 2tèès $(T,t)$ Je-li $t$ porucha, pak ji musíme nìjak
+opravit. Situace je na obrázku \ref{rbt-i}.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-i}
+\caption{Obecná situace pøi INSERTu}
+\label{rbt-i}
+\end{figure}
+Nejprve zále¾í na tom, jakou barvu má $s$, strýc $t$:
+\begin{enumerate}
+\item $s$ je èervený. Pak pouze pøebarvíme $o$, $d$ a $s$ podle
+obrázku \ref{rbt-i1}.
+Podmínky 1 a 3 jsou splnìny. Nyní $d$ mù¾e být porucha, ov¹em posunutá o 2
+hladiny vý¹e. Vznikl 2tèès $(T,d)$.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-i1}
+\caption{Oprava INSERTu pøebarvením}
+\label{rbt-i1}
+\end{figure}
+\item $s$ je èerný. Zále¾í na tom, zda hodnota $t$ le¾í mezi hodnotami
+$o$ a $d$ nebo ne. Jinými slovy, zda cesta $t$-$o$-$d$ obsahuje
+zatáèku.
+\begin{enumerate}
+\item Bez zatáèky:
+Provedeme rotaci a pøebarvíme podle obrázku \ref{rbt-i2a}.
+Splnìny budou podmínky 1, 2 i 3, tedy máme èervenoèerný strom.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-i2a}
+\caption{Oprava INSERTu rotací a pøebarvením}
+\label{rbt-i2a}
+\end{figure}
+\item Se zatáèkou:
+Provedeme dvojitou rotaci a pøebarvíme podle obrázku \ref{rbt-i2b}.
+Splnìny budou podmínky 1, 2 i 3, opìt máme rovnou èervenoèerný strom.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-i2b}
+\caption{Oprava INSERTu dvojitou rotací a pøebarvením}
+\label{rbt-i2b}
+\end{figure}
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Operace DELETE}
+Zatímco INSERT se pøíli¹ neli¹il od své obdoby u AVL stromù, operace
+DELETE u èervenoèerných stromù je oproti AVL stromùm slo¾itìj¹í
+mentálnì, ov¹em jednodu¹¹í èasovì.
+
+Situace: odstraòujeme vrchol $t$ (který nemusí reprezentovat
+odstraòovaný prvek --- viz DELETE v obecných binárních vyhledávacích
+stromech) a jeho syna, který je list.
+
+Druhého syna $t$, $u$, dáme na místo smazaného $t$ a zaèerníme ho. Tím
+máme splnìné podmínky 1 a 2. Pokud byl ale $t$ èerný, chybí nám na
+cestách procházejících nyní $u$ jeden èerný vrchol.
+\begin{defn}
+Strom a jeho vrchol $(T,u)$ nazveme \emph{3-témìø èervenoèerný strom
+(3tèès),} jestli¾e platí
+\begin{itemize}
+\item{1} Listy jsou èerné. {\it (nezmìnìno)}
+\item{2} Pokud má èervený vrchol otce, je otec èerný. {\it (nezmìnìno)}
+\item{3'}
+V¹echny cesty z koøene do listu neprocházející $u$ mají stejný poèet
+èerných vrcholù, nech» je to $k$. 
+V¹echny cesty z koøene do listu   procházející $u$ mají stejný poèet
+èerných vrcholù, nech» je to $\ell$. 
+A platí $k-1 \leq \ell \leq k$.
+\end{itemize}
+Kdy¾ $u$ není koøen a $\ell < k$, pak øekneme, ¾e $u$ je \emph{porucha}.
+\end{defn}
+
+Nech» vrchol $u$  je porucha. Pak mù¾eme pøedpokládat, ¾e je 
+obarven èernì, jinak bychom ho pøebarvili na èerno a tím by se porucha 
+odstranila a vznikl èervenoèerný strom.
+
+Situace: máme 3tèès $(T,u)$, $u$ je porucha s otcem $o$, bratrem $b$ a
+synovci $s1$, $s2$, viz obrázek \ref{rbt-d}.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-d}
+\caption{Obecná situace pøi DELETE}
+\label{rbt-d}
+\end{figure}
+Oprava zále¾í na barvì $b$:
+\begin{enumerate}
+\item Bratr je èerný. 
+Rozli¹ujeme dále 4 pøípady, z nich¾ jeden propaguje poruchu o hladinu
+vý¹ a ostatní skonèí s èervenoèerným stromem.
+\begin{enumerate}
+\item Otec i synovci jsou èerní.
+Pøebarvíme $b$ na èerveno, viz obrázek \ref{rbt-d1a}. Dostáváme 3tèès $(T,o)$,
+tedy porucha je o hladinu vý¹e.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-d1a}
+\caption{Èásteèná oprava DELETE pøebarvením}
+\label{rbt-d1a}
+\end{figure}
+\item \label{rbt-cd1b} Otec je èervený, synovci èerní.
+Pøebarvíme otce a bratra podle obrázku \ref{rbt-d1b} a dostáváme
+èervenoèerný strom.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-d1b}
+\caption{Oprava DELETE pøebarvením}
+\label{rbt-d1b}
+\end{figure}
+\item \label{rbt-cd1c} Synovec $s1$, jeho¾ hodnota le¾í mezi hodnotami
+otce a bratra, je èerný, druhý synovec je èervený.
+Pøebarvíme a zrotujeme podle obrázku \ref{rbt-d1c}, barva otce se
+nemìní (tj., vrchol $b$ bude mít barvu, kterou pùvodnì mìl vrchol $o$).
+Dostáváme èervenoèerný strom.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-d1c}
+\caption{Oprava DELETE pøebarvením a rotací}
+\label{rbt-d1c}
+\end{figure}
+\item \label{rbt-cd1d} Synovec $s1$, jeho¾ hodnota le¾í mezi hodnotami
+otce a bratra, je èervený, druhý synovec má libovolnou barvu.
+Pøebarvíme a dvojitì zrotujeme podle obrázku \ref{rbt-d1d} (tj., vrchol $s1$ 
+bude mít barvu, kterou pùvodnì mìl vrchol $o$ a barva vrcholu $s2$ se nezmìní).
+Dostáváme èervenoèerný strom.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-d1d}
+\caption{Oprava DELETE pøebarvením a dvojitou rotací}
+\label{rbt-d1d}
+\end{figure}
+\end{enumerate}
+\item Bratr je èervený.
+Pøebarvíme a zrotujeme podle obrázku \ref{rbt-d2}.
+Dostáváme 3tèès $(T,u)$, pøièem¾ porucha je o hladinu ní¾e. I kdy¾ to
+tak na první pohled nevypadá, máme vyhráno, proto¾e bratr poruchy je
+èerný a otec èervený, tedy pøí¹tí oprava bude pøípad \ref{rbt-cd1b},
+\ref{rbt-cd1c}, nebo \ref{rbt-cd1d} a skonèíme s èervenoèerným stromem.
+\begin{figure}[!htb]
+\centering\includegraphics{rbt-d2}
+\caption{Èásteèná oprava DELETE pøebarvením a rotací}
+\label{rbt-d2}
+\end{figure}
+\end{enumerate}
+
+\subsection{Závìry}
+Pro binární vyhledávací èervenoèerné stromy lze implementovat MEMBER,
+INSERT a DELETE tak, ¾e vy¾adují èas $O(\log n)$ a INSERT pou¾ívá
+nejvý¹e jednu (dvojitou) rotaci a DELETE pou¾ívá nejvý¹e dvì rotace
+nebo rotaci a dvojitou rotaci. 
+
+Jsou lep¹í ne¾ AVL stromy, které pøi DELETE spotøebují a¾ $\log n$
+rotací. Oproti váhovì vyvá¾eným stromùm i proti AVL stromùm jsou 
+èervenoèerné stromy jen
+konstantnì lep¹í, ale i to je dobré. Pøi pou¾ití binárních vyhledávacích 
+stromù ve výpoèetní geometrii nese informaci i rozlo¾ení prvkù ve stromì, 
+a tato informace se musí po provedení rotace nebo dvojité rotace aktualizovat. 
+To znamená prohledání celého stromu a tedy èas $O(n)$ za ka¾dou rotaci a 
+dvojitou rotaci navíc. Pro tyto problémy jsou èervenoèerné stromy obzvlá¹tì 
+vhodné, proto¾e minimalizují poèet pou¾itých rotací a dvojitých rotací. 
+
+Èervenoèerné stromy se pou¾ívají pøi implementaci $(2,4)$-stromù, se
+kterými se seznámíme v dal¹í kapitole. Vrchol 
+se dvìma syny je nahrazen jedním èerným vrcholem, vrchol se tøemi syny 
+je nahrazen èerným vrcholem s jedním èerveným synem a vrchol se ètyømi 
+syny je nahrazen èerným vrcholem se dvìma syny. Pozor! Aktualizaèní 
+operace pro $(2,4)$-stromy neodpovídají aktualizaèním operacím na 
+èervenoèerných stromech (i reprezentace prvkù je odli¹ná).
+
+Èervenoèerné stromy se pou¾ívají napøíklad ve 
+\href{http://www.sgi.com/tech/stl/}%
+{standardní ¹ablonové knihovnì jazyka C++ od SGI}, 
+která je zahrnuta do GCC. Máte-li Linux, zkuste se podívat do
+\path{/usr/include/g++-2/stl_tree.h}.
+\footnote{A pokud víte o podobnì dostupných implementacích jiných
+datových struktur z téhle pøedná¹ky, sem s nimi!}

@@ -1,0 +1,606 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{Ha¹ování II}
+
+% --------------------------------------------------------------------------
+\section{Univerzální ha¹ování}
+
+Idea univerzálního ha¹ovaní má odstranit po¾adavek na rovnomìrné 
+rozlo¾ení vstupních dat. Tento po¾adavek chceme nahradit tím, ¾e 
+budeme mít soubor $H$ ha¹ovacích funkcí do tabulky velikosti $m$ takový,
+¾e pro ka¾dou podmno¾inu $S$ univerza $U$ je pravdìpodobnost, ¾e funkce z 
+$H$ se chová dobøe, hodnì velká (tj. je jen málo kolizí). V tomto pøípadì, 
+kdy¾ vybereme $h$ z $H$ náhodnì s rovnomìrným rozlo¾ením, pak pro ka¾dou 
+podmno¾inu $S\subseteq U$ takovou, ¾e $|S|\leq m$, bude oèekávaný èas 
+(poèítaný pøes v¹echny funkce z $H$) konstantní. Rozdíl proti tradiènímu 
+ha¹ovaní je, ¾e pøedpoklad rovnomìrného výbìru ha¹ovací funkce z mno¾iny 
+$H$ mu¾eme zajistit (nebo se k splnìní tohoto po¾adavku pøiblí¾it), ale 
+výbìr vstupních dat ovlivnit nemù¾eme. Nyní tuto ideu zformalizujeme. 
+\mnote{zajímá nás jednak $c$, jednak velikost systému}
+
+\begin{defn}
+\label{c-us}
+Tøída ha¹ovacích funkcí 
+\( H \subseteq \{h | h: \intrange{0}{N-1} \rightarrow \intrange{0}{m-1}\} \)
+je \emph{c-univerzální}, kde $c\in\mathbb{R}^+$, jestli¾e 
+\begin{equation*}
+\forall x\neq y\in \intrange{0}{N-1} :
+\left |\{h\in H : h(x)=h(y)\}\right| \leq c\frac{|H|}{m}, 
+\end{equation*}
+\end{defn}
+
+%Dolní mez pro $c$, dk na cvièení.
+% rádi bychom \( c \) co nejmen¹í, ale dá se dokázat,
+% ¾e neexistují \( c \)-univerzální tøídy pro
+% \( c<1-\frac{m}{N} \).
+
+% ..........................................................................
+
+Nejprve uká¾eme, ¾e $c$-univerzální systémy existují. 
+Pøedpokládáme, ¾e $U = \intrange{0}{N-1}$, kde $N$ je prvoèíslo.
+Definujme 
+\[ H=\{h_{ab}:h_{ab}(x)=((ax+b)\bmod N)\bmod m;
+\ a,b\in \intrange{0}{N-1}\} \]
+\begin{theorem}
+$H$ je \( c \)-univerzální a 
+\( c=\left( \left\lceil \frac{N}{m}\right\rceil /\frac{N}{m}\right) ^{2} \).
+\end{theorem}
+\begin{proof}
+\( |H|=N^{2} \), co¾ je poèet dvojic $(a,b)$.
+
+Nech» $(x,y)$ jsou libovolné, ale pevné.
+Kolize nastane v pøípadech, kdy¾:
+
+\[
+h_{ab}(x)=h_{ab}(y),\]
+neboli
+\begin{eqnarray*}
+ax+b & = & q+rm\pmod N\\
+ay+b & = & q+sm\pmod N
+\end{eqnarray*}
+
+kde $(a,b)$ jsou neznámé a parametry $(q,r,s)$ nabývají v¹ech
+hodnot takových, ¾e
+\[
+q\in \intrange{0}{m-1}
+\land r,s\in \intrange{0}{\left\lceil N/m\right\rceil -1}.
+\]
+
+
+$N$ je prvoèíslo, tedy $\mathbb{Z}_N$ je tìleso a pro ka¾dou trojici parametrù
+$(q,r,s)$ má soustava právì jedno øe¹ení $(a,b)$. 
+Poèet kolidujících funkcí je pøesnì tolik, jako poèet trojic
+$(q,r,s)$, který je
+\( m\cdot \left\lceil N/m\right\rceil ^{2} \).
+
+\( 
+\left| \left\{ h_{ab}:h_{ab}(x)=h_{ab}(y)\right\} \right| 
+\leq m\left\lceil \frac{N}{m}\right\rceil ^2
+=\frac{\left\lceil \frac{N}{m}\right\rceil ^{2}}{\left(\frac{N}{m}\right) ^{2}}\frac{N^{2}}{m}
+=c\frac{|H|}{m}
+\)
+
+\end{proof}
+
+% ..........................................................................
+\subsection{Oèekávaná délka øetìzce}
+Mìjme libovolnou pevnou $S \subseteq U$, libovolné pevné $x \in
+U$ a funkci $h: U \to \intrange{0}{m-1}$. Definujme
+\begin{equation}
+S_{h,x}= \text{øetìzec prvkù $y \in S$, pro které platí $h(y) = h(x)$}.
+\end{equation}
+Chceme spoèítat prùmìrnou délku $S_x$ , kde prùmìr poèítáme pøes
+v¹echny $h \in H$, kde $H$ je $c$-univerzální systém.
+
+Zaveïme
+\mnote{Iversonova konvence: [true]=1, [false]=0}
+\begin{align}
+\delta_h(x,y) & = [ x \neq y \land h(x) = h(y) ]\\
+\delta_h(x,S) & = \sum_{y \in S} \delta_h(x,y),
+\end{align}
+kde $h: U \to \intrange{0}{m-1}$
+
+\begin{equation*}
+\begin{split}
+\sum_{h \in H} \delta_h(x, S)
+ & = \sum_{h \in H} \sum_{\substack{y \in S\\y \ne x}} \delta_h(x,y)
+   = \sum_{\substack{y \in S\\y \ne x}} \sum_{h \in H} \delta_h(x,y)\\
+ & = \sum_{\substack{y \in S\\y \ne x}} |\{ h \in H; h(x) = h(y) \}|
+   \leq \sum_{\substack{y \in S\\y \ne x}} \frac{c|H|}m \\
+ & = \begin{cases}
+ \frac{cn|H|}m & x \notin S \\
+ \frac{c(n-1)|H|}m & x \in S \\
+ \end{cases}
+\end{split}
+\end{equation*}
+Tedy  prùmìrná hodnota $\delta_h(x,S) \leq \frac{cn}m$.
+
+\begin{theorem}
+Pro ka¾dou mno¾inu $S \subseteq U$, $|S| = n$ a ka¾dé $x$ je oèekávaný
+èas operací MEMBER, INSERT, DELETE $O(c \cdot n/m)$, pøièem¾ je braný
+pøes v¹echny funkce $h \in H$ pøi jejich rovnomìrném rozdìlení.
+\end{theorem}
+
+Varianta Markovovy nerovnosti:
+\mnote{\scriptsize Markovova: $\pr(X \geq t \mathrm{E}X) \leq 1/t$}
+\begin{theorem}
+Za stejných pøedpokladù jako u pøedchozí vìty, kdy¾ $\mu$ je prùmìrná
+délka øetìzce $S_{h,x}$, pak 
+\[
+\forall t > 1\ 
+ \pr(|S_{h,x}| \geq t \mu)
+ < \frac 1t
+\]
+\end{theorem}
+\begin{proof}
+H je $c$-univerzální systém. Nech» 
+$H' = \{ h \in H; |S_x| \geq t \mu \}$. 
+\begin{align*}
+\mu  
+&= \frac 1{|H|} \sum_{h \in H} |S_{h,x}|
+	&& H' \subset H\\
+& > \frac 1{|H|} \sum_{h \in H'} |S_{h,x}|
+	&& \text{z definice } H'\\
+& \geq \frac 1{|H|} \sum_{h \in H'} t \mu\\
+& = \frac {|H'|}{|H|} t \mu
+\end{align*}
+a tedy
+\[
+\pr(|S_x| \geq t \mu) =  \frac {|H'|}{|H|} < \frac 1t
+\]
+\end{proof}
+
+% ..........................................................................
+\subsection{Velikost $c$-univerzálního systému}
+
+\subsubsection{Dolní mez}
+Øekli jsme, ¾e pøi pou¾ití $c$-univerzálního systému z nìj ha¹ovací
+funkce vybíráme náhodnì. V praxi ale budeme vìt¹inou pou¾ívat
+pseudonáhodný generátor, který se po urèité periodì opakuje. Abychom 
+zajistili co nejvìt¹í náhodnost,
+potøebujeme, aby systém \( H \) mìl co nejménì funkcí.
+
+\begin{theorem}
+Kdy¾ $H$ je $c$-univerzální systém
+funkcí z univerza $U$ do $\intrange{0}{m-1}$, pak 
+\[ |H| \geq \frac{m}{c} \left\lceil (\log_m N) - 1 \right\rceil. \]
+\end{theorem}
+\begin{proof}
+Mìjme $c$-univerzální systém \( H = \{h_1 \ldots h_{|H|-1} \} \).
+Nech» $U_0 = U$.
+
+Nech» $U_1$ je nejvìt¹í podmno¾ina $U_0$ taková ¾e $h_1$ je na $(U_1)$
+konstantní.
+
+Nech» $U_2$ je nejvìt¹í podmno¾ina $U_1$ taková ¾e $h_2$ je na $(U_2)$
+konstantní. (Také $h_1$ je na $(U_2)$ konstantní) A tak dále.
+
+Platí
+\begin{align*}
+|U_0| & = N \\
+|U_1| & \geq \left\lceil \frac Nm \right\rceil \\
+|U_2| & \geq \left\lceil \frac {\left\lceil N/m \right\rceil}m \right\rceil 
+	\geq^\dag \left\lceil \frac N{m^2} \right\rceil \\
+|U_i| & \geq \left\lceil \frac N{m^i} \right\rceil \\
+\end{align*}
+\mnote{$^\dag$ vysvìtlit} 
+
+Nech» $t =  \left\lceil \log_m N \right\rceil - 1$. 
+Platí $\lceil x \rceil - 1 < x$ a $\log$ je rostoucí, tedy $m^t < N$ a 
+\[
+|U_t| \geq \left\lceil \frac N{m^t} \right\rceil > 1,
+\]
+neboli $U_t$ obsahuje alespoò 2 rùzné prvky, $a \ne b$
+
+Nech» $* = |\{ h \in H : h(a) = h(b) \}|$. 
+Z definice $c$-univerzálního systému $* \leq \frac {c|H|}m$. 
+Proto¾e $h_1, \ldots, h_t$ jsou na $U_t$ konstantní, dostáváme $* \geq t$.
+Zbytek je jednoduchý.
+\end{proof}
+
+Nás zajímá $\log_2 |H|$, tedy kolik bitù potøebujeme od
+pseudonáhodného generátoru na urèení náhodné ha¹ovací funkce. Zjistili
+jsme, ¾e potøebujeme nejménì
+\( \log_2 m + \log_2 \lceil(\log_m N)-1\rceil -\log_2 c \) bitù.
+
+%..........
+\subsubsection{Pøíklad malého $c$-univerzálního systému}
+
+My známe \( c \)-univerzální systém velikosti \( N^{2} \),
+tedy \( \log _{2}|H|=2\log _{2}N \), tj. je hodnì velké 
+proti právì spoèítanému dolnímu odhadu. Nyní zkonstruujeme $c$-univerzální 
+ha¹ovací systém, který tento dolní odhad v jistém smyslu nabývá.
+
+Buï \( p_{1},p_{2}\ldots \) rostoucí posloupnost v¹ech prvoèísel. Z
+teorie èísel bychom si mìli pamatovat, ¾e $p_t = O(t \log t)$.
+
+Zvolíme nejmen¹í \( t \) takové, ¾e 
+\begin{equation}
+\label{deft}
+t \ln p_{t}  \geq m \ln N
+\end{equation}
+
+Definujme
+\begin{align}
+h_{c,d,l}(x) &  = \left( c (x \bmod p_l) + d \right) \bmod p_{2t} \bmod m\\
+H & = \{ h_{c,d,l} : c,d \in \intrange{0}{p_{2t}-1}, t < l \leq 2t \},
+\end{align}
+
+pak \( |H|=t p_{2t}^2 \), a tedy 
+$\log_2 |H| = \log_2 t + 2 \log_2 p_{2t} 
+= O( \log t + 2 \log 2t + 2 \log\log 2t)
+= O(\log t)
+= O(\log m + \log \log N)$, èím¾ jsme se dostali na dolní hranici
+odvozenou vý¹e.
+
+Doká¾eme, ¾e $H$ je 5-univerzální systém.
+
+Zvolme \( x\neq y\in U \) , spoèteme odhad 
+\( |\{ h\in H : h_{c,d,l}(x) = h_{c,d,l}(y) \}|  \),
+tedy musíme odhadnout ze shora poèet trojic $c, d, l$ takových, ¾e 
+$h_{c,d,l}(x)=h_{c,d,l}(y)$.
+Rozdìlíme je do dvou skupin:
+
+\begin{enumerate}
+\item $c,d,l$ taková, ¾e $h_{c,d,l}(x) = h_{c,d,l}(y)$,
+ale $x \bmod p_l \neq y \bmod p_l$
+\item $c,d,l$ taková, ¾e $h_{c,d,l}(x) = h_{c,d,l}(y)$,
+a $x \bmod p_l = y \bmod p_l$
+\end{enumerate}
+
+1)
+Platí
+\begin{align*}
+c (x \bmod p_l) + d & = k + qm  \pmod {p_{2t}}\\
+c (y \bmod p_l) + d & = k + rm  \pmod {p_{2t}}
+\end{align*}
+pro nìjaká
+\( 
+k \in \intrange{0}{m-1},
+q,r \in \intrange{0}{\lceil \frac{p_{2t}}{m}\rceil - 1}
+\).
+Proto¾e $p_l$ je prvoèíslo, je poèet trojic splòujících (1) roven
+\begin{align*}
+\text{poèet trojic} & \leq t m {\lceil \frac{p_{2t}}{m}\rceil}^2
+	&& \#l \leq t, \# (c,d) \leq \# (k,q,r)\\
+& \leq t m {\left( 1 + \frac{p_{2t}}{m}\right)}^2\\
+& = t m \frac{p_{2t}^2}{m^2} {\left( 1 + \frac m{p_{2t}} \right)}^2
+	&& \text{vytknutím}\\
+& = {\left( 1 + \frac m{p_{2t}} \right)}^2 \frac{|H|}m \\
+& \leq 4 \frac{|H|}m
+	&& \text{jestli¾e $m\leq p_{2t}$}
+\end{align*}
+Je¹tì tedy musíme ukázat, ¾e $m < p_{2t}$.
+Kdyby ale $p_{2t} \leq m$, pak dostaneme tento spor:
+$t \ln p_t < p_{2t} \ln p_{2t} \leq m \ln m \leq m \ln N 
+\leq t \ln p_t$.
+
+2)
+Nech» $L = \{ l : x \bmod p_l = y \bmod p_l \land t < l \leq 2t \}$. 
+Pak poèet trojic splòujících (2) je roven  
+\begin{align*}
+\text{poèet trojic} & = |L| p_{2t}^2\\
+& \leq \frac{t p_{2t}}m
+	&& \text{jestli¾e $|L| \leq t/m$}\\
+& = 1 \frac{|H|}m
+\end{align*}
+
+Pokud tedy je¹tì doká¾eme, ¾e $|L| \leq t/m$, pak 
+\( 
+|\{ h\in H : h_{c,d,l}(x) = h_{c,d,l}(y) \}|  
+\leq 4 \frac{|H|}m + \frac{|H|}m = 5 \frac{|H|}m
+\)
+a H je 5-univerzální systém.
+
+Nech» $P = \prod_{l \in L} p_l$. 
+Z definice $L$ v¹echna $p_l$ dìlí $|x-y|$, 
+tedy i $P$ dìlí $|x-y|$, a proto $P \leq |x-y| \leq N$. Proto¾e
+$P \geq p_t^{|L|}$, dostaneme $|L| \leq \ln N / \ln p_t$, a z definice
+$t$ \eqref{deft} plyne $|L| \leq t/m$.
+
+% ..........................................................................
+\subsection{Reprezentace a (MEMBER), INSERT, DELETE}
+
+Máme $m$ a pro v¹echna $i = 0, 1, \ldots$ je dán $c_i$-univerzální
+systém funkcí $H_i$ ha¹ující do tabulky velikosti $2^i
+m$. Reprezentace $S \subseteq U$:
+\begin{itemize}
+\item $|S|$ 
+\item $i$ takové, ¾e $2^{i-2} m < |S| < 2^i m$ 
+\item funkce $h \in H_i$ 
+\item reprezentace $S$ vùèi $h_i$ 
+\item $\forall j \in \{ 0 .. 2^i m -1\}$ je dána délka øetìzce
+reprezentujícího prvky s $h(x)=j$ 
+\item konstanty $d_i$ omezující délky øetìzce
+\end{itemize}
+
+MEMBER normálnì.
+
+INSERT:
+\begin{enumerate}
+\item zjistíme, zda máme pøidat do $S$ 
+\item kdy¾ délka $j$-tého øetìzce $+ 1 > d_i$,\\
+ pak spoèítáme novou reprezentaci
+\item kdy¾ $|S|+1 = 2^i m$,\\
+ pak inkrementujeme $i$ a spoèítáme novou reprezentaci
+\item jinak pøidáme prvek do øetìzce $h(x)$ 
+\end{enumerate}
+
+DELETE:
+\begin{enumerate}
+\item zjistíme, zda $x \in S$ 
+\item kdy¾ $x \in S$ a $|S|-1 = 2^{i-2} m$ a $i>0$,\\
+ pak dekrementujeme $i$ a spoèítáme novou reprezentaci
+\item jinak $x$ odstraníme z $h(x)$ 
+\end{enumerate}
+
+Spoèítání nové reprezentace:
+\begin{enumerate}
+\item loop
+\item \quad zvolíme náhodnì $h \in H_i$ 
+\item \quad spoèítáme reprezentaci $S$ vùèi $h$ 
+\item until v¹echny øetìzce mají délku $\leq d_i$ 
+\end{enumerate}
+
+Kolikrát probìhne ten cyklus? Závisí to na více parametrech a Koubek
+to nikde uspokojivì spoèítané nevidìl.
+
+% --------------------------------------------------------------------------
+\section{Perfektní ha¹ování}
+
+Perfektním ha¹ováním myslíme úlohu nalézt pro danou pevnou mno¾inu 
+$S \subseteq U$ perfektní ha¹ovací funkci, tj. funkci, která nemá na 
+mno¾inì $S$ kolize. Tato úloha nepøipou¹tí pøirozenou implementaci 
+operace INSERT, proto¾e pøidaný prvek mù¾e zpùsobit kolizi. 
+Typický pøíklad pou¾ití je tabulka
+klíèových slov kompilátoru.
+
+\begin{defn}
+Funkce $h: U \to \intrange{0}{m-1}$ je perfektní pro $S$, kdy¾ 
+$\forall x\neq y \in S$ platí $h(x) \neq h(y)$.
+\end{defn}
+
+Za jakých podmínek lze povolit INSERT? Musí být málo
+pravdìpodobný. Prvky navíc se dávají jinam a po jisté dobì se v¹e
+pøepoèítá do jedné tabulky pro novou perfektní ha¹ovací funkci.
+
+Po¾adavky na hledanou ha¹ovací funkci:
+\begin{enumerate}
+\item $h$ je perfektní na $S$
+\item $\forall x$ je $h(x)$ rychle spoèitatelná
+\item $m$ øádovì srovnatelné s $n$
+\item zakódování $h$ vy¾aduje málo prostoru
+\end{enumerate}
+Po¾adavky 2) a 3) jdou proti sobì. A a¾ se nám je podaøí skloubit,
+budeme mít problémy s 4). A navíc hledání $h$ potrvá dlouho.
+
+% ..........................................................................
+\subsection{Perfektní ha¹ovací funkce do tabulky velikosti $n^2$}
+
+Vyu¾ijeme, co u¾ víme o univerzálním ha¹ování. Pro $k \in \intrange{1}{N-1}$ 
+a pro pevné $m$ definujme 
+\begin{equation}
+h_k(x) = ( kx \bmod N ) \bmod m, \quad\text{kde $N=|U|$ je prvoèíslo.}
+\end{equation}
+Budeme hledat vhodná $k$, $m$.
+Definujme míru perfektnosti
+\begin{equation}
+d = \sum_{k=1}^{N-1} \sum_{x \neq y \in S} \delta_{h_k}(x,y)
+\end{equation}
+a pro $k \in \intrange{1}{N-1}$ polo¾me
+\begin{equation}
+b_k(i) = |\{ x \in S : h_k(x) = i \}|
+\end{equation}
+
+Jednak platí
+\begin{align}
+\label{bki2}
+d & = \sum_{k=1}^{N-1} \left( \sum_{i=0}^{m-1} ( b_k(i) )^2 -n \right)\\
+\intertext{a také}
+d & = \sum_{x \neq y \in S} |\{ k : h_k(x)=h_k(y) \}|
+	&&\text{prohozením sum}\\
+\end{align}
+
+Co znamená $h_k(x) = h_k(y)$ pro $x \neq y$? Následující tvrzení jsou
+ekvivalentní:
+\begin{align*}
+kx \bmod N & = ky \bmod N && \pmod m\\
+k(x-y) \bmod N & = 0 && \pmod m\\
+k(x-y) \bmod N & = r m && \text{pro } r \in 
+	\{ - \lceil N/m \rceil .. \lceil N/m \rceil \} \minus \{0\}, \\
+\end{align*}
+tedy
+\[
+d \leq \sum_{x \neq y \in S} 2 \frac Nm = \frac{2 n(n-1) N}m
+\]
+a dosazením do \eqref{bki2}, podle pøihrádkového principu
+\begin{equation}
+\label{existsk}
+\exists k : \sum_{i=0}^{m-1} ( b_k(i) )^2 \leq n + \frac{2 n(n-1)}m
+\end{equation}
+
+Pro speciální velikosti tabulky dostáváme dosazením do \eqref{existsk}:
+\begin{align}
+\label{3n}
+&\text{Pro } m = n: 
+&& \exists k \text{ nalezitelné v èase }O(nN): 
+\sum_{i=0}^{m-1} ( b_k(i) )^2 < 3n\\
+\label{perf}
+&\text{Pro } m = 1 + n(n-1): 
+&& \exists k \text{ nalezitelné v èase }O(nN):  
+h_k \text{ je perfektní} 
+\end{align}
+
+\begin{proof}
+Probíráme v¹echny mo¾nosti pro $k$, tìch je $O(N)$.
+\begin{enumerate}
+\item[\eqref{3n}]
+Pro dané $k$ spoèítáme $\sum ( b_k(i) )^2$ v èase $O(n) = O(m)$.
+\item[\eqref{perf}]
+$\sum ( b_k(i) )^2 \leq n + \frac{2 n(n-1)}{1+ n(n-1)} < n + 2$.
+Kdyby $h_k$ nebyla perfektní, pak 
+$\exists j : b_k(j) \geq 2$
+a
+$\sum ( b_k(i) )^2 \geq (n-2) 1^2 + 1 \cdot 2^2 = n + 2$,
+spor.
+Pøi hledání $k^*$ ovìøíme perfeknost $h_k$ v èase $O(n)$.
+%TODO! k jako sèítací index i optimální hodnota
+\end{enumerate}
+\end{proof}
+
+Nyní máme perfektní ha¹ovací funkci, která ale poru¹uje po¾adavek (3).
+% ..........................................................................
+\subsection{Perfektní ha¹ovací funkce do tabulky velikosti $3n$}
+
+Zkombinujeme oba výsledky z pøedchozí èásti.
+% --- nejprve první funkcí ha¹ujeme do tabulky velikosti $< 3n$
+
+Podle \eqref{3n} nalezneme $k$ takové, ¾e
+$\sum ( b_k(i) )^2 < 3n$.
+
+Pro ka¾dé $i \in \intrange{0}{n-1}$ vezmeme mno¾inu kolidujících prvkù
+$S_i = \{ s \in S : h_k(s) = i \}$.
+Oznaème $n_i = |S_i|$.
+
+Podle \eqref{perf} pro ka¾dé $i$ nalezneme $k_i$ takové, ¾e
+pro $m_i = 1 + n_i(n_i-1)$ je $h_{k_i}$ perfektní pro $S_i$.
+
+Ka¾dou zaha¹ovanou mno¾inu $S_i$ ulo¾íme ve výsledné tabulce od pozice
+$d_i$: 
+\[
+d_i = \sum_{j=0}^{i-1}(1 + n_j(n_j-1)).
+\]
+
+Koneènì definujme
+\[
+g(x) = d_i + h_{k_i}(x),\quad\text{kde } i = h_k(x),
+\]
+která je perfektní a velikost tabulky je
+\[
+m = d_n = \sum_{j=0}^{n-1}(1 + n_j(n_j-1))
+\leq \sum_{j=0}^{n-1} n_j^2
+=  \sum_{j=0}^{n-1} (b_k(j))^2
+< 3n
+\]
+
+Ov¹em na zakódování této funkce potøebujeme hodnì pamìti: 
+nevadí nám $d_i$, 
+ale $k$ a ka¾dé $k_i$ je velikosti $O(N)$, 
+tedy potøebujeme $n \log_2 N$ bitù, co¾ odporuje na¹emu po¾adavku (4).
+V dal¹ích krocích budeme zmen¹ovat èísla definující ha¹ovací funkci.
+% ..........................................................................
+\subsubsection{Podobná funkce daná èíslem velikosti $O(N)$}
+
+\mnote{lep¹í jména promìnných!}
+Zvolme prvoèíslo $p_1$ takové, ¾e 
+$1 +n(n-1) \leq p_1 \leq 1+ 2n(n-1)$. Nìjaké takové musí existovat
+(nedokazujeme).
+Podle \eqref{perf} %TODO, musíme dokázat m \geq, co¾ mírnì zatemní dk.
+$\exists k : h_k(x) = ( kx \bmod N) \bmod p_1$ 
+je perfektní na $S$.
+
+Vytvoøme
+\[
+S_1 = \{ h_k(s) : s \in S\} \subset \intrange{0}{p_1 -1}
+\]
+a na $S_1$ aplikujme pøedchozí sekci, kde $N = p_1$.
+
+Dostáváme ha¹ovací funkci $g_1$, která
+\begin{itemize}
+\item je perfektní pro $S$
+\item je spoèitatelná v èase $O(1)$ 
+\item ha¹uje do tabulky $<3n$ 
+\item je urèena 1 èíslem velikosti $O(N)$ \\
+ \quad a $O(n)$ èísly velikosti $O(n^2)$ 
+\end{itemize}
+
+% ..........................................................................
+\subsubsection{Podobná funkce daná èíslem velikosti $O(n^2\log N)$}
+Pro extrémní pøípady typu $N = 2^{10^6}$ je¹tì postup vylep¹íme,
+èím¾ zmen¹íme velikost èísel kódujících perfektní ha¹ovací funkci 
+na $O(\log N)$.
+
+\begin{lemma}
+\label{n2logN}
+Pro ka¾dou mno¾inu $S \subseteq \intrange{0}{N-1}$ velikosti $n$ existuje
+prvoèíslo $p_0$ takové, ¾e $f_{p_0}(x) = x \bmod p_0$ je perfektní na
+$S$ a $p_0 = O(n^2 \log N)$.
+\end{lemma}
+
+Vyu¾ití: pro $S$ najdeme prvoèíslo $p$ velikosti $O(n^2 \log N)$
+takové, ¾e $f_p$ je perfektní na $S$. Vytvoøíme 
+\[
+S_0 = \{ f_p(s) : s \in S\} \subset \intrange{0}{p-1}
+\]
+a na $S_0$ aplikujme pøedchozí postup, kde $N = p$.
+
+Tedy pro ka¾dou mno¾inu $S$ velikosti $n$ existuje ha¹ovací funkce $f$, která
+\begin{itemize}
+\item je perfektní pro $S$
+\item je spoèitatelná v èase $O(1)$ 
+\item ha¹uje do tabulky $<3n$ 
+\item je urèena 2 èísly velikosti $O(n^2 \log N)$ \\
+ \quad a $O(n)$ èísly velikosti $O(n^2)$ 
+\end{itemize}
+
+\begin{lemma}
+\label{prvociselnidelitele}
+Nech» $r$ je èíslo a $p_1, \ldots, p_q$ jsou v¹echny jeho prvoèíselné
+dìlitele. Pak $q=O(\log r / \log\log r)$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+r & \geq \prod_{i=1}^q p_i\\
+ & > q! \\
+ & = \exp(\sum_{i=1}^q \ln i) \\
+ & > \exp(\int_1^q \ln x \,dx) \\
+ & \geq {\left( \frac qe \right)}^q \qquad\text{kde } \exp(x)=e^x
+\end{align*}
+Tedy
+\mnote{skok}
+\[
+q \leq c \frac{\ln r}{\ln\ln r} \quad\text{pro vhodnou konstantu $c$.}
+\]
+\end{proof}
+\begin{proof}[Dùkaz lemmatu \ref{n2logN}]
+Pøedpokládejme $S = \{ x_1 < \ldots < x_n \}$.
+Ha¹ovací funkce $f_t(x) = x \bmod t$ je perfektní právì kdy¾ $t$ je
+nesoudìlné s èíslem
+\[
+D = \prod_{i>j} (x_i - x_j) < N^{n^2}
+\]
+Podle \ref{prvociselnidelitele} je mezi prvními $(c \ln D / \ln\ln D)+1$
+prvoèísly alespoò jedno, které nedìlí $D$. Víme, ¾e $p_k = O(k \ln
+k)$, tedy 
+$(c \ln D / \ln\ln D) +1$-ní prvoèíslo má velikost
+$O(\ln D) = O( n^2 \ln N)$.
+\end{proof}
+\mnote{nalezeni prvocisla $p_0$ vyzaduje cas $O(n^2\log N)$.}
+
+% ..........................................................................
+\subsection{GPERF}
+
+Jiná konstrukce perfektní ha¹ovací funkce je pou¾ita v programu
+{\tt gperf}. Distribuován pod GPL. 
+Jeho návrh je popsán v
+Douglas C. Schmidt, "GPERF: A Perfect Hash Function Generator, "
+in Proceedings of the 2nd C++ Conference, 
+San Francisco, California, April 1990, USENIX, pp. 87--102.
+\mnote{poøádnou bibliografii}
+Èlánek se dá stáhnout z \href
+{http://citeseer.nj.nec.com/schmidt90gperf.html}%
+{http://citeseer.nj.nec.com/schmidt90gperf.html}.
+
+% --------------------------------------------------------------------------
+\def\xx{% commented out
+\section{Ha¹ování pro externí pamì»}
+
+\mnote{Tohle u¾ Koubek nepøedná¹í}
+Adresáø.
+
+MEMBER, INSERT, DELETE
+
+Oèekávané zaplnìní stránky, poèet stránek, velikost adresáøe --- jen
+citace, tabulka pro nìkterá èísla.
+}% commented out

@@ -1,0 +1,634 @@
+% Souèást skript na Datové struktury. Viz main.tex
+% Vladimir Kotal, 2003
+
+%\documentclass{report}
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{amsthm}
+%\usepackage{czech}
+%\usepackage[bookmarks,bookmarksopen]{hyperref}
+%\usepackage{graphicx}%eps files
+%%\usepackage{a4wide}
+%\usepackage[textwidth=15cm, marginparwidth=2cm]{geometry}
+%\usepackage{url}% \path
+%
+%\usepackage{algorithmic}
+%\usepackage[chapter]{algorithm}
+%\floatname{algorithm}{Algoritmus}
+%\renewcommand{\listalgorithmname}{Seznam algoritmù}
+%
+%\newcommand{\pr}{{\cal P}}
+%\newcommand{\rozvoj}[3]{\binom{#1}{#2}\left(#3\right)^{#2}\left(1-#3\right)^{#1-#2}}
+%\newcommand{\invm}{\frac{1}{m}}
+%\newcommand{\intrange}[2]{\{{#1}\ ..\ {#2}\}}
+%\def\<#1>{\text{\it #1}} % viceznakova jmena promennych
+%
+%\newcommand{\lparen}{(}
+%\newcommand{\rparen}{)}
+%{
+%\catcode`\(=13
+%\catcode`\)=13
+%\gdef({\left\lparen\begingroup}
+%\gdef){\endgroup\right\rparen}
+%\gdef\bigparens{%
+%	\catcode`\(=13%
+%	\catcode`\)=13%
+%}
+%}
+%
+%\newcommand{\mnote}[1]{\marginpar{\scriptsize\raggedright #1}}
+%\newcommand{\exercise}[2]{\mnote{Cvièení: #1}} %TODO: co s odpovìdí?
+%
+%\newtheorem{theorem}{Vìta}[section]
+%\newtheorem{lemma}{Lemma}[section]
+%\theoremstyle{definition}
+%\newtheorem{defn}{Definice}[section]
+%
+%% V. Kotal
+%
+%\pagestyle{myheadings}
+%
+%%\includeonly{trees-ab}
+%\begin{document}
+%
+
+
+% moje (vlada)
+\newtheorem{pozn}{Poznámka}[section]
+
+\markright{$ $Id$ $}
+
+\chapter{Samoopravující se struktury}
+
+Upravující algoritmy pracují na seznamech, mohou pøemístit prvek, 
+který je argumentem operace. (pokud zùstává v seznamu) 
+Èas na vyhledání - to je pozice hledaného prvku. Pokud není v seznamu, je
+to délka seznamu + 1.
+\par
+
+Pokud byl prvek na i-tém místì a pøesune se na j-té, tak je-li\\
+  j $<$ i , provedou i-j volných výmìn\\
+  j $>$ i , provedou j-i placených výmìn
+\par
+
+Volné výmìny se nezapoèítávají do slo¾itosti.
+Pokud x není v seznamu pøi operaci INSERT(x), tak pøedpokládejme, ¾e je na
+1. pozici po ukonèení seznamu.
+
+
+% --------------------------------------------------------------------------
+\section{Amortizovaná slo¾itost}
+
+% --------------------------------------------------------------------------
+\section{Seznamy}
+
+\subsection{Algoritmus MEMBER}
+\subsection{Algoritmus INSERT}
+\subsection{Algoritmus DELETE}
+
+\subsection{Algoritmus MFR (Move Front Rule)}
+% pøedná¹ka z 18.3.2003
+Pøi operaci MEMBER(x) je x v seznamu nebo pøi operaci INSERT(x)
+bude x po skonèení operace na 1. místì seznamu.
+
+\begin{theorem}
+Mìjme posloupnost P operací MEMBER, INSERT a DELETE a mìjme dva
+prosté seznamy S1, S2 mno¾iny S. \\
+Pak pro ka¾dý upravující algoritmus A platí:\\
+Kdy¾ MFR provede P na seznam S1 a A provede P a seznam S2, tak platí:\\
+a) èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
+výmìn A - $|P|$ 
+  kdy¾ S1 = S2 \\
+b) èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
+výmìn A - $|P|$ + $\binom{|S|}{2}$ 
+  kdy¾ S1 $\neq$ S2
+\end{theorem}
+
+\begin{defn}
+Nech» S1, S2 jsou dva prosté seznamy mno¾iny S, pak bal(S1,S2) je
+poèet neuspoøádaných dvojic {x,y}, x $\neq$ y, x,y $\in$ S takových ¾e x
+je pøed y v S1 a y je pøed x v S2.
+\end{defn}
+
+\begin{pozn}
+Platí \\
+bal(S1,S2) = 0 $\Leftrightarrow$ S1 = S2 (prvky jsou ve stejném
+poøadí $\Leftrightarrow$ seznamy jsou stejné)\\
+bal(S1,S2) $\leq$ $\binom{|S|}{2}$ (v¹echny dvojice jsou pøeházené)
+\end{pozn}
+
+\begin{proof}[Dùkaz vìty XXX] 
+Pøes amortizovanou slo¾itost A. \\
+Pøedpokládejme, ¾e A i MFR mají provést operaci O.\\
+A ... provádí na seznam $S_A$, výsledek bude $S_A'$ \\
+MFR .. provádí O na seznam $S_{MFR}$, výsledek bude $S_{MFR}'$\\
+amortizovaná slo¾itost operace O bude
+  èas MFER pro operaci O + bal($S_A'$, $S_{MFR}'$) - bal($S_A$,
+$S_{MFR}$)\\
+balance je def. vzhledem k algoritmu A.
+\par
+
+Uká¾eme, ¾e amortizovaná slo¾itost O pro MFR $\leq$ 2*èas na vyhledání A +
+poèet placených výmìn A - poèet volných výmìn A - 1
+\par
+
+$$
+{\rm S_A}\stackrel{vyhledání}{\rightarrow} S_A''
+\stackrel{výmìny}{\rightarrow} S_A'
+% XXX cestina
+$$
+$$
+{\rm S_{MFR}} \rightarrow S_{MFR}' \rightarrow S_{MFR}'
+% XXX carkovana sipka
+$$
+\par
+
+kde po operaci \\
+
+\begin{tabular}{|l|l|}
+\hline
+DELETE(x) & $S_A''$ = $S_A'$\\
+MEMBER(x) & $S_A''$ = $S_A$\\
+INSERT(x) & x je v seznamu , $S_A''$ = $S_A$\\
+  	  & x není v seznamu, $S_A''$ vznikne z $S_A'$ pøidáním x za
+poslední prvek seznamu\\
+\hline
+\end{tabular}
+
+% \(
+% \begin{cases}
+%  x\ je\ v\ seznamu , S_A'' = S_A\\
+%  x\ není\ v\ seznamu, S_A''\ vznikne\ z\ S_A'\ pøidáním\ x za poslední prvek seznamu
+% \end{cases}
+% \)
+
+
+Podstatné je, ¾e seznamy jsou nad stejnou mno¾inou
+\par
+
+Amort. slo¾itost první èásti $\leq$ 2*èas na vyhledání pro A - 1\\
+Amort. slo¾itost druhé èásti = poèet placených výmìn A - poèet volných
+výmìn A
+\par
+
+i)
+Pøedpokládejme, ¾e x není v seznamu a délka seznamù je n.
+Èas MFR je n+1 , èas na vyhledání pro algoritmus je n+1
+operace MEMBER(x) a DELETE(x) $S_A''$ = $S_{MFR}'$
+a tady amort. slo¾. MFR = èas operace = n++ $\leq$ 2(n+1) - 1\\
+n+1 je èas na vyhledání pro A - 1\\
+$S_A''$ vznikne z $S_A$ pøidáním x za posl. prvek $S_A$\\
+$S_{MFR}'$ vznikne z $S_{MFR}$ pøidáním x na zaè. seznamu
+tedy bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) = n\\
+Amort. slo¾. operace MFR = n+1 + n=2n + 1=2(n+1) - 1 = 2*èas na vyhledání
+A - 1
+\par
+
+ii) x je v seznamu. Pøedpokládejme, ¾e x je na i-tém místì v seznamu $S_A$
+					na j-tém místì v seznamu $S_{MFR}$
+Èas operace pro MFR je j, èas na vyhledání pro A je i.
+Oznaème k poèet y v seznamu takových, ¾e y je v $S_A$ za x, v $S_{MFR}$ pøed
+x.
+\par
+Pak i+k $\geq$ j (i+k $\geq$ i-k+j)
+amort. slo¾. pro MFR = j + bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$)
+\par
+
+DELETE(x)  bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) $\leq$ -k
+amort. slo¾. $\leq$ j - k $\leq$ 2i - 1 = 2*èas na vyhledání A - 1
+\par
+
+MEMBER(x), INSERT(x)
+bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) $\leq$ -k + i-1
+(nìjaké dvojice mohly pøibýt)
+amort. slo¾. operace MFR $\leq$ j-k+i-1 $\leq$ i+i-1 = 2i - 1 = 2*èas na
+vyhledání A-1
+\par
+
+Amort. slo¾.\\
+1. fáze operace $\leq$ 2*èas na vyhledání A-1
+2. fáze operace = poèet placených výmìn A - poèet volných výmìn A
+Pøi placené výmìnì si v seznamu $S_A''$ vymìní x místo z za x, tedy
+dvojice {x,z} pøibude pøi poèítání bal($S_A'$, $S_{MFR}'$) - bal($S_A''$,
+$S_{MFR}'$) (v $S_{MFR}$ je x první)
+Pøi volné výmìnì se v seznamu $S_A''$ vymìní x místo s prvkem u pøed x,
+tedy dvojice {x,u} se vynechá pøi poèítání bal.
+Amort. slo¾. MFR $\leq$ 2*èas na vyhledání A + poèet placených výmìn A -
+poèet volných výmìn A - 1
+\par
+
+Tedy platí: \\
+èas posloupnosti P pro MFR $\leq$ odhad amort. slo¾itosti + bal($S_1$,
+$S_2$) = 2*èas na vyhledání v P algoritmem A + poèet placených výmìn A pøi
+P - poèet volných výmìn A pøi P - $|P|$ + bal($S_1$, $S_2$)
+
+% |P| ... za ka¾dou operaci je -1
+kdy¾ $S_1$ = $S_2$ pak bal($S_1$, $S_2$)=0 a platí a)
+     $S_1$ $\neq$ $S_2$ pak bal($S_1$, $S_2$) $\leq$ $\binom{|S|}{2}$ a
+platí b)
+\end{proof}
+
+\begin{pozn}
+S tímto jsme se setkali pøi EISCH
+       je to dùvod, proè je EISCH lep¹í ne¾ LISCH
+			    VICH lep¹í ne¾ LICH
+\end{pozn}
+
+\subsection{Algoritmus TR (Transposition Rule)}
+Kdy¾ je x pøi operaci MEMBER(x) a INSERT(x) na i-tém místì, tak ho dá na
+(i-1)-ní místo, pøi INSERT(x), kdy x není v seznamu, dá x na pøedposl. místo.
+\par
+
+\begin{pozn}
+Lze najít posloupnost pøíkazù P lib. délky, ¾e MFR vy¾aduje èas $(|P|)$ a
+TR vy¾aduje èas $(|P|^2)$. Na druhou stranu oèekávaný èas TR $\leq$
+oèekávaný èas MFR.
+\end{pozn}
+
+
+Chceme spoèítat oèekávaný èas pro posloupnosti P aplikované na seznam S,
+kde P obsahuje jen operace MEMBER(x) pro x $\in$ S. 
+\par
+Pøedppokládejme, ¾e S={1,2, ... , n} a $\beta_1$ = pravdìpodobnost operace
+MEMBER(x) pro x $\in$ S.
+S = \{1,2,3\} ... stavy Markovova øetìzce jsou v¹echny permutace S
+pravdìpodobnost pøechodu je pst. operace pøevádìjící jeden stav do druhého
+\par
+
+% XXX chybi obr.
+
+Tyto Markovovy øetìzce jsou nerozlo¾itelné a aperiodické a to znamená, ¾e
+existují asymptot. pravdìpodobnosti, tj. pro seznam $\Pi$ je dána
+pravdìpodobnost ${\kappa}_{\Pi}$, ¾e po provedení náhodné posloupnosti P s
+daným rozlo¾ením operací skonèíme u seznamu $\Pi$.
+\par
+
+Pak oèekávaný èas je $\sum_{\Pi}{\kappa}_{\Pi}\sum_{i}{\beta}_i\Pi(i)$, 
+$\Pi(i)$ je pozice i v seznamu $\Pi$.\\
+$p_1 = \sum_{\Pi}{\kappa}_{\Pi}\Pi(i)$ ... oèekávaná pozice prvku i
+$\delta(j,i)$ = asmyptot. pst., ¾e prvek j je pøed i, pak platí\\
+$$
+\delta(j,i) = \sum\{\kappa_\Pi , \Pi\ seznam, \Pi(j) < \Pi(i)\}
+$$
+
+pak 
+\begin{multline}\bigparens
+\label{XXX-uprava}
+p_i
+= \sum_{\Pi}\kappa_\Pi\Pi(i)
+= \sum_{\Pi}\kappa_\Pi(1 + |{j, \Pi(j) < \Pi(i)|}\\
+= 1 + \sum{j,\Pi}\{kappa_\Pi, \Pi(j) < \Pi(i)\} = 1 + \sum_{j}\delta(j,i) (1)
+\end{multline}
+
+Zkusíme $\delta(j,i)$ spoèítat jiným zpùsobem:\\
+Idea: jak se mù¾e stát, ¾e ve výsledném seznamu je j pøed i ?
+V posloupnosti P existovala operace MEMBER(x) a po ní se u¾ nevyskytovala
+operace MEMBER(i) ani MEMBER(j).
+\par
+
+Jaká je pravdìpodobnost tohoto jevu ?
+\begin{multline}
+\beta_j\sum_{k=0}^{\infty}[1 - (\beta_i - \beta_j)]^k 
+= \beta_j \frac{1}{1-(1-(\beta_i+\beta_j)} 
+= \frac{\beta_j}{\beta_j+\beta_i} \stackrel{(1)}{=} 
+1 + \sum_{\substack{j,i\\j \ne i}} \frac{\beta_j}{\beta_j+\beta_i}
+\end{multline}
+
+oèekávaný èas operace je 
+$$
+\sum_{i} \beta_i p_i \\
+= \sum_{\substack{j,i\\j \ne i}} \frac{\beta_i\beta_j}{\beta_i+\beta_j}
+$$
+
+Pøedpokládejme, ¾e $\beta_1 \geq \beta_2 \geq ... \geq \beta_n$ \\
+pak nejrychlej¹í algoritmus na seznam $x_1 - x_2 - ... - x_n$ je klasický
+algoritmus bez pøemís»ování prvkù. Oèekávaný èas tohoto algoritmu je 
+
+\begin{multline}
+\sum_{i=1}^{n}i\beta_i = \\
+1 + \sum_{i,j=1} 2\frac{\beta_j\beta_i}{\beta_i+\beta_j} \leq 1 + 
+  \sum_{\substack{i,j\\j<i}} 2\beta_i = 1 + \sum_{i=1}^{n} 2*(i-1)\beta_i =
+\frac{\beta_j}{\beta_j+\beta_i} \leq 1 = \\
+1 + 2\cdot\sum_{i}i\beta_i - 2\sum_{i}\beta_i = 
+2\sum_{i=1}^{n}i\beta_i - 1
+\end{multline}
+
+% --------------------------------------------------------------------------
+\section{Splay stromy}
+% thanks to Jana Skotakova za zapisky
+
+patová struktura - binární vyhledávací stromy s ohodnocenými prvky
+
+
+\subsection{Operace SPLAY}
+Základní operací je pr práci s tìmito stromy je SPLAY(x), která zjistí,
+zda x je reprezentován v dané mno¾inì. Pokud x le¾í v mno¾inì, algoritmus
+ho pøemístí do koøene.
+\par
+Kdy¾ x nele¾í v mno¾inì, pak algoritmus pøemístí do koøene buï nejmen¹í
+prvek vìt¹í ne¾ x nebo nejvìt¹í prvek men¹í ne¾ x (který le¾í v reprez.
+mno¾inì)
+
+\subsection{Podporované operace}
+MEMBER, INSERT, DELETE, JOIN2($T_1$,$T_2$), JOIN3(x, $T_1$, $T_2$) 
+(nebo asi taky JOIN3($T_1$, x, $T_2$)), SPLIT(x), 
+CHANGEWEIGHT(x, $\triangle$).
+
+JOIN2($T_1$,$T_2$)\\
+pøedpokládá, ¾e $\forall$ prvky reprezentované $T_1 < \forall$ prvky
+reprezentované $T_2$\\
+výsledný strom reprezentuje $T_1 \cup T_2$.
+
+JOIN3($T_1$, x, $T_2$)
+pøedpokládá, ¾e $\forall$ prvky reprezentované $T_1 < x < \forall$ prvky 
+reprezentované $T_2$\\
+výsledný strom reprezentuje $T_1 \cup T_2 \cup x$.
+
+SPLIT(x)
+výsledek: strom $T_1$ : $\forall prvky \in T_1 < x$\\
+	strom $T_2$: $\forall prvky \in T_2 > x$\\
++ informace, zda x le¾el v reprezentované mno¾inì
+
+CHANGEWEIGHT(x, $\triangle$)
+zjistí, zda x le¾í ve stromì a pokud ano, pak k jeho váze pøiète
+$\triangle$.
+
+\subsection{Algoritmus MEMBER}
+
+Viz algoritmus \ref{alg:splay.mem}
+
+\begin{algorithm}[!htb]
+\caption{MEMBER pro Splay stromy}
+\label{alg:splay.mem}
+
+\begin{algorithmic}
+\STATE SPLAY(x)
+\IF {x je reprezentován v koøeni}
+  \STATE "x je v S"
+\ELSE 
+  \STATE "x není v S"
+\ENDIF
+\end{algorithmic}
+
+\end{algorithm}
+
+\subsection{Algoritmus JOIN2}
+
+Viz algoritmus \ref{alg:splay.join2}
+
+\begin{algorithm}[!htb]
+\caption{JOIN2($T_1$,$T_2$)}
+\label{alg:splay.join2}
+
+\begin{algorithmic}
+\STATE Splay($\infty$, $T_2$) // nejmen¹í prvek\\
+\STATE koøen $T_1$ bude levý syn koøene $T_2$
+\end{algorithmic}
+\end{algorithm}
+
+% obrazek
+
+\subsection{Algoritmus JOIN3}
+
+Viz algoritmus \ref{alg:splay.join3}
+
+\mnote{jaké mají být argumenty Splay() ?}
+
+\begin{algorithm}[!htb]
+\caption{JOIN3($T_1$, x, $T_2$)}
+\label{alg:splay.join3}
+
+\begin{algorithmic}
+\STATE vytvoøíme vrchol t reprezentující x 
+\STATE Splay()
+\STATE koøen $T_1$ je levý syn t\\
+\STATE koøen $T_2$ je pravý syn t
+\end{algorithmic}
+\end{algorithm}
+
+\mnote{zde chybi obrazek}
+
+\subsection{Algoritmus SPLIT}
+
+Viz algoritmus \ref{alg:splay.split}
+
+\begin{algorithm}[!htb]
+\caption{SPLIT(x)}
+\label{alg:splay.split}
+
+\begin{algorithmic}
+\STATE SPLAY(x)
+\IF {koøen T reprezentuje x}
+  \STATE $T_1$ podstrom levého syna koøene
+       \STATE $T_2$ podstrom pravého syna koøene
+       \STATE výstup $T_1$, $T_2$, x, $x \in S$
+  \ELSE
+       \IF {koøen T reprezentuje prvek $<$ x}
+          \STATE $T_2$ podstrom pravého syna koøene T
+	       \STATE $T_1 = T - T_2$
+	  \STATE T1 podstrom pravého syna koøene T
+	       \STATE $T_2 = T - T_1$
+       \ENDIF
+       \STATE výstup $T_1$, $T_2$, $x \in S$
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\mnote{zde chybi obrazek}
+
+\subsection{Algoritmus DELETE}
+
+Viz algoritmus \ref{alg:splay.delete}
+
+\begin{algorithm}[!htb]
+\caption{DELETE(x)}
+\label{alg:splay.delete}
+
+\begin{algorithmic}
+\STATE SPLAY(x)
+\IF {x v koøeni}
+  \STATE $T_1$ je podstrom levéjo syna koøene T
+       \STATE $T_2$ je podstrom pravého syna koøene T
+       \STATE T $\leftarrow$ JOIN2($T_1$, $T_2$)
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+jiný zápis:
+$T_1, T_2 \leftarrow SPLIT(x, T)$
+$T \leftarrow JOIN3(T_1, x, T_2)$
+
+\subsection{Algoritmus INSERT}
+
+Viz algoritmus \ref{alg:splay.insert}
+
+\begin{algorithm}[!htb]
+\caption{INSERT(x)}
+\label{alg:splay.insert}
+
+\begin{algorithmic}
+\STATE SPLAY(x)
+\IF {x není v koøeni}
+  \IF {koøen stromu reprez. prvek $<$ x}
+          \STATE $T_2$ je podstrom pravého syna koøene
+               \STATE $T_1$ = T - $T_2$ 
+	  \ELSE 
+	       \STATE T1 je podstrom levého syna koøene
+	       \STATE $T_2$ = T - $T_1$
+       \ENDIF
+       \STATE JOIN3($T_1$, x, $T_2$)
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+jiný zápis:
+$T_1, T_2 \leftarrow SPLIT(x, T)$
+$T \leftarrow JOIN3(T_1, x, T_2)$
+
+\subsection{Algoritmus CHANGEWEIGHT}
+
+Viz algoritmus \ref{alg:splay.chgw}
+
+\begin{algorithm}[!htb]
+\caption{CHANGEWEIGHT(x, $\triangle$)}
+\label{alg:splay.chgw}
+
+\begin{algorithmic}
+\STATE SPLAY(x)
+\IF {x je v koøeni}
+	\STATE k váze x pøièti $\triangle$
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+Pøedpokládejme, ¾e W(x) je váha prvku a je to kladné celé èíslo.
+tW(x) - totální váha x, je to souèet vah v¹ech prvkù v podstromì urèeném x
+
+Pø.
+
+% obr
+
+tW(a) = W(a) + W(b) + W(c)\\
+
+r(x) je rank(x)
+  $r(x) = \lfloor logtW(x) \rfloor$
+
+bal(konfigurace) = $\sum{r(W), W je prvek konfigurace}$
+
+Pro strom T je tW(x) = tW(koøene T)
+	       r(T) = r(koøen T)
+
+\begin{lemma}
+Nech» T je binární vyhledávací strom, t t je vnitøní vrchol a u,v jsou
+synové t. Pak $r(t) > min{r(u), r(v)} (r(list) = -\infty)$.
+\end{lemma}
+
+\begin{proof}
+Pøedpokládejme, ¾e $tW(u) \leq tW(v)$\\
+$$
+r(t) = \lfloor log tW(t) \rfloor \geq \lfloor log 2tW(u) \rfloor =
+1 + \lfloor log tW(u) \rfloor = 1 + r(u)
+$$
+\end{proof}
+
+\subsection{Algoritmus SPLAY}
+
+Viz algoritmus \ref{alg:splay.spl}
+
+\begin{algorithm}[!htb]
+\caption{CHANGEWEIGHT(x, $\triangle$)}
+\label{alg:splay.spl}
+
+\begin{algorithmic}
+\STATE SPLAY(x)
+\STATE t $\leftarrow$ koøen
+\WHILE {t není list a t reprezentuje x}
+	\IF {x $<$ t}
+		\STATE t $\leftarrow$ levý syn t
+	\ELSE
+		\STATE t $\leftarrow$ pravý syn t
+	\ENDIF
+\ENDWHILE
+\IF {t je list}
+	\STATE t $\leftarrow$ otec(t)
+\ENDIF
+\WHILE {t není koøen}
+	\IF {otec(t) je koøen}
+	  \STATE rotace(t, otec(t))
+	\ELSE
+		\IF {otec(t) i t jsou leví synové (praví)}
+		  \STATE rotace(otec(t), dìd(t))
+		  \STATE rotace(t, otec(t))
+		\ELSE
+		  \STATE dvojitá rotace(t, otec(t), dìd(t))
+		\ENDIF
+	\ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+% obrazky
+
+t se po skonèení operace SPLAY(x) dostane do koøene
+
+\subsection{Amortizovaná slo¾itost SPLAY}
+èas operace SPLAY = poèet opakování cyklu, kdy¾ vrchol t transportujeme do
+koøene
+
+\begin{lemma}
+Amortizovný èas operace SPLAY(x,T) $\leq 3(r(T)-r(t)) + 1$, kde t je vrchol,
+který transportujeme do koøene.
+(kdy¾ x je pvekem reprez. mno¾iny, pak t reprezentuje x, jinak je to buï
+nejvìt¹í nebo nejmen¹í prevek men¹í (vìt¹í) ne¾ x)
+\end{lemma}
+
+\begin{proof}
+rozdìlíme podle akce, která se provádí ve while cyklu
+a) while cyklus provádí rotace
+
+% obr
+
+Amortizovaná slo¾itost tohoto kroku = 
+\mnote{tady je dìsný zmatek}
+\begin{multline}
+= èas operace + bal(nová konf.) - bal(pùvodní konf.) 
+= 1 + r'(u) - r(v) \leq 1 + r(u) + r(v)
+\leq 1 + 3(r(u) - r(v))
+\end{multline}
+
+proto¾e x má v pùvodním i novém stromì stejné prvky
+\mnote{neèitelné}
+\begin{multline}
+  r(u) = r'(t)
+  r'(u) \leq r'() = r(u)
+\end{multline}
+
+b) while cyklus provádí dvojitou rotaci
+
+% obr.
+
+Amortizovaná slo¾itost této operace =
+= èas operace + bal(nová konf.) - bal(pùvodní konf.) =
+= 1 + r'(u) - r(v) - r(u) - r(t) (*)
+
+pro $x \neq t,u,v$ platí $r(x) = r'(x)$
+r(v) = r'(t)
+
+b1) 
+$$
+r(v) > r(t), pak r'(u),r'(v) \leq r'(t) = r(v)\\
+r(u) \geq r(t), 1 \leq r(v) - r(t)
+(*) \leq r(v) - r(t) + 2r(u) - 2r(t) = 3(r(v) - r(t))
+$$
+
+b2) 
+$$
+r(v) = r(t), pak podle lemmatu r'(t) > min{r'(u), r'(v)}
+pak 2r'(t) \geq r'(u) + r'(v) + 1
+(*) \leq 2r(u) - 2(r(t) = 2(r(v) - r(t)) = (r(t) = 0) 3(r(u) - 3r(t))
+$$
+\end{proof}
+
+\subsection{Amortizovaná slo¾itost ostatních operací}
+
+

@@ -1,0 +1,161 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{Úvod}
+
+Chceme reprezentovat data, provádìt s nimi operace. Cíle téhle
+pøedná¹ky jsou popsat ideje, jak datové struktury reprezentovat, popsat
+algoritmy pracující s nimi a pøesvìdèit vás, ¾e kdy¾ s nimi budete
+pracovat, mìli byste si ovìøit, jak jsou efektivní.
+
+Problém mìøení efektivity: vìt¹inou nemáme ¹anci vyzkou¹et v¹echny
+pøípady vstupních dat. Musíme buï doufat, ¾e na¹e vzorky jsou
+dostateènì reprezentativní, nebo to vypoèítat. Tehdy ale zase nemusíme
+dostat pøesné výsledky, pouze odhady.
+
+% --------------------------------------------------------------------------
+\section{Pøedpoklady}
+\begin{enumerate}
+\item Datové struktury jsou nezávislé na øe¹eném problému;
+abstrahujeme. Napøíklad u slovníkových operací {\it vyhledej, pøidej,
+vyjmi,\/} nás nezajímá, jestli slovník reprezentuje body v prostoru,
+vrcholy grafu nebo záznamy v databázi.
+\item V programu, který øe¹í nìjaký problém, se pøíslu¹né datové
+struktury pou¾ívají {\em velmi èasto}.
+\end{enumerate}
+
+% --------------------------------------------------------------------------
+\section{Jaké typy slo¾itosti nás zajímají}
+
+\subsection{Pamì»ová slo¾itost reprezentované struktury}
+Je dùle¾itá, ale obvykle jednoduchá na spoèítání a není ¹ance ji
+vylep¹it --- jedinì pou¾ít úplnì jinou strukturu. Proto ji èasto
+nebudeme ani zmiòovat.
+
+\subsection{Èasová slo¾itost algoritmù\\ pracujících na datové struktuøe}
+
+\subsubsection{Èasová slo¾itost v nejhor¹ím pøípadì}
+Její znalost nám zaruèí, ¾e nemù¾eme být nepøíjemnì pøekvapeni (dobou
+bìhu algoritmu). Hodí se pro {\em interaktivní} re¾im --- u¾ivatel
+sedící u databáze prùmìrnì dobrou odezvu neocení, ale jediný pomalý
+pøípad si zapamatuje a bude si stì¾ovat. Za vylep¹ení nejhor¹ího
+pøípadu obvykle platíme zhor¹ením prùmìrného pøípadu.
+
+\subsubsection{Oèekávaná èasová slo¾itost}
+Je to vlastnì vá¾ený prùmìr --- slo¾itost ka¾dého pøípadu vstupních
+dat násobíme pravdìpodobností jeho výskytu a seèteme. Je zajímavá pro
+dávkový re¾im zpracování. Napøíklad Quicksort patøí mezi nejrychlej¹í známé
+tøídící algoritmy, ale v nejhor¹ím pøípadì má slo¾itost kvadratickou.
+
+Pozor na pøedpoklady o rozdìlení vstupních dat. Je známý fakt, ¾e pro ka¾dé 
+$k$ existuje èíslo $n_k$ takové ¾e ka¾dý náhodný graf s alespon $n_k$ vrcholy
+s velkou pravdìpodobností obsahuje kliku velikosti $k$. To vede k 
+následujícímu algoritmu, který urèí zda graf je nejvý¹e $k-1$ barevný s 
+oèekávaným konstantním èasem.
+
+Algoritmus: vstup graf $(V,E)$.
+\begin{enumerate}
+\item
+Kdy¾ velikost $V$ je men¹í ne¾ $n_k$, pak prohledáním v¹ech mo¾ností 
+urèi barevnost grafu $(V,E)$ a vydej odpovìï, jinak pokraèuj na následující 
+bod.
+\item
+Zvol náhodnì $n_k$ vrcholù v mno¾inì $V$ a zjisti zda indukovaný podgraf 
+na této mno¾inì obsahuje kliku velikosti $k$. Pokud ano, odpovìï je ne, 
+jinak pokraèuj na následující bod.
+\item
+Prohledáním v¹ech mo¾ností urèi barevnost grafu $(V,E)$ a vydej odpovìï.
+\end{enumerate}
+
+
+Tento algoritmus se ale pro praktické pou¾ití moc nehodí, proto¾e normálnì 
+se napøíklad s náhodnými grafy na 200 vrcholech nesetkáváme.
+
+\subsubsection{Amortizovaná slo¾itost}
+Pro ka¾dé $n$ nalezneme nejhor¹í èas vy¾adovaný posloupností $n$ 
+operací a tento èas vydìlíme $n$. Amortizovaná slo¾itost je limitou 
+tìchto hodnot pro $n$ jdoucí do nekoneèna. To nás zajímá proto, ¾e nìkteré
+datové struktury mají takovou vnitøní organizaci, ¾e na ní závisí
+slo¾itost, a ta organizovanost se bìhem posloupnosti operací
+mìní. Nejhor¹í pøípad vlastnì \uv{uklízí} za následující nebo
+pøedchozí rychlé pøípady.
+
+Napøíklad u pøièítání jednièky ke $k$-cifernému binárnímu èíslu je
+èasová slo¾itost poèet jednièek ve vstupu. Nejhor¹í pøípad s lineární
+slo¾itostí nastane pro èíslo ze samých jednièek (tedy $2^k-1$), ale
+tìch pøípadù je málo a amortizovaná slo¾itost nakonec vyjde
+konstantní.
+
+Nebo urèité algoritmy v pøekladaèích v praxi bì¾í rychle, pøesto¾e
+jednotlivé operace mají velkou slo¾itost v nejhor¹ím pøípadì. 
+To se také podaøilo vysvìtlit pomocí amortizované slo¾itosti.
+
+\subsubsection{Asymptotická notace}
+Skuteèná slo¾itost závisí na implementaci algoritmu, na konkrétním
+poèítaèi, vlastnì se nedá pøesnì spoèítat v obecném pøípadì. Abychom 
+mohli spoèítat aspoò nìco, zaèaly se pou¾ívat odhady slo¾itosti a¾ 
+na multiplikativní konstantu. Tyto odhady popisují rùst slo¾itosti 
+vzhledem ke zvìt¹ujícím se vstupùm, ale neurèují konkrétní funkci 
+(èísla). 
+
+Nech» $f, g$ jsou funkce na pøirozených èíslech. Znaèíme:
+\begin{eqnarray}
+f = O(g),	&\text{kdy¾ }
+	&\exists c>0 \ \forall n: f(n) \leq c g(n) \\
+f = \omega(g)	&
+	&\forall c>0 \ \exists \text{nekoneènì mnoho }n: f(n) > c g(n)\\
+f = \Theta(g)	&
+	&\exists c,d>0 \ \forall n: d g(n) \leq f(n) \leq c g(n)
+\end{eqnarray}
+
+Budeme pøevá¾nì pou¾ívat $O$, proto¾e chceme hlavnì horní odhady, kde¾to dolní
+odhady bývá obvykle tì¾¹í zjistit. Pro úplnost:
+\[ f=o(g), \text{kdy¾ } \lim_{n \to \infty} \frac{f(n)}{g(n)} = 0 \]
+
+
+% ==========================================================================
+\chapter{Slovníkový problém}
+
+Je dáno universum $U$, máme reprezentovat jeho podmno¾inu $S \subseteq
+U$.
+
+\newcommand{\MEMBER}{\text{MEMBER}}
+\newcommand{\INSERT}{\text{INSERT}}
+\newcommand{\DELETE}{\text{DELETE}}
+Budeme pou¾ívat operace
+\begin{itemize}
+\item $\MEMBER(x), x \in U,$ 
+	odpovìï je {\em ano,} kdy¾ $x \in S$, {\em ne,} kdy¾ $x \notin S$.
+\item $\INSERT(x), x \in U,$ 
+	vytvoøí reprezentaci mno¾iny $S \cup \{x\}$
+\item $\DELETE(x), x \in U,$ 
+	vytvoøí reprezentaci mno¾iny $S \setminus \{x\}$
+\item ACCESS($x$). Ve skuteèných databázích MEMBER nestaèí, proto¾e se
+kromì klíèe prvku zajímáme i o jeho ostatní atributy. Tady se ale o nì
+starat nebudeme --- obvyklé øe¹ení je mít u klíèe pouze ukazatel na
+ostatní data, co¾ usnadòuje pøemís»ovaní jednotlivých prvkù datové struktury.
+\end{itemize}
+
+Pøedpokládá se znalost tìchto základních datových struktur: pole,
+spojový seznam, obousmìný seznam, zásobník, fronta, strom.
+
+% --------------------------------------------------------------------------
+\section{Pole}
+
+Do pole velikosti $|U|$ ulo¾íme charakteristickou funkci $S$.
+\begin{itemize}
+\item[+] Velmi jednoduché a rychlé --- v¹echny operace probíhají v
+konstantním èase $O(1)$
+\item[--] Pamì»ová nároènost $O(|U|)$, co¾ je kámen
+úrazu. Napø. databáze v¹ech lidí v Èesku, kódovaných rodným èíslem, by
+snadno pøerostla mo¾nosti 32-bitového adresního prostoru (10 miliard
+RÈ $\times$ 4B ukazatel) \mnote{Najít lep¹í pøíklad?} Ale pro grafové
+algoritmy je tahle reprezentace velmi vhodná.
+\end{itemize}
+
+% --------------------------------------------------------------------------
+\section{Seznam}
+
+Vytvoøíme seznam prvkù v $S$, operace provádíme prohledáním
+seznamu. Èasová i pamì»ová slo¾itost operací je $O(|S|)$ (a to i pro
+INSERT --- musíme zjistit, jestli tam ten prvek u¾ není).

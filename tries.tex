@@ -1,0 +1,294 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{Trie}
+
+% --------------------------------------------------------------------------
+\section{Základní varianta}
+
+Trie je rovinná implementace slovníku.
+Máme abecedu $\Sigma$ velikosti $k$. Universum jsou v¹echna slova nad
+$\Sigma$ délky právì $l$ (nekoneènou mno¾inu si nemù¾eme dovolit a
+krat¹í slova doplníme zprava mezerami). Chceme reprezentovat mno¾inu
+slov $S \subseteq U$.
+
+\begin{defn}
+\emph{Trie} nad $\Sigma$ je koneèný strom, jeho¾ ka¾dý vnitøní
+vrchol má právì $k$ synù, které jsou jednoznaènì ohodnoceny prvky $\Sigma$.
+Ka¾dému vnitønímu vrcholu trie odpovídá slovo nad $\Sigma$ délky
+nejvý¹e $l$: koøenu
+odpovídá prázdné slovo $\Lambda$; kdy¾ vrcholu $v$ odpovídá slovo
+$\alpha$, pak $v[a]$, synu $v$ ohodnocenému písmenem $a$, odpovídá
+slovo $\alpha a$.
+\end{defn}
+
+\newcommand{\Nal}{\textrm{Nal}}
+\begin{defn}
+Øekneme, ¾e trie nad $\Sigma$ \emph{reprezentuje mno¾inu} $S$, kdy¾:
+\begin{itemize}
+\item Listùm je pøiøazena boolovská funkce nále¾ení \Nal: $\Nal(t)$ je
+  true právì kdy¾ slovo, které odpovídá listu $t$, je v $S$.
+\item Kdy¾ $v$ je vnitøní vrchol trie odpovídající slovu $\alpha$, pak
+  existuje $\beta \in S$ takové, ¾e $\alpha$ je prefix $\beta$.
+\item Pro ka¾dé slovo $\alpha \in S$ existuje v trie list odpovídající
+  $\alpha$.
+\end{itemize}
+\end{defn}
+
+% ..........................................................................
+\subsection{Algoritmus MEMBER}
+
+\begin{algorithmic}
+\STATE \COMMENT {vyhledání $x = x_1 \dots x_l$}
+\STATE $t := \text{koøen}$
+\STATE $i := 1$
+\WHILE {$t \text{ není list}$}
+        \STATE $t := t[x_i]$
+        \STATE $i := i + 1$
+\ENDWHILE
+\STATE \COMMENT {test}
+\STATE \textbf{return} $\Nal(t)$
+\end{algorithmic}
+
+% ..........................................................................
+\subsection{Algoritmus INSERT}
+
+\begin{algorithmic}
+\STATE \COMMENT {vyhledej $x$}
+\IF[trie nemusí být tak hluboké, jak potøebujeme] {\textbf{not} $\Nal(t)$}
+        \WHILE {$i \leq l$}
+                \STATE vrcholu $t$ pøidej $k$ listù ohodnocených
+                písmeny z $\Sigma$, jejich $\Nal := \textit{false}$
+                \STATE $t := t[x_i]$
+                \STATE $i := i + 1$
+        \ENDWHILE
+        \STATE $\Nal(t) := \textit{true}$
+\ENDIF
+\end{algorithmic}
+
+% ..........................................................................
+\subsection{Algoritmus DELETE}
+
+\begin{algorithmic}
+\STATE \COMMENT {vyhledej $x$}
+\IF {$\Nal(t)$}
+        \STATE $\Nal(t) := \textit{false}$
+        \STATE $t := \text{otec } t$
+        \STATE \COMMENT {opravíme prefixovou podmínku}
+        \WHILE {v¹ichni synové $t$ jsou listy s $\Nal = \textit{false}$}
+                \STATE zru¹ listy $t$
+                \STATE $\Nal(t) := \textit{false}$
+                \STATE $t := \text{otec } t$
+        \ENDWHILE
+\ENDIF  
+\end{algorithmic}
+
+Pou¾ili jsme obrat $t := \text{otec } t$. To lze provést buï tak, ¾e
+se vrchol kromì svých synù odkazuje i na svého otce a spotøebuje tak
+pamì» navíc, nebo se cesta z koøene do aktuálního vrcholu bìhem
+sestupu ve stromu pamatuje na zásobníku. Tento trik se pou¾ívá u 
+v¹ech stromových struktur.
+
+% ..........................................................................
+\subsection{Èasová a pamì»ová slo¾itost}
+
+Jedna iterace cyklu zabere konstantní èas. Èas pro MEMBER je $O(l)$,
+èas pro INSERT a DELETE je $O(l k)$. Pamì»ová slo¾itost trie je poèet
+ulo¾ených slov násobená délkou cesty a poètem synù, tedy $O(|S| l k)$.
+
+% --------------------------------------------------------------------------
+\section{Komprimované trie}
+
+Mìjme $\Sigma = \{0,1,2\}$, $l=7$.
+$S = \{0202011, 0202012, 0202021, 1212102, 1212111, 1212121, 1212122\}$.
+Nekomprimované trie pro tuto mno¾inu je na obrázku \ref{fig:tries}.
+Vidíme, ¾e písmena na druhé a¾ páté pozici jsou v¾dy stejná a
+pøedchozí algoritmy se jimi musí \uv{prokousat}. Pøesnì 
+øeèeno, prohlí¾ení vrcholu $v$, který má jediného 
+syna, který není list s funkci $\Nal = \textit{false}$, nepøiná¹í 
+¾ádnou kladnou informaci, proto¾e mno¾iny prvkù z $S$, 
+které jsou reprezentovány vrcholy v podstromu otce $v$ a v podstromu 
+vrcholu $v$ jsou stejné. To vedlo k idei tyto vrcholy ze stromu vynechat a tím 
+zmen¹it (kompresovat) trie.  
+   
+\begin{figure}
+\centering\includegraphics{tries}
+\caption{Nekomprimované trie}
+\label{fig:tries}
+\end{figure}
+
+\newcommand{\uro}{\textrm{uroven}}
+Ke ka¾dému vrcholu $v$ pøidáme funkci $\uro(v)$ vyjadøující èíslo úrovnì,
+ve které se $v$ nachází v pùvodním trie.
+\newcommand{\slo}{\textrm{slovo}}
+Ke ka¾dému listu $v$ pøidáme funkci $\slo(v)$ --- slovo, které odpovídá $v$.
+
+Nyní mù¾eme vynechávat vrcholy podle následujícího kritéria: 
+je-li $v$ vnitøní vrchol a v¹ichni jeho synové kromì $w$ jsou listy s
+$\Nal = \textit{false}$, pak $v$ vynech a zaøaï $w$ na jeho místo. Tento proces 
+opakujeme dokud trie obsahuje nìjaký vnitøní vrchol, jeho¾ v¹ichni synové 
+s výjimkou jednoho jsou listy, pro nì¾ $\Nal = \textit{false}$. V¹imnìte si, ¾e 
+ka¾dý vnitøní vrchol má právì $k$ synù, které jsou v jednoznaèné 
+korespondenci s písmeny abecedy $\Sigma$.
+
+% ..........................................................................
+\subsection{MEMBER}
+
+Viz algoritmus \ref{alg:trie.k.mem}
+
+\begin{algorithm}[!htb]
+\caption{MEMBER pro komprimované trie}
+\label{alg:trie.k.mem}
+\begin{algorithmic}
+\STATE \COMMENT {vyhledání $x$}
+\STATE $t := \text{koøen}$
+\WHILE {$t \text{ není list}$}
+        \STATE $i := \uro(t) + 1$
+        \STATE $t := t[x_i]$
+\ENDWHILE
+\STATE \COMMENT {test}
+\STATE \textbf{return} $\Nal(t) \land \slo(t) = x$
+\end{algorithmic}
+\end{algorithm}
+
+zde \mnote{nìco chybí}
+% ..........................................................................
+\subsection{INSERT}
+
+Viz algoritmus \ref{alg:trie.k.ins}
+
+\begin{algorithm}
+\caption{INSERT pro komprimované trie}
+\label{alg:trie.k.ins}
+\begin{algorithmic}
+\STATE \COMMENT {vyhledej $x$}
+\IF {$\Nal(t) \land \slo(t) = x$}
+	\STATE \COMMENT {Trie u¾ obsahuje $x$, nedìlej nic.}
+\ELSE
+        \IF {$\slo(t) = x$}
+		\STATE \COMMENT {Trie obsahuje správný list,
+		pouze nastav pøíznak. Napø. "0202010"}
+                \STATE $\Nal(t) := \textit{true}$
+	\ELSE
+		\STATE \COMMENT {Bude potøeba vlo¾it nový list.}
+		\STATE \COMMENT {Najdi, kam ho pøipojit.}
+                \STATE $\alpha$ := nejdel¹í spoleèný prefix slov
+		$x$ a $\slo(t)$. Délku $\alpha$ oznaème $|\alpha|$.
+                \STATE $v$ := vrchol na cestì z koøene do $t$ takový,
+                ¾e $\uro(v)$ je nejvìt¹í, která je $\leq |\alpha|$
+                \IF {$\uro(v) = |\alpha|$}
+                        \STATE \COMMENT {$v$ je otec nového listu}
+		\ELSE[$\uro(v) < |\alpha|$]
+                        \STATE \COMMENT {Bude potøeba vytvoøit
+			otce nového listu}
+                        \STATE $a$ := $\uro(v)+1$-ní písmeno $\alpha$
+                        \STATE $u := v[a]$
+                        \STATE \COMMENT {Mezi $v$ a $u$ vytvoø nový
+			vnitøní vrchol odpovídající slovu $\alpha$}
+                        \STATE $w$ := nový vrchol, $\uro(w) := |\alpha|$
+                        \STATE $v[a] := w$
+                        \STATE $c$ := $|\alpha|+1$-ní písmeno $\slo(t)$
+                        \STATE $w[c] := u$
+                        \FORALL {$b \in \Sigma, b \neq c$}
+                             \STATE $z$ := nový vrchol, $\uro(z) := |\alpha|+1, \Nal(z) := \textit{false}, \slo(z) := \alpha b$, 
+                             \STATE $w[b] := z$
+                        \ENDFOR
+                        \STATE $v := w$
+                \ENDIF
+		\STATE \COMMENT {Správnému listu pøiøaï $x$}
+		\STATE $d$ := $|\alpha|+1$-ní písmeno $x$
+                \STATE $s := v[d]$
+                \STATE $\uro(s) := l, \Nal(s) := \textit{true}, \slo(s) := x$
+        \ENDIF
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+% ..........................................................................
+\subsection{DELETE}
+
+Viz algoritmus \ref{alg:trie.k.del}
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro komprimované trie}
+\label{alg:trie.k.del}
+\begin{algorithmic}
+\STATE \COMMENT {vyhledej $x$}
+\IF {$\Nal(t) \land \slo(t) = x$}
+        \STATE $u$ := otec $t$
+        \STATE $i := \uro(u)$
+        \STATE $\Nal(t) := \textit{false}$
+        \STATE $\uro(t) := i+1$, $\slo(t)$ := prefix slova $x$ délky $i+1$
+        \STATE \COMMENT {vrchol $u$ má alespoò jednoho syna, který není list s $\Nal = \textit{false}$}
+        \IF {v¹ichni synové $u$ kromì syna $w$ jsou listy s $\Nal = \textit{false}$}
+                \STATE $v$ := otec $u$
+                \STATE sma¾ $u$ a v¹echny syny $u$ kromì $w$
+                \STATE $j := \uro(v) + 1$
+                \STATE $v[x_j] := w$
+        \ENDIF
+\ENDIF  
+\end{algorithmic}
+\end{algorithm}
+
+% ..........................................................................
+\subsection{Èasová a pamì»ová slo¾itost}
+
+Pamì»ová slo¾itost takto komprimovaných trie je $O(nl+kl)$, kde 
+$n$ je velikost reprezentované mno¾iny.
+Èasová slo¾itost operací MEMBER, INSERT a DELETE je v nejhor¹ím
+pøípadì $O(l)$ a v prùmìrném pøípadì (za pøedpokladu rovnomìrného
+rozlo¾ení vstupních dat) je to oèekávaná hloubka trie. Tu
+teï spoèítáme.
+
+Nech»
+\[
+q_d = \pr(\text{trie má hloubku alespoò $d$})
+\]
+Oèekávaná hloubka trie reprezentující $n$ slov je
+\[
+E_n = \sum_{d=0}^\infty d (q_d - q_{d+1}) = \sum_{d=0}^\infty q_d
+\]
+Kdy¾ funkce $\text{pref}_{d-1}$, pøiøazující slovu 
+$\alpha$ jeho prefix délky $d-1$, je na mno¾inì $S$ prostá,
+pak trie reprezentující mno¾inu $S$ má hloubku nejvý¹e $d$.
+Spoèítáme poèet mno¾in o velikosti $n$, na nich¾ je funkce $\text{pref}_{d-1}$ 
+prostá. Tyto mno¾iny získáme tak, ¾e vybereme $n$ prefixù délky $d-1$
+a ka¾dý doplníme v¹emi sufixy délky $l-d+1$. Proto tìchto mno¾in je
+\[
+\binom{k^{d-1}}{n} k^{n (l-d+1)}.
+\]
+Proto¾e v¹ech podmno¾in velikosti $n$ je $\binom{k^l}{n}$ dostáváme, ¾e 
+\begin{align*}  
+q_d 
+ &\leq 1 - \frac{\binom{k^{d-1}}{n} k^{n (l-d+1)}}{\binom{k^l}{n}}\\
+ &\leq 1 - \frac{k^{d-1}(k^{d-1}-1)\dots(k^{d-1}-(n-1)) k^{n(l-d+1)}}{k^{ln}}\\
+ &   = 1 - \prod_{i=0}^{n-1} \left( 1 - \frac{i}{k^{d-1}} \right) \\
+ &\leq 1 - \exp\left( \frac{-n^2}{k^{d-1}} \right)\\
+ &\leq \frac{n^2}{k^{d-1}},
+\end{align*}
+ponìvad¾
+\begin{align*}
+                  \prod_{i=0}^{n-1}    \left( 1 - \frac{i}{k^{d-1}} \right)
+ &   = \exp\left( \sum_{i=0}^{n-1} \ln \left( 1 - \frac{i}{k^{d-1}} \right)
+	   \right)\\
+ &\geq \exp\left(         \int_0^n \ln \left( 1 - \frac{i}{k^{d-1}} \right)
+	   \right)\\
+ &   = \exp\left( \frac{-n^2}{k^{d-1}} \right),
+\end{align*} 
+(u¾ijte integrální kriterium a substituci $x = k^{d-1}(1-t)$) a 
+$e^x - 1 \geq x$ (odtud $1 - e^x \leq -x$). Tedy pro $c = 2\lceil\log_kn\rceil$ 
+dostáváme
+\begin{align*}
+E_n
+ & = \sum_{d=1}^cq_d + \sum_{d=c+1}^{\infty}q_d\\
+ &\leq c + \sum_{d=c}^{\infty}\frac{n^2}{k^d}\\
+ &\leq 2\lceil\log_kn\rceil +
+		\left( \frac{n^2}{k^c} \right) \sum_{d=0}^{\infty} k^{-d}\\
+ &\leq 2\lceil\log_kn\rceil + \frac{1}{1-1/k}\\
+ & = 2\lceil\log_kn\rceil + \frac{k}{k-1}.
+\end{align*}
+
+Tedy oèekávaný èas operací MEMBER, INSERT a DELETE pro komprimované 
+trie (za pøedpokladù rovnomìrného rozlo¾ení vstupních dat) 
+je $O(\frac{\log n}{\log k})$. Zde parametr $k$ vyjadøuje vztah mezi prostorovými 
+a èasovými nároky.

@@ -1,0 +1,208 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{Uspoøádaná pole}
+
+% --------------------------------------------------------------------------
+\section{Unární, binární a interpolaèní vyhledávání}
+\mnote{Napsal Pavel Machek}% pavel@ucw.cz
+
+Uspoøádané pole je datová struktura, která vznikne z pole jeho
+setøídìním. Jediná operace, která se na ní dá (rozumnì rychle)
+provádìt, je MEMBER.
+
+Mìjme slovník $S$ ulo¾ený jako pole prvkù tak, ¾e $s[i] < s[i+1]$.
+
+\begin{algorithm}
+\caption{MEMBER pro uspoøádané pole}
+\label{alg:bin.member}
+\begin{algorithmic}
+\STATE \COMMENT {vyhledání hodnoty $x$ mezi $s[i] \dots s[j]$}
+\STATE \COMMENT {odpovìï ANO, kdy¾ $\exists h : i \leq h \leq j \land s[h]=x$}
+\STATE $d := i$ \COMMENT {aktuální dolní a horní odhad}
+\STATE $h := j$
+\STATE $\<next> := f(d, h)$
+	\COMMENT { Pøedpokládáme, ¾e $d \leq f(d,h) \leq h$ }
+\WHILE {$s[\<next>] \neq x \land d < h$}
+	\IF {$s[\<next>] < x$}
+		\STATE $d := \<next> + 1$
+	\ELSE
+		\STATE $h := \<next> - 1$
+	\ENDIF
+        \STATE $\<next> := f(d, h)$
+\ENDWHILE
+\STATE \COMMENT {øekni ANO pokud $s[\<next>] = x$, jinak øekni ne}
+\end{algorithmic}
+\end{algorithm}
+
+Tento algoritmus mù¾e provádìt unární, binární, nebo interpolaèní vyhledávání;
+staèí jen dosadit správnou funkci $f$; 
+zobecnìné kvadratické vyhledávání bude definováno dále:
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\bf{metoda}& \bf{odpovídající funkce}& nejhor¹í pø.& prùmìrný pøípad\\
+\hline
+	unární vyhledávání& 
+$f(d,h) = d$&
+$O(n)$&
+$O(n)$\\
+	binární vyhledávání&
+$f(d,h) = \lceil \frac{d+h}{2} \rceil$&
+$O(\log(n))$&
+$O(\log(n))$\\
+	interpolaèní vyhledávání&
+$f(d,h) = d + \lceil \frac{x-s[d]}{s[h]-s[d]} * (h-d+1) \rceil$ &
+$O(n)$&
+$O(\log(\log(n)))$\\
+\hline
+	zobecnìné kvadratické v.&
+$f(d,h) = fkvadrat$&
+$O(\log(n))$&
+$O(\log(\log(n)))$\\
+	kvadratické vyhledávání&
+$$&
+$O(\log(n))$&
+$O(\log(\log(n)))$\\
+\hline
+\end{tabular}
+
+\mnote{Z tìch zápiskù, co mám, to opravdu vypadá, 
+jako ¾e zobecnìné kvadratické a kvadratické jsou 2 rùzné vìci}
+
+\section{Zobecnìné kvadratické vyhledávání}
+\mnote{algoritmus vychází z Pavlova,
+výklad napsal Jakub Èerný}% kuba@atrey.karlin.mff.cuni.cz
+
+\def\xx{
+Poznamka pro Martina:
+
+Tak jak to dìlal Koubek na pøedná¹ce. Jinak to tvoje zobecnìné kv. v.
+a kvadratické vyhledávání je to samé. Pavel Machek jen pøejmenoval
+nìkteré promìnné a napsal to efektivneji, ale zase mene nazorneji a
+je to vice obtizne na pochopeni. (je to jak v Ccku) Na druhou stranu
+je to pekna ukazka, jak neco hezky naprogramovat. 
+Ten jeho popis a zduvodneni casove slozitosti je nepresny - popisuje a
+upocitava jiny jednodusi alg (kod ma spravny). Bylo by zajimave zjistit
+jak se tyto dva alg. chovaji. Ten alg. co popisoval Koubek je taky dost 
+podobny algoritmu jump search, kde se skace po odmocninach z n a uvadi se 
+ze je dost rychly.
+}
+
+
+Na interpolaèním vyhledávání se nám líbí jeho èas $O(\log\log |S|)$
+v prùmìrném pøípadì (pøi rovnomìrném rozdìlení dat). Av¹ak jeho èas 
+v nejhor¹ím pøípadì je a¾ $O(|S|)$. Zato binární vyhledávání má èas
+nejvý¹e $O(\log|S|)$. Zobecnìné kvadratické vyhledávání je tak trochu 
+kombinace pøedchozích dvou vyhledávání.
+
+
+Jak zobecnìné kvadratické vyhledávání funguje? 
+Vyu¾ívá funkci MEMBER s funkcí {\it fkvadrat} tak, jak byla popsána 
+v pøedchozím odstavci. Tomu, ¾e se zvolí hodnota $next$ a podle ní se 
+opraví hodnota $d$ nebo $h$, budeme øíkat, ¾e se polo¾í dotaz. 
+Celé vyhledávání funguje tak, ¾e se nejprve polo¾í interpolaèní dotaz. 
+To je v¾dy, kdy¾ je \<nastav> true.
+Polo¾ení dal¹ích dotazù si mù¾eme pøedstavovat jako skoky z místa posledního dotazu
+ve smìru, kde le¾í $x$. (Skoèíme na nový index v poli).
+\footnote{
+ zde by byl vhodný obrázek - useèka, která má na krajich d a h a je
+ na ni videt prvni interpolaèni dotaz a skoky po sqrt(n) a bin. a
+ sqrt(n) ...
+}
+Po interpolaèním dotazu se neustále støídají skoky o $\sqrt{delka}$ 
+s binárními dotazy, a¾ dokud nepøeskoèíme $x$. 
+(Toto støídání zaji¹tuje promìnná $parita$).
+Pak se znova polo¾í interpolaèní dotaz a v¹e se opakuje.
+
+\begin{algorithm}
+\caption{Krok zobecnìného kvadratického vyhledávání --- $fkvadrat(d,h)$}
+\label{alg:kvadratic}
+\begin{algorithmic}
+\STATE \COMMENT {Promìnné \<nastav>, \<parita> a \<nahoru> jsou statické, tj.
+		jejich hodnoty se mezi voláními tohoto algoritmu zachovávají.}
+\STATE \COMMENT {Nech» \<nastav> je na zaèátku \<true>.}
+\STATE \COMMENT {Dokud je \<nastav> \<false> (pracuje se v rámci bloku), je 
+		\<parita> støídavì \<true> (skok o $\sqrt{\<delka>}$)
+		a \<false> (binární vyhledání)}
+\IF {\<nastav>}
+	\STATE $\<parita> := true$
+	\STATE $\<delka> := h-d+1$
+	\STATE $\<next> := d + \left\lceil \frac{ x-s[d] }{ s[h]-s[d] } 
+						\cdot \<delka> \right\rceil$
+	\COMMENT {$ = finterp(d,h)$}
+	\STATE $\<nahoru> := s[\<next>] < x$
+	\STATE $\<nastav> := \<false>$
+	\STATE return \<next>
+\ENDIF
+\IF {not \<parita>}
+	\STATE $\<next> := \lceil (d+h)/2 \rceil$ \COMMENT {$ = fbin(d,h)$}
+	\STATE $\<parita> := true$
+	\STATE return \<next>
+\ENDIF
+\STATE $\<next> := \<nahoru>\ ?\ d+\sqrt{\<delka>} : h-\sqrt{\<delka>}$
+\IF {$s[\<next>] < x$ xor $\<nahoru>$}
+	\STATE $\<nastav> := true$
+\ELSE
+	\STATE $\<parita> := false$
+\ENDIF
+\STATE return $\<next>$
+\end{algorithmic}
+\end{algorithm}
+
+Jaký èas má vyhledávání v nejhor¹ím pøípadì? Rozdíl mezi $d$ a $h$ se bìhem nejvý¹e 3 dotazù zmen¹í
+na polovinu. Proto je nejhor¹í èas $O(\log n)$.
+
+ 
+Jaký èas má vyhledávání v prùmìrném pøípadì? Tím myslíme pøi rovnomìrném 
+rozlo¾ení dat. To u¾ je malinko slo¾itìj¹í otázka.
+Vyhledávání si rozdìlíme do nìkolika fází. Fáze zaèíná interpolaèním dotazem a
+pokraèuje a¾ do dal¹ího interpolaèního dotazu. Uká¾eme, ¾e v jedné fázi se
+polo¾í v prùmìru jen konstantnì dotazù. Pojïme tedy zanalyzovat jednu fázi.
+Souvislý úsek pole mezi pozicemi $d$ a $h$ na zaèátku fáze oznaème jako blok.
+Promìnná $delka$ udává délku bloku a má hodnotu $h-d+1$.
+Oznaème $X$ náhodnou promìnnou, $X=\hbox{poèet $i$ na zaèátku bloku takových, ¾e }i\ge
+d \hbox{ a } s[i]<x$. Jinak øeèeno $X$ udává vzdálenost $x$ od zaèátku bloku.
+
+Polo¾me $p=\pr(\hbox{náhodnì zvolený prvek mezi $s[d]$ a $s[h]$ je
+men¹í ne¾ }x)={(x-s[d])}/{(s[h]-s[d])}$
+
+$$\pr(|X|=j) = \binom{h-d+1}{j} p^j (1-p)^{h-d+1-j}$$
+
+$X$ má tedy binomické rozdìlení a tudí¾ je jeho oèekávaná hodnota
+$p(h-d+1)$ a jeho rozptyl je $p(1-p)(h-d+1)$.
+Oznaème $prv$ pozici v rámci bloku prvního (interpolaèního) dotazu. 
+Srovnej $prv$ s oèekávanou hodnotou $X$. 
+
+$$|X-prv|\ge \frac{\hbox{poèet dotazù v rámci bloku}-2}{2}\sqrt{delka}$$
+
+proto¾e kdy¾ vynecháme první dva dotazy, tak se dále støídá binární dotaz
+se skokem o $\sqrt{delka}$. Vynecháme-li i binární dotazy---vezmu ka¾dý
+druhý---zùstanou jen skoky o $\sqrt{delka}$ a ty dohromady naskáèou ménì
+ne¾ je vzdálenost $x$ od prvního dotazu.
+
+Oznaème $p_i=\pr(\hbox{v rámci bloku bylo polo¾eno alespo\v n $i$ dotazù})$.
+Pak jistì platí
+
+$$\pr(\,|X-prv|\ge \frac{i-2}{2}\sqrt{delka})\ge p_i$$
+
+Nyní pou¾ijeme Èeby¹evovu nerovnost, která øíká, ¾e
+$$\pr(\,|X-EX|>t)\le \frac{\hbox{rozptyl }X}{t^2}$$
+
+$$p_i \le \pr(\,|X-prv|\ge \frac{i-2}{2}\sqrt{delka})\le \frac{p(1-p)\;delka}
+{(\frac{i-2}{2})^2 \;delka} \le \frac{1}{(i-2)^2}$$
+
+proto¾e $prv$ je oèekávaná hodnota $X$ a $p(1-p)\le 1/4$ pro
+$0\le p\le 1$. Celkem jsme dostali $p_i\le 1/(i-2)^2$.
+
+
+Oèekávaný èas pro práci v jednom bloku (pro jednu fázi) je $O(\hbox{oèekávaný
+poèet dotazù v bloku})=O(\sum_{i=0}^\infty p_i)=O(\,3+\sum_{i=3}^\infty
+1/(i-2)^2)=O(\,3+\pi^2/6)=O(4.6)$. To jsme pouze odhadli první tøi èleny
+jednièkou a seèetli øadu, kterou asi znáte z analýzy.
+
+Teï u¾ snadno dopoèítáme oèekávaný èas zobecnìného kvadratického
+vyhledávání. Ten je $O(\,\hbox{(poèet blokù)}\,\hbox{(oèekávaný èas pro 1
+blok)})=O(\,\log\log(|S|)\, O(1))=O(\,\log\log(|S|))$. Kde jsme vzali
+poèet blokù? Ten je urèitì men¹í ne¾ poèet dotazù v interpolaèním
+vyhledávání (jen interpolaèní dotazy).

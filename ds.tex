@@ -1,0 +1,89 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{czech}
+\usepackage[bookmarks,bookmarksopen]{hyperref}
+\usepackage{graphicx}%eps files
+%\usepackage{a4wide}
+\usepackage[textwidth=15cm, marginparwidth=2cm]{geometry}
+\usepackage{url}% \path
+
+\usepackage{algorithmic}
+\usepackage[chapter]{algorithm}
+\floatname{algorithm}{Algoritmus}
+\renewcommand{\listalgorithmname}{Seznam algoritmù}
+
+\newcommand{\pr}{{\cal P}}
+\newcommand{\rozvoj}[3]{\binom{#1}{#2}\left(#3\right)^{#2}\left(1-#3\right)^{#1-#2}}
+\newcommand{\invm}{\frac{1}{m}}
+\newcommand{\intrange}[2]{\{{#1}\ ..\ {#2}\}}
+\def\<#1>{\text{\it #1}} % viceznakova jmena promennych
+
+\newcommand{\lparen}{(}
+\newcommand{\rparen}{)}
+{
+\catcode`\(=13
+\catcode`\)=13
+\gdef({\left\lparen\begingroup}
+\gdef){\endgroup\right\rparen}
+\gdef\bigparens{%
+	\catcode`\(=13%
+	\catcode`\)=13%
+}
+}
+
+\newcommand{\mnote}[1]{\marginpar{\scriptsize\raggedright #1}}
+\newcommand{\exercise}[2]{\mnote{Cvièení: #1}} %TODO: co s odpovìdí?
+
+\newtheorem{theorem}{Vìta}[section]
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{definition}
+\newtheorem{defn}{Definice}[section]
+
+\pagestyle{myheadings}
+
+%\includeonly{trees-ab}
+\begin{document}
+
+\title{Datové struktury}
+\author
+{pøedná¹í Václav Koubek \and
+z\TeX al Martin Vidner
+\footnote{\tt martin@artax.karlin.mff.cuni.cz, mvidner@atlas.cz}
+\thanks{Pøispìli: Li¹ák, Jéòa, ®abièka, Jindøich, MJ, Pavel
+	\ldots \emph{musím napsat poøádné titulky}}
+}
+\maketitle
+\tableofcontents
+%\listofalgorithms
+
+% ==========================================================================
+\include{intro}
+% ==========================================================================
+\include{hash1}
+% ==========================================================================
+\include{hash2}
+% ==========================================================================
+\include{tries}
+% ==========================================================================
+\include{compr-trie}
+% ==========================================================================
+\include{array}
+% ==========================================================================
+\include{treesbin}
+% ==========================================================================
+\include{trees-ab}
+% ==========================================================================
+\include{samoop}
+% ==========================================================================
+\include{heaps}
+% ==========================================================================
+\include{dynam}
+% ==========================================================================
+\chapter{Vícedimenzionální vyhledávání}
+
+
+
+% ==========================================================================
+\end{document}

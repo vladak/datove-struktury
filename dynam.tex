@@ -1,0 +1,101 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{Dynamizace}
+
+V uspoøádaném poli umíme rychle vyhledávat, ale pøidat prvky znamená
+celé ho pøebudovat. Ve strùstajícím ha¹ování zase ne¹ly prvky mazat,
+ve velmi komrimovaných trie ani pøidávat, ani mazat. V této kapitole
+uká¾eme obecnou metodu, jak tyto problémy øe¹it, podobnou pøístupu u
+binomiálních hald.
+
+% --------------------------------------------------------------------------
+\section{Zobecnìný vyhledávací problém}
+
+\begin{defn}
+\emph{Vyhledávací problém} je funkce $f: Q_1 \times 2^{Q_2} \to Q_3$, kde
+$Q_1$, $Q_2$ a $Q_3$ jsou univerza.
+\end{defn}
+\begin{defn}
+\emph{Øe¹ení vyhledávacího problému} pro $x \in Q_1, A \subseteq Q_2$
+je nalezení hodnoty $f(x, A)$.
+\end{defn}
+
+Napøíklad
+\begin{description}
+\item[Klasický vyhledávací problém:]
+
+	$Q_1 = Q_2 = U$, univerzum prvkù;
+	$Q_3 = \{0, 1\}$;
+
+	$f(x, A) =
+	\begin{cases}
+	0& \text{kdy¾ } x \notin A\\
+	1& \text{kdy¾ } x \in A
+	\end{cases}$
+\item[Vzdálenost bodù v rovinì:]
+
+	$Q_1 = Q_2 = $ rovina, tøeba euklidovská; 
+	$Q_3 = \mathbb{R}^+$; 
+	$f(x, A) = $ vzdálenost bodu $x$ od mno¾iny $A$.
+\item[Pøíslu¹nost ke konvexnímu obalu]
+
+	$Q_1 = Q_2 = $ rovina; 
+	$Q_3 = \{0, 1\}$;
+
+	\(f(x, A) =
+	\begin{cases}
+	0& \text{kdy¾ $x$ nepatøí do konvexního obalu $A$}\\
+	1& \text{kdy¾ $x$ patøí do konvexního obalu $A$}
+	\end{cases}\)
+\end{description}
+
+\begin{defn}
+Vyhledávací problém je \emph{rozlo¾itelný}, kdy¾
+existuje operace $\oplus$ spoèitatelná v konstantním èase a platí:
+kdy¾ $x \in Q_1$ a $A$ a $B$ jsou disjunktní podmno¾iny $Q_2$, pak
+\[
+	f(x, A \cup B) = f(x, A) \oplus f(x, B).
+\]
+\end{defn}
+
+Z vý¹e uvedených pøíkladù není rozlo¾itelným problémem pøíslu¹nost ke
+konvexnímu obalu, ostatní dva vyhledávací problémy jsou rozlo¾itelné.
+
+\newcommand{\staticka }{\ensuremath{\mathcal{S}}}
+\newcommand{\dynamicka}{\ensuremath{\mathcal{D}}}
+Nech» $f$ je rozlo¾itelný vyhledávací problém a $\staticka$ je
+``statická'' datová struktura, která ho øe¹í. Neboli $\staticka$ je
+tvoøena pro pevnou mno¾inu $A \subseteq Q_2$ a obsahuje operaci, která
+pro vstup $x$ poèítá $f(x, A)$.
+
+Popí¹eme dùle¾ité parametry $\staticka$: nech» $n = |A|$, oznaème
+\begin{align*}
+Q_\staticka(n) & = \text{èas potøebný pro výpoèet $f(x,A)$}\\
+S_\staticka(n) & = \text{pamì» potøebná pro vybudování \staticka}\\
+P_\staticka(n) & = \text{èas potøebný pro vybudování \staticka}
+\end{align*}
+
+Po¾adujeme, aby $Q_\staticka(n)$, $S_\staticka(n)/n$ a
+$P_\staticka(n)/n$ byly neklesající funkce.
+
+Chceme navrhnout strukturu, která by umìla
+\begin{enumerate}
+\item Pro $x \in Q_1$ a pevné $A \subseteq Q_2$ rychle spoèítat $f(x, A)$.
+\item Pro $A$ a $y \in Q_2$ rychle vytvoøit strukturu pro $A \cup \{y\}$.
+\end{enumerate}
+
+Mìjme $A_0, A_1, \ldots$ takové, ¾e
+\begin{enumerate}
+\item $A_i \cap A_j = \emptyset$ pro $i \neq j$
+\item buï $A_i = \emptyset$ nebo $|A_i| = 2^i$ 
+\item $\bigcup_i A_i = A$ 
+\end{enumerate}
+
+Nová struktura \dynamicka\ reprezentující $A$ je potom
+\begin{itemize}
+\item Seznam statických struktur pro $A_i \neq \emptyset$, $\staticka_i$
+\item Vyhledávací strom reprezentující $A$
+\item Pro ka¾dé $A_i \neq \emptyset$ seznam prvkù v $A_i$; prvky
+tìchto seznamù jsou projpojeny s odpovídajícími prvky ve stromì.
+\end{itemize}

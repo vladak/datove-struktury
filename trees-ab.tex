@@ -1,0 +1,828 @@
+% Souèást skript na Datové struktury. Viz main.tex
+\markright{$ $Id$ $}
+
+\chapter{$(a,b)$ stromy}
+
+% --------------------------------------------------------------------------
+\section{Základní varianta}
+
+Nech» $a, b \in \mathbb{N}, a \leq b$. Strom je $(a,b)$ strom, kdy¾
+platí
+\begin{enumerate}
+\item Ka¾dý vnitøní vrchol kromì koøene má alespoò $a$ a nejvý¹e $b$
+synù.
+\item Koøen má nejvý¹e $b$ synù. Pokud $a \geq 2$, pak má alespoò 2
+syny, nebo je listem.
+\item V¹echny cesty z koøene do listu jsou stejnì dlouhé.
+\end{enumerate}
+\exercise
+{Co by se stalo, kdybychom definici zjednodu¹ili a místo podmínek 1 a
+2 po¾adovali, aby \emph{ka¾dý} vrchol mìl $a$ a¾ $b$ synù?}{Nebyly by
+mo¾né malé $(a,b)$ stromy.}
+
+\begin{figure}%[!htb]
+\centering\includegraphics{abt}
+\caption{Pøíklad $(a,b)$ stromu}
+\label{abt}
+\end{figure}
+
+\begin{defn}
+Jsou-li synové ka¾dého vrcholu oèíslováni, mù¾eme
+definovat \emph{lexikografické uspoøádání vrcholù na stejné hladinì}.
+
+$u \leq_l v$, jestli¾e $\text{otec } u <_l \text{otec } v$ nebo
+$\text{otec } u = \text{otec } v$, $u$ je $i$-tý syn, $v$ je $j$-tý syn
+a $i \leq j$.
+\end{defn}
+
+Pozorování: Buï $T$ $(a,b)$ strom s hloubkou $h$. Platí
+\[
+2 a^{h-1} \leq \text{poèet listù $T$} \leq  b^h,
+\]
+tedy pro libovolné $n$ má ka¾dý $(a,b)$ strom $T$ s $n$ listy 
+hloubku $\Theta(\log n)$.
+
+% ..........................................................................
+\subsection{Reprezentace mno¾iny $S$ $(a,b)$ stromem}
+
+Mìjme $S \subseteq U$, pøièem¾ universum je lineárnì uspoøádané.
+$(a,b)$ strom $T$ reprezentuje mno¾inu $S$, jestli¾e existuje
+jednoznaèné pøiøazení prvkù $S$ listùm $T$, které zachovává uspoøádání.
+
+Potøebujeme navíc podmínku
+\begin{enumerate}
+\item[4.] $a \geq 2$ a $b \geq 2a - 1$ 
+\end{enumerate}
+
+Struktura vnitøního vrcholu $v$:
+\begin{itemize}
+\item $\rho_v$ je poèet synù
+\item $S_v[1\ .. \ \rho_v]$ je pole ukazatelù na syny
+\item $H_v[1\ .. \ \rho_v - 1]$: $H_v[i]$ je maximální prvek 
+v~podstromu $S_v[i]$ 
+\end{itemize}
+
+% ..........................................................................
+\subsection{MEMBER($x$) v $(a,b)$ stromu}
+\begin{algorithmic}
+\STATE \COMMENT{vyhledání $x$}
+\STATE $t := \text{koøen}$
+\WHILE {$t$ není list}
+	\STATE $i := 1$
+	\WHILE {$H_t[i] < x \land i < \rho_t$}
+		\STATE $i := i + 1$
+	\ENDWHILE
+	\STATE $t := S_t[i]$ 
+\ENDWHILE
+\STATE \COMMENT{testování $x$}
+\IF {$t$ reprezentuje $x$}
+	\STATE $x \in S$
+\ELSE
+	\STATE $x \notin S$
+\ENDIF
+\end{algorithmic}
+
+% ..........................................................................
+\subsection{INSERT($x$) do $(a,b)$ stromu}
+\begin{algorithmic}
+\STATE vyhledání $x$
+\IF {$t$ nereprezentuje $x$}
+	\STATE $o := \text{otec } t$
+	\STATE vrcholu $o$ pøidej nového syna $t'$ 
+	reprezentujícího $x$
+	\STATE zaøaï $t'$ na správné místo mezi jeho bratry
+	a uprav $\rho_o$, $S_o$ a $H_o$
+	\STATE $t := o$
+	\WHILE {$\rho_t > b$}
+		\STATE \COMMENT {©tìpení 
+				--- mù¾eme provést díky podmínce 4}
+		\STATE rozdìl $t$ na $t_1$ a $t_2$ 
+		\STATE \quad k $t_1$ dej prvních 
+			$\lfloor (b+1)/2 \rfloor$ synù $t$
+		\STATE \quad k $t_2$ dej zbylých 
+			$\lceil (b+1)/2 \rceil$ synù $t$
+		\STATE $o := \text{otec } t$
+		\STATE uprav $\rho_o$, $S_o$ a $H_o$
+		\STATE \COMMENT {pøi ¹tìpení koøene je¹tì musíme
+				vytvoøit nový koøen}
+		\STATE $t := o$
+	\ENDWHILE
+\ENDIF
+\end{algorithmic}
+
+% ..........................................................................
+\subsection{DELETE($x$) z $(a,b)$ stromu}
+\begin{algorithmic}
+\STATE vyhledání $x$, navíc si zapamatuj vrchol $u$, 
+	v jeho¾ poli $H_u$ je $x$
+\IF {$t$ reprezentuje $x$}
+	\STATE $o := \text{otec } t$
+	\STATE odstraò $t$
+	\STATE uprav $H_o$, $H_u$ \COMMENT {...}
+	\STATE uprav $S_o$ a $\rho_o$
+	\STATE $t := o$
+	\WHILE {$\rho_t < a \land t \text{ není koøen}$}
+		\STATE $v := \text{bezprostøední bratr } t$ 
+		\IF[smíme spojit] {$\rho_v = a$}
+			\STATE \COMMENT {Spojení}
+			\STATE $o := \text{otec } t$
+			\STATE sluè $v$ a $t$ do $t$
+			\STATE uprav $\rho_o$, $S_o$ a $H_o$
+			\STATE $t := o$
+		\ELSE[$\rho_v > a$, spojení by mohlo mít více ne¾ $b$ synù]
+			\STATE \COMMENT {Pøesun}
+			\STATE pøesuò krajního syna $v$ do $t$
+			\STATE uprav $H_{\text{otec } t}$
+		\ENDIF
+	\ENDWHILE
+	\IF {$t$ je koøen a má jen jednoho syna}
+		\STATE sma¾ $t$
+	\ENDIF
+\ENDIF
+\end{algorithmic}
+
+% ..........................................................................
+\subsection{Shrnutí}
+Operace ¹tìpení, pøesun i spojení vy¾adují konstantní èas. 
+\begin{theorem}
+Operace MEMBER, INSERT a DELETE pro $(a,b)$ stromy vy¾adují èas
+$O(\log n)$, kde $n$ je velikost reprezentované mno¾iny.
+\end{theorem}
+
+S $H$ a $S$ jsme pracovali jako se seznamy, nepotøebujeme, aby to byla
+pole. Tím se zjednodu¹í implementace. 
+\mnote{Výhodnost pro vnìj¹í pamìti?}
+
+% ..........................................................................
+\subsection{Jak volit parametry $(a,b)$}
+
+Pro vnitøní pamì» je vhodné $a = 2$ nebo $a=3$, $b = 2a$.
+Pro vnìj¹í pamì» je vhodné $a \approx 100$, $b = 2a$.
+
+Pro minimalizaci pamì»ových nárokù je výhodné $b = 2a-1$,
+pro minimalizaci èasových nárokù je výhodné $b = 2a$.
+\mnote{proè? prý se k tomu je¹tì dostaneme}
+
+% --------------------------------------------------------------------------
+\section{Dal¹í operace}
+
+%MIN, MAX
+
+% ..........................................................................
+Pro operaci JOIN je vhodné spolu se stromem uchovávat také 
+nejvìt¹í prvek reprezentované mno¾iny.
+
+\subsection{Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}
+\begin{algorithmic}
+\REQUIRE {$T_1$ reprezentuje $S_1$, $T_2$ reprezentuje $S_2$ 
+	a $\max S_1 < \min S_2$ }
+\STATE $n := \text{hloubka } T_1 - \text{hloubka } T_2$ 
+\IF {$n \geq 0$}
+	\STATE $t := \text{koøen } T_1$
+	\WHILE {$n > 0$}
+		\STATE $t := \text{poslední syn } t$
+		\STATE $n := n - 1$
+	\ENDWHILE
+	\STATE Spoj $t$ s koøenem $T_2$ a vytvoø nový vrchol $t'$.
+	\COMMENT {zde se vyu¾ije znalost nejvìt¹ího prvku mno¾iny $S_1$}
+	\WHILE {$\rho_t > b$}
+		\STATE ©tìpení $t$		
+		\STATE $t := \text{otec } t$
+	\ENDWHILE
+\ELSE
+	\STATE \COMMENT {analogicky: koøen $T_2$, první syn \dots}
+\ENDIF
+\end{algorithmic}
+
+JOIN vy¾aduje èas $O(\text{rozdíl hloubek stromù}) 
+\leq O(\log(|S_1| + |S_2|))$.
+
+% ..........................................................................
+\subsection{Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}
+\begin{algorithmic}
+\ENSURE {Vytvoøí 
+	$T_1$ reprezentující $\{ s \in S: s < x \}$ a
+	$T_2$ reprezentující $\{ s \in S: s > x \}$}
+\STATE Nech» $Z_1$ a $Z_2$ jsou prázdné zásobníky
+\STATE $t := \text{koøen } T$
+\WHILE {$t$ není list}
+	\STATE $i := 1$
+	\WHILE {$H_t[i] < x \land i < \rho_t$}
+		\STATE $i := i + 1$ 
+	\ENDWHILE
+	\STATE Vytvoø strom $T_1$, jeho¾ koøen %$t_1$
+	má syny $S_t[1] \dots S_t[i-1]$
+	\STATE Vytvoø strom $T_2$, jeho¾ koøen %$t_2$
+	má syny $S_t[i+1] \dots S_t[\rho_t]$
+	\IF {$T_1$ není jednoprvkový strom}
+		\STATE Push($Z_1, T_1$)
+	\ENDIF
+        \IF {$T_2$ není jednoprvkový strom}
+		\STATE Push($Z_2, T_2$)
+	\ENDIF
+	\STATE $t := S_t[i]$ 
+\ENDWHILE
+\IF {$t$ reprezentuje prvek rùzný od $x$}
+	\STATE Udìlej z $t$ $(a,b)$ strom a vlo¾ ho
+	do pøíslu¹ného zásobníku.
+\ENDIF
+\STATE $T_1 := \text{STACKJOIN}(Z_1)$ \COMMENT {viz dále}
+\STATE $T_2 := \text{STACKJOIN}(Z_2)$
+\end{algorithmic}
+
+Èas rozøezávání stromu je úmìrný jeho hloubce. Celkový èas operace
+SPLIT ov¹em závisí je¹tì na slo¾itosti operace STACKJOIN.
+
+% ..........................................................................
+\subsection{Algoritmus STACKJOIN($Z$) pro zásobník $(a,b)$ stromù}
+\begin{algorithmic}
+\STATE $T := \text{Pop}(Z)$
+\WHILE {$Z \ne \emptyset$}
+	\STATE $T' := \text{Pop}(Z)$
+	\STATE $T := \text{JOIN}(T, T')$
+\ENDWHILE
+\end{algorithmic}
+
+Nech» $Z$ obsahuje $(a,b)$ stromy $T_1 \dots T_k$, pøièem¾ $T_1$ je
+vrchol zásobníku.
+Platí
+\[
+\forall i:\ \text{hloubka }T_i \leq \text{hloubka }T_{i+1}
+\]
+\begin{align*}
+\text{èas STACKJOIN}
+ & = \text{hloubka }T_2 - \text{hloubka }T_1 + 1 \\
+ & + \text{hloubka }T_3 - \text{hloubka }T_2 + 1 \\
+ & + \dots \\
+ & + \text{hloubka }T_k - \text{hloubka }T_{k-1} + 1 \\
+ & = \text{hloubka }T_k - \text{hloubka }T_1 + \text{poèet JOINù} \\
+ & = O(\text{hloubka }T) = O(\log |S|)
+\end{align*}
+
+Tedy i operace SPLIT vy¾aduje èas $O(\log |S|)$.
+
+% ..........................................................................
+\subsection{Algoritmus FIND($T, k$) pro $(a,b)$ strom}
+Nalezení $k$-tého nejmen¹ího prvku.
+
+Roz¹íøíme reprezentaci stromu a ka¾dému vnitønímu vrcholu $v$ pøidáme:
+\begin{itemize}
+\item $K_v[1\ .. \ \rho_v]$: $K_v[i]$ je poèet listù
+v~podstromu $S_v[i]$ 
+\end{itemize}
+
+\begin{algorithmic}
+\STATE $t := \text{koøen }T$
+\WHILE {$t$ není list}
+	\STATE $i := 1$
+	\WHILE {$K_t[i] < k \land i < \rho_t$}
+		\STATE $k := k - K_t[i]$ 
+		\STATE $i := i + 1$ 
+	\ENDWHILE
+	\STATE $t := S_t[i]$ 
+\ENDWHILE
+\IF {$k > 1$}
+	\STATE \textbf{return} nil \COMMENT {$k > |S|$}
+\ELSE
+	\STATE \textbf{return} $t$
+\ENDIF
+\end{algorithmic}
+
+Èasová slo¾itost je opìt logaritmická, pøièem¾ døíve uvedené operace
+nejsou zpomaleny tím, ¾e aktualizují pole (seznam) $K$.
+
+% ..........................................................................
+\subsection{A-sort}
+
+Na první pohled se zdá, ¾e pou¾ití $(a,b)$ stromù ke tøídìní není
+výhodné. Pamì»ové nároky budou oproti bì¾nému tøídìní v poli asi
+pìtkrát vìt¹í. Aby se tedy tøídìní $(a,b)$ stromem vyplatilo, muselo
+by pøinést zvý¹ení rychlosti. V této èásti pøedvedeme, ¾e to skuteènì
+je mo¾né, jestli¾e vstupní data jsou ji¾ èásteènì setøídìná.
+
+Pro úèely A-sortu roz¹íøíme reprezentaci takto:
+\begin{itemize}
+\item Listy stromu jsou propojeny do seznamu
+\item Je známa cesta z nejmen¹ího (nejlevìj¹ího) listu do koøene
+(ulo¾ená napø. v zásobníku)
+\end{itemize}
+
+Pou¾ijeme $(2,3)$-strom.\mnote{proè?}
+
+Nech» vstupní posloupnost je $a_1, \dots, a_n$. Postupnì odzadu
+vkládáme její prvky do stromu modifikovaným INSERTem:
+\begin{algorithmic}
+\STATE $k := n$
+\WHILE {$k > 1$}
+	\STATE A-INSERT($a_k$)
+	\STATE $k := k - 1$
+\ENDWHILE
+\end{algorithmic}
+Na konci pøeèteme setøídìnou posloupnost pomocí spojového seznamu
+listù.
+
+A-INSERT, stejnì jako pùvodní INSERT, najde správný list a potom
+pøípadnì pøidá nový prvek. K nalezení správného listu ov¹em vyu¾ívá
+cestu z nejmen¹ího listu. Zde uvedená verze A-INSERTu odstraòuje 
+duplicitní prvky, operaci lze pochopitelnì upravit tak, ¾e nechává 
+duplicitní prvky, které zùstávají ve stejném poøadí.
+\begin{algorithmic}
+\STATE \COMMENT {Nalezení}
+\STATE $t := \text{nejmen¹í list}$
+\REPEAT
+	\STATE $t := \text{otec } t$
+\UNTIL {$t \text{ je koøen} \lor x \leq H_t[1]$}
+\STATE \COMMENT {nyní jako v pùvodním INSERTu, pouze jsme jinak
+inicializovali $t$}
+\WHILE {$t$ není list}
+	\STATE $i := 1$
+	\WHILE {$H_t[i] < x \land i < \rho_t$}
+		\STATE $i := i + 1$
+	\ENDWHILE
+	\STATE $t := S_t[i]$ 
+\ENDWHILE
+\STATE \COMMENT {Pøidání}
+\IF {$t$ nereprezentuje $x$}
+	\STATE $o := \text{otec } t$
+	\STATE vrcholu $o$ pøidej nového syna $t'$ 
+	reprezentujícího $x$
+	\STATE zaøaï $t'$ na správné místo mezi jeho bratry
+	a uprav $\rho_o$, $S_o$ a $H_o$
+	\STATE $t := o$
+	\WHILE {$\rho_t > b$}
+		\STATE \COMMENT {©tìpení 
+				--- mù¾eme provést díky podmínce 4}
+		\STATE rozdìl $t$ na $t_1$ a $t_2$ 
+		\STATE \quad k $t_1$ dej prvních 
+			$\lfloor (b+1)/2 \rfloor$ synù $t$
+		\STATE \quad k $t_2$ dej zbylých 
+			$\lceil (b+1)/2 \rceil$ synù $t$
+		\STATE $o := \text{otec } t$
+		\STATE uprav $\rho_o$, $S_o$ a $H_o$
+		\STATE \COMMENT {pøi ¹tìpení koøene je¹tì musíme
+				vytvoøit nový koøen}
+	\ENDWHILE
+\ENDIF
+\end{algorithmic}
+
+Èas A-sortu
+= $\sum$ èasu vyhledání + $\sum$ èasu pøidání + èas vytvoøení výstupní
+posloupnosti.
+Èas vytvoøení výstupní posloupnosti = $O(n)$.
+
+$\sum \text{èasu pøidání} 
+= \text{poèet pøidaných vrcholù} \cdot \text{èas pøidání vrcholu}
++ \text{poèet ¹tìpení} \cdot \text{èas ¹tìpení}
+= O(n) \cdot O(1)
++ \text{poèet ¹tìpení} \cdot O(1).$ 
+Proto¾e se zde neprovádí operace DELETE, lze ka¾dému ¹tìpení pøiøadit 
+vnitøní vrchol, který byl pøi tomto ¹tìpení vytvoøen (¹tìpení rozdìlí 
+vrchol $t$ na dva vrcholy $t_1$ a $t_2$, budeme pøedpokládat, ¾e 
+vrchol $t_1$ je pokraèováním vrcholu $t$ a vrchol $t_2$ je vrchol 
+vzniklý pøi ¹tìpení). Tedy poèet ¹tìpení je men¹í ne¾ poèet vnitøních 
+vrcholù (pøi ¹tìpení koøene vzniká navíc je¹tì nový koøen),  
+tedy $\sum \text{èasu pøidání} = O(n).$
+
+Èas A-sortu tedy závisí hlavnì na celkovém èase vyhledání prvkù.
+Oznaème
+\[
+f_i = |\{ j > i:\ a_j < a_i \}|,
+\]
+tedy poèet prvkù posloupnosti, které v nesetøídìné posloupnosti
+následují $a_i$, ale v setøídìné patøí pøed $a_i$. Pøi vyhledání $a_i$
+ve stromu vyjadøuje $f_i$ poèet listù nalevo od $a_i$. Èas
+vyhledání $a_i$ je tedy $O(\log f_i)$ a celkový èas vyhledání je 
+$O(\sum \log f_i)$.
+\mnote{o¹etøit $\log 0$}
+
+Hodnota $F = \sum f_i$, zvaná 
+\emph{poèet inverzí}, \mnote{nebo transpozic? standardní termín?}%
+vyjadøuje uspoøádanost vstupní
+posloupnosti. Pro správnì uspoøádanou posloupnost je $F = 0$, pro
+obrácenì uspoøádanou posloupnost je $F = n (n-1) / 2$. To jsou také
+mezní hodnoty, jich¾ mù¾e $F$ nabývat.
+
+Z vlastností logaritmu a srovnáním geometrického a aritmetického
+prùmìru dostáváme
+\[
+\sum \log f_i = \log \prod f_i = n \log \sqrt[n]{\prod f_i}
+\leq n \log (F/n).
+\]
+
+A-sort tedy vy¾aduje èas $O(n \max(1, \log((F+1)/n)))$. V nejhor¹ím
+pøípadì to je $O(n \log n)$ a Mehlhorn a Tsakalidis ukázali, ¾e A-sort
+je lep¹í ne¾ Quicksort v pøípadì, ¾e $F \leq 0.02 n^{1.57}$.
+Naproti tomu Insertsort, jednoduchý algoritmus, který postupnì
+lineárním prohledáním zatøiïuje prvky pole do jeho ji¾ setøídìného
+poèáteèního úseku, vy¾aduje èas $O(n + F)$, co¾ je v nejhor¹ím pøípadì
+$O(n^2)$.
+
+Zbývá je¹tì zdùvodnit, proè pou¾ít $(2,3)$-stromy. Víme, ¾e $(2,3)$-stromy 
+mají nejmen¹í prostorové nároky mezi $(a,b)$-stromy. Na druhé stranì v¹ak 
+$(2,3)$-stromy v obecném pøépadì vy¾adují zbyteènì mnoho vyva¾ovacích 
+operací, a proto jsou výraznì pomalej¹í ne¾ napø. $(2,4)$-stromy. Proto¾e 
+v¹ak A-sort nepou¾ívá operaci DELETE, ukázali jsme (viz poèet operací 
+©tìpení), ¾e pro A-sort to není pravda. Zde $(2,3)$-stromy patøí mezi 
+nejrychleji pracující $(a,b)$-stromy.
+
+% --------------------------------------------------------------------------
+\section{Paralelní pøístup do $(a,b)$ stromù}
+
+Pøi operacích INSERT a DELETE jsme nejprve sestupovali stromem dolù a¾
+k listùm, potom jsme se vraceli nahoru a ¹tìpili nebo spojovali
+vrcholy. To znemo¾òuje dovolit paralelní pøístup do stromu. Procesu,
+který je ve fázi vyhledání, by se mohlo stát, ¾e mu jiný proces zmìní
+strom ``pod rukama''. Stávající operace INSERT a DELETE tedy po¾adují
+výluèný pøístup ke stromu.
+
+Nyní pøedvedeme paralelní verzi tìchto operací, kde se ¹tìpení nebo
+spojování provádí ji¾ pøi sestupu. Potom ji¾ není nutné se vracet a je
+tedy mo¾né rovnou odemykat èásti stromu, ke kterým ji¾ daný proces
+nebude pøistupovat. Cenou za tento pøístup jsou zbyteèná
+¹tìpení/spojení.
+\mnote{udìlat obrázek ilustrující zbyteèná ¹/s}
+
+Potøebujeme omezit $b$: podmínku $b \geq 2a - 1$ zpøísníme na
+\begin{enumerate}
+\item[4'.] $a \geq 2$ a $b \geq 2a$ 
+\end{enumerate}
+
+% ..........................................................................
+\subsection{Paralelní INSERT($x$) do $(a,b)$ stromu}
+\begin{algorithmic}
+\STATE $o := \text{lock}(\text{nadkoøen})$ \COMMENT {Nadkoøen
+je implementaèní pomùcka. Slou¾í k zamknutí
+pøístupu k celému stromu a uchovává $\max(S)$}
+\STATE $t := \text{koøen}$ 
+\STATE \COMMENT {Invariant mezi prùchody cyklem:
+	$o$ je otec $t$, $o$ je jediný vrchol zamknutý tímto procesem.}
+\WHILE {$t$ není list}
+	\STATE $i := 1$
+	\WHILE {$i < \rho_t \land H_t[i] < x$}
+		\STATE $i := i + 1$
+	\ENDWHILE
+	\STATE $s := S_t[i]$ 
+	\STATE \COMMENT {preventivní roz¹tìpení:}
+	\IF {$\rho(t) = b$}
+		\STATE rozdìl $t$ na $t_1$ a $t_2$: \COMMENT {viz 4'}
+		\STATE \quad k $t_1$ dej prvních 
+			$\lfloor (b+1)/2 \rfloor$ synù $t$
+		\STATE \quad k $t_2$ dej zbylých 
+			$\lceil (b+1)/2 \rceil$ synù $t$
+		\STATE \quad $t_1$ pøedchází $t_2$
+		\STATE uprav $\rho_o$, $S_o$ a $H_o$
+		\STATE \COMMENT {implic.: uprav $\rho_{t_1}$, \dots, $H_{t_2}$}
+		\STATE \COMMENT {pøi ¹tìpení koøene je¹tì musíme
+				vytvoøit nový koøen}
+		\STATE $n := t_j$, kde $s$ je syn $t_j$
+	\ELSE
+		\STATE $n := t$
+	\ENDIF
+	\STATE lock($n$) 
+	\STATE unlock($o$) 
+	\STATE $o := n$
+	\STATE $t := s$
+\ENDWHILE
+\IF {$t$ nereprezentuje $x$}
+	\STATE vrcholu $o$ pøidej nového syna $t'$ 
+	reprezentujícího $x$
+	\STATE zaøaï $t'$ na správné místo mezi jeho bratry
+	a uprav $\rho_o$, $S_o$ a $H_o$
+\ENDIF
+\STATE unlock($o$)
+\end{algorithmic}
+
+% ..........................................................................
+\subsection{Paralelní DELETE($x$) z $(a,b)$ stromu}
+\begin{algorithmic}
+\STATE $o := \text{lock}(\text{nadkoøen})$ \COMMENT {Nadkoøen
+je implementaèní pomùcka. Slou¾í k zamknutí
+pøístupu k celému stromu a uchovává $\max(S)$}
+\STATE $t := \text{koøen}$ 
+\STATE $h := \textbf{nil}$ \COMMENT 
+	{Jakmile $h \neq \textbf{nil}$, 
+	$x \in H_h$ a $h$ bude zamèený do konce procesu.}
+\STATE \COMMENT {Invariant mezi prùchody cyklem:
+	$o$ je otec $t$, $o$ je kromì $h$ jediný vrchol
+	zamknutý tímto procesem.}
+\WHILE {$t$ není list}
+	\STATE $i := 1$
+	\WHILE {$i < \rho_t \land H_t[i] < x$}
+		\STATE $i := i + 1$
+	\ENDWHILE
+	\IF {$H_t[i] = x$}
+		\STATE $h := t$
+	\ENDIF
+	\STATE $s := S_t[i]$ 
+	\STATE \COMMENT {preventivní spojení/pøesun:}
+	\IF {$\rho(t) = a$}
+		\STATE $v := \text{bezprostøední bratr } t$ %bratr[fi]=_v_eli
+		\IF[smíme spojit] {$\rho_v = a$}
+			\STATE \COMMENT {Spojení}
+			\STATE sluè $v$ a $t$ do $t$ \COMMENT {viz 4'}
+			\STATE uprav $\rho_o$, $S_o$ a $H_o$
+			\STATE $t := o$
+		\ELSE[$\rho_v > a$, spojení by mìlo více ne¾ $b$ synù]
+			\STATE \COMMENT {Pøesun}
+			\STATE pøesuò krajního syna $v$ do $t$
+			\STATE uprav $H_o$, $H_v$ a $H_t$
+		\ENDIF
+	\ENDIF
+	\STATE lock($t$) 
+	\IF {$o \neq h$}
+		\STATE unlock($o$)
+	\ENDIF
+	\STATE $o := t$
+	\STATE $t := s$
+\ENDWHILE
+\IF {$t$ reprezentuje $x$}
+	\STATE odstraò $t$
+	\STATE uprav $H_o$, $H_h$
+	\STATE uprav $S_o$ a $\rho_o$
+	\STATE unlock($h$)
+\ENDIF
+\STATE unlock($o$)
+\end{algorithmic}
+
+
+% --------------------------------------------------------------------------
+\section{Slo¾itost posloupnosti operací na $(a,b)$ stromu}
+
+A-sort funguje jednak proto, ¾e v pøedtøídìné posloupnosti rychle
+najde místo, kam se má vkládat, jednak proto, ¾e se pøi samých
+INSERTech ({\it a díky správným $a$, $b$?}) provádí málo
+vyva¾ovacích krokù. V této sekci se podíváme na poèet vyva¾ovacích
+krokù pro posloupnost operací INSERT a DELETE.
+
+Nech» $b \geq 2a$.
+\begin{theorem}
+Mìjme posloupnost $n$ operací INSERT a DELETE aplikovanou na prázdný
+$(a,b)$ strom. Oznaème $P$ poèet pøesunù pøi provádìní posloupnosti,
+$SP$ poèet spojení a $ST$ poèet ¹tìpení. Dále oznaème $P_h$, $SP_h$ a
+$ST_h$ poèet pøesunù. spojení a ¹tìpení, které nastanou ve vý¹ce $h$
+(listy mají vý¹ku 0).
+
+Nech»
+\begin{equation}
+\begin{split}
+% this is ``occult alignment'' :)
+c = \min
+ &\left(
+   \phantom{b - \vphantom{x}}
+        \min \left( 2a-1, \left\lceil \frac{b+1}{2}\right\rceil  \right) - a, 
+  \right.\\
+ &\left.
+		\phantom{\left(
+		\vphantom{\left. \frac xy\right.}
+		\right.}
+    b - \max \left( 2a-1, \left\lfloor\frac{b+1}{2}\right\rfloor \right)
+   \phantom{\vphantom{x} - a}
+  \right)
+\end{split}
+\end{equation}
+
+Pak platí
+%\renewcommand{\labelenumi}{\alph{enumi}}
+\begin{eqnarray}
+P &\leq& n \\
+\label{ab-v-stsp}
+(2c-1)ST + cSP &\leq& n + c + \frac c{a+c-1} (n-2) \\
+\label{ab-v-sthsph}
+P_h + SP_h + ST_h &\leq& \frac{2 n^{c+2}}{(c+1)^h} 
+\end{eqnarray}
+\end{theorem}
+
+Platí $c \geq 1$ (pøi $b = 2a$ dokonce $c = 1$). Z toho
+\begin{equation}
+ST + SP \leq \frac nc + 1 + \frac{n-2}a,
+\end{equation}
+tedy lineárnì vzhledem k $n$.
+
+Pro paralelní verze INSERT a DELETE platí obdobná vìta, kdy¾ 
+$b \geq 2a + 2$.
+
+Pro dùkaz pou¾ijeme \emph{bankovní paradigma}: datovou strukturu
+ohodnotíme podle toho, jak je ``uklizená''. Operace, které datovou
+strukturu ``uklidí'', zvìt¹í její ``zùstatek na úètì''. Ty, které ji
+``naru¹í'', zùstatek zmen¹í. Potom najdeme vztah mezi zùstatkem a
+spotøebovaným èasem.
+{\it Tohle pokulhává. Myslel jsem si, ¾e zùstatek je nìco jako èas v
+konzervì, který si pomalé operace berou od rychlých \dots, ale  v
+tomhle pøípadì to asi funguje jinak.}
+\mnote{vyjasnit}
+\mnote{pou¾iju $z$ jako zùstatek místo $b$ jako balance, proto¾e
+souvislost s vyva¾ováním stromu je zde spí¹ matoucí}
+
+$(a,b)$ stromy jsou uklizené, kdy¾ mají vrcholy poèet synù nìkde
+uprostøed mezi $a$ a $b$. Tehdy nenastane v brzké dobì vyva¾ovací
+operace. V tomto smyslu definujme:
+\begin{align}
+z(v) &=
+	\min ( \rho_v - a, b - \rho_v, c ) 
+	&&\text{$v$ je vnitøní vrchol rùzný od koøene}\\
+z(\text{koøen}) &=
+        \min ( \rho_v - 2, b - \rho_v, c ) 
+\end{align}
+
+Pro strom $T$ definujme 
+\[
+z(T) = \sum_{v \in T} z(v)
+\]
+\[
+z_h(T) = \sum_{\substack{v \in T\\v \text{ má vý¹ku } h}} z(v)
+\]
+Platí
+\[
+z(T) = \sum_h z_h(t)
+\]
+
+Podobnì jako u èervenoèerných stromù definujme parciální $(a,b)$-strom:
+\begin{defn}
+$(T,v)$ je \emph{parciální $(a,b)$-strom,} kdy¾ $v$ je vnitøní vrchol $T$
+rùzný od koøene a
+kromì $v$ jsou splnìny podmínky pro $(a,b)$-strom a
+$a-1 \leq \rho_v \leq b+1$.
+\end{defn}
+
+Z definice zùstatku vyplývají tyto vlastnosti:
+\begin{align}
+\label{ab-1}
+  \rho_v = a-1 \text{ nebo }b+1 &\implies z(v) = -1\\
+\label{ab-0}
+  \rho_v = a \text{ nebo } b    &\implies z(v) = 0\\
+\label{ab-spojeni}
+  \rho_v = 2a-1                 &\implies z(v) = c\\
+\label{ab-stepeni}
+  \rho_u = \left\lfloor\frac{b+1}{2}\right\rfloor \land
+  \rho_v = \left\lceil \frac{b+1}{2}\right\rceil
+                                &\implies z(u)+z(v) \geq 2c - 1\\
+\label{ab-presun}
+  |\rho_u - \rho_v| \leq 1      &\implies z(u) \geq z(v) - 1
+\end{align}
+
+\subsection{pøidání/ubrání listu}
+Mìjme $(a,b)$-strom $T$ a pøidáme nebo ubereme list, jeho¾ otec je $v$.
+Pak vznikne parciální $(a,b)$-strom $(T',v)$ a platí:
+\begin{align}
+  z_1(T')        & \geq z_1(T) - 1\\
+  z_h(T')        & = z_h(T) \quad h>1\\
+  z(T')          & \geq z(T) - 1
+\end{align}
+
+\subsection{¹tìpení}
+Mìjme parciální $(a,b)$-strom $(T,v)$, kde $v$ je ve vý¹ce $h$.
+Nech» $T'$ vznikl \emph{¹tìpením $v$}. 
+Pak $(T',\text{otec }v$ je parciální $(a,b)$-strom a platí:
+\begin{align}
+  z_h(T')       & \geq 2c + z_h(T)
+	\qquad\text{z \ref{ab-1} a \ref{ab-stepeni}}\\
+  z_{h+1}(T')   & \geq z_{h+1}(T) - 1\\
+  z_i(T')       & = z_i(T) \quad i \neq h, h+1\\
+  z(T')         & \geq z(T) + 2c - 1
+\end{align}
+
+\subsection{spojení}
+Mìjme parciální $(a,b)$-strom $(T,v)$, kde $\rho_v = a-1$ a 
+$v$ je ve vý¹ce $h$, $y$ je bezprostøední bratr $v$.
+Nech» $\rho_y = a$ a $T'$ vznikl \emph{spojením $v$ a $y$}. 
+Pak $(T',\text{otec }v$ je parciální $(a,b)$-strom a platí:
+\begin{align}
+  z_h(T')       & \geq c + 1 + z_h(T)
+	\qquad\text{z \ref{ab-1}, \ref{ab-0} a \ref{ab-spojeni}}\\
+  z_{h+1}(T')   & \geq z_{h+1}(T) - 1\\
+  z_i(T')       & = z_i(T) \quad i \neq h, h+1\\
+  z(T')         & \geq z(T) + c
+\end{align}
+
+\subsection{pøesun}
+Mìjme parciální $(a,b)$-strom $(T,v)$, kde $\rho_v = a-1$ a 
+$v$ je ve vý¹ce $h$, $y$ je bezprostøední bratr $v$.
+Nech» $\rho_y > a$ a $T'$ vznikl \emph{pøesunem syna od $y$ k $v$}. 
+Pak $T'$ je $(a,b)$-strom a platí:
+\begin{align}
+  z_h(T')       & \geq z_h(T)
+	\qquad\text{z \ref{ab-1}, \ref{ab-0} a \ref{ab-presun}}\\
+  z_i(T')       & = z_i(T) \quad i \neq h\\
+  z(T')         & \geq z(T)
+\end{align}
+
+Nech» po skonèení posloupnosti operací máme $(a,b)$-strom $T_k$.
+Seèteme pøedchozí výsledky:
+\begin{equation}
+\label{eq:ab-secti}
+  z(T_k) \geq (2c - 1)ST + c SP - n  
+\end{equation}
+
+\begin{align}
+  z_1(T_k)      & \geq 2c ST_1 + (c+1) SP_1 - n\\
+  z_h(T_k)      & \geq 2c ST_h + (c+1) SP_h - ST_{h-1} - SP_{h-1} \quad h>1
+\end{align}
+Vadí nám, ¾e jsou ve výrazu i spojení a ¹tìpení z jiné hladiny.
+
+$c \geq 1 \implies 2c \geq c+1$.
+\[
+  z_h(T_k) \geq (c+1) (ST_h + SP_h) - ST_{h-1} - SP_{h-1}
+\]
+\begin{align}
+  ST_h + SP_h 
+&  \leq \frac{z_h(T_k)}{c+1} + \frac{ST_{h-1} + SP_{h-1}}{c+1}
+  \leq \frac{z_h(T_k)}{c+1} + 
+         \frac{z_{h-1}(T_k)}{(c+1)^2} + 
+         \frac{ST_{h-2} + SP_{h-2}}{(c+1)^2}\\
+&  \leq \left( \sum_{i=0}^{h-1} \frac{z_{h-i}(T_k)}{(c+1)^{i+1}} \right) + 
+         \frac{ST_0 + SP_0}{(c+1)^h}
+                \qquad\text{$j=h-i$, roz¹íøíme $(c+1)^{h-i}$}\\
+\label{ab-sthsph}
+&  = \left( \sum_{j=1}^h \frac{z_j(T_k)(c+1)^j}{(c+1)^{h+1}} \right) + 
+         \frac{n}{(c+1)^h}
+\end{align}
+
+Nech» $T$ je $(a,b)$-strom s $m$ listy. Chceme shora odhadnout $z(T)$.
+\begin{equation}
+  m_j = \text{poèet vnitøních vrcholù rùzných od koøene}
+  \begin{cases}
+    \text{s právì $a+j$ syny}   & \text{kdy¾}\ j \in\intrange{0}{c-1}\\
+    \text{s alespoò $a+j$ syny} & \text{kdy¾}\ j = c
+  \end{cases}
+\end{equation}
+
+Kdy¾ $v$ je vnitøní vrchol rùzný od koøene s právì $a+j$ syny,
+$j \in\intrange{0}{c-1}$,
+pak $z(v) \leq j$.
+
+Kdy¾ $v$ je vnitøní vrchol rùzný od koøene s alespoò $a+c$ syny,
+pak $z(v) \leq c$.
+
+Tedy
+\begin{equation}
+  \label{eq:ab-mj}
+  z(T) \leq c + \sum_{j=0}^c j m_j = *
+\end{equation}
+
+Spoèítáme hrany v $T$: nalevo jsou hrany vycházející z koøene a
+vnitøních vrcholù, napravo jsou hrany pøicházející do vnitøních
+vrcholù a listù.
+\begin{equation}
+2 + \sum_{j=0}^c (a+j) m_j \leq
+\text{poèet hran}
+= \left( \sum_{j=0}^c m_j \right) + m
+\end{equation}
+Tedy $m-2 \geq \sum_{j=0}^c (a+j-1) m_j$.
+
+\begin{equation}
+  *
+  =    c + \sum_{j=0}^c \frac{j}{a+j-1}(a+j-1) m_j 
+  \leq c + \sum_{j=0}^c \frac{c}{a+c-1}(a+j-1) m_j 
+  \leq c + \frac{c}{a+c-1} (m-2)
+\end{equation}
+
+Spojením tohoto výsledku s \ref{eq:ab-secti} dostaneme \ref{ab-v-stsp}.
+
+K dùkazu \ref{ab-v-sthsph} vyu¾ijeme \ref{ab-sthsph}.
+\begin{equation}
+  m_{h,j} = \text{poèet vnitøních vrcholù ve vý¹ce $h$}
+  \begin{cases}
+    \text{s právì $a+j$ syny}   & \text{kdy¾}\ j \in\intrange{0}{c-1}\\
+    \text{s alespoò $a+j$ syny} & \text{kdy¾}\ j = c
+  \end{cases}
+\end{equation}
+
+\begin{equation}
+  z_h(T) \leq \sum_{j=0}^c j m_{h,j}
+\end{equation}
+\begin{equation}
+  \sum_{j=0}^c m_{h,j}
+   = \text{poèet vrcholù ve vý¹ce $h$} 
+  \geq \sum_{j=0}^c (a+j) m_{h+1,j}
+\end{equation}
+\begin{equation}
+\label{ab-x}
+  \sum_{j=0}^c j m_{h,j}
+  \leq \sum_{j=0}^c m_{i-1,j} - a \sum_{j=0}^c m_{i,j} 
+\end{equation}
+\begin{align}
+   \sum_{i=1}^h z_i(T_k)(c+1)^i
+ & \leq \sum_{i=1}^h (c+1)^i \left( \sum_{j=0}^c j m_{i,j} \right) \\
+\intertext{oznaème $s_i = \sum_{j=0}^c m_{i,j}$}
+ & \stackrel{\text{\ref{ab-x}}}{\leq} 
+        \sum_{i=1}^h (c+1)^i \left( s_{i-1} - a s_i \right) \\
+ & = (c+1)s_0 - (c+1)^h a s_h + 
+        \sum_{i=2}^h (c+1)^i \left( s_{i-1} - \frac{a}{c+1} s_{i-1} \right) \\
+ & \leq (c+1) m \qquad\text{proto¾e $\frac{a}{c+1} \geq 1$ a $s_0 = m$}
+\end{align}
+
+\[
+ST_h + SP+h \leq \frac{m}{(c+1)^h} + \frac{n}{(c+1)^h} \leq \frac{2n}{(c+1)^h}
+\]
+\[
+P_h \leq SP_{h-1} - SP_h \leq SP_{h-1} + ST_{h-1} \leq \frac{2n}{(c+1)^{h-1}}
+\]
+Tím dostáváme \ref{ab-v-sthsph}:
+\[
+ST_h + SP_h + P_h \leq \frac{2 n (c+2)}{(c+1)^h}
+\]
+% --------------------------------------------------------------------------
+\section{Propojené $(a,b)$ stromy s prstem}
+
+\subsection{Algoritmus MEMBER}
+

@@ -1,0 +1,494 @@
+% ==========================================================================
+% prednaska DS 7.4.2003
+
+\chapter{Haldy}
+
+\begin{defn}
+Haldy jsou stromové struktury, které splòují 
+\begin{itemize}
+\item lokální podmínku na uspoøádání
+  - prvek reprezentující otce je men¹í ne¾ prvek repreentovaný synem
+\item strukturální podmínku na stromy, ze kterých jsou vytvoøené
+  - kdy¾ je prvek v sudé hladinì, pak je men¹í ne¾ prvky, které jsou
+    reprezentovány jeho syny a vnuky, pokud je v liché, pak je vìt¹í (?)
+    ne¾ prvky reprezentované jeho syny a vnuky.
+\end{itemize}
+\end{defn}
+
+% --------------------------------------------------------------------------
+\section{$d$-regulární haldy}
+
+Co musí být splnìno:
+\begin{enumerate}
+\item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má d synù
+\item ka¾dý vrchol má nejvý¹e d synù
+\item existuje oèíslování synù ka¾dého vrcholu tak, ¾e po oèíslování
+prùchodem ¹íøky platí: \\
+kdy¾ vrchol nemá list, pak ka¾dý vrchol s men¹ím èíselm má d synù.
+\end{enumerate}
+
+\begin{defn}
+d-regulární halda, d celé èíslo d$\geq$ 2 \\
+Je to strom T takový, ¾e existuje jednoznaèná korespondence mezi vrcholy
+stromù a prvky reprezentované mno¾iny a platí: 
+\begin{enumerate}
+\item kdy¾ x je prvek pøiøazený vrcholu t, pak otci(t) je pøiøazen prvek
+$\leq$ x
+\item strom T splòuje podmínky (i),(ii),(iii)
+pak po oèísllování prùchodem do ¹íøky platí:
+kdy¾ vrchol má èíslo i, jeho synové mají èísla
+d(i-1)+1,d(i-1)+3,...,di+1 a otec má èíslo 
+$\lceil\frac{i-1}{d}\rceil$.
+\end{enumerate}
+\end{defn}
+
+Pø. 3-regulární halda
+
+% obr.
+
+kdy¾ takto oèíslované prvky dáme do pole, pak platí: kdy¾ je vrchol na
+i-tém místì, pak jeho synové jsou 3(i-1)+2, 3i, 3i+1
+a otec je na $\lceil\frac{i-1}{3}\rceil$ místì v poli.
+to vyu¾ijeme pro implementaci polem - u¹etøíme místo.
+\par
+
+\begin{pozn}
+nejpopulárnìj¹í jsou 2-reg. haldy, proto¾e synové i-tého vrhocholu
+jsou na místech $2(i-1)+2=2i, 2(i-1)+3=2i + 1$, otec je na
+$\lceil\frac{i-1}{2}\rceil + 1 = \lceil\frac{i}{2}\rceil$. 
+$\Rightarrow$ snadné poèítání (bitový posun)
+\end{pozn}
+
+\subsection{Algoritmus UP}
+UP(x) ... srovná haldu smìrem nahoru
+
+A: if prvek reprezentovaný x je $<$ prvek reprezentovaný otcem(x) then
+  x a otce(x) vymìníme a pokraèujeme v A
+
+
+\subsection{Algoritmus DOWN}
+
+A: if prvek reprezentující x $>$ prvek reprezentovaný nìkterým synem x
+then vymìníme x a syna x, který reprezentuje nejmen¹í prvek, pokraèujeme
+v A
+
+\begin{pozn}
+kdy¾ má hlada hloubku h, pak UP(x) vy¾aduje èas O(h), DOWN(x) èas
+O(dh).
+\end{pozn}
+
+\subsection{Operace na haldì}
+
+\subsubsection{INSERT}
+pøidáme poslední list t reprezentující x
+UP(t)
+
+\subsubsection{MIN}
+... prvek reprezentovaný v koøeni
+
+\subsubsection{DELETEMIN}
+prvek reprezentovaný posledním listem dáme do koøene, odstraníme posl,.
+list
+DONW(koøen)
+
+\subsubsection{DECREASEKEY(x)}
+musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje
+nalézt
+zmìníme uspoøádání v bodì x
+UP(x) mohl by být men¹í ne¾ jeho otec, proto provedeme UP
+
+\subsubsection{INCREASEKEY}
+musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje
+nalézt
+zmìníme uspoøádání v bodì x
+DOWN(x)
+
+\subsubsection{DELETE}
+Musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje
+nalézt \\
+Vezmeme prvek y reprezentovaný posledním listem, odstraníme poslední list,
+prvek t, který reprezentoval x bude reprezentovat y
+
+\begin{algorithmic}
+\IF {y $<$ x} 
+  \STATE UP(t) else DOWN(t) 
+\ENDIF
+\end{algorithmic}
+
+\subsection{Algoritmus MAKEHEAP}
+Dána prostá posloupnost $x_1, x_2, ..., x_n$.
+Chceme vytvoøit d-reg. haldu reprezentující mno¾inu 
+${ x_1, x_2, ..., x_n }$. Vezmeme "d-reg. strom" T s vrcholy pøiøadíme
+prvky $x_1, x_2, ..., x_n$. Pro v¹echny vrcholy, které nejsou listy podle
+oèíslování v poøadí od nejvìt¹ího k nejmen¹ímu provedeme DOWN(t).
+\par
+
+% obr.
+
+Invariant: v okam¾iku, kdy provádím DOWN(t), tak vrcholy, které
+reprezentující vìt¹í prvky splòují smìrem dolù podmínku 
+
+\subsection{Slo¾itost operací}
+V d-reg. haldì reprezentující n-prvkovou mno¾inu implementace operací
+vy¾aduje èasy dané tabulkou: \\
+\par
+
+\begin{tabular}{|l|l|}
+\hline
+Operace & slo¾itost \\
+\hline
+MIN & O(1) \\
+INSERT, DECREASEKEY & $O(log_d(n))$ \\
+DELETEMIN, INCREASEKEY, DELETE & $O(d \cdot log_d(n))$ \\
+\hline
+\par
+\end{tabular}
+\\
+
+Máme vrchol v i-té hladinì a "d-reg. strom" má hloubku h. 
+Kolik èasu potøebuje DOWN(t) ?
+Je to O(d(h-1))
+poèet vrcholù v i-té hladinì je di èas MAKEHEAP je 
+$O(\sum{i=0}{h-1} d^id(h-i)) = O(dS)$, kde 
+$$
+S = \sum{i=0}{h-1}d^i(h-i)
+$$
+Budeme poèítat 
+\begin{multline}\bigparens
+dS - S = \sum{i=0}{h-1}d^{i+1}(h-i) - \sum{i=0}{h-1}d^{i}(h-i) = \\
+d^h - h + \sum{i=0}{h-1}d^{i}(h-i-(h-i-1)) = d^h - h\frac{d^h - 1}{d-1} \\
+\Rightarrow S = \frac{d^h - h}{d-1} + d\frac{d^{h-1} - 1}{(d-1)^2}, \\
+h = log_d(n) \Rightarrow S \approx O(\frac{n}{d})
+\end{multline}
+
+
+\subsection{Dijkstrùv algoritmus}
+
+K èemu jsou d-reg. haldy dobré ? napø. pro implementaci Dijkstrova
+algoritmu.
+\par
+
+Vstup: orientovaný graf (V,E), fce c:E->R+, vrchol z \\
+Výstup: d(v), $v \in V$ \\
+	d(v) je délka nejkrat¹í cesty ze z do v \\
+Alg: $d(z) = 0, d(v) = \infty \forall v \in V, v \neq z, U = {z}$\\
+
+\begin{algorithmic}
+\WHILE {$U \neq \emptyset$}
+  \STATE vezmeme z U prvek $u \in U$ s nejmen¹í hodnotou d(u),
+    \STATE odstraníme ho z U.
+  \FOR {$\forall(u,v) \in E$}
+    \IF {$d(v) > d(u) + c(u,v)$} 
+       \STATE $d(v) = d(u) + c(u,v)$ , v pøidáme do U
+    \ENDIF
+  \ENDFOR
+\ENDWHILE
+\end{algorithmic}
+\par
+
+U reprezentujeme pomocí d-reg. haldy. Pak èas Dijkstrova algoritmu je 
+O($|V| \cdot$ èas na INSERT + $|V| \cdot$ èas na DELETEMIN + $|E| \cdot$ èas na
+DESCREASEKEY) 
+\par
+
+kdy¾ d = 2, pak to je $O(|E|log_2(|V|))$
+$d = max {\frac{|E|}{|V|}, 2}$, vyjde èas $O(|E|log_d(|V|))$ \\
+kdy¾ $\exists \epsilon$ , ¾e $|E| \geq c|V|^{1+\epsilon}$ pro nìjaké cc,
+pak èas je $O(|E|)$. (graf je dostateènì hustý) \\
+$|E| \geq c|V|log^{\epsilon}|V|$ pro nìjaké c, $\epsilon$, pak èas
+$O(|E|loglog|V|)$.
+\par
+
+Dal¹í aplikace: tøídìní \\
+
+HEAPSORT \\
+Vstup: prostá posloupnost prvkù $x_1, x_2, ..., x_n$. \\
+Výstup: uspoøádaná psl. pvrkù $x_1, x_2, ..., x_n$. \\
+Alg: MAKEHEAP($x_1, x_2, ..., x_n$)
+
+\begin{algorithmic}
+  \STATE i = 1
+  \WHILE {$HEAP \neq \emptyset$}
+    \STATE $x_1$ = MIN(HEAP)
+    \STATE DELETEMIN(HEAP)
+    \STATE i = i + 1
+  \ENDWHILE
+\end{algorithmic}
+\par
+
+Optimum pro d-reg. haldy je nìkde mezi d=6 a d=7.
+
+% --------------------------------------------------------------------------
+\section{Leftist haldy}
+
+\begin{defn}
+LEFTIST strom \\
+Mìjme binární strom a pro ka¾dého syna máme urèeno, zda je levý nebo
+pravý. Pro vrchol v definujeme npl(v) jako délku nejkrat¹í cesty z v do
+vrcholu v podstromu v s nejvý¹e jedním synem. \\
+Binární strom je LEFTIST, kdy¾ \\
+a kdy¾ v má jednoho syna, pak je to levý syn
+b kd¾ v má dva syny, pak npl(levého syna) $\geq$ npl(pravého syna)
+\end{defn}
+
+\begin{defn}
+Cesta $x_1, x_2, ..., x_n$ se nazývá pravá, kdy¾ $x_i$ je pravý syn
+$x_{i-1}$ pro i=2,3,...,n a $x_n$ nemá pravého syna.
+\end{defn}
+\par
+
+Vlastnosti: 
+\begin{enumerate}
+\item ka¾dý podstrom leftist stromu je leftist 
+\item délka pravé cesty z $\forall$ vrcholu v je $\leq$ log(poèet vrcholù v
+podstromu vrcholu v)
+\end{enumerate}
+
+\begin{defn}
+Letist halda reprezentující mno¾inu S je leftist strom T s n vrcholy
+takový, ¾e exzistuje jednoznaèná korespondence mez prvlky S a vrcholy T
+taková, ¾e $\forall$ v prvek pøiøazený vrcholu v $\geq$ prvek pøiøayený
+otci v.
+\end{defn}
+\par
+
+\begin{defn} 
+MERGE($T_1, T_2$) \\
+podmínka: $T_1, T_2$ reprezentují disjunktní mno¾iny $S_1, S_2$.
+Výsledek: halda reprezentující $S_1 \cup S_2$.
+\end{defn}
+\par
+
+\begin{pozn}
+podobné operaci JOIN v AVL stromech (ale...)
+\end{pozn}
+
+MERGE($T_1$, $T_2$)
+\begin{algorithmic}
+\IF {$T_1$ = 0}
+  \STATE MERGE($T_1$, $T_2$) $\rightarrow T_2$ konec 
+\ENDIF
+\IF {$T_2$ = 0}
+  \STATE MERGE($T_1$, $T_2$) $\rightarrow T_1$ konec 
+\ENDIF
+\IF {koøen $T_2$ reprezentuje prvek $<$ prvek repr. koøenem $T_1$}
+  \STATE vymìníme $T_1$ a $T_2$
+\ENDIF
+\STATE pravý syn koøene $T_1 \rightarrow$ MERGE($T_2$, podstrom pravého syna koøene $T_1$)
+\IF {npl(levého syna koøene $T_1$) $<$ npl(pravého syna koøene $T_1$)}
+  \STATE prohodím syny koøene $T_1$
+\ENDIF
+\STATE npl(koøene $T_1$) = npl(pravého syna koøene $T_1$) + 1
+\STATE MERGE($T_1$, $T_2$) $\rightarrow T_1$ 
+\end{algorithmic}
+
+\begin{pozn}
+Èasová slo¾itost operace MERGE v leftist haldách je $O(log(n_1+n_2))$, kde
+$n_1, n_2$ jsou velikosti reprezentovaných mno¾in.
+\end{pozn}
+
+INSERT(x)
+\begin{algorithmic}
+\STATE vytvoøíme novou haldu $T_1$ reprezentující pouze prvek x
+\STATE T $\rightarrow$ MERGE($T_1$, $T_2$)
+\STATE DELETEMIN
+\STATE $T_1 \rightarrow$ podstrom levého syna koøene T
+\STATE $T_2 \rightarrow$ podstrom pravého syna koøene T
+\STATE T $\rightarrow$ MERGE($T_1$, $T_2$)
+\end{algorithmic}
+
+\begin{theorem}
+Operace MIN v leftist haldách vy¾aduje èas O(1), operace MERGE, INSERT, a
+DELETEMIN vy¾adují èas O(log n), kde n je poèet prvkù ve výsledné haldì.
+\end{theorem}
+
+\begin{pozn}
+% XXX obr.
+koukneme se jak vypadá výsledný strom a podíváme se na vrcholy, se kterými
+jsme nìco museli provádìt - tyto vrcholy le¾í na pravé cestì, tj. je jich
+omezený poèet.
+\end{pozn}
+
+DECREASEKEY(x)
+\begin{algorithmic}
+\STATE odtrhneme podstrom $T_1$ vrcholu x, y $\rightarrow$ otec(x)
+\STATE $T_2 = T - T_1$
+\STATE zmen¹íme ohodnocení koøene stromu $T_1$
+\IF {y má jen pravého syna}
+  \STATE  zmìmíme tohoto syna na levého, npl(y) = 0
+\ENDIF
+\STATE y $\rightarrow$ otec(y)
+\WHILE {npl(y) $>$ min{npl(levý syn y), npl(pravý syn y)} + 1}
+  \IF {npl(levého syna y) < npl(pravého syna y)}
+    \STATE prohodíme syny y
+  \ENDIF
+  \STATE npl(y) = npl(pravého syna y) + 1, y $\rightarrow$ otec(y)
+\ENDWHILE
+\STATE T $\rightarrow$ MERGE($T_1$, $T_2$)
+\end{algorithmic}
+
+\begin{pozn}
+npl, které jsem musel pøepisovat je v¾dycky pravý syn
+\end{pozn}
+
+\begin{theorem}
+Operace DECREASEKEY, INCREASEKEY a DELETE vy¾adují èas O(log n) v leftist
+haldách (a poèet prvkù výsledné reprez. mno¾iny)
+\end{theorem}
+
+% --------------------------------------------------------------------------
+\section{Binomiální haldy}
+
+jsou zalo¾eny na binomiálním rozvoji èísel, jsou definovány na speciálních
+stromech.
+
+% XXX obr.
+
+Vlastnosti stromù $H_i$
+\begin{itemize}
+\item $H_i$ má $2^i$ vrcholù
+\item hloubka $H_i$ je i
+\item koøen $H_i$ má i synù
+\item $\forall j < i$ existuje syn koøene $H_i$ takový, ¾e 
+  jeho podstrom je izomorfní s $H_j$.
+\end{itemize}
+
+\begin{proof}
+Dùkaz: indukcí pøes i (elementární)
+\end{proof}
+
+\begin{defn}
+Binomická halda je soubor stromù takových, ¾e
+\item ka¾dý strom je izomorfní s nìjakým $H_i$
+\item ¾ádné dva stromy nejsou izomorfní
+\item existuje jednoznaèná korespondence mezi vrcholy reprezentované
+mno¾iny a vrcholy stromù taková, ¾e prvek odpovídající otci je men¹í ne¾
+prvek odpovídající vrcholu.
+\end{defn}
+
+\subsection{Operace}
+
+MERGE($T_1$, $T_2$)
+\begin{algorithmic}
+\STATE ($T_1, T_2$ binom. haldy velikosti $n_1,n_2$)
+\STATE P = 0, i = 0, T = 0 
+\WHILE {i $leq$ log($n_1 + n_2$)}
+  \STATE $S_1$ je strom v $T_1$ izomorfní s $H_i$ (pokud neexistuje, tak $S_1=0$)
+  \STATE $S_1$ je strom v $T_1$ izomorfní s $H_i$ (pokud neexistuje, tak $S_1=0$)
+  % XXX \CASE
+     \IF {$S_1, S_2$, P = 0}
+       \STATE neprovedeme nic
+     \ENDIF
+     \IF {jeden strom z $S_1, S_2$, P je neprázdný} 
+        \STATE vlo¾ím tento strom do T, P=0
+     \ENDIF
+     \IF {dva stromy z $S_1, S_2$, P jsou neprázdné}
+       \STATE spojím tyto stromy a výsledek vzlo¾ím do P
+     \ENDIF
+     \IF {v¹echny stromy z $S_1, S_2$, P jsou neprázdné}
+       \STATE vlo¾ím do T, spojení $S_1, S_2$ vlo¾ím do P
+     \ENDIF
+  % \ENDCASE
+  \STATE i = i + 1
+\ENDWHILE
+\end{algorithmic}
+
+\begin{pozn}
+P odpovídá pøenosu v binárním sèítání, T je výsledná halda
+\end{pozn}
+
+Spojeni($S_1$, $S_2$)
+\begin{algorithmic}
+\STATE $S_1, S_2$ jsou stromy izomorfní s $H_i$ pro nìjaké i
+\IF {prvek reprezentovaný koøenem $S_1 \leq$ prvek reprezentovaný koøenem $S_2$}
+  \STATE koøen $S_2$ se stane dal¹ík synem koøene $S_1$
+\ELSE
+  \STATE koøen $S_1$ se stane dal¹ík synem koøene $S_2$
+\ENDIF
+\end{algorithmic}
+
+INSERT - stejný jako v leftist haldách
+MIN - prohledáme prvky reprezentované koøeny stromù a najdeme nejmen¹í
+
+DELETEMIN
+\begin{algorithmic}
+\STATE prohledáním prvkù reprezentovaných koøeny stromù naleznu strom S, jeho¾ koøen reprezentuje nejmen¹í prvek
+\STATE $T_1 = T \ {S}, T_2$ je tvoøen podstormy v¹echn synù koøene S
+\STATE (tj. utrhnu koøen a zbytek dám do haldy) - je to halda díky vlastnosti 4
+\STATE T $\rightarrow$ MERGE($T_1, T_2$)
+\end{algorithmic}
+
+\begin{pozn}
+operace DELETE se nedá rozumnì provést,museli bychom pøebudovat celý strom
+\end{pozn}
+
+\begin{theorem}
+Operace MERGE, INSERT, MIN, DELETEMIN a DECREASEKEY vy¾adují èas O(log n).
+Operace INCREASEKEY vy¾aduje èas $O(log^2 n)$.
+\end{theorem}
+
+\begin{pozn}
+sèítání v binárních èíslech O(1)
+1 0 0 ... 0
+1 1 1 ... 1
+amort. slo¾.
+neplatí nìco podobného pro binom. stomy ? Ano, pro operaci INSERT.
+\end{pozn}
+
+\begin{theorem}
+Amortizovaná slo¾itost operace INSERT je O(1).
+\end{theorem}
+
+\begin{pozn}
+MERGE zabírá dost èasu - musíme ho dìlat ?
+\end{pozn}
+
+
+\subsection{Líná implementace binom. hald}
+zmìníme definici - vynecháme podmínku 2, tj. teï v na¹í binom. haldì mohou
+být izomorfní stromy.
+\par
+Operace MERGE($T_1, T_2$) - provedeme konkatenaci seznamù $T_1 a T_2$.
+Jenom to by nefungovalo, musíme je¹tì zmìnit operace MIN, DELETEMIN.
+
+MIN
+\begin{algorithmic}
+\STATE pøi prohledávání prvkù reprezentovaných koøeny stromù seøadíme stromy do mno¾in $Q_i$, i=0,...,n , kde $Q_i$ je mno¾ina v¹ech stromù v T izomorfních s $H_i$.
+\STATE i = 0, T = 0
+\WHILE {$\exists Q_i \neq 0$}
+  \WHILE {$|Q_i| > 1$}
+    \STATE vezmeme dva stromy z $Q_i$, spojíme je, výsledek dáme do $Q_{i+1}$
+  \ENDWHILE
+  \IF {$Q_i \neq 0$}
+    \STATE strom z $Q_i$ dám do T
+  \ENDIF
+  \STATE i = i + 1
+\ENDWHILE
+\end{algorithmic}
+
+DELETEMIN
+dá stromy po odtr¾ení nejmen¹ího prvku do odpovídajících mno¾in $Q_i$
+
+\begin{theorem}
+Operace MERGE a INSERT pøi líné implementaci vy¾adují èas O(1), operace
+DELETEMIN a MIn vy¾adují èas O(poèet stromù).
+\end{theorem}
+
+bal(konfigurace) = poèet v¹ech stromù ve v¹ech haldách v konfiguraci
+
+Amort. slo¾.
+MERGE O(1)
+INSERT O(1)
+MIN O(log n)
+DELETEMIN O(log n)
+
+amort. slo¾. = èas pro operaci + bal(výsledné konfigurace) - bal(pùvodní
+konfigurace)
+
+\subsection{Zobecnìné binomiální haldy}
+
+
+% --------------------------------------------------------------------------
+\section{Fibonacciho haldy}
+
+
