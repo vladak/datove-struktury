@@ -72,7 +72,7 @@ v~podstromu $S_v[i]$
 % ..........................................................................
 \subsection{MEMBER($x$) v $(a,b)$ stromu}
 
-viz. algoritmus \ref{alg:abtree.member}
+viz algoritmus \ref{alg:abtree.member}
 
 \begin{algorithm}[!htb]
 \caption{MEMBER pro $(a,b)$ stromy}
@@ -99,7 +99,7 @@ viz. algoritmus \ref{alg:abtree.member}
 % ..........................................................................
 \subsection{INSERT($x$) do $(a,b)$ stromu}
 
-viz. algoritmus \ref{alg:abtree.insert}
+viz algoritmus \ref{alg:abtree.insert}
 
 \begin{algorithm}[!htb]
 \caption{INSERT pro $(a,b)$ stromy}
@@ -134,7 +134,7 @@ viz. algoritmus \ref{alg:abtree.insert}
 % ..........................................................................
 \subsection{DELETE($x$) z $(a,b)$ stromu}
 
-viz. algoritmus \ref{alg:abtree.delete}
+viz algoritmus \ref{alg:abtree.delete}
 
 \begin{algorithm}[!htb]
 \caption{DELETE pro $(a,b)$ stromy}
@@ -203,7 +203,21 @@ nejvìt¹í prvek reprezentované mno¾iny.
 
 \subsection{Algoritmus JOIN($T_1, T_2$) pro $(a,b)$ stromy}
 
-viz. algoritmus \ref{alg:abtree.join}
+Operace JOIN provede spojení dvou (a,b)-stromù $T_1$ a $T_2$ 
+do jednoho (a,b)-stromu za pøedpokladu, ¾e v¹echny prvky, které 
+reprezentuje strom $T_1$ jsou men¹í ne¾ prvky reprezentované stromem
+$T_2$.
+
+Algoritmus najde vrchol pro stromu $T_2$, spojí stromy do jednoho (viz
+obr. \ref{fig:abtree.join}) a provede ¹tìpìní.
+
+\begin{figure}
+\centering\includegraphics{pics/abtree-join}
+\caption{Idea operace JOIN}
+\label{fig:abtree.join}
+\end{figure}
+
+Pøepis viz algoritmus \ref{alg:abtree.join}
 
 \begin{algorithm}[!htb]
 \caption{JOIN pro $(a,b)$ stromy}
@@ -230,13 +244,43 @@ viz. algoritmus \ref{alg:abtree.join}
 \end{algorithmic}
 \end{algorithm}
 
+\subsubsection{Èasová slo¾itost operace JOIN}
+
 JOIN vy¾aduje èas $O(\text{rozdíl hloubek stromù}) 
-\leq O(\log(|S_1| + |S_2|))$.
+\leq O(\log(|S_1| + |S_2|))$
+% = O(\log(|S_1 sjednoceno S_2|)$.
 
 % ..........................................................................
 \subsection{Algoritmus SPLIT($x, T$) pro $(a,b)$ strom}
 
-viz. algoritmus \ref{alg:abtree.split}
+Operace SPLIT($x, T$) provede rozdìlení (a,b)-stromu $T$ na dva
+(a,b)-stromy $T_1$ a $T_2$ tak, ¾e:
+
+\begin{itemize}
+  \item $T_1$ je (a,b)-strom reprezentující prvky z $S$ $< x$
+  \item $T_2$ je (a,b)-strom reprezentující prvky z $S$ $> x$
+\end{itemize}
+
+kde $S$ je mno¾ina, reprezentovaná (a,b)-stromem $T$.
+Na výstupu této operace dále dostaneme informaci, zda $x \in S$.
+
+Základní my¹lenkou pro implementace této operace je pou¾ití dvou zásobníkù
+(a,b)-stromù. Procházíme strom $T$ od koøene k listùm a na ka¾dé úrovni
+vlo¾íme do prvního zásobníku ty podstromy bratrù aktuálního vrcholu, které
+obsahují prvky men¹í ne¾ prvek reprezentovaný aktuálním vrcholem. Do
+druhého zásobníku vlo¾íme podstromy s vìt¹ími prvky. 
+(viz obr. \ref{fig:abtree.split})
+Po projití stromu
+provedeme slití tìchto dvou zásobníkù do stromù $T_1$ a $T_2$ pomocí
+operace STACKJOIN. (viz sekce \ref{abtrees.stackjoin})
+
+\begin{figure}
+\centering\includegraphics{pics/abtree-split}
+\caption{Idea operace SPLIT}
+\label{fig:abtree.split}
+\end{figure}
+
+Pøepis operace SPLIT viz algoritmus \ref{alg:abtree.split}
 
 \begin{algorithm}[!htb]
 \caption{SPLIT pro $(a,b)$ stromy}
@@ -273,13 +317,19 @@ viz. algoritmus \ref{alg:abtree.split}
 \end{algorithmic}
 \end{algorithm}
 
+\subsubsection{Èasová slo¾itost operace SPLIT}
+
 Èas rozøezávání stromu je úmìrný jeho hloubce. Celkový èas operace
 SPLIT ov¹em závisí je¹tì na slo¾itosti operace STACKJOIN.
 
 % ..........................................................................
 \subsection{Algoritmus STACKJOIN($Z$) pro zásobník $(a,b)$ stromù}
+\label{abtrees.stackjoin}
 
-viz. algoritmus \ref{alg:abtree.stackjoin}
+Operace STACKJOIN provede JOIN v¹ech (a,b)-stromù ulo¾ených na zásobníku.
+Výsledkem je jediný (a,b)-strom.
+
+Pøepis viz algoritmus \ref{alg:abtree.stackjoin}
 
 \begin{algorithm}[!htb]
 \caption{STACKJOIN pro $(a,b)$ stromy}
@@ -292,6 +342,8 @@ viz. algoritmus \ref{alg:abtree.stackjoin}
 \ENDWHILE
 \end{algorithmic}
 \end{algorithm}
+
+\subsubsection{Èasová slo¾itost operace STACKJOIN}
 
 Nech» $Z$ obsahuje $(a,b)$ stromy $T_1 \dots T_k$, pøièem¾ $T_1$ je
 vrchol zásobníku.
@@ -322,7 +374,7 @@ Roz¹íøíme reprezentaci stromu a ka¾dému vnitønímu vrcholu $v$ pøidáme:
 v~podstromu $S_v[i]$ 
 \end{itemize}
 
-viz. algoritmus \ref{alg:abtree.find}
+viz algoritmus \ref{alg:abtree.find}
 
 \begin{algorithm}[!htb]
 \caption{FIND pro $(a,b)$ stromy}
@@ -349,7 +401,7 @@ viz. algoritmus \ref{alg:abtree.find}
 nejsou zpomaleny tím, ¾e aktualizují pole (seznam) $K$.
 
 % ..........................................................................
-\subsection{A-sort}
+\section{A-sort}
 
 Na první pohled se zdá, ¾e pou¾ití $(a,b)$ stromù ke tøídìní není
 výhodné. Pamì»ové nároky budou oproti bì¾nému tøídìní v poli asi
@@ -364,10 +416,12 @@ Pro úèely A-sortu roz¹íøíme reprezentaci takto:
 (ulo¾ená napø. v zásobníku)
 \end{itemize}
 
-Pou¾ijeme $(2,3)$-strom.\mnote{proè?}
+Pou¾ijeme $(2,3)$-strom. Proè, to si zdùvodníme a¾ po odvození slo¾itosti
+A-sortu.
 
 Nech» vstupní posloupnost je $a_1, \dots, a_n$. Postupnì odzadu
 vkládáme její prvky do stromu modifikovaným INSERTem:
+
 \begin{algorithmic}
 \STATE $k := n$
 \WHILE {$k > 1$}
@@ -375,17 +429,33 @@ vkládáme její prvky do stromu modifikovaným INSERTem:
 	\STATE $k := k - 1$
 \ENDWHILE
 \end{algorithmic}
+
 Na konci pøeèteme setøídìnou posloupnost pomocí spojového seznamu
 listù.
 
-A-INSERT, stejnì jako pùvodní INSERT, najde správný list a potom
+\subsection{A-INSERT}
+
+A-INSERT (viz algoritmus \ref{alg:abtree.a-insert}) pracuje
+témìø stejnì jako pùvodní INSERT - najde správný list a potom
 pøípadnì pøidá nový prvek. K nalezení správného listu ov¹em vyu¾ívá
-cestu z nejmen¹ího listu. Zde uvedená verze A-INSERTu odstraòuje 
+cestu z nejmen¹ího listu. (viz obr. \ref{fig:abtree.a-insert})
+
+\begin{figure} 
+\centering\includegraphics{pics/a-insert}
+\caption{Idea algoritmu A-INSERT}
+\label{fig:abtree.a-insert}
+\end{figure}
+
+Zde uvedená verze A-INSERTu odstraòuje 
 duplicitní prvky, operaci lze pochopitelnì upravit tak, ¾e nechává 
 duplicitní prvky, které zùstávají ve stejném poøadí.
+
+\begin{algorithm}[!htb]
+\caption{A-INSERT($x$)}
+\label{alg:abtree.a-insert}
 \begin{algorithmic}
 \STATE \COMMENT {Nalezení}
-\STATE $t := \text{nejmen¹í list}$
+\STATE $t := \text{nejmen¹í list stromu } T$
 \REPEAT
 	\STATE $t := \text{otec } t$
 \UNTIL {$t \text{ je koøen} \lor x \leq H_t[1]$}
@@ -421,6 +491,9 @@ inicializovali $t$}
 	\ENDWHILE
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
+
+\subsection{Slo¾itost A-sortu}
 
 Èas A-sortu
 = $\sum$ èasu vyhledání + $\sum$ èasu pøidání + èas vytvoøení výstupní
@@ -507,7 +580,7 @@ Potøebujeme omezit $b$: podmínku $b \geq 2a - 1$ zpøísníme na
 % ..........................................................................
 \subsection{Paralelní INSERT($x$) do $(a,b)$ stromu}
 
-viz. algoritmus \ref{alg:abtree.par.insert}
+viz algoritmus \ref{alg:abtree.par.insert}
 
 \begin{algorithm}[!htb]
 \caption{paralelní INSERT pro $(a,b)$ stromy}
@@ -559,7 +632,7 @@ pøístupu k celému stromu a uchovává $\max(S)$}
 % ..........................................................................
 \subsection{Paralelní DELETE($x$) z $(a,b)$ stromu}
 
-viz. algoritmus \ref{alg:abtree.par.delete}
+viz algoritmus \ref{alg:abtree.par.delete}
 
 \begin{algorithm}[!htb]
 \caption{paralelní DELETE pro $(a,b)$ stromy}
@@ -930,18 +1003,26 @@ ukazatele na bezprostø. pøedchùdce (následníka) v na hladinì vrcholu $v$ \\
 $h$ - hodnota, která le¾í mezi nejvìt¹ím prvkem podstromu v a nejmen¹ím
 prvek podstromu následníka.
 
-\mnote{zde chybí vìt¹í obrázek}
+Pøíklad (a,b)-stromu s prstem je vidìt na obr. \ref{fig.abtree.finger}
+
+\begin{figure}[!htb]
+\centering\includegraphics{pics/abtree-finger}
+\caption{(a,b)-strom s prstem pøi provedení operace MEMBER(6)} 
+\label{fig.abtree.finger}
+\end{figure} 
 
 \subsection{Algoritmus MEMBER}
 
 Viz algoritmus \ref{alg:abtreesfing.member}
+
+\mnote{XXX alg. MEMBER je velmi podivny, prepracovat}
 
 \begin{algorithm}[!htb]
 \caption{MEMBER (a,b) stromy s prstem}
 \label{alg:abtreesfing.member}
 \begin{algorithmic}
 \STATE MEMBER(x)
-\STATE 1) Nech» y je hodnota, na kterou ukazuje Prst.
+\STATE 1) Nech» $y$ je hodnota, na kterou ukazuje Prst.
   \IF {$x < y$} 
     \STATE pokraèuju 2)
   \ELSE
@@ -960,7 +1041,7 @@ Viz algoritmus \ref{alg:abtreesfing.member}
 
 \subsection{Algoritmus FINGER}
 
-FINGER(x) \\
+FINGER($x$) \\
 nastaví hodnotu na list, který reprezentuje prvek nejbli¾¹í k x.
 
 Pou¾ití: \\
@@ -969,15 +1050,15 @@ segmentu mají operace blízko sebe
 \par
 
 \begin{itemize}
-\item vyhledání x vy¾aduje èas O(1 + log(l))
+\item vyhledání $x$ vy¾aduje èas $O(1 + \log(l))$
 \item nastavím prst na nìjakou vhodnou hodnotu
 \end{itemize}
 
 \begin{theorem}
-Nech» T je propojovaný (a,b) strom s prstem a nech» P je posloupnost
-pøíkazù MEMBER, INSERT, DELETE, FINGER, kterou provedeme na T.
-Pak P vy¾aduje èas $O(log(n) + \text{èas na vyhledání})$
-kde $n$ je velikost mno¾iny reprezentované stromem T. ($b \geq 2a$)
+Nech» $T$ je propojovaný (a,b) strom s prstem a nech» $P$ je posloupnost
+pøíkazù MEMBER, INSERT, DELETE, FINGER, kterou provedeme na $T$.
+Pak $P$ vy¾aduje èas $O(log(n) + \text{èas na vyhledání})$
+kde $n$ je velikost mno¾iny reprezentované stromem $T$. ($b \geq 2a$)
 \end{theorem}
 
 \subsection{Amortizovaná slo¾itost}

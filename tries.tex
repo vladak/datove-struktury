@@ -39,7 +39,7 @@ slovo $\alpha a$.
 % ..........................................................................
 \subsection{Algoritmus MEMBER}
 
-viz. algoritmus \ref{alg:trie.member}.
+viz algoritmus \ref{alg:trie.member}.
 
 \begin{algorithm}[!htb]
 \caption{MEMBER pro základní verzi trie}
@@ -60,7 +60,7 @@ viz. algoritmus \ref{alg:trie.member}.
 % ..........................................................................
 \subsection{Algoritmus INSERT}
 
-viz. algoritmus \ref{alg:trie.insert}.
+viz algoritmus \ref{alg:trie.insert}.
 
 \begin{algorithm}[!htb]
 \caption{INSERT pro základní verzi trie}
@@ -82,7 +82,7 @@ viz. algoritmus \ref{alg:trie.insert}.
 % ..........................................................................
 \subsection{Algoritmus DELETE}
 
-viz. algoritmus \ref{alg:trie.delete}.
+viz algoritmus \ref{alg:trie.delete}.
 
 \begin{algorithm}[!htb]
 \caption{DELETE pro základní verzi trie}
@@ -154,28 +154,43 @@ Nyní mù¾eme vynechávat vrcholy podle následujícího kritéria:
 je-li $v$ vnitøní vrchol a v¹ichni jeho synové kromì $w$ jsou listy s
 $\Nal = \textit{false}$, pak $v$ vynech a zaøaï $w$ na jeho místo. Tento proces 
 opakujeme dokud trie obsahuje nìjaký vnitøní vrchol, jeho¾ v¹ichni synové 
-s výjimkou jednoho jsou listy, pro nì¾ $\Nal = \textit{false}$. V¹imnìte si, ¾e 
-ka¾dý vnitøní vrchol má právì $k$ synù, které jsou v jednoznaèné 
-korespondenci s písmeny abecedy $\Sigma$.
+s výjimkou jednoho jsou listy, pro nì¾ $\Nal = \textit{false}$. 
+V¹imnìte si, ¾e ka¾dý vnitøní vrchol má právì $k$ synù, které jsou 
+v jednoznaèné korespondenci s písmeny abecedy $\Sigma$.
+
+\begin{priklad}
+Nech» $\Sigma = \{0,1,2\}$, $l=3$.
+$S = \{ 001,102,010,211,212 \}$.
+
+Nekomprimovaný trie pro mno¾inu $S$ a jeho komprimovaná varianta je na
+obr. \ref{fig:tries.compr1}.
+
+\begin{figure}
+\centering\includegraphics{pics/trie-compr1}
+\caption{Komprimace trie. ©edá èísla v závorce znaèí hodnotu $uroven()$}
+\label{fig:tries.compr1}
+\end{figure}
+
+\end{priklad}
+
 
 \begin{pozn}
 \mnote{Koubek 2002/2003}
-Komprimované trie je tvoøený mno¾inou trie, kde pro $\beta$ je
+Komprimované trie je tvoøený mno¾inou vrcholù, kde pro $\beta$ je
 $hladina(\beta) = |\beta|$ a otec $\beta$ je nejvìt¹í vlastní prefix,
 který patøí do trie + pøidané listy. Listy jsou prvky z S + slova $\beta
-a$, kde $\beta \in$ trie a $\beta a$ není prefixem ¾ádného slova v S. Pro
-prvky z S je Nal = True, jinak false. Platí $prvek(\gamma) = \gamma$ pro ka¾dý
-list.
-\par
+a$, kde $\beta \in$ trie a $\beta a$ není prefixem ¾ádného slova v $S$. 
+Pro prvky z $S$ je Nal = True, jinak false. 
+Platí $prvek(\gamma) = \gamma$ pro ka¾dý list.
 
 Kdy¾ $\beta \in$ trie a $a \in \Sigma \rightarrow$
 $\Bigl\{$
 \begin{tabular}{ll}
-$\beta a$ list, & je a-tým synem $\beta$ \\
+$\beta a$ list, & je $a$-tým synem $\beta$ \\
 $\exists \delta \in S$, & ¾e $\beta a$ je prefixem $\delta$
 \end{tabular}
 
-Potom a-tý syn $\beta$ je nejkrat¹í prefix v mno¾inì trie v S, který
+Potom $a$-tý syn $\beta$ je nejkrat¹í prefix v mno¾inì trie v $S$, který
 obsahuje $\beta a$.
 \end{pozn}
 
@@ -331,8 +346,9 @@ ponìvad¾
  &   = \exp\left( \frac{-n^2}{k^{d-1}} \right),
 \end{align*} 
 (u¾ijte integrální kriterium a substituci $x = k^{d-1}(1-t)$) a 
-$e^x - 1 \geq x$ (odtud $1 - e^x \leq -x$). Tedy pro $c = 2\lceil\log_kn\rceil$ 
-dostáváme
+$e^x - 1 \geq x$ (odtud $1 - e^x \leq -x$). 
+Tedy pro $c = 2\lceil \log_kn\rceil$ dostáváme
+
 \begin{align*}
 E_n
  & = \sum_{d=1}^cq_d + \sum_{d=c+1}^{\infty}q_d\\
@@ -343,9 +359,9 @@ E_n
  & = 2\lceil\log_kn\rceil + \frac{k}{k-1}.
 \end{align*}
 
-Tedy oèekávaný èas operace MEMBER je $O(log_k(n))$ ($O(\frac{\log n}{\log
+Tedy oèekávaný èas operace MEMBER je $O(\log_k(n))$ ($O(\frac{\log n}{\log
 k})$)
-a $O(log_k(n) + k)$ pro INSERT a DELETE
+a $O(\log_k(n) + k)$ pro INSERT a DELETE
 \mnote{L.Pro¹ek: Mo¾ná v té oèekávané slo¾itosti by ¹lo +k zanedbat, ale
 ne na základì toho tvrzení, které dokazuje jen oèekávanou hloubku}
 pro komprimované trie (za pøedpokladù rovnomìrného rozlo¾ení vstupních dat) 
@@ -384,6 +400,7 @@ a èasovými nároky.
 \end{algorithmic}
 \end{algorithm}
 
+
 \mnote{XXX dalsi neznamy algoritmus z prednasky 2002}
 \begin{algorithm}[!htb]
 \caption{DELETE pro komprimované trie (?)}
@@ -413,11 +430,18 @@ DELETE($x=x_1, ..., x_l$)
 
 % XXX dopsat !
 \begin{priklad}
-Mìjme násedující komprimovaný trie: \\
-% XXX obr.
-\mnote{tady chybí obrázek}
+\label{example.trie.yetmorecompr}
 
-a jeho matici: \\
+\begin{figure}[!htb]
+\centering\includegraphics{pics/trie-compr2}
+\caption{Nekomprimovaný trie pro pøíklad \ref{example.trie.yetmorecompr}}
+\label{fig.trie.compr}
+\end{figure}
+
+Mìjme komprimovaný trie z obr. \ref{fig.trie.compr}
+a jeho matici: 
+
+\hspace{5mm}
 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -441,46 +465,47 @@ reprezentovat pùvodní matici.
 
 \subsection{Popis $A$ a $rd$}
 
-Zpìt k na¹emu pøíkladu: \\
-\par
-I. \\
-\begin{tabular}{|lllllll|}
-\hline
-hod & 210 & 211 & 212 & 120 & 121 & NIL \\
-\hline
-\end{tabular}
+Zpìt k na¹emu pøíkladu:
 
-\hspace{3mm}
+\begin{enumerate}
+\item
+  \begin{tabular}{|l|llllll|}
+  \hline
+  hod & 210 & 211 & 212 & 120 & 121 & NIL \\
+  \hline
+  \end{tabular}
+  
+  \hspace{2mm}
+  
+  \begin{tabular}{|l|llll|}
+  \hline
+     & root & a & b & c \\
+  \hline
+  rd &      &   & 0 & 3 \\
+  \hline
+  \end{tabular}
+  
+  % \hspace{5mm}
+  
+\item  
+  \begin{tabular}{|l|llllllllll|}
+  \hline
+  hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
+  \hline
+  \end{tabular}
+  
+  \hspace{2mm}
+  
+  \begin{tabular}{|l|llll|}
+  \hline
+     & root & a & b & c \\
+  \hline
+  rd & 4    & 7 & 0 & 3 \\
+  \hline
+  \end{tabular}
+\end{enumerate} 
+%  \hspace{5mm}
 
-\begin{tabular}{|lllll|}
-\hline
-   & root & a & b & c \\
-rd &      &   & 0 & 3 \\
-\hline
-\end{tabular}
-\par
-
-\hspace{5mm}
-
-II. \\
-\begin{tabular}{|lllllllllll|}
-\hline
-hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
-\hline
-\end{tabular}
-
-\hspace{3mm}
-
-\begin{tabular}{|lllll|}
-\hline
-   & root & a & b & c \\
-rd & 4    & 7 & 0 & 3 \\
-\hline
-\end{tabular}
-
-\hspace{5mm}
-
-\par
 Øádek $i$ zaèíná na místì $rd(i)$ a musí být splnìna podmínka: \\
 Kdy¾ $M_{i,j} \neq NIL \neq M_{i',j'}$, pak $rd(i) + j \neq rd(i') + j'$ \\
 Kdy¾ na místì hod chceme zapsat prvek $\neq NIL$ a NIL, pak zapí¹eme prvek
@@ -495,9 +520,9 @@ Nech» $M$ je matice typu $r x s$, má $m$ významných míst $\neq$ NIL.
 
 \begin{itemize}
 \item pro ka¾dý øádek nalezneme poèet míst $\neq$ NIL
-\item setøídíme øádky Bucketsortem, tak ¾e rádky s vìt¹ím poètem míst
+\item setøídíme øádky Bucketsortem, tak ¾e rádky s~vìt¹ím poètem míst
  $\neq$ NIL pøedcházejí øádky s men¹ím poètem míst $\neq$ NIL
-\item procházíme øádky v daném setøídìní a pro ka¾dý øádek i nalezneme
+\item procházíme øádky v daném setøídìní a pro ka¾dý øádek $i$ nalezneme
   nejmen¹í èíslo $rd(i)$, ¾e nedochází ke kolizi s pøedchozími øádky (tj.
   kdy¾ $M_{i',j'} \neq NIL \neq M_{i,j}$) a øádek $i'$ byl zaøazen, pak
   $rd(i) + j \neq rd(i') + j'$.
@@ -533,6 +558,8 @@ $O(mrs)$ - krok 2
 \begin{priklad}
 XXX nejaky komentar \\
 
+\vspace{5mm}
+
 \begin{tabular}{|l|lll|}
 \hline
 M & 0 & 1 & 2 \\
@@ -544,14 +571,17 @@ c & 120 & 121 & NIL \\
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 \begin{tabular}{|l|llll|}
 \hline
     & root & a & b & c \\
+\hline
 rd  &    4 & 7 & 0 & 3 \\
 \hline
 \end{tabular}
 
-\hspace{3mm}
+\vspace{3mm}
 
 \begin{tabular}{|l|llllllllll|}
 \hline
@@ -559,7 +589,7 @@ hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
 \hline
 \end{tabular}
 
-\hspace{3mm}
+\vspace{3mm}
 
 \begin{tabular}{|l|lll|}
 \hline
@@ -606,23 +636,29 @@ Kdy¾ $M(i,j)$ je významné místo, pak $M(i,j) = hod(zac(i+sl(j)) + j)$.
 
 $cd$ - vektor sloupcového posunutí, slou¾í k zápisu transformace
 
+\vspace{5mm}
+
 \begin{tabular}{|l|lll|}
 \hline
- & 0 & 1 & 2 \\
+   & 0 & 1 & 2 \\
+\hline
 cd & 0 & 1 & 2 \\
 \hline
 \end{tabular}
 \par
 
+\vspace{5mm}
+
 \begin{tabular}{|l|lllll|}
 \hline
- & 0 & 1 & 2 & 3 & 4 \\
+   & 0 & 1 & 2 & 3 & 4 \\
+\hline
 rd & 6 & 0 & 6 & 3 & 6 \\
 \hline
 \end{tabular}
 \par
 
-\hspace{3mm}
+\vspace{5mm}
 
 \begin{tabular}{|l|lllllllll|}
 \hline
@@ -771,20 +807,20 @@ dosadíme do odhadu \ref{odh-zak-hodnot} a dostaneme
   \frac{l+1}{l^2} = \frac{4m}{ln(2)} (\sum_{l=1}^{l_0} \frac{1}{l} +
   \sum_{l=1}^{l_0} \frac{1}{l^2}) \leq \\
 \text{integrální kriterium} \\
-\frac{4m}{ln(2)} (1 + ln(l_0)) + \frac{\pi^2}{6} \leq 4m log_2(l_0) +
+\frac{4m}{ln(2)} (1 + ln(l_0)) + \frac{\pi^2}{6} \leq 4m \log_2(l_0) +
 15.3m \\
 \text{odhadneme $l_0$: } 
-l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\} \rightarrow l_0 < log(m) \\
-\text{pak } \leq 4m\log log m) + 15.3m
+l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\} \rightarrow l_0 < \log(m) \\
+\text{pak } \leq 4m\log \log m) + 15.3m
 \end{multline}
 
 Celý algoritmus spoèítá ulo¾ení matice $M$ typu $r \times s$ do vektorù  \\
 $cd$ - dimenze $s$, \\
-$rd$ - dimenze $4m\log log m) + 15.3m + r$, \\
+$rd$ - dimenze $4m\log \log m) + 15.3m + r$, \\
 $hod$ dimenze $m+s$, \\
-pøitom hodnoty $cd(j) < 4m\log log m) + 15.3m$ a $rd(i) < m$.
+pøitom hodnoty $cd(j) < 4m\log \log m) + 15.3m$ a $rd(i) < m$.
 \par
-Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde $m$ je poèet míst $\neq
+Èas potøebný k výpoètu je $O(sr(m \log \log(m))^2)$, kde $m$ je poèet míst $\neq
 NIL$ v matici $M$.
 
 \subsection{Úsporné ulo¾ení øídkého vektoru}
@@ -796,6 +832,8 @@ Vytvoøíme vektor $cv$ dimenze $t$, $cv(j)=v(i_j)$. \\
 Ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto $j$. \\
 Sestavíme vektor $base$ dimenze $n$:
 
+\vspace{1mm}
+
 ${\rm base(j) = }$
 % \left 
 $\Bigl\{$
@@ -805,7 +843,12 @@ $min\{l; i_l div d = j\}$ & $\exists l$, ¾e $i_l$ {\tt div} $d = j$ \\
 \end{tabular}
 % \right. 
 
-a matici $offset$ typu $n \times d$ \\
+\vspace{1mm}
+
+a matici $offset$ typu $n \times d$ 
+
+\vspace{1mm}
+
 ${\rm offset(j,k) =}$
 % \left 
 $\Bigl\{$
@@ -814,13 +857,14 @@ $\Bigl\{$
 $l-base(j)$ & $i_l = jd+k$ \\
 \end{tabular}
 
+\vspace{2mm}
+
 Nyní ulo¾íme matici $offset$ do vektoru $off$ dimenze $n$
 tak, ¾e z ka¾dého øádku vytvoøíme èíslo $v$ soustavì o základu $d+1$: \\
 
 off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
 potøebujeme $base(dim n)$, $off(dim n)$ \\
-smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = log log n)$)
-\par
+smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = \log \log n)$)
 
 Platí následující vztahy: 
 \begin{enumerate}
@@ -839,10 +883,10 @@ $l = l {\tt mod} (d+1)$ \\
 $l = l - 1 + base(j)$ \\
 $v(i) = cv(l)$ \\
 
-Lze pou¾ít pro malé $t$ a $(d+1)^d$ v rozsahu velikosi registru - vhodné
-napø.  pro $d \approx log log n)$.
+Lze pou¾ít pro malé $t$ a $(d+1)^d$ v rozsahu velikosti registru - vhodné
+napø. pro $d \approx \log \log n)$.
 
-Pø.:
+\begin{priklad}
 $v$ = 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -851,6 +895,8 @@ $v$ =
       0  &     1 &      -1 &    3 \\
 \hline
 \end{tabular}
+
+\vspace{5mm}
 
 $i_0$ = 1, $i_1$ = 3, $i_2$ = 5, $i_3$ = 11, d = 3 \\
 
@@ -861,12 +907,16 @@ v(1) & v(3) & v(5) & v(11) \\
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 $base$ =
 \begin{tabular}{|l|l|l|l|}
 \hline
 0 & 1 & -1 & 3 \\
 \hline
 \end{tabular}
+
+\vspace{5mm}
 
 \begin{tabular}{|l|llll|}
 \hline
@@ -878,6 +928,8 @@ offset & 0 & 1 & 2 & 3 \\
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 3. sloupec tabulky offset repr. nuly \\
 off = 
 \begin{tabular}{|l|l|l|l|}
@@ -886,7 +938,10 @@ off =
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 $off(7) = (offset(1,0) + 1)4^0 + (offset(1,1) + 1)4^1 + (offset(1,2) +
 1)4^2$
 $off(1) = 1 + 0 + 2\cdot4^2 = 33$
 
+\end{priklad}

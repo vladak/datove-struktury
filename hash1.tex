@@ -22,19 +22,20 @@
 
 \chapter{Ha¹ování I}
 
-Universum $U$, reprezentovaná podmno¾ina $S, S \subseteq U, |S|=n$.
-Velikost tabulky: $m$. 
-
-Charakteristická funkce je velké plýtvání pamìtí pokud $n \ll |U|$,
-napø. pro $n = \log\log |U|$.
-
-S prvky, které nesou kladnou informaci ($x \in S$), moc
-nenadìláme. Ale záporné mù¾eme nìjak sdrcnout do jednoho nebo i
-pøekrýt s tìmi kladnými. To je idea ha¹ování.
+Je dáno universum $U$, reprezentovaná podmno¾ina $S, S \subseteq U, |S|=n$.
+Velikost tabulky, ve které budeme chtít $S$ reprezentovat je $m$. 
 
 Máme ha¹ovací funkci $h: U \to \{0..m-1\}$. Mno¾ina $S$ je
-reprezentována polem $P[0..m-1]$ tak, ¾e prvek $s \in S$ je ulo¾en na
+reprezentována tabulkou $T[0..m-1]$ tak, ¾e prvek $s \in S$ je ulo¾en na
 místì $h(s)$.
+
+Charakteristickou vlastností obecné ha¹ovací funkce je velké plýtvání 
+pamìtí pokud $n \ll |U|$, napø. pro $n = \log\log |U|$.
+
+S prvky, které nesou kladnou informaci ($x \in S$), moc
+nenadìláme. Ale záporné mù¾eme nìjak slouèit do jednoho nebo i
+pøekrýt s tìmi kladnými. To je základní idea ha¹ování.
+
 
 Problémy:
 \begin{enumerate}
@@ -54,30 +55,50 @@ se dìlí podle toho, jak øe¹í kolize.
 % --------------------------------------------------------------------------
 \section{Ha¹ování se separovanými øetìzci}
 
-Ha¹ovací tabulka je pole lineárních seznamù, ne nutnì uspoøádaných. 
+Ha¹ovací tabulka je pole lineárních seznamù, ne nutnì uspoøádaných.
+Základní operace na této tabulce jsou MEMBER (viz algoritmus
+\ref{alg:hash1.separ.member}),
+INSERT (viz alg. \ref{alg:hash1.separ.insert}) a DELETE (viz alg. 
+\ref{alg:hash1.separ.delete}).
 
+\begin{algorithm}[!htb]
+\caption{MEMBER pro ha¹ování se separovanými øetìzci}
+\label{alg:hash1.separ.member}
 MEMBER(x):
 \begin{enumerate}
 \item Spoèítáme $h(x)$.
 \item Prohledáme $h(x)$-tý seznam.
 \item Kdy¾ tam $x$ je, vrátíme {\em true}, jinak {\em false}.
 \end{enumerate}
+\end{algorithm}
 
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro ha¹ování se separovanými øetìzci}
+\label{alg:hash1.separ.insert}
 INSERT(x):
 \begin{enumerate}
 \item Spoèítáme $h(x)$. {\it (Jako MEMBER)}
 \item Prohledáme $h(x)$-tý seznam. {\it (Jako MEMBER)}
 \item Kdy¾ $x$ není v $h(x)$-tém seznamu, tak ho tam vlo¾íme.
 \end{enumerate}
+\end{algorithm}
 
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro ha¹ování se separovanými øetìzci}
+\label{alg:hash1.separ.delete}
 DELETE(x):
 \begin{enumerate}
 \item Spoèítáme $h(x)$. {\it (Jako MEMBER)}
 \item Prohledáme $h(x)$-tý seznam. {\it (Jako MEMBER)}
 \item Kdy¾ $x$ je v $h(x)$-tém seznamu, tak ho odstraníme.
 \end{enumerate}
+\end{algorithm}
 
-Oèekávaná doba operace je stejná jako oèekávaná délka seznamu.
+
+Oèekávaná doba operace MEMBER, INSERT nebo DELETE 
+je stejná jako oèekávaná délka seznamu.
 Ale pozor na prázdný seznam, u nìj nedosáhneme nulového èasu operace. 
 Uká¾eme, ¾e oèekávaná doba operace je konstantní.
 
@@ -285,6 +306,8 @@ resp. konec øetìzce má prázdnou polo¾ku {\tt vzad}, resp. {\tt vpøed}.
 Napøíklad pro $U=\mathbb{N}, m=10, h(x) = x \bmod 10$, ha¹ujeme posloupnost
 10, 50, 21, 60:
 
+\vspace{5mm}
+
 \begin{tabular}{|l|l|l|l|}
 \hline
 & klíè& {\tt vpøed}& {\tt vzad}\\
@@ -302,6 +325,8 @@ Napøíklad pro $U=\mathbb{N}, m=10, h(x) = x \bmod 10$, ha¹ujeme posloupnost
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 MEMBER je jednoduchý. 
 
 Pøi INSERT musíme zjistit, zda $h(x)$-tý øetìzec zaèíná na $h(x)$-tém
@@ -311,6 +336,8 @@ pokud ne, pøemístíme prvek na $h(x)$-tém místì na jiné volné místo,
 upravíme {\tt vpøed} a {\tt vzad} a prvek vlo¾íme na $h(x)$-té místo.
 
 Pøedchozí tabulka po INSERT(53):
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -328,6 +355,8 @@ Pøedchozí tabulka po INSERT(53):
 9& & & \\
 \hline
 \end{tabular}
+
+\vspace{5mm}
 
 Pøi DELETE musíme testovat, zda odstraòovaný prvek není na 1. místì
 svého øetìzce
@@ -355,6 +384,8 @@ jejich¾ $h(x)=i$.
 
 Ukládáme 50, 90, 31, 60:
 
+\vspace{5mm}
+
 \begin{tabular}{|l|l|l|l|}
 \hline
 & klíè& vpøed& zaèátek\\
@@ -372,7 +403,11 @@ Ukládáme 50, 90, 31, 60:
 \hline
 \end{tabular}
 
+\vspace{8mm}
+
 Pøidáme 42, 72, 45:
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -391,6 +426,7 @@ Pøidáme 42, 72, 45:
 \hline
 \end{tabular}
 
+
 % --------------------------------------------------------------------------
 \section{Ha¹ování s lineárním pøidáváním}
 
@@ -404,6 +440,8 @@ celé pøeha¹ovat.
 
 %\subsection{Oèekávaný poèet testù}
 %(Jenom citace vìty z Knutha, dk na cvièení)
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|}
 \hline
@@ -422,7 +460,11 @@ celé pøeha¹ovat.
 \hline
 \end{tabular}
 
+\vspace{8mm}
+
 Pøidáme 40, 98, 62, 108:
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|}
 \hline
@@ -450,6 +492,8 @@ nejmen¹í $j$ takové, ¾e $T[h_1(x) + j h_2(x)]$ je volné.
 
 Mìjme $h_1(x) = x \bmod 10$
 
+\vspace{5mm}
+
 \begin{tabular}{|l|l|}
 \hline
 & klíè\\
@@ -467,11 +511,15 @@ Mìjme $h_1(x) = x \bmod 10$
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 INSERT(100): $h_1(100)=0$ a pøedpokládejme, ¾e $h_2(100)=3$. Volné
 místo najdeme pro $i=1$.
 
 INSERT(70): $h_1(70)=0$ a pøedpokládejme, ¾e $h_2(70)=1$. Volné
 místo najdeme pro $i=2$.
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|}
 \hline
@@ -490,6 +538,8 @@ místo najdeme pro $i=2$.
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 Neuvedli jsme explicitní vzorec pro $h_2$. Její sestavení je toti¾
 slo¾itìj¹í. V¹imnìte si, ¾e nemù¾eme vzít $h_2(100)=4$. V¹echny
 hodnoty $h_2$ toti¾ musí být nesoudìlné s velikostí tabulky.
@@ -504,7 +554,14 @@ Napø.: $h(i) = i \bmod 10$, \( h_1(i) = \begin{cases}
 }
 
 \subsection{Algoritmus INSERT}
-\mnote{Je¹tì rozmyslet znaèení a sjednotit zápis algoritmù}
+% \mnote{Je¹tì rozmyslet znaèení a sjednotit zápis algoritmù}
+
+viz algoritmus \ref{alg:hash1.2fce.insert}
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro ha¹ování se dvìma funkcemi}
+\label{alg:hash1.2fce.insert}
+INSERT(x)
 \begin{enumerate}
 \item 
  spoèti $i=h_1(x)$
@@ -523,6 +580,8 @@ Napø.: $h(i) = i \bmod 10$, \( h_1(i) = \begin{cases}
  kdy¾ $i=k$, pak ohla¹ pøeplnìno, jinak vlo¾ $x$ na
  $k$-té místo
 \end{enumerate}
+\end{algorithm}
+
 
 Test $k\ne i$ v kroku 3 brání zacyklení algoritmu. Tento problém má 
 alternativní øe¹ení, nedovolíme vlo¾ení posledního prvku (místo testu v  
@@ -594,6 +653,8 @@ mno¾iny dìlený velikostí mno¾iny.
 Následující tabulka dává oèekávanou dobu vyhledávání pro rùzné 
 zaplnìní ha¹ovací tabulky.
 
+\vspace{5mm}
+
 \centerline{\begin{tabular}{c|cccccc}
 $\alpha$ 
  & 0.5 & 0.7 & 0.9 & 0.95 & 0.99 & 0.999 \\
@@ -614,7 +675,10 @@ z 2003/2004.
 Tabulka má dvì polo¾ky: klíè a adresu následujícího prvku. Prvek $s
 \in S$ je reprezentován v øetìzci, který pokraèuje v místì $h(s)$.
 
+\begin{priklad}
 V následující tabulce jsou srostlé øetìzce pro 0 a 3:
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|l|}
 \hline
@@ -632,7 +696,17 @@ V následující tabulce jsou srostlé øetìzce pro 0 a 3:
 9& & \\
 \hline
 \end{tabular}
+\end{priklad}
 
+\vspace{5mm}
+
+\subsection{Algoritmus INSERT}
+
+viz algoritmus \ref{alg:hash1.srust.insert}
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro srùstající ha¹ování}
+\label{alg:hash1.srust.insert}
 INSERT(x)
 \begin{enumerate}
 \item
@@ -641,13 +715,19 @@ INSERT(x)
  prohledej øetìzec zaèínající na místì $i$ a pokud nenajde¹ $x$,
  pøidej ho do tabulky a pøipoj ho do toho øetìzce.
 \end{enumerate}
+\end{algorithm}
 
 Kam do toho øetìzce máme pøipojit nový prvek? (To je jiná otázka, ne¾
-které volné místo zvolit.) Metoda LISCH (late insert standard coalesced
-hashing) ho pøipojí na poslední místo øetìzce, metoda EISCH (early
-insert standard coalesced hashing) ho pøipojí hned za $h(x)$-té místo.
+které volné místo zvolit.) Metoda LISCH (\emph{late insert standard 
+coalesced hashing}) ho pøipojí na poslední místo øetìzce, 
+metoda EISCH (\emph{early insert standard coalesced hashing}) 
+ho pøipojí hned za $h(x)$-té místo.
 
-LISCH INSERT(103), EISCH INSERT(94):
+\begin{priklad}
+Po provedení operací
+LISCH INSERT(103), EISCH INSERT(94) bude tabulka vypadat takto:
+
+\vspace{5mm}
 
 \begin{tabular}{|l|l|l|}
 \hline
@@ -665,10 +745,16 @@ LISCH INSERT(103), EISCH INSERT(94):
 9& 103& \\
 \hline
 \end{tabular}
+\end{priklad}
 
+\vspace{5mm}
+
+\begin{pozn}
 Pøi úspì¹ném vyhledání je EISCH asi o 15\% rychlej¹í ne¾ LISCH. (Pøi
 neúspì¹ném jsou samozøejmì shodné).
+\end{pozn}
 
+% XXX co s timto ?
 \def\xx{
 \subsection{Algoritmus MEMBER}
 \subsection{Algoritmus INSERT LISCH}
@@ -683,18 +769,21 @@ neúspì¹ném jsou samozøejmì shodné).
 Standardní srùstající ha¹ování má tu nevýhodu, ¾e se pøi vìt¹ím
 zaplnìní tabulky mohou vytvoøit dlouhé øetìzce. Tabulku tedy prodlou¾íme o
 % tady bylo {\uv sklep} ale nejak to nefunguje XXX
-pomocnou pamìt (sklep), do které se nedostane ha¹ovací funkce, a
+pomocnou pamìt (tzv. \emph{sklep}), do které se nedostane ha¹ovací funkce, a
 kolidující prvky pøidáváme odspodu. Øetìzce tedy srostou a¾ po
 zaplnìní sklepa.
 
 Opìt existují varianty pøipojení nového prvku do øetìzce: LICH a EICH
-jsou analogické k LISCH a EISCH. VICH (variable insert coalesced
-hashing) pøipojuje na konec øetìzce, jestli¾e øetìzec konèí ve sklepì,
+jsou analogické k LISCH a EISCH. VICH (\emph{variable insert coalesced
+hashing}) pøipojuje na konec øetìzce, jestli¾e øetìzec konèí ve sklepì,
 jinak na místo, kde øetìzec opustil sklep.
 
-INSERT 10, 41, 60, 70, 71, 90, 69, 40, 79:
+\begin{priklad}
+Provedeme operaci INSERT pro následující posloupnost prvkù:
+10, 41, 60, 70, 71, 90, 69, 40, 79. Tabulka pak bude vypadat takto:
 
 % XXX \newcommand{\x}[1]{(#1)}
+\vspace{5mm}
 
 \begin{tabular}{|l||l|l||l|l||l|l|}
 \hline
@@ -721,6 +810,11 @@ INSERT 10, 41, 60, 70, 71, 90, 69, 40, 79:
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
+Sklep je od "hlavní èásti" tabulky odli¹en èarou.
+\end{priklad}
+
 \def\xx{%commented out
 \begin{tabular}{|l|l|l|}
 \hline
@@ -744,7 +838,14 @@ INSERT 10, 41, 60, 70, 71, 90, 69, 40, 79:
 \end{tabular}
 }%commented out
 
-\subsection{DELETE(x)}
+
+\subsection{Operace DELETE}
+
+viz algoritmus \ref{alg:hash1.srust.pomoc.delete}
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro srùstající ha¹ování s pomocnou pamìtí}
+\label{alg:hash1.srust.pomoc.delete}
 \begin{enumerate}
 \item spoèítáme $h(x)$ a prohledáme øetìzec zaèínající na adrese $h(x)$. \\
 kdy¾ neobsahuje $x$ $\rightarrow$ konec.
@@ -763,19 +864,26 @@ pokraèuje. pak $x$ odstraníme a prvky za $x$ zaha¹ujeme do tabulky v poøadí
 jak se do ní ukládaly a pokud vzniká kolize, umístíme je zpátky na místo,
 kde byly.
 \end{enumerate}
+\end{algorithm}
 
-$h(x) = x mod 10$
+\begin{priklad}
+Pou¾ijeme ha¹ovací funkci $h(x) = x \mod 10$
 
-DELETE: 41, 42
+Provedeme operaci DELETE na prvky 41, 42.
+\mnote{? 42 v puv. tabulce nebylo XXX sehnat puvodni priklad}
 
-metoda LICH:
+\begin{itemize}
+\item metoda LICH: \\
 odstraníme prvky 62,78,82,52 z øetìzce a provedeme postupnì 
 INSERT: 62,78,82,52
 
-metoda VICH:
+\item metoda VICH: \\
 odstraníme 62,78,82,52 a provedeme INSERT: 82,62,78,52.
 pokud bychom provedli INSERT 82,62,52,78, pak bychom nepoznali, v jakém to
 bylo v tabulce poøadí.
+\end{itemize}
+
+\vspace{5mm}
 
 \begin{tabular}{|l||l|l|}
 \hline
@@ -797,8 +905,9 @@ bylo v tabulce poøadí.
 12&	61& \\
 \hline
 \end{tabular}
+\end{priklad}
 
-
+\vspace{5mm}
 
 
 \subsection{Srovnávací graf}
@@ -822,6 +931,8 @@ V neúspì¹ném pøípadì:
 
 Poèet testù pro úplnì zaplnìnou tabulku ($m=n$ nebo $m=n-1$)
 
+\vspace{5mm}
+
 \begin{tabular}{|l|l|}
 \hline
 h. s pøesuny&		1.5\\
@@ -834,6 +945,8 @@ h. se 2 funkcemi&	$n$\\
 h. s lineárním pøidáváním&$n$\\
 \hline
 \end{tabular}
+
+\vspace{5mm}
 
 \bigskip
 
@@ -859,6 +972,8 @@ EISCH &$\frac 1\alpha (e^\alpha - 1)$&
 	$1+ \frac14 (e^{2\alpha}-1-2\alpha)$\\
 \hline
 \end{tabular}
+
+\vspace{10mm}
 
 % mimo tabulku, jinak to je hnus
 LICH úspì¹né: 
@@ -892,6 +1007,7 @@ celkové velikosti
 a $\lambda$ je jediné nezáporné øe¹ení rovnice 
 $e^{-\lambda} + \lambda = \frac1\beta$.
 
+
 % --------------------------------------------------------------------------
 \section{Pøeha¹ovávání}
 
@@ -910,18 +1026,26 @@ Ulo¾ena je velikost $S$ a èíslo $i$ takové, ¾e
 \end{equation}
 a S je zaha¹ována funkcí $h_i$.
 
+\subsection{MEMBER}
+
 MEMBER funguje normálnì, pøi INSERT a DELETE kontrolujeme poru¹ení
 podmínky \eqref{prehas} a pøípadnì pøeha¹ujeme pro $i \pm 1$:
 
-INSERT: Provedeme operaci INSERT a kdy¾ máme pøidat prvek, testujeme,
+\subsection{INSERT}
+
+Provedeme operaci INSERT a kdy¾ máme pøidat prvek, testujeme,
 zda $|S|+1 < 2^i m$. Pokud nerovnost platí, dokonèíme INSERT. Pokud
 neplatí, zvìt¹íme $i$ o 1 a spoèítáme ulo¾ení $S \cup \{x\}$ vzhledem
 k nové ha¹ovací funkci $h_i$.
 
-DELETE: Provedeme operaci DELETE a kdy¾ máme odstranit prvek, testujeme,
+\subsection{DELETE}
+
+Provedeme operaci DELETE a kdy¾ máme odstranit prvek, testujeme,
 zda $i>0$ a $|S|-1 = 2^{i-2} m$. Pokud rovnost neplatí, dokonèíme DELETE. Pokud
 platí, zmen¹íme $i$ o 1 a spoèítáme ulo¾ení $S - \{x\}$ vzhledem
 k nové ha¹ovací funkci $h_i$.
+
+\subsection{Slo¾itost}
 
 Tato metoda má malou amortizovanou slo¾itost. Kdy¾ se spoèítá ha¹ovací 
 tabulka pro novou ha¹ovací funkci $h_i$, pak obsahuje $2^{i-1}m$ prvkù a 

@@ -5,7 +5,7 @@
 
 % --------------------------------------------------------------------------
 \section{Unární, binární a interpolaèní vyhledávání}
-\mnote{Napsal Pavel Machek}
+% \mnote{Napsal Pavel Machek}
 % pavel@ucw.cz
 
 Uspoøádané pole je datová struktura, která vznikne z pole jeho
@@ -38,8 +38,9 @@ Mìjme slovník $S$ ulo¾ený jako pole prvkù tak, ¾e $s[i] < s[i+1]$.
 
 Tento algoritmus mù¾e provádìt unární, binární, nebo interpolaèní vyhledávání;
 staèí jen dosadit správnou funkci $f$; 
-zobecnìné kvadratické vyhledávání bude definováno dále:
-\par
+zobecnìné kvadratické vyhledávání bude definováno dále.
+
+\hspace{10mm}
 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -63,7 +64,7 @@ $f(d,h) = fkvadrat$&
 $O(\log(n))$&
 $O(\log(\log(n)))$\\
 	kvadratické vyhledávání&
-$$&
+$ $&
 $O(\log(n))$&
 $O(\log(\log(n)))$\\
 \hline
@@ -73,8 +74,9 @@ $O(\log(\log(n)))$\\
 jako ¾e zobecnìné kvadratické a kvadratické jsou 2 rùzné vìci}
 
 \section{Zobecnìné kvadratické vyhledávání}
-\mnote{algoritmus vychází z Pavlova,
-výklad napsal Jakub Èerný}% kuba@atrey.karlin.mff.cuni.cz
+% \mnote{algoritmus vychází z Pavlova,
+% výklad napsal Jakub Èerný} 
+% kuba@atrey.karlin.mff.cuni.cz
 
 \def\xx{
 Poznamka pro Martina:
@@ -92,9 +94,10 @@ ze je dost rychly.
 }
 
 
+% XXX tady by to melo rozdelit nejake slovo
 Na interpolaèním vyhledávání se nám líbí jeho èas $O(\log\log |S|)$
-v prùmìrném pøípadì (pøi rovnomìrném rozdìlení dat). Av¹ak jeho èas 
-v nejhor¹ím pøípadì je a¾ $O(|S|)$. Zato binární vyhledávání má èas
+v~prùmìrném pøípadì (pøi rovnomìrném rozdìlení dat). Av¹ak jeho èas 
+v~nejhor¹ím pøípadì je a¾ $O(|S|)$. Zato binární vyhledávání má èas
 nejvý¹e $O(\log|S|)$. Zobecnìné kvadratické vyhledávání je tak trochu 
 kombinace pøedchozích dvou vyhledávání.
 

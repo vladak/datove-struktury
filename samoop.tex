@@ -25,13 +25,6 @@ Pokud x není v seznamu pøi operaci INSERT(x), tak pøedpokládejme, ¾e je na
 
 
 % --------------------------------------------------------------------------
-\section{Amortizovaná slo¾itost}
-
-tady bude nìjaký úvod a pokec k amort. slo¾itosti
-
-XXX
-
-% --------------------------------------------------------------------------
 \section{Seznamy}
 
 XXX
@@ -153,11 +146,11 @@ Amort. slo¾itost druhé èásti $= \text{poèet placených výmìn A} -
 \text{poèet volných výmìn A}$
 \par
 
-% XXX jak donutit itemize aby cislovalo pomoci i, ii, iii, ... ?
+% jak donutit itemize aby cislovalo pomoci i, ii, iii, ... ?
 \begin{itemize}
 \item[(i)]
-Pøedpokládejme, ¾e x není v seznamu a délka seznamù je n.
-Èas MFR je n+1 , èas na vyhledání pro algoritmus je n+1
+Pøedpokládejme, ¾e x není v seznamu a délka seznamù je $n$.
+Èas MFR je $n+1$ , èas na vyhledání pro algoritmus je $n+1$
 operace MEMBER(x) a DELETE(x) $S_A''$ = $S_{MFR}'$
 a tedy amort. slo¾. MFR = èas operace = $n+1 \leq 2(n+1) - 1$ \\
 $n+1$ je èas na vyhledání pro $A - 1$ \\
@@ -233,7 +226,10 @@ platí b)
 
 \mnote{temporary solution by T.Matousek}
 
-oèekávaná slo¾itost MFR: \\
+\subsubsection{Oèekávaná slo¾itost MFR}
+
+% XXX kdyz dukaz, tak by tady melo byt nejake tvrzeni
+
 \begin{proof}
 $E_{MFR} = \sum l_i p_i$
 kde $l_i$ je oèekávaná vzdálenost $x_i$ od zaèátku seznamu a $p_i$ je
@@ -308,7 +304,7 @@ Chceme spoèítat oèekávaný èas MFR pro posloupnosti $P$ aplikované na
 seznam $S$,
 kde $P$ obsahuje jen operace MEMBER($x$) pro $x \in S$. 
 \par
-Pøedppokládejme, ¾e $S={1,2, ... , n}$ a $\beta_1$ = pravdìpodobnost operace
+Pøedpokládejme, ¾e $S={1,2, ... , n}$ a $\beta_1$ = pravdìpodobnost operace
 MEMBER(x) pro $x \in S$.
 $S = \{1,2,3\}$ ... stavy Markovova øetìzce jsou v¹echny permutace $S$
 pravdìpodobnost pøechodu je pst. operace pøevádìjící jeden stav do
@@ -399,7 +395,7 @@ $$
 \section{Splay stromy}
 % thanks to Jana Skotáková & Martin Malý za zápisky, pøepsal Vladimír Kotal
 
-\mnote{èásteènì pøevzato z textù FIT VUTBR}
+% \mnote{èásteènì pøevzato z textù FIT VUTBR}
 
 Splay strom (splay tree, rozvinutý strom) patøí do kategorie 
 adaptabilních datových struktur urèených k vyhledávání. Má základní 
@@ -413,27 +409,27 @@ ve prospìch celkového sní¾ení èasové slo¾itosti.
 
 \subsection{Operace SPLAY}
 
-Základní operací je pro práci s tìmito stromy je SPLAY(x) - roz¹íøení, 
-která zjistí, zda x je reprezentován v dané mno¾inì. 
+Základní operací je pro práci s tìmito stromy je SPLAY($x$) - roz¹íøení, 
+která zjistí, zda $x$ je reprezentován v dané mno¾inì. 
 Pokud x le¾í v mno¾inì, algoritmus ho pøemístí do koøene.
-\par
-Kdy¾ x nele¾í v mno¾inì, pak algoritmus pøemístí do koøene buï nejmen¹í
-prvek vìt¹í ne¾ x nebo nejvìt¹í prvek men¹í ne¾ x (který le¾í v reprez.
+
+Kdy¾ $x$ nele¾í v mno¾inì, pak algoritmus pøemístí do koøene buï nejmen¹í
+prvek vìt¹í ne¾ $x$ nebo nejvìt¹í prvek men¹í ne¾ $x$ (který le¾í v reprez.
 mno¾inì)
-\par
+
 Tento mechanismus 
 se zaèíná od stanoveného uzlu, a postupnými rotacemi zpùsobuje, ¾e 
 stanovený uzel se stane koøenem stromu, pøi zachování vyhledávacích 
 relací. Celkovým výsledkem je skuteènost, ¾e èasto pou¾ívané polo¾ky se 
 hromadí v blízkosti koøene. Na rozdíl od BVS, jeho¾ nejhor¹í pøípad pro 
 degenerovaný (lineární) strom má slo¾itost $O(N)$ a je slo¾itost splay 
-stromu pro "k" rùzných po sobì jdoucích operací $O(k*log(N))$. Tato 
-slo¾itost není stanovena tradièním pøístupem "worst case", který hledá 
+stromu pro "$k$" rùzných po sobì jdoucích operací $O(k*\log(N))$. Tato 
+slo¾itost není stanovena tradièním pøístupem "nejhor¹í pøípad", který hledá 
 nejnevýhodnìj¹í situaci izolované operace, ale metodou "amortizované 
 analýzy" (amortized analysis), která hodnotí celou sekvenci rùzných 
-operací. Nìkteré z nich jsou dl¹í, nìkteré krat¹í ne¾ $log(N)$ ale v 
+operací. Nìkteré z nich jsou del¹í, nìkteré krat¹í ne¾ $\log(N)$, ale v 
 prùmìru vychází slo¾itost $O(ln(N))$.
-\par
+
 Splay stromy pøedstavují jeden z pøíkladù adaptabilních datových 
 struktur, jejich¾ vnitøní uspoøádání se mìní vlivem jako vedlej¹í jev 
 operací nad tìmoto strukturami. Mají dobrou tendenci vyva¾ovat stromovou 
@@ -454,13 +450,13 @@ CHANGEWEIGHT($x$, $\triangle$).
 \item JOIN2($T_1$,$T_2$) \\
 Pøedpokládá, ¾e $\forall$ prvky reprezentované $T_1 < \forall$ prvky
 reprezentované $T_2$, tj. $max T_1 < min T_2$.
-\par
+
 Výsledný strom reprezentuje $T_1 \cup T_2$.
 
 \item JOIN3($T_1$, $x$, $T_2$) \\
 Pøedpokládá, ¾e $\forall$ prvky reprezentované $T_1 < x < \forall$ prvky 
 reprezentované $T_2$, tj. $max T_1 < x < min T_2$.
-\par
+
 Výsledný strom reprezentuje $T_1 \cup T_2 \cup x$.
 
 
@@ -480,7 +476,7 @@ $\triangle$.
 Mechanismus vyhledání (splay search), pracuje stejnì jako u BVS, ale 
 po vyhledání se aplikuje na vyhledaný uzel mechanismus Splay, jeho¾ 
 výsledkem je pøesunutí uzlu na místo koøene. 
-\par
+
 Viz algoritmus \ref{alg:splay.mem}
 
 \begin{algorithm}[!htb]
@@ -489,9 +485,9 @@ Viz algoritmus \ref{alg:splay.mem}
 \begin{algorithmic}
 \STATE SPLAY(x, S)
 \IF {x je reprezentován v koøeni}
-  \STATE "x je v S"
+  \STATE "$x$ je v $S$"
 \ELSE 
-  \STATE "x není v S"
+  \STATE "$x$ není v $S$"
 \ENDIF
 \end{algorithmic}
 \end{algorithm}
@@ -634,7 +630,7 @@ insert" uzlu s klíèem C XXX je uvedena na obr. \ref{splay-insert}.
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/splay-insert}
-\caption{INSERT pro splay stromy}
+\caption{INSERT(x) pro splay stromy}
 \label{splay-insert}
 \end{figure}
 
@@ -660,8 +656,10 @@ Viz algoritmus \ref{alg:splay.insert}
 \end{algorithm}
 
 jiný zápis:
-$T_1, T_2 \leftarrow SPLIT(x, T)$
-$T \leftarrow JOIN3(T_1, x, T_2)$
+\begin{algorithmic}
+\STATE $T_1, T_2 \leftarrow SPLIT(x, T)$
+\STATE $T \leftarrow JOIN3(T_1, x, T_2)$
+\end{algorithmic}
 
 \subsection{Algoritmus CHANGEWEIGHT}
 
@@ -691,7 +689,7 @@ urèeném $x$.
 $tw(a) = w(a) + w(b) + w(c)$ \\
 
 $r(x)$ je $rank(x)$ \\
-$r(x) = \lfloor log tw(x) \rfloor$
+$r(x) = \lfloor \log tw(x) \rfloor$
 
 $bal(konfigurace) = \sum \{ r(x) : x \in konfigurace \}$
 
@@ -707,8 +705,8 @@ synové $t$. Pak $r(t) > min\{r(u), r(v)\} (r(list) = -\infty)$.
 \begin{proof}
 Pøedpokládejme, ¾e $tw(u) \leq tw(v)$\\
 $$
-r(t) = \lfloor log tw(t) \rfloor \geq \lfloor log 2tw(u) \rfloor =
-1 + \lfloor log tw(u) \rfloor = 1 + r(u)
+r(t) = \lfloor \log tw(t) \rfloor \geq \lfloor \log 2tw(u) \rfloor =
+1 + \lfloor \log tw(u) \rfloor = 1 + r(u)
 $$
 \end{proof}
 
@@ -789,7 +787,7 @@ bal(konfigurace) = souèet rankù v¹ech vrcholù v mno¾inách tvoøících
 konfigurace
 \par
 Ná¹ cíl : Budeme chtít ukázat, ¾e amortizovaná slo¾itost operací je
-$O(log\frac{w(T)}{v(x)})$, kdy¾ $T$ reprezentuje $S$.
+$O(\log\frac{w(T)}{v(x)})$, kdy¾ $T$ reprezentuje $S$.
 \par
 Èas operace SPLAY = poèet bìhù druhého cyklu, který vrchol $t$ 
 transportuje do koøene.
@@ -817,9 +815,9 @@ Zøejmì $r(a) \geq r(b_1)$ a $r(a) \geq r(b_2)$, tedy $r(b_1) \neq r(b_2)
 \begin{equation}
 \begin{split}
 r(a) 
-& = \lfloor log_2 w(a) \rfloor \geq \lfloor (w(b_1) + w(b_2)) \rfloor \\
-& \geq \lfloor log_2(2 - min\{w(b_1),w(b_2)\}) \\
-& = 1 + log_2 min\{w(b_1),w(b_2)\} \\
+& = \lfloor \log_2 w(a) \rfloor \geq \lfloor (w(b_1) + w(b_2)) \rfloor \\
+& \geq \lfloor \log_2(2 - min\{w(b_1),w(b_2)\}) \\
+& = 1 + \log_2 min\{w(b_1),w(b_2)\} \\
 & = 1 + min\{w(b_1),w(b_2)\}
 \end{split}
 \end{equation}
@@ -854,7 +852,7 @@ Oznaème $r_i$ rank ve stromì $T_i$, nech» $u_i$ je otec $t$ ve stromì
 $T_i$ a kdy¾ $u_i$ není koøen $T_i$, pak $v_i$ je otec $u_i$ v $T_i$.
 
 \begin{itemize}
-\item a) \\
+\item a)
 $u_i$ je koøen: \\
 chci odhadnout $1 + bal(T_i) - bal(T_{i-1})$ :
 \begin{equation}
@@ -884,7 +882,7 @@ $$
 r_{i-1}(u_{i-1}) \geq r_{i-1}(t)
 $$
 
-\item b) \\
+\item b)
   $u_{i-1}$ není koøen: 
   \begin{enumerate}
   \item $u_{i-1}$ je jiný syn v $T_{i-1}$ ne¾ $t$
@@ -1028,13 +1026,13 @@ $x$.
 Jednotlivé operace mají následující amortizované slo¾itosti:
 
 \begin{itemize}
-\item $SPLAY(x,T) = O(log\frac{w(T)}{min\{w(t_{-}),w(t_{+})\}})$ \\
-\item $MEMBER(x,T) = O(log\frac{w(T)}{min\{w(t_{-}),w(t_{+})\}})$ \\
-\item $SPLIT(x,T) = O(log\frac{w(T)}{min\{w(t_{-}),w(t_{+})\}})$ \\
-\item $CHANGEWEIGHT(x, \triangle) = O(log\frac{
+\item $SPLAY(x,T) = O(\log\frac{w(T)}{min\{w(t_{-}),w(t_{+})\}})$ \\
+\item $MEMBER(x,T) = O(\log\frac{w(T)}{min\{w(t_{-}),w(t_{+})\}})$ \\
+\item $SPLIT(x,T) = O(\log\frac{w(T)}{min\{w(t_{-}),w(t_{+})\}})$ \\
+\item $CHANGEWEIGHT(x, \triangle) = O(\log\frac{
 w(T) - max\{\triangle,0\}}{min\{w(t_{-}),w(t_{+})\}
 })$ \\
-\item $JOIN3(T_1, x, T_2) = O(log\frac{w(T_1)+w(T_2)+v(x)}{v(x)})$
+\item $JOIN3(T_1, x, T_2) = O(\log\frac{w(T_1)+w(T_2)+v(x)}{v(x)})$
 \end{itemize}
 
 Oznaème $t_{\infty}$ prvek v $T_1$, který reprezentuje nejvìt¹í prvek z
@@ -1043,14 +1041,14 @@ následujicí:
 \par
 
 \begin{itemize}
-\item $JOIN2(T_1,T_2) = O(log\frac{w(T_1) + w(T_2)}{w(t_{\infty})})$ \\
-\item $DELETE(x,T) = O(log\frac{w(T)}{min\{w(t_{-}),w(t_{+}),w(t_{1}\}})$ \\
+\item $JOIN2(T_1,T_2) = O(\log\frac{w(T_1) + w(T_2)}{w(t_{\infty})})$ \\
+\item $DELETE(x,T) = O(\log\frac{w(T)}{min\{w(t_{-}),w(t_{+}),w(t_{1}\}})$ \\
 \end{itemize}
 
 Prvek $t_1$ je prvek $T_1$, který reprezentuje v $T$ nejvìt¹í prvek $\leq x$.
 
 \begin{itemize}
-\item $INSERT(x,T) = O(log\frac{w(T) + v(x)}{min\{w(t_{-}),w(t_{+})\}})$
+\item $INSERT(x,T) = O(\log\frac{w(T) + v(x)}{min\{w(t_{-}),w(t_{+})\}})$
 \end{itemize}
 
 % priklad pro SPLAY stromy ----------------------------------------------
@@ -1083,7 +1081,7 @@ $$\leq O(d(x)) =
 O(r(T)-r(x)) = O(d+1-d+d(x)-1) = O(d(x))$$
 \par
 Èas posloupnosti $P$ pou¾ité na strom $T$ a implementované strategií SPLAY 
-$$= (\sum_{operace v P}{} \text{amortizovaná slo¾itost operací v P}) +
+$$= (\sum_{\text{operace v P}}{} \text{amortizovaná slo¾itost operací v P}) +
 bal(T) = O(\text{èas P pro strom U} + bal(T))$$
 \par
 $bal(T)$ je balance stromu $T$. 

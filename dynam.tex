@@ -4,11 +4,24 @@
 
 \chapter{Dynamizace}
 
-V uspoøádaném poli umíme rychle vyhledávat, ale pøidat prvky znamená
-celé ho pøebudovat. Ve strùstajícím ha¹ování zase ne¹ly prvky mazat,
-ve velmi komrimovaných trie ani pøidávat, ani mazat. V této kapitole
+V~uspoøádaném poli umíme rychle vyhledávat, ale pøidat prvky znamená
+celé ho pøebudovat. Ve~srùstajícím ha¹ování zase ne¹ly prvky mazat,
+ve~velmi komprimovaných trie ani pøidávat, ani mazat. V~této kapitole
 uká¾eme obecnou metodu, jak tyto problémy øe¹it, podobnou pøístupu u
 binomiálních hald.
+\par
+Takové struktuøe, která neumo¾òuje vkládání (operace INSERT) ani mazání 
+(operace DELETE) prvkù budeme øíkat
+\emph{statická struktura}. Chceme vytvoøit takovou reprezentaci, která
+bude vyu¾ívat výhod statické struktury, ale zároveò umo¾ní operace INSERT
+a DELETE.
+\par
+K tomu se dopracujeme postupnì. 
+Nejdøíve provedeme \emph{semidynamizaci}, 
+která umo¾ní (v nové reprezentaci pùvodní mno¾iny) operaci INSERT, 
+pak \emph{dynamizaci}, která pøidá operaci DELETE. 
+
+
 
 % --------------------------------------------------------------------------
 \section{Zobecnìný vyhledávací problém}
@@ -24,16 +37,16 @@ je nalezení hodnoty $f(x, A)$.
 
 \begin{pozn}
 Chceme najít strukturu, která reprezentuje A a algoritmus, který pro vstup
-$x \in U_1$ spoèítá $f(x, A)$. Takové struktuøe se øíká statická struktura
-pro vyhledávací problém.
+$x \in U_1$ spoèítá $f(x, A)$. Takové struktuøe se øíká 
+\emph{statická struktura} pro vyhledávací problém.
 \end{pozn}
 
-Pø.:
+\begin{priklad}
 \begin{description}
 \item[Klasický vyhledávací problém:]
-
-	$U_1 = U_2 = U$, univerzum prvkù;
-	$U_3 = \{0, 1\}, A \subseteq U_2$
+	
+	$U_1 = U_2 = U$, univerzum prvkù; \\
+	$U_3 = \{0, 1\}, A \subseteq U_2$ 
 
 	$f(x, A) =
 	\begin{cases}
@@ -70,6 +83,7 @@ Pø.:
 	\end{cases}\)
 	(není rozlo¾itelný problém)
 \end{description}
+\end{priklad}
 
 
 \subsection{Operace INSERT a DELETE}
@@ -78,9 +92,9 @@ Pro mno¾inu $A \subseteq U_2$ a pro statickou strukturu {\cal S}
 øe¹ící vyhledávací problémf pro $x \in U_2$.
 \par
 \begin{itemize}
-\item[INSERT($x$,$A$)] - vybudování struktury øe¹ící vyhledávací problém pro mno¾inu
+\item INSERT($x$,$A$) - vybudování struktury øe¹ící vyhledávací problém pro mno¾inu
 $A \cup \{x\}$
-\item[DELETE($x$,$A$)] - vytvoøení struktury øe¹ící vyhl. problém pro mno¾inu 
+\item DELETE($x$,$A$) - vytvoøení struktury øe¹ící vyhl. problém pro mno¾inu 
 $A - \{x\}$
 \end{itemize}
 
@@ -130,13 +144,21 @@ P_\staticka(n) & = \text{èas potøebný pro vybudování \staticka}
 \end{align*}
 \end{defn}
 
+% ------------------------------------------------------------------------
 \section{Semi-dynamizace}
+
+Semi-dynamizace umo¾ní operaci INSERT nad novou reprezentací pùvodní
+mno¾iny. Tato reprezentace bude vyu¾ívat statické struktury. Nejprve
+provedeme "základní" semidynamizaci, poté ji vylep¹íme pro INSERT se
+slo¾itostí v nejhor¹ím pøípadì. Vylep¹ení bude vy¾adovat jiný rozklad
+pùvodní mno¾iny a algoritmus INSERT (viz \ref{alg:semidyn.insert}) 
+bude slo¾itìj¹í.
 
 \begin{theorem}
 Máme rozlo¾itelný vyhled. problém $f$ a máme pro nìj statickou strukturu,
 která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
 $P(n)$,
-$kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
+kde $Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
 existuje semidynamická dat. struktura $D$, øe¹ící $f$ v èase
 $O(Q(n)\log n)$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERT s 
 amort. slo¾itostí
@@ -149,7 +171,7 @@ $P_\staticka(n)/n$ jsou neklesající funkce.
 
 Máme mno¾inu $A$ a vytvoøíme pro ni novou strukturu $D$.
 Nech» $A_i \subseteq A$ taková, ¾e buï $|A_i| = 2^i$ nebo $A_i = \emptyset$ \\
-$A_i \cap A_j = \emptyset pro i \neq j$.
+$A_i \cap A_j = \emptyset {\text pro } i \neq j$.
 $\bigcup A_i = A$
 
 Platí $A_i \neq \emptyset$ právì kdy¾ $(i+1)$-ní bit v dvojkovém rozvoji èísla
@@ -195,6 +217,12 @@ log_2|A| + \sum_{i=0}^{log|A|}Q(2^i) \leq log|A| + \sum_{i=0}^{log|A|}Q(|A|)
 = log|A|(Q(|A|) + 1)
 \end{multline}
 
+\begin{pozn}
+První nerovnost plyne z toho, ¾e $Q(n)$ je nerostoucí funkce. 
+V dal¹ích dùkazech pro $S$ a $P$ se vyu¾ívá opìt této vlastnosti pro
+$\frac{S(n)}{n}$ a $\frac{P(n)}{n}$.
+\end{pozn}
+
 $log_2(|A|)$ - vyhodnocení $f(x,A)$ z $f(x,A_i), i=0,1,...$
 \par
 
@@ -214,12 +242,12 @@ struktura pro výpoèet $f$ potøebuje
 
 \subsection{INSERT}
 
-INSERT(x)
 
 \begin{algorithm}[!htb]
-\caption{INSERT}
+\caption{INSERT pro semidynamizaci (rozklad $A$ na mno¾iny $A_i$)}
 \label{alg:semidyn.insert}
 \begin{algorithmic}
+\STATE INSERT(x)
 \IF {$x \not\in A$} 
   \STATE nalezneme nejmen¹í $j$, ¾e $A_j = \emptyset$
 \ENDIF
@@ -230,7 +258,8 @@ INSERT(x)
 \end{algorithm}
 
 
-Kdy se buduje znovu $S$ struktura pro $A_j$ ? 
+Kdy se buduje znovu (tedy podruhé) $S$ struktura pro $A_j$ (mìøeno poètem
+INSERTù) ?
 \begin{enumerate}
 \item musí se naplnit v¹echny $A_i$ pro i<j 
 to je $2^j-1$ úspì¹ných INSERTù (ty, které pøidaly prvek)
@@ -239,7 +268,7 @@ to je $2^j-1$ úspì¹ných INSERTù (ty, které pøidaly prvek)
 \item da¹í úspe¹ný INSERT vytvoøí teprve S strukturu pro $A_j$
 \end{enumerate}
 
-tj. $2 \cdot 2^j$ úspì¹ných INSERTù.
+tj. $2^j -1 + 1 + 2^j -1 + 1 = 2 \cdot 2^j = 2^{j+1}$ úspì¹ných INSERTù.
 
 Amortizovaný èas operace INSERT je 
 $$
@@ -261,12 +290,15 @@ slo¾itostí
 $O(\frac{P(n)}{n} \cdot\log n)$.
 \end{theorem}
 
+% ------------------------------------------------------------------------
+
+\subsection{INSERT se slo¾itostí v nejhor¹ím pøípadì}
+
 Následuje konstrukce takové semidynamické struktury, která bude podporovat
 INSERT se slo¾itostí v nejhor¹ím pøípadì.
-\par
 
 \begin{pozn}
-Pokud $\frac{P(n)}{n} = \Theta(n^\epsilon) pro \epsilon > 0$, pak
+Pokud $\frac{P(n)}{n} = \Theta(n^\varepsilon)$ pro $\varepsilon > 0$, pak
 amortizovaný èas pro operaci INSERT bude $O(\frac{P|A|}{|A|})$.
 \end{pozn}
 
@@ -315,10 +347,8 @@ pro postaverní $S$ struktury, ale je¹tì není dokonèena.
 \end{pozn}
 
 - toto je definice nové semidynamické struktury.
-\par
 
 Pamì»ové nároky
-
 \begin{equation}
 \begin{split}
 & |A| + \sum_{i=0}^{log |A|} 4S(2^i) \\
@@ -346,35 +376,83 @@ spoèítáme $f(x,A)$.
 \end{multline}
 
 Platí: $Q(n) \geq n^{\epsilon}$ pro nìjaké $\epsilon$, pak èas potøebný pro
-výpoèet f je $O(Q(N))$.
+výpoèet $f$ je $O(Q(N))$.
 
-INSERT(x) viz. alg. \ref{alg:dynam.insert}
+INSERT(x) viz alg. \ref{alg:semidyn.insert}
+
+%\begin{algorithm}[!htb]
+%\caption{Operace INSERT pro semidynamizaci}
+%\label{alg:semidy.insert}
+%\begin{algorithmic}
+%\STATE kdy¾ $x \notin A$ jinak provedeme:
+%  \STATE vytvoøíme S strukturu pro $A_{0,j_i+1} = \{x\}$ (zvìt¹íme $j_0$ o 1)
+%  \IF {$j_o$ je liché}
+%      \STATE pak provedeme 1.krok pro vytvoøení S struktury
+%      \STATE pro mno¾inu $A_{1,j_1 + \lceil \frac{j_0}{2} \rceil} = A_{0,j_0 - 1}
+%      \cup A_{0,j_0}$
+%  \ENDIF
+%  \STATE pro $i = 1,2,...,i_0+1$ v roustoucím poøadí:
+%  \IF {S je rozpracovaná struktura pro $A_{i,j_i+1}$}
+%    \STATE provedeme dal¹ích $\frac{P(2^i)}{2^i}$ krokù pro její vybudování
+%  \ENDIF
+%  \STATE kdy¾ jsme dobudovali S strukturu pro $A_{i,j_i+1}$, zvìt¹íme $j_i$ o 1
+%  \STATE zru¹íme $A_{i-1,0} \cup A_{i-1,1}$, zmen¹íme $j_i$ o 2 a $A_{i-1,j}$ pøepí¹eme
+%  na $A_{i-1,j_i+2}$.
+%  \IF {$j_i$ liché} 
+%    \STATE provedeme 1.krok pro vytvoøení Q struktury pro
+%    \STATE mno¾inu $A_{1,j_i+1 + \lceil \frac{j_i}{2}} = A_{i,j_i} \cup A_{i,j_i-1}$.
+%  \ENDIF
+%\end{algorithmic}
+%\end{algorithm}
+
 
 \begin{algorithm}[!htb]
-\caption{Operace INSERT}
-\label{alg:dynam.insert}
+\caption{INSERT pro semidynamizaci (rozklad $A$ na $A_{i,j}$)}
+\label{alg:semidyn.insert}
 \begin{algorithmic}
-\STATE kdy¾ $x \notin A$ jinak provedeme:
-  \STATE vytvoøíme S strukturu pro $A_{0,j_i+1} = \{x\}$ (zvìt¹íme $j_0$ o 1)
-  \IF {$j_o$ je liché}
-      \STATE pak provedeme 1.krok pro vytvoøení S struktury
-      \STATE pro mno¾inu $A_{1,j_1 + \lceil \frac{j_0}{2} \rceil} = A_{0,j_0 - 1}
-      \cup A_{0,j_0}$
+\STATE INSERT(x)
+\IF{$x \not\in A$}
+  \STATE postavíme S-strukturu pro mno¾inu $A_{0,j_0}={x}$
+  \STATE $j_0$++
+  \STATE $i=1$
+  \WHILE{$j[i]>0$} 
+    \IF{S-struktura pro $A_{i,j_i-1}$ není dostavìna}
+      \STATE provedeme dal¹ích $P(2^i)/2^i$ krokù pro vystavìní 
+      	S-stry pro $A_{i,j_i-1}$
+      \IF{S-stra pro $A_{i,j_i-1}$ je dostavìna}
+        \STATE $A_{i-1,0}=A_{i-1,2}$
+        \STATE $A_{i-1,1}=A_{i-1,3}$
+        \IF{$i-1>0$} 
+          \STATE // na v¹ech úrovních kromì 0-té, dojde k tom, ¾e $j_i=5$
+	  \STATE // tj. S-struktura pro $A_{i,4}$ je rozestavìna
+          \STATE // poprvé k tomu dojde pøi 10. INSERTu, tak¾e trpìlivost
+	  \STATE $A_{i-1,2}=A_{i-1,4}$
+	\ENDIF
+        \STATE $j_{i-1}=j_{i-1}-2$
+        \STATE $A_{i,j_i}=A_{i-1,0} + A_{i-1,1}$
+        \STATE provedeme první krok pro vystavìní S-stry pro A[i,j[i]]
+        \STATE $j_i$++
+      \ENDIF
+    \ENDIF
+    \STATE $i++$
+  \ENDWHILE
+
+  \IF{$j[i-1] > 1$ a S-struktury pro $A_{i-1,0}$ a $A_{i-1,1}$ jsou dostavìny}
+    \STATE $A_{i,0}=A_{i-1,0} + A_{i-1,1}$
+    \STATE provedeme první krok pro vystavìní S-struktury pro $A_{i,0}$
+    \STATE $j_i$++
   \ENDIF
-  \STATE pro $i = 1,2,...,i_0+1$ v roustoucím poøadí:
-  \IF {S je rozpracovaná struktura pro $A_{i,j_i+1}$}
-    \STATE provedeme dal¹ích $\frac{P(2^i)}{2^i}$ krokù pro její vybudování
-  \ENDIF
-  \STATE kdy¾ jsme dobudovali S strukturu pro $A_{i,j_i+1}$, zvìt¹íme $j_i$ o 1
-  \STATE zru¹íme $A_{i-1,0} \cup A_{i-1,1}$, zmen¹íme $j_i$ o 2 a $A_{i-1,j}$ pøepí¹eme
-  na $A_{i-1,j_i+2}$.
-  \IF {$j_i$ liché} 
-    \STATE provedeme 1.krok pro vytvoøení Q struktury pro
-    \STATE mno¾inu $A_{1,j_i+1 + \lceil \frac{j_i}{2}} = A_{i,j_i} \cup A_{i,j_i-1}$.
-  \ENDIF
+\ENDIF
 \end{algorithmic}
 \end{algorithm}
 
+\mnote{Alg. INSERT pro semidyn. byl ovìøen doktorem Koubkem}
+
+\begin{pozn}
+Mù¾e stát, ¾e se vytvoøí nová mno¾ina $A[i,j(i)]$, pak $j(i)$ má hodnotu
+5, tj. musí se po dokonèení struktury $A[i+1,j(i+1)-1]$ zmen¹it o dvì
+hodnoty $A(i,2)$, $A(i,3)$ a i $A(i,4)$ (nestaèí jen pro první dvì hodnoty).
+\end{pozn}
 
 Èas pro INSERT(x) je \\
 \begin{multline}
@@ -386,24 +464,27 @@ log |A| + \sum_{i=0}^{log |A|} (\frac{P(2^i)}{2^i} + 1) =
 
 $log |A|$ - èas pro zji¹tìní zda $x \in A$ \\
 
-Kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
+Kdy¾ $\frac{P(n)}{n} \geq n^{\varepsilon}$ pro $\varepsilon > 0$, pak INSERT
 vy¾aduje èas $O(\frac{P(n)}{n})$.
 
 \par
 \begin{priklad}
 XXX
 \par
-\hspace{5mm}
+\vspace{5mm}
 
 \begin{tabular}{|l|l|l|}
 \hline
 INSERT($x_1$) & INSERT($x_2$) & INSERT($x_3$) \\
+\hline
 $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_1\}$ \\
  & $A_{0,1} = \{x_2\}$ & $A_{0,1} = \{x_2\}$ \\
  & 1. krok pro $A_{1,0} = \{x_1,x_2\}$ & $A_{0,2} = \{x_3\}$ \\
  & & $\frac{P(2)}{2}$ krokù pro $A_{1,0} = \{x_1,x_2\}$ \\
+ % \vspace{1mm}
 \hline
 INSERT($x_4$) & INSERT($x_5$) & INSERT($x_6$) \\
+\hline
 % XXX prvni dva radky skrtneme 
 % prepsat skrtani poradne ze zapisku
 $A_{0,0} = \{x_1\}$ & $A_{0,0} = \{x_3\}$ & $A_{0,0} = \{x_3\}$ \\
@@ -422,6 +503,7 @@ dokonèeno $A_{1,1} = \{x_3,x_4\}$ \\
 & & 1. krok pro $A_{1,2} = \{x_5,x_6\}$  \\
 & & 1. krok pro $A_{2,0} = \{x_1,x_2,x_3,x_4\}$ \\
 & & $\frac{P(4)}{4}$ krokù \\
+% \vspace{1mm}
 \hline
 \end{tabular}
 
@@ -441,7 +523,7 @@ Pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
 \end{theorem}
 
 \begin{proof}
-Dùkaz viz. \cite{mehlhorn-overmars}
+viz \cite{mehlhorn-overmars}
 \end{proof}
 
 % dynamizace ----------------------------------------------------------
@@ -514,7 +596,7 @@ superplynomiální & $O(Q(8n))$ \\
 % zde zaèíná poslední pøedná¹ka ze ¹k.r.2002/2003
 % thanks to Jana Skotaková za zapùjèení, pøepsal Vladimír Kotal
 
-INSERT(x) viz. alg. \ref{alg:dynam.insert_f}
+INSERT(x) viz alg. \ref{alg:dynam.insert_f}
 
 \begin{algorithm}[!htb]
 \caption{Operace INSERT (f)}
@@ -538,8 +620,8 @@ Kdy¾ vytváøíme pøi INSERTu S-strukturu pro $A_j$, pak $2^{j-1} < |A_j|
 < 2^{j-1}$ a to je spor s minimalitou $j$.
 \par
 
-% viz. poznamky/datstr_054.jpg
-DELETE(x) viz. alg. \ref{alg:dynam.delete_f}
+% viz poznamky/datstr_054.jpg
+DELETE(x) viz alg. \ref{alg:dynam.delete_f}
 
 \begin{algorithm}[!htb]
 \caption{Operace INSERT (f)}

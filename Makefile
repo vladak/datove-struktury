@@ -79,12 +79,12 @@ debug: dopics $(SRCFILES)
 	pdflatex ${MAIN} && pdflatex ${MAIN} > /dev/null
 
 $(MAIN).pdf: $(SRCFILES) $(PICS)
-	@rm -f $(MAIN).pdf
+	#@rm -f $(MAIN).pdf
 	@pdflatex -interaction=errorstopmode ${MAIN}
-	@if [ -f $(MAIN).pdf ]; then \
-	  echo "generating index"; \
-	  pdflatex ${MAIN} > /dev/null; \
-	fi
+
+toc: $(MAIN).pdf
+	echo "generating index"
+	@pdflatex ${MAIN}
 
 disabled:
 	@if [ $$? -eq 0 ]; then \

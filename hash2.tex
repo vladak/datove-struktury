@@ -373,7 +373,7 @@ $P \geq p_t^{|L|}$, dostaneme $|L| \leq \ln N / \ln p_t$, a z definice
 $t$ \eqref{deft} plyne $|L| \leq t/m$.
 
 % ..........................................................................
-\subsection{Reprezentace a (MEMBER), INSERT, DELETE}
+\subsection{Reprezentace $S$ a operace MEMBER, INSERT, DELETE}
 
 Máme $m$ a pro v¹echna $i = 0, 1, \ldots$ je dán $c_i$-univerzální
 systém funkcí $H_i$ ha¹ující do tabulky velikosti $2^i
@@ -388,9 +388,17 @@ reprezentujícího prvky s $h(x)=j$
 \item konstanty $d_i$ omezující délky øetìzce
 \end{itemize}
 
-MEMBER normálnì.
+\subsubsection{MEMBER}
 
-INSERT:
+MEMBER pracuje normálnì.
+
+\subsubsection{INSERT}
+
+viz algoritmus \ref{alg:hash2.univ.insert}
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro universální ha¹ování}
+\label{alg:hash2.univ.insert}
 \begin{enumerate}
 \item zjistíme, zda máme pøidat do $S$ 
 \item kdy¾ délka $j$-tého øetìzce $+ 1 > d_i$,\\
@@ -399,25 +407,37 @@ INSERT:
  pak inkrementujeme $i$ a spoèítáme novou reprezentaci
 \item jinak pøidáme prvek do øetìzce $h(x)$ 
 \end{enumerate}
+\end{algorithm}
 
-DELETE:
+\subsubsection{DELETE}
+
+viz algoritmus \ref{alg:hash2.univ.delete}
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro universální ha¹ování}
+\label{alg:hash2.univ.delete}
 \begin{enumerate}
 \item zjistíme, zda $x \in S$ 
 \item kdy¾ $x \in S$ a $|S|-1 = 2^{i-2} m$ a $i>0$,\\
  pak dekrementujeme $i$ a spoèítáme novou reprezentaci
 \item jinak $x$ odstraníme z $h(x)$ 
 \end{enumerate}
+\end{algorithm}
 
-Spoèítání nové reprezentace:
-\begin{enumerate}
-\item loop
-\item \quad zvolíme náhodnì $h \in H_i$ 
-\item \quad spoèítáme reprezentaci $S$ vùèi $h$ 
-\item until v¹echny øetìzce mají délku $\leq d_i$ 
-\end{enumerate}
 
-Kolikrát probìhne ten cyklus? Závisí to na více parametrech a Koubek
-to nikde uspokojivì spoèítané nevidìl.
+\subsubsection{Spoèítání nové reprezentace}
+
+\begin{algorithmic}
+\REPEAT
+  \STATE zvolíme náhodnì $h \in H_i$ 
+  \STATE spoèítáme reprezentaci $S$ vùèi $h$ 
+\UNTIL {v¹echny øetìzce mají délku $\leq d_i$}
+\end{algorithmic}
+
+Kolikrát probìhne ten cyklus? Závisí to na více parametrech 
+% a Koubek to nikde uspokojivì spoèítané nevidìl.
+a není jisté, zda to bylo nìkdy pøesnì spoèítáno.
+
 
 % --------------------------------------------------------------------------
 \section{Externí ha¹ování}
@@ -456,18 +476,29 @@ jako prefix $h(s)$, je nejvý¹e $b$.
 $d(S) = max\{d(s), s \in S\}$.
 \end{defn}
 
-XXX zde chybí obrázek s pøíkladem
-0100, 0001, 0000, 1001
-b = 2, d(S) = 2
-0010 ... INSERT
+\begin{priklad}
+\label{priklad:exthash.tree}
+Nech» $U = \{0,1\}^4, b = 2$ a
+$S = \{ 0100, 0001, 0000, 1001 \}$
 
-00 - 0000, 0001
-01 - 0100
-10
-11 1001
+Tuto strukturu mù¾eme zobrazit do stromu, 
+kde bude lépe viditelná hodnota $d(S)$.
 
+\begin{figure}[!htb]
+\centering\includegraphics{pics/exthash-tree}
+\caption{Reprezentace mno¾iny $S$. Vrchol reprezentující prefix $0$, by ve
+svém podstromì mìl 3 prvky, co¾ je více, ne¾ po¾adujeme pomocí hodnoty
+$b$.}
+\label{fig.hash.extern}
+\end{figure}
+
+Z obr. \ref{fig.hash.extern} plyne, ¾e hodnota $d(S) = 2$.
+\end{priklad}
+
+\begin{tvrzeni}
 Platí: Kdy¾ $d(s) = k$ a prvek $t$ má stejný prefix délky $k$ jako $s$, 
 pak $d(s) = d(t)$. 
+\end{tvrzeni}
 
 Reprezentace: 
 \begin{itemize}
@@ -476,6 +507,20 @@ stránky, která obsahuje prvky $s \in S$, ¾e $h(s)$ má prefix $\alpha$.
 Tato slova délky $d(s)$ jsou lexikograficky uspoøádána.
 \item datová èást: stránky s pøiøazenými prvky
 \end{itemize}
+
+\begin{priklad}
+Pøíklad adresáøe pro mno¾inu $\{0000, 0001, 0100, 1001 \}$:
+
+\vspace{5mm}
+
+\begin{tabular}{lll}
+00 & $\rightarrow$ & 0000, 0001 \\
+01 & $\rightarrow$ & 0100 \\
+\hline
+10 & $\searrow$ & \\
+11 & $\rightarrow$ & 1001 \\
+\end{tabular}
+\end{priklad}
 
 \begin{pozn}
 Upøesnìní reprezentace stránky (stránek): \\
@@ -487,9 +532,14 @@ Pokud $\alpha$ neobsahuje ¾ádný takový prefix, tak je mu pøiøazena stránka
 NIL.
 \end{pozn}
 
-\subsection{ACCESS(x)}
+\subsection{Operace ACCESS}
 
-3 pøístupy na disk
+viz algoritmus \ref{alg:exthash.access}
+
+\begin{algorithm}[!htb]
+\caption{ACCESS pro externí ha¹ování}
+\label{alg:exthash.access}
+ACCESS(x)
 \begin{enumerate}
 \item Spoèítáme $h(x)$, natáhneme adresáø, nalezneme $d(S)$ a najdeme
 stránky odpovídající prefixu $h(x)$ délky $d(S)$
@@ -497,20 +547,28 @@ stránky odpovídající prefixu $h(x)$ délky $d(S)$
 kdy¾ ano, provedeme po¾adovené úpravy.
 \item Stránku ulo¾íme zpìt na stejné místo.
 \end{enumerate}
+\end{algorithm}
 
 Operace ACCESS vy¾aduje 3 pøístupy na externí medium. (za pøedpokladu, ¾e
 adresáø je také ulo¾en na externím mediu a zabírá jednu stránku) 
-\par
+
 Pro rychlou implementaci aktualizaèních operací je vhodné mít u ka¾dé
-stránky ulo¾eno kolik je prvkù na stránce.
+stránky ulo¾eno informaci kolik je prvkù na stránce.
 
 
-\subsection{INSERT(x)}
+\subsection{Operace INSERT}
 
+viz algoritmus \ref{alg:exthash.insert}
+
+% pozn: \mnote nesmi byt uvnitr prostredi algorithm
+\begin{algorithm}[!htb]
+\caption{INSERT pro externí ha¹ování}
+\label{alg:exthash.insert}
+INSERT(x)
 \begin{enumerate}
 \item Spoèítáme $h(x)$, natáhneme adresáø, nalezneme $d(S)$ a nalezneme adresu
-stránky odpovídající prefixu $h(x)$ délky $d(S)$.
-\mnote{$d(S)$ vezmu odkud ?}
+stránky odpovídající prefixu $h(x)$ délky $d(S)$. (XXX odkud vezmu $d(S)$ ?)
+% XXX \mnote{$d(S)$ vezmu odkud ?}
 \item Natáhneme do pamìti odpovídající stránku. kdy¾ v ní existuje $x$ 
 $\rightarrow$ konec
 \item Kdy¾ neobsahuje $x$ a má ménì prvkù ne¾ $b$, vlo¾íme $x$ do této stránky
@@ -519,37 +577,80 @@ na stránce)
 \item Kdy¾ stránka prvek $x$ neobsahuje a má $b$ prvkù, stránku rozdìlíme
 (nalezneme nové $d(s)$ pro $s$ z této stránky i s pøidaným $x$), stránky 
 ulo¾íme a aktualizujeme adresáø.
-\mnote{pokud je novì nalezené $d(s) \leq d(S)$, adresáø se zvìt¹ovat nebude}
 \end{enumerate}
+\end{algorithm}
+\mnote{pokud je novì nalezené $d(s) \leq d(S)$, adresáø se zvìt¹ovat nebude}
 
-6 pøístupù na externí medium.
-\par
+Operace INSERT vy¾aduje 6 pøístupù na externí medium.
 
 \begin{pozn}
-Roz¹tìpení stránky nemusí nutnì znamenat zvìt¹ení adresáøe
+Roz¹tìpení stránky nemusí nutnì znamenat zvìt¹ení adresáøe.
 \end{pozn}
 
-XXX nìjaký pøíklad na tuto situaci
+\begin{priklad}
+\label{priklad:exthash.insert2}
+Do mno¾iny z pøíkladu \ref{priklad:exthash.tree} vlo¾íme pomocí operace
+INSERT prvek 1111. Hodnota $d(1100) = 1$ se po vlo¾ení prvku 1111
+nezmìní. Podstrom reprezentující prvky mno¾iny $S$ s prefixem 11
+bude mít po vlo¾ení prvku 1111 dva syny. (viz obr.
+\ref{fig.hash.extern.ins})
+
+\begin{figure}[!htb]
+\centering\includegraphics{pics/exthash-ins}
+\caption{Podstrom reprezentující prvky mno¾iny $S$ s prefixem 11 po
+vlo¾ení prvku 1111}
+\label{fig.hash.extern.ins}
+\end{figure}
+
+Pokud vezmeme situaci danou po vlo¾ení prvku 1111, bude adresáø vypadat
+takto:
+
+\vspace{5mm}
+
+\begin{tabular}{lll}
+00 & $\rightarrow$ & 0000, 0001 \\
+\hline
+01 & $\rightarrow$ & 0100 \\
+\hline
+10 & $\searrow$ & 	 \\
+  & &  1001 \\
+11 & $\nearrow$	& \\
+\end{tabular}
+
+\vspace{5mm}
+
+Nyní vlo¾íme prvek 0010. V tomto pøípadì dojde ke zvìt¹ení adresáøe:
+
+\vspace{5mm}
+
+\begin{tabular}{lll}
+000 & $\rightarrow$ & 0000, 0001 \\
+\hline
+001 & $\rightarrow$ & 0010 \\
+\hline
+010 & $\rightarrow$ & 0100 \\
+011 & $\nearrow$ & \\
+\hline
+100 & $\searrow$ & \\
+101 & $\rightarrow$ &  1001, 1111 \\
+110 & $\nearrow$ & \\
+111 & $\nearrow$ & \\
+\end{tabular}
+
+\vspace{5mm}
+
+Hodnota $d(S)$ je nyní 3.
+\end{priklad}
 
 
-v na¹em pøíkladu - zvìt¹í se adresáø.
-00 - 0000, 0001		000 - 0000, 0001
-01 - 0100		001 - 0010
-10 \  			010 - 0100
-    - 1001         =>   011 /
-11 /			100 \
-			101 -  1001, 1111
-			110 /
-			111 /
+\subsection{Operace DELETE}
 
-XXX chybí obrázek
+viz algoritmus \ref{alg:exthash.delete}
 
-0010
-d(S) = 1
-% d(S \sjednoceno {0010}) = 3
-
-\subsection{DELETE(x)}
-
+\begin{algorithm}[!htb]
+\caption{DELETE pro externí ha¹ování}
+\label{alg:exthash.delete}
+DELETE(x)
 \begin{enumerate}
 \item spoèítáme $h(x)$, natáhneme adresáø, nalezneme $d(S)$, nalezneme adresu
 stránky odpovídající prefixu $h(x)$ délky $d(S)$, zjistíme zda po odebrání
@@ -563,23 +664,84 @@ stránce)
 \item kdy¾ obsahuje a dojde ke sluèování, pak odstraníme $x$, natáhneme
 druhou stránku a stránky slouèíme, ulo¾íme novou stránku a aktualizujeme
 adresáø.
+\end{enumerate}
+\end{algorithm}
 \mnote{pro aktualizaci adresáøe to mohou být 2 operace - naètení a
 ulo¾ení. zøejmì proto, aby mohlo být souèasnì pu¹tìno víc operací.}
-\end{enumerate}
 
-XXX zde chybí obrázek s pøíkladem
+\begin{priklad}
+Pro situaci z pøíkladu \ref{priklad:exthash.insert} provedeme
+DELETE(0100). V adresáøi budou pak polo¾ky 010 a 011 ukazovat na prázdnou
+stránku (NIL). Adresáø zùstal po této operaci stejný.
+
+Nyní sma¾eme prvek 0001.
+
+\begin{figure}[!htb]
+\centering\includegraphics{pics/exthash-del}
+\caption{Èást stromu reprezentujícího mno¾inu $S$ pøed smazáním prvku 0001}
+\label{fig.hash.extern.del}
+\end{figure}
+
+Na obr. \ref{fig.hash.extern.del} je vidìt, ¾e po smazání prvku 
+0001 mù¾e být adresáø opìt zmen¹en.
+
+Po provedení DELETE(0001) bude adresáø vypadat takto:
+
+\vspace{5mm}
+
+\begin{tabular}{lll}
+000 & $\rightarrow$ & 0000, 0010 \\
+001 & $\nearrow$ & \\
+\hline
+010 & $\rightarrow$ & NIL \\
+011 & $\nearrow$ & \\
+\hline
+100 & $\searrow$ & \\
+101 & $\rightarrow$ &  1001, 1111 \\
+110 & $\nearrow$ & \\
+111 & $\nearrow$ & \\
+\end{tabular}
+
+\vspace{5mm}
+
+Nyní mù¾eme provést zmen¹ení adresáøe na:
+
+\vspace{5mm}
+
+\begin{tabular}{lll}
+00 & $\rightarrow$ & 0000, 0010 \\
+01 & $\nearrow$ & \\
+\hline
+10 & $\rightarrow$ & 1100, 1111	 \\
+11 & $\nearrow$	& \\
+\end{tabular}
+
+\vspace{5mm}
+
+Tento adresáø mù¾eme je¹tì zmen¹it:
+
+\vspace{5mm}
+
+\begin{tabular}{lll}
+0 & $\rightarrow$ & 0000, 0010 \\
+\hline
+1 & $\rightarrow$ & 1100, 1111 \\
+\end{tabular}
+\end{priklad}
 
 \begin{pozn}
-Pesimistický odhad: nejvý¹e 6 pøístupù na externí medium.
+Pesimistický odhad pro operaci DELETE je nejvý¹e 6 pøístupù na externí 
+medium.
 \end{pozn}
 
 \subsubsection{Aktualizace adresáøe}
+
 V posledním kroku DELETE se provádí aktualizace adresáøe. 
 Nejprve provedeme opravení odkazù na stránky: pokud u sudého záznamu v
 adresáøi dojde k vyprázdnìní stránky, bude tam odkaz na NIL. pokud dojde k
 vyprázdnìní u liché stránky, pøehodí se odkaz na pøedchozí (sudou)
 stránku.
-\par
+
 Potom se testuje, zda jde adresáø zmen¹it. Zmen¹ování provádíme tak
 dlouho, dokud to jde.
 
@@ -587,7 +749,7 @@ dlouho, dokud to jde.
 
 \begin{itemize}
 \item reprezentovat jako posloupnost dvojic (adresa stránky, poèet prvkù na
-stránce), kde i-tá dvojice je pøiøazení i-tému slovu v lexikografickém
+stránce), kde $i$-tá dvojice je pøiøazení $i$-tému slovu v lexikografickém
 uspoøádání.
 \item zvìt¹ování adresáøe znamená zdvojení prvkù
 \item test na zmen¹ování adresáøe - testujeme, zda adresa na lichém místì
@@ -596,14 +758,13 @@ adresáø vymazáním sudých èlenù posloupnosti.
 \end{itemize}
 
 Oèekávané zaplnìní stránky pøi rovnomìrném rozlo¾ení dat je 
-$b ln 2 ~ 0.69 b$
-XXX vlnka
-\par
-Oèekávaná velikost adresáøe je $\frac{e}{b ln 2} n^{1 + \frac{1}{b}}$ (pøi
+$b \ln 2 \approx 0.69 b$
+
+Oèekávaná velikost adresáøe je $\frac{e}{b \ln 2} n^{1 + \frac{1}{b}}$ (pøi
 rovnomìrném rozlo¾ení dat)
 
 \begin{pozn}
-èlen $n^{1 + \frac{1}{b}}$ není lineární, zde je problém, proto se to
+Èlen $n^{1 + \frac{1}{b}}$ není lineární, zde je problém, proto se to
 nehodí pro malá $b$.
 \end{pozn}
 
@@ -618,11 +779,13 @@ b/n   	&$10^5$   &$10^6$ 	&$10^8$ 	&$10^{10}$    \\
 \hline
 \end{tabular}
 
+\vspace{5mm}
+
 Jak je vidìt, pro $b = 2$ se to nehodí, adresáø je vìt¹í ne¾ velikost dat.
 
 \begin{pozn}
 Kdy¾ pracujeme s velikostí $S$ kolem $10^{10}$, pak je vhodné, aby 
-$b \geq 100$. Pro vìt¹í mno¾iny $S$, musí být $b$ vìt¹í..
+$b \geq 100$. Pro vìt¹í mno¾iny $S$ musí být $b$ vìt¹í.
 \end{pozn}
 
 % --------------------------------------------------------------------------

@@ -1,38 +1,63 @@
 % Souèást skript na Datové struktury. Viz main.tex
 \markright{$ $Id$ $}
 
+
 \chapter{Binární vyhledávací stromy}
 % --------------------------------------------------------------------------
 % by Vladimir Kotal, 2004
+
+
+% ..........................................................................
 \section{Obecnì}
 
 \begin{defn}
-\emph{Binární vyhledávcí strom} reprezentující mno¾inu S je takový 
+\emph{Binární vyhledávací strom} reprezentující mno¾inu $S$ je takový 
 binární strom, ¾e 
+
 \begin{enumerate}
 \item ka¾dý vnitøní vrchol má dva syny, levého a pravého
-\item existuje jednoznaèná korespondence mezi vrcholy S a vnitøními 
+\item existuje jednoznaèná korespondence mezi vrcholy $S$ a vnitøními 
 vrcholy stromu
-\item pro ka¾dý vnitøní vrchol v platí, ¾e vnitøní vrcholy v podstromu 
-jeho levého syna reprezentují prvky men¹í ne¾ reprezentuje v a vnitøní 
+\item pro ka¾dý vnitøní vrchol $v$ platí, ¾e vnitøní vrcholy $v$ podstromu 
+jeho levého syna reprezentují prvky men¹í ne¾ reprezentuje $v$ a vnitøní 
 vrcholy v podstromu jeho pravého syna reprezentují prvky vìt¹í ne¾ 
-reprezentuje vrchol v.
+reprezentuje vrchol $v$.
 \end{enumerate}
 \end{defn}
 
+\begin{pozn}
+Nech»
+
 $$
-S = \{ s_1 < s_2 < ... < s_n \} \\
+S = \{ s_1 < s_2 < ... < s_n \}
+$$
+$$
 s_0 = - \infty, s_{n+1} = \infty
 $$
 
-i-tý list (ve smyslu zleva doprava) reprezentuje interval $<s_{i-1}, s_i>$.
+Pak $i$-tý list (ve smyslu zleva doprava) reprezentuje interval 
+$<s_{i-1}, s_i>$.
+\end{pozn}
 
-Pø: $S = \{ 1,4, 6, 8, 12, 15, 18, 21 \}$
+\begin{priklad}
 
-XXX obr.
+Nech» $S = \{ 1, 7, 12, 15, 24, 81 \}$. Binární vyhledávací strom
+reprezentující mno¾inu $S$ je na obr. \ref{XXX}
 
-v listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje ty intervaly
-(updatuje se to samo)
+\begin{figure}[!htb]
+\centering\includegraphics{pics/bvs}
+\caption{Pøíklad binárního vyhledávacího stromu}
+\label{fig.bvs.example}
+\end{figure}
+
+\end{priklad}
+
+\begin{pozn}
+V listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje tyto
+intervaly. (viz obr. \ref{fig.bvs.example}) Tato vazba je v jendotlivými
+operacemi udr¾ována.
+% (updatuje se to samo XXX reword)
+\end{pozn}
 
 \subsection{Algoritmus MEMBER}
 
@@ -447,8 +472,8 @@ skonèili jsme s triky, upravíme nerovnost a vyjde to: \\
 $c(k',j) + c(k,j+1) \leq c(k',j+1) + c(k,j)$
 platí $k' < k \leq j \leq j+1$ ... nerovnost platí dle pøedpokladu
 (polo¾íme i = k', i'=k, j=j, j'=j+1)
-\mnote{pokud se divíte $j=j$, nedivte se, znamená to, ¾e j z 1. èásti se
-rovná j z druhé èásti. chce to lep¹í znaèení}
+\mnote{XXX pokud se divíte $j=j$, nedivte se, znamená to, ¾e j z 1. èásti se
+rovná j z druhé èásti :) chce to lep¹í znaèení}
 \end{proof}
 
 
@@ -457,7 +482,7 @@ rovná j z druhé èásti. chce to lep¹í znaèení}
 
 % Jenom ¾e existují, lineární konstrukce. Aha --- viz cvièení.
 
-\mnote{referát by Ladislav Strojil}
+% \mnote{referát by Ladislav Strojil}
 \newtheorem{fakt}{Fakt}
 
 \renewcommand{\labelenumi}{\arabic{enumi})}
@@ -752,12 +777,12 @@ $2)$ Nalezneme nejmen¹í $t$, $t = 0, 1, 2, \ldots$, takové, ¾e $s_{i+2^t} \geq c
 Nazvìme jej $t_0$. $t_0$ lze nalézt v èase $d_2(t_0 + 1)$ pro nìjakou konstantu $d_2$.
 
 Potom $i + 2^{t_0-1} < k \leq i + 2^{t_0}$, tj. $2^{t_0} \geq k - i = m > 2^{t_0-1}$ a odtud $\log m > t_0 - 1$. 
-Tedy trvání kroku 2 je omezené $d_2(2 + log m)$.
+Tedy trvání kroku 2 je omezené $d_2(2 + \log m)$.
 
 $3)$ Binárním vyhledáváním na intervalu 
 $i + 2^{t_0-1} + 1, \ldots, i + 2^{t_0}$ zjistíme pøesnou hodnotu $k$.
 
-Tohle zabere $d_3(log(2^{t_0} - 2^{t_0-1}) + 1) = d_3 t_0 < d_3(1 + \log m)$ 
+Tohle zabere $d_3(\log(2^{t_0} - 2^{t_0-1}) + 1) = d_3 t_0 < d_3(1 + \log m)$ 
 (pro nìjakou konstantu $d_3$).
 
 Tedy pro $i < k \leq \lfloor(i + 1 + j) / 2\rfloor$ nalezneme $k$ 
@@ -838,7 +863,7 @@ $v$ platí $l(v) - p(v) \in \{-1,0,1\}$.
 \end{defn}
 
 \begin{theorem}
-AVL-strom o $n$ vrcholech má vý¹ku nejvý¹e $2 log n$.
+AVL-strom o $n$ vrcholech má vý¹ku nejvý¹e $2 \log n$.
 \end{theorem}
 
 \begin{proof}
@@ -852,7 +877,7 @@ N(h) = 1 + N(h-1) + N(h-2)$$
 Je zøejmé, ¾e platí $N(h) \geq 2 N(h-2)$ nebo $N(h-2) \leq N(h-1)$. 
 
 Odtud dostaneme, ¾e $N(h) \geq 2^{h/2}$ a tedy
-$h \leq 2 log N(h)$. Nerovnost $N(h) \geq 2^{h/2}$ doká¾eme indukcí:
+$h \leq 2 \log N(h)$. Nerovnost $N(h) \geq 2^{h/2}$ doká¾eme indukcí:
 
 \begin{enumerate}
 \item $N(0) = 1 \geq 2^{0/2} = 1$ \\
@@ -883,7 +908,7 @@ V tomto stromì jsou vý¹ky podstromù $T_1$, $T_2$ a $T_3$ stejné.
 Pokud pøi vlo¾ení
 nového vrcholu do podstromu T1 vzroste vý¹ka tohoto podstromu, bude vrchol
 x nevyvá¾ený. Jeho vyvá¾ení se v¹ak provede jednodu¹e pomocí tzv.
-LL-rotace. (viz. obr. \ref{avl-ll})
+LL-rotace. (viz obr. \ref{avl-ll})
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/avl-ll}
@@ -893,7 +918,7 @@ LL-rotace. (viz. obr. \ref{avl-ll})
 
 Pokud bychom v¹ak chtìli nový vrchol vlo¾it do $T_2$ a vý¹ka tohoto podstromu
 by vzrostla, byl by opìt vrchol x nevyvá¾ený. To se mù¾e napravit pomocí
-LR-rotace. (viz. obr. \ref{avl-lr})
+LR-rotace. (viz obr. \ref{avl-lr})
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/avl-lr}
@@ -930,19 +955,19 @@ Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
 \caption{INSERT pro AVL stromy}
 \label{alg:avl.ins}
 \begin{algorithmic}
-\STATE INSERT(c)
+\STATE INSERT($c$)
 \STATE $r \leftarrow$ koøen
-\WHILE {$r != NIL$} 
-\IF {$\text{prvek reprezentovaný} r = c$}
+\WHILE {$r$ != NIL} 
+\IF {$\text{prvek reprezentovaný } r = c$}
   \STATE END
 \ENDIF
-\IF {$balance(r) != 0$}
-   \STATE $x = r$
+\IF {$balance(r)$ != $0$}
+   \STATE $x := r$
 \ENDIF
-\IF {$\text{prvek reprezentovaný} r > c$}
-  \STATE $r = left(r)$
+\IF {$\text{prvek reprezentovaný } r > c$}
+  \STATE $r := left(r)$
 \ELSE
-  \STATE $r = right(r)$
+  \STATE $r := right(r)$
 \ENDIF
 \ENDWHILE
 \STATE \COMMENT {vlo¾ení nového vrcholu}
@@ -952,7 +977,7 @@ Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
 \STATE $left(r):=nil$
 \STATE $right(r):=nil$
 \STATE $r:=x$
-\STATE VYVAZUJ(r)
+\STATE VYVAZUJ($r$)
 \end{algorithmic}
 \end{algorithm}
 
@@ -961,9 +986,9 @@ Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
 \caption{VYVAZUJ pro AVL stromy}
 \label{alg:avl.bal}
 \begin{algorithmic}
-\STATE \COMMENT {úprava balance (staèí od x do vlo¾eného listu)}
-\WHILE {$r != NIL$} 
-  \IF {$\text{prvek reprezentovaný} r > c$}
+\STATE \COMMENT {úprava balance (staèí od $x$ do vlo¾eného listu)}
+\WHILE {$r$ != NIL} 
+  \IF {$\text{prvek reprezentovaný } r > c$}
         \STATE $balance(r) := balance(r) + 1$
         \STATE $r:=left(r)$
   \ENDIF
@@ -976,16 +1001,16 @@ Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
 \ENDWHILE
 \IF {$balance(x) = 2$}
   \IF {$\text{prvek reprezentovaný } left(x) > c$}
-        \STATE $LL-rotace$
+        \STATE LL-rotace
   \ELSE
-        \STATE $LR-rotace$
+        \STATE LR-rotace
   \ENDIF
 \ENDIF
 \IF {$balance(x) = -2$}
   \IF {$\text{prvek reprezentovaný } right(x) < c$}
-        \STATE $RR-rotace$
+        \STATE RR-rotace
   \ELSE
-        \STATE $RL-rotace$
+        \STATE RL-rotace
   \ENDIF
 \ENDIF
 \end{algorithmic}
@@ -1006,8 +1031,8 @@ Operace DELETE je formálnì popsána algoritmem \ref{alg:avl.del}
 \caption{DELETE pro AVL stromy}
 \label{alg:avl.del}
 \begin{algorithmic}
-\STATE DELETE(x)
-\STATE $r \leftarrow$ otec vrcholu reprezentovaného x
+\STATE DELETE($x$)
+\STATE $r \leftarrow$ otec vrcholu reprezentovaného $x$
 \STATE \COMMENT {vrcholu $left:=r$ jsme odebrali levého syna}
 \WHILE {$r != NIL$}
 \STATE \COMMENT {Prochází vrcholy od otce ubraného vrcholu ke koøeni}
@@ -1021,7 +1046,7 @@ Operace DELETE je formálnì popsána algoritmem \ref{alg:avl.del}
                 \STATE $b(r) := 0$
 	\STATE \COMMENT {Je tøeba vyva¾ovat}
         \ELSE                            
-                \STATE VYVAZUJ\_RIGHT(right(r))
+                \STATE VYVAZUJ\_RIGHT(right($r$))
         \ENDIF
   \ELSE
         \IF {$b(r)=0$}
@@ -1034,7 +1059,7 @@ Operace DELETE je formálnì popsána algoritmem \ref{alg:avl.del}
                 \STATE $b(r):=0$
 		\STATE \COMMENT {Je tøeba vyva¾ovat}
         \ELSE
-		\STATE VYVAZUJ\_LEFT(left(r))
+		\STATE VYVAZUJ\_LEFT(left($r$))
         \ENDIF
   \ENDIF
 \STATE $x:=r$
@@ -1054,12 +1079,12 @@ vrchol.
 \label{alg:avl.del}
 \begin{algorithmic}
 \STATE VYVAZUJ\_RIGHT(x)
-\IF {$b(x)) = 0$}
+\IF {$b(x) = 0$}
         \STATE RR-rotace
 	\STATE END
 \ENDIF        
 		\STATE \COMMENT {Vý¹ka podstromu se nezmìnila}
-\IF {$b(x)) = -1$}
+\IF {$b(x) = -1$}
         \STATE RR-rotace
 \ELSE
         \STATE RL-rotace
@@ -1072,12 +1097,12 @@ vrchol.
 \label{alg:avl.del}
 \begin{algorithmic}
 \STATE VYVAZUJ\_LEFT(x)
-\IF {$b(x)) = 0$}
+\IF {$b(x) = 0$}
         \STATE LL-rotace
 		\STATE \COMMENT {Vý¹ka podstromu se nezmìnila}
         \STATE END             
 \ENDIF
-\IF {$b(x)) = 1$}
+\IF {$b(x) = 1$}
         \STATE LL-rotace
 \ELSE
         \STATE LR-rotace
@@ -1105,7 +1130,7 @@ vrchol je obarven èervenì nebo èernì a platí následující podmínky:
 
 \begin{theorem} % XXX tvrzeni
 Pro binární vyhledávací èervenoèerné stromy reprezentující mno¾inu $S$,
-$|S| = n$ platí, ¾e jejich hloubka je $O(log n)$.
+$|S| = n$ platí, ¾e jejich hloubka je $O(\log n)$.
 \end{theorem}
 
 \begin{proof}
@@ -1160,7 +1185,7 @@ Poru¹e v 2tèès se také nìkdy øíká \emph{2-porucha}.
 \end{pozn}
 
 Tedy nyní máme 2tèès $(T,t)$ Je-li $t$ porucha, pak ji musíme nìjak
-opravit. Situace je na obrázku \ref{rbt-i}.
+opravit. Situace je na obrázku~\ref{rbt-i}.
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/rbt-i}
