@@ -14,7 +14,7 @@ all:
 # you may need to run pdflatex twice to get index properly generated
 pdf:
 	cd pics; make
-	pdflatex ${MAIN}
+	pdflatex ${MAIN} && pdflatex ${MAIN} > /dev/null
 
 clean:
 	@rm -f ${MAIN}.toc *.ps *.pdf *.aux *.out *.log *.dvi

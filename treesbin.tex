@@ -1,26 +1,185 @@
 % Souèást skript na Datové struktury. Viz main.tex
 \markright{$ $Id$ $}
 
-\chapter{Binární stromy}
+\chapter{Binární vyhledávací stromy}
 % --------------------------------------------------------------------------
 \section{Obecnì}
 
+\begin{defn}
+\emph{Binární vyhledávcí strom} reprezentující mno¾inu S je takový 
+binární strom, ¾e 
+\begin{enumerate}
+\item ka¾dý vnitøní vrchol má dva syny, levého a pravého
+\item existuje jednoznaèná korespondence mezi vrcholy S a vnitøními 
+vrcholy stromu
+\item pro ka¾dý vnitøní vrchol v platí, ¾e vnitøní vrcholy v podstromu 
+jeho levého syna reprezentují prvky men¹í ne¾ reprezentuje v a vnitøní 
+vrcholy v podstromu jeho pravého syna reprezentují prvky vìt¹í ne¾ 
+reprezentuje vrchol v.
+\end{enumerate}
+\end{defn}
+
+$$
+S = { s_1 < s_2 < ... < s_n }
+s_0 = - \infty, s_{n+1} = \infty
+$$
+
+i-tý list (ve smyslu zleva doprava) reprezentuje interval $<s_{i-1}, s_i>$.
+
+Pø: $S = { 1,4, 6, 8, 12, 15, 18, 21 }$
+
+XXX obr.
+
+v listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje ty intervaly
+(updatuje se to samo)
+
 \subsection{Algoritmus MEMBER}
+
+\begin{algorithm}[!htb]
+\caption{MEMBER pro binární vyhledávací stromy}
+\label{alg:btr.mem}
+\begin{algorithmic}
+\STATE $t \leftarrow$ koøen
+\WHILE {$t$ \text{není list} $t$ nereprezentuje $x$} 
+\IF {$x >$ \text{prvek reprezentovaný} $t$}
+  \STATE $t \leftarrow$ pravý syn
+\ELSE 
+   \STATE $t \leftarrow$ levý syn $t$
+\ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
 \subsection{Algoritmus INSERT}
+
+XXX dopsat
+
 \subsection{Algoritmus DELETE}
+
+\begin{itemize}
+\item nalezneme x (vrchol reprezentující x)
+\item pokud jeden jeho syn je list, pak odstraníme vrchol + syna, který je
+  list, druhý syn nahradí odstranìný vrchol
+\item pokud ¾ádný jeho syn není list, pak:
+  nalezneme vrchol u, reprezentující nejmen¹í prvek v S vìt¹í ne¾ x.
+  levý syn tohoto vrcholu je list.
+  pøemístíme prvek reprezentovaný tímto vrcholem do vrcholu
+  reprezentujícího x  odstraníme u a jeho levého syna, pravého syna u dáme
+  na místo u.
+  jsme ve vrcholu t reprezentujícím x a hledáme vrchol u
+\end{itemize}
+
+
+\begin{algorithmic}
+\STATE $u \leftarrow$ pravý syn $t$
+\WHILE {\text{levý syn} $u \neq list$}
+   \STATE $u \leftarrow$ levý syn $u$
+\ENDWHILE
+\end{algorithmic}
+
+Èas pro operace MEMBER, INSERT a DELETE v binárním vyhledávacím stromì je
+$O(\text{délka stromu}) = O(\text{vý¹ka stromu})$.
 
 % --------------------------------------------------------------------------
 \section{Optimální binární vyhledávací stromy}
 
-XXX dopsat
+\subsection{Co je to optimální binární vyhledávací strom}
+
+Prvky jsou ulo¾eny ve vnitøních vrcholech stromu. 
+Listy jsou intervaly $(-\infty, x_1)$, $(x_1, x_2)$, 
+$\ldots$, $(x_n, \inf)$. Listy nemusíme implicitnì
+ve stromì zaznamenávat.
+U optimálních stromù dále pøedpokládáme, ¾e známe pravdìpodobnosti 
+operací $Access(x)$. 
 
 \subsection{Algoritmus konstrukce}
 
-XXX dopsat
+Dána mno¾ina $S = {x_1 < x_2 < ... < x_n }$, provádí se pouze operace
+MEMBER(x) a jsou dány pravdìpodobnosti 
+$\alpha_1, ..., \alpha_n, \beta_1, ..., \beta_n$, kde 
+\begin{itemize}
+\item $\alpha_i = P($provádìla se operace $MEMBER(x_i))$
+\item $\beta_i = P($provádìla se operace $MEMBER(x) pro x \in (x_i,x_{i+1}))$
+\end{itemize}
+
+kde $x_0 = - \infty, x_{n+1} = \infty$.
+\par
+
+Chceme nalézt binární vyhledávací strom reprezentující S takový, ¾e
+operace MEMBER má nejmen¹í oèekávaný èas.
+\par
+Oèekávaný èas operace MEMBER je $\sum_{i=1}^{n} \alpha_i(a_i + 1) +
+\sum_{i=0}^{n} \beta_i b_i$, kde 
+$a_i$ je hloubka prvku reprezentujícího prvek $x_i$, $b_i$ je hloubka
+listu reprezentujícího interval $(x_i,x_{i+1})$.
+\par
+
+\subsubsection{Zobecníme úlohu:}
+
+Dána mno¾ina $S = {x_1 < x_2 < ... < x_n }$ a ohodnocení $\alpha_i$ prvku
+$x_i$ a $\beta_i$ intervalu $(x_i,x_{i+1})$.
+Chceme zkonstruovat binární vyhledávací strom T reprezentující S takový,
+¾e $hod(T)= \sum_{i=1}^{n} \alpha_i(a_i + 1) + \sum_{i=0}^{n} \beta_i b_i$
+je minimální. \\
+T je pak optimální binární vyhledávací strom.
+Pro $1 \leq i \leq j \leq n$, $U_{i,j}$ je úloha nalézt optimální binární
+vyhledávací strom pro $S_{i,j} = {x_i < x_{i+1} < ... < x_j}$ a hodnoty 
+$\alpha_i, \alpha_{i+1}, ..., \alpha_j, \beta_{i-1}, \beta_i, ..., \beta_j$.
+
+\par
+\begin{pozorov}
+% Pozorování 1: 
+Nech» T je strom reprezentující mno¾inu $S_{i,j}$ a koøen T
+hodnotí prvek $x_k$ pro $i \leq k \leq j$. Nech» $T_l$ je podstrom levého
+syna koøene, $T_p$ je podstrom pravého syna koøene. Pak: \\
+$hod(T) = hot(T_l) + hod(T_p) + \sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j}
+\beta_l$
+$T_l$ reprezentuje mno¾inu $S_{i,k-1}$ a $T_p$ reprezentuje mno¾inu $S_{k+1,j}$.
+\end{pozorov}
+
+\par
+\begin{pozorov}
+% Pozorování 2: 
+Nech» platí pøedpoklady Pozorování 1 a nechh» T je optimální
+binární vyhledávací strom pro $S_{i,j}$. Pak $T_l$ je optimální
+binární vyhledávací strom pro $S_{i,k-1}$ a $T_p$ je optimální
+binární vyhledávací strom pro $S_{k+1,j}$.
+\end{pozorov}
+
+\par
+\begin{pozorov}
+% Pozorování 3: 
+Kdy¾ známe $hod(T_{k,k'})$ pro opt. bin. vyhl. strom
+reprezentující mno¾inu $S_{k,k'}$ kde $i \leq k \leq k' \leq j$ a $k'-k <
+j-i$, pak $hod(T_{i,j})$ pro opt. bin. vyhl. strom je \\
+$\sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j} \beta_l + min\{hod(T_{i,k-1}) +
+hod(T_{k+1,j}), i \leq k \leq j\}$. \\
+Kdy¾ $hod(T_{i,k-1}) + hod(T_{k+1,j})
+\leq min\{hod(T_{i,k'-1}) + hod(T_{k'+1,j}), i \leq k' \leq j\}$, pak \\
+$\exists$ opt. bin. vyhl. strom pro $S_{i,j}$ jeho¾ koøen reprezentuje $x_k$.
+\end{pozorov}
+
+\par
+Systematicky spoèítáme $w_{i,j} = \sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j}
+\beta_l$ pro v¹echny $1 \leq i \leq j \leq n$. Inicializujeme matice H,K
+typu $n x n, H = K = 0$.
+
+\begin{algorithmic}
+\STATE for every i=1,2,...,n do
+\STATE $H_{i,i} = w_{i,i}, K_{i,i} = i$
+\STATE enddo
+\end{algorithmic}
+
+$H_{i,j}$ pro $i \leq j$ bude $H_{i,j} = hod(T_{i,j})$ pro opt. bin. vyhl.
+strom reprezentující $S_{i,j}$ a $K_{i,j}$ bude index prvku
+reprezentovaného v koøeni $T_{i,j}$.
+
 
 \subsection{Sní¾ení slo¾itosti z kubické na kvadratickou}
 
 XXX dopsat
+kvadratické programování ?
+
 
 % --------------------------------------------------------------------------
 \section{Skorooptimální binární vyhledávací stromy}
@@ -33,14 +192,9 @@ XXX dopsat
 \renewcommand{\labelenumi}{\arabic{enumi})}
 \newcommand{\oops}[1]{\textbf{#1}}
 
-\subsection{Co je to optimální binární vyhledávací strom}
-
-Prvky jsou ulo¾eny ve vnitøních vrcholech stromu. 
-Listy jsou intervaly $(-\infty, x_1)$, $(x_1, x_2)$, 
-$\ldots$, $(x_n, \inf)$. Listy nemusíme implicitnì
-ve stromì zaznamenávat.
-U optimálních stromù dále pøedpokládáme, ¾e známe pravdìpodobnosti 
-operací $Access(x)$. 
+% tady jsem z referatu vytrhnul definici bin. opt. vyhr. stromu a presunul
+% ji nahoru k bin. opt. vyhl. stromum
+% V. Kotal, 2004
 
 \begin{defn} Nech» $S=\{x_1 < x_2 < \ldots < x_n\}$ 
 a nech» $\beta_i$ (resp. $\alpha_j$) je prav\-dì\-po\-dob\-nost operace 
@@ -48,7 +202,7 @@ $Access(a,S)$, kde $a=x_i$ (resp. $x_j < a < x_{j+1}$) pro $1 \leq i \leq n$
 (resp. $0 \leq j \leq n$).
 Potom $\beta_i\geq0$, $\alpha_i\geq0$ a $\sum{\beta_i}+\sum{\alpha_i}=1$. 
 (2n+1)-tice $(\alpha_0,\beta_1,\alpha_1,\ldots,\beta_n,\alpha_n)$ se nazývá 
-rozdìlení (pravdìpodobnosti) pøístupu.
+\emph{rozdìlení (pravdìpodobnosti) pøístupu}.
 \end{defn}
 
 Strom potom konstruujeme rekurzí tak, aby \emph{prùmìrná vá¾ená cesta} 
