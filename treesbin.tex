@@ -478,6 +478,7 @@ Potom $\beta_i\geq0$, $\alpha_i\geq0$ a $\sum{\beta_i}+\sum{\alpha_i}=1$.
 
 Strom potom konstruujeme rekurzí tak, aby \emph{prùmìrná vá¾ená cesta} 
 ve stro\-mì byla co nejkrat¹í.
+\par
 
 Takový strom lze konstruovat pomocí rekurzivního výpoètu zkou¹ením v¹ech 
 kandidátù na koøen. To lze v èase $O(n^2)$, proto¾e volba koøene jednoznaènì urèuje 
@@ -487,19 +488,24 @@ kandidátù na koøen. To lze v èase $O(n^2)$, proto¾e volba koøene jednoznaènì urè
 prvky pravého i levého podstromu (nebo» se jedná o vyhledávací strom).
 \subsection{Aproximace optimálních stromù}
 
+\par
 Pøi konstrukci se budeme sna¾it volbou koøene podstromu rozdìlit prvky na dvì stejnì pravdìpodobné mno¾iny.
 
 Uva¾ujme následující situaci. $S=\{x_1, x_2, x_3, x_4\}$ s pravdìpodobnostmi pøí\-stu\-pu
 ($\alpha_0$, $\beta_1$, $\alpha_1$, $\beta_2$, $\alpha_2$, $\beta_3$, $\alpha_3$, $\beta_4$, $\alpha_4$) = 
 $(\frac{1}{6},\frac{1}{24},0,\frac{ 1}{8},0,\frac{ 1}{8},\frac{ 1}{8}, 0,\frac{ 5}{12})$.
 
+\par
 Doporuèuji si pøedstavit uvedené body na reálné ose tak, ¾e $\alpha_0$ je v bodì $0$, $\alpha_4$ v bodì $1$.
 
+\par
 Bod $\frac{1}{2}$ padne buï do $\beta_i$ nebo do $\alpha_j$ pro nìjaké $i$, resp. $j$. V prvním pøípadì zvolíme $x_i$ jako 
 koøen stromu, jinak volíme mezi $x_j$ a $x_{j+1}$, podle toho, zda $\frac{1}{2}$ le¾í v levé nebo pravé polovinì $\alpha_j$. 
 
+\par
 V na¹em pøípadì volíme $x_3$ jako koøen stromu.
 
+\par
 Pro rozhodnutí o koøenu levého podstromu vrchol, který popsaným zpù\-sobem odpovídá bodu $\frac{1}{4}$. Tento postup není toto¾ný s postupem, 
 kdy se bere bod $\frac{1}{2}$ v 
 novì vzniklé podúloze, proto¾e pøi konstrukci podstromu bychom zanedbali èást intervalu $\alpha_3$.
@@ -511,9 +517,13 @@ Nech»
 s_0 = \frac{\alpha_0}{2} \\ s_i = s_{i-1} + \frac{\alpha_{i-1}}{2} + \beta_i + \frac{\alpha_i}{2}.
 \end{equation}
 
-Uvìdomte si, ¾e $s_i$ jsou støedy intervalù pøíslu¹ejících "neúspì¹nému vy\-hle\-dá\-vá\-ní", tj. $(x_i,x_{i+1})$.
+\par
+Uvìdomte si, ¾e $s_i$ jsou støedy intervalù pøíslu¹ejících "neúspì¹nému
+vy\-hle\-dá\-vá\-ní", tj. $(x_i,x_{i+1})$.
 
-Volání funkce $construct\_tree(0,n,0,1)$ vytvoøí skoro optimální vyhledávací strom dle popsané metody.
+\par
+Volání funkce $construct\_tree(0,n,0,1)$ vytvoøí skoro optimální
+vyhledávací strom dle popsané metody.
 
 \ \newline
 \oops{procedure} contruct\_tree(i,j,cut,l)
@@ -600,9 +610,11 @@ Potom ov¹em buï pro v¹echna $k$ taková, ¾e $i < k \leq j$,
 platí $s_{k} < cut+2^{-l}$ nebo 
 pro v¹echna $k$ taková, ¾e $i < k \leq j$, platí $s_{k-1} > cut+2^{-l}$.
 
+\par
 V prvním pøípadì $k = j$ odpovídá po¾adovaným podmínkám, 
 v druhém jim odpovídá $k = i + 1$. Tedy $k$ v¾dy existuje.
 
+\par
 Zbývá ukázat, ¾e nové parametry volání funkce splòují po¾adované 
 pod\-mín\-ky. To ale plyne z toho, ¾e $k$ splòuje 5-7 a  $i+1 \neq j$.
 \end{proof}
@@ -620,6 +632,7 @@ byl proveden pøípad A, nebo $h = i + 1$ (resp. $h = i$) a byl proveden pøípad B,
 nebo $h = j$ a byl proveden pøípad C, nebo  $h = k$ 
 a byl proveden pøípad D.
 
+\par
 Dále nìch» $b_i$ je hloubka vrcholu $i$ a $a_j$ hloubka listu $j$ ve 
 stromì vráceném $construct\_tree(0,n,0,1)$.
 
@@ -644,6 +657,7 @@ Z faktù 3 a 4 obdr¾íme $\beta_h \leq 2^{-b_h}$ a $\alpha_h \leq 2^{-a_h+2}$.
 Zlogaritmováním a pøevedením na celoèíselné hodnoty dostáváme tvrzení vìty.
 \end{proof}
 
+\par
 Vìty 1 a 2 ukazují, ¾e hloubka vrcholu je pøibli¾nì rovna logaritmu 
 pøe\-vrá\-ce\-né hodnoty prav\-dì\-po\-dob\-nosti pøístupu k tomuto vrcholu.
 
@@ -654,6 +668,7 @@ $H(\gamma_1,\gamma_2, \ldots, \gamma_n) = - \sum_{i = 1}^{n}\gamma_i\log{\gamma_
 nazývá entropie rozdìlení.
 \end{defn}
 
+\par
 Pov¹imnìte si, ¾e entropie nezále¾í na vytvoøeném stromì, 
 jenom na prav\-dì\-po\-dob\-nostech pøístupu. 
 
@@ -798,13 +813,23 @@ T(n) \leq (2d+c)n - d(1 + \log(n+1)/2) = (2d+c)n - d\log(n+1)
 % --------------------------------------------------------------------------
 \section{AVL stromy}
 
-AVL stromy jsou nazvané podle jmen jejich tvùrcù Adison-Vesley-Landis.
+Binární vyhledávací stromy jsou pomìrnì pøíjemné jednoduchou implementací
+operací nad nimi, ale není pøitom nijak omezena jejich hloubka. Mù¾e se
+tedy stát, ¾e strom mù¾e vypadat spí¹e jako seznam, a èasová slo¾itost
+operací bude tedy lineární. Pokud bychom v¹ak chtìli, aby mìl strom co
+nejmen¹í vý¹ku (vzdálenost listù od koøene by se mohla li¹it maximálnì o
+jednièku), byly by operace INSERT a DELETE nároèné. Rozumným
+kopmromisem mohou být právì AVL-stromy.
+\par
+AVL stromy jsou nazvané podle jmen jejich tvùrcù Adison-Vesley-Landis. 
 
 \begin{defn}
 Nech» v je vnitøní vrchol stromu T. Pak \\
 $l(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu levého syna $v$ \\
 $p(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu pravého syna
-$v$. 
+$v$. Pokud takový podstrom neexistuje, polo¾me $l(v)$ resp. $p(v)$ rovno $-1$.
+Dále oznaème $b(v) = l(v) - p(v)$. Vrchol $v$ nazveme vyvá¾ený, jestli¾e
+$b(v)$ nebývá hodnot $-1$, $0$ nebo $1$.
 \end{defn}
 
 \begin{defn}
@@ -812,7 +837,255 @@ AVL strom je binární vyhledávací strom takový, ¾e pro ka¾dý vnitøní vrchol
 $v$ platí $l(v) - p(v) \in \{-1,0,1\}$.
 \end{defn}
 
-XXX tady by se zøejmì slu¹elo dopsat algoritmy INSERT, DELETE.
+\begin{theorem}
+AVL-strom o $n$ vrcholech má vý¹ku nejvý¹e $2 log n$.
+\end{theorem}
+
+\begin{proof}
+Oznaème $N(h)$ minimální poèet vrcholù AVL stromu vý¹ky $h$. Mù¾eme tedy
+$N(h)$ definovat takto:
+
+$$N(0) = 1
+N(1) = 2
+N(h) = 1 + N(h-1) + N(h-2)$$
+
+Je zøejmé, ¾e platí $N(h) \geq 2 N(h-2)$ nebo $N(h-2) \leq N(h-1)$. 
+
+Odtud dostaneme, ¾e $N(h) \geq 2^{h/2}$ a tedy
+$h \leq 2 log N(h)$. Nerovnost $N(h) \geq 2^{h/2}$ doká¾eme indukcí:
+
+\begin{enumerate}
+\item $N(0) = 1 \geq 2^{0/2} = 1$ \\
+   $N(1) = 2 \geq 2^{1/2}$
+\item $N(h) \geq 2 N(h-2) \geq 2 2^{h/(2-1)} = 2^{h/2}$
+\end{enumerate}
+
+V¹echny vrcholy AVL stromu jsou tedy vyvá¾ené. Nevyvá¾ené vrcholy mohou
+vzniknout pøi operacích INSERT a DELETE. Pøi tom se mù¾e hodnota $b(v)$
+zmìnit maximálnì o jednièku. Hodnota $b(v)$ nevyvá¾eného vrcholu bude tedy
+$-2$ nebo $2$.
+\end{proof}
+
+\subsection{Algoritmus INSERT}
+
+Vlo¾ení nového vrcholu do AVL-stromu se provádí stejnì jako v
+nevyva¾ovaných binárních vyhledávacích stromech. Pøi tom se v¹ak u
+nìkterých vrcholù mù¾e poru¹it podmínka na vyvá¾enost. Mìjme 
+strom na obrázku \ref{avltree}
+
+\begin{figure}[!htb]
+\centering\includegraphics{pics/avl}
+\caption{AVL strom}
+\label{avltree}
+\end{figure}
+
+V tomto stromì jsou vý¹ky podstromù $T_1$, $T_2$ a $T_3$ stejné. 
+Pokud pøi vlo¾ení
+nového vrcholu do podstromu T1 vzroste vý¹ka tohoto podstromu, bude vrchol
+x nevyvá¾ený. Jeho vyvá¾ení se v¹ak provede jednodu¹e pomocí tzv.
+LL-rotace. (viz. obr. \ref{avl-ll})
+
+\begin{figure}[!htb]
+\centering\includegraphics{pics/avl-ll}
+\caption{LL-rotace pro AVL stromy}
+\label{avl-ll}
+\end{figure}
+
+Pokud bychom v¹ak chtìli nový vrchol vlo¾it do $T_2$ a vý¹ka tohoto podstromu
+by vzrostla, byl by opìt vrchol x nevyvá¾ený. To se mù¾e napravit pomocí
+LR-rotace. (viz. obr. \ref{avl-lr})
+
+\begin{figure}[!htb]
+\centering\includegraphics{pics/avl-lr}
+\caption{LR-rotace pro AVL stromy}
+\label{avl-lr}
+\end{figure}
+
+Poznamenejme, ¾e na vyvá¾enost nemá vliv, zda jsme vrchol vlo¾ili do
+$T_{2}'$,
+nebo do $T_{2}"$. Pøi vkládání nového vrcholu do pravého podstromu vrcholu
+x se pro vyvá¾ení pou¾ívají rotace RR-rotace a RL-rotace, které jsou 
+symetrické k ji¾ uvedeným rotacím.
+\par
+LL-rotaci a RR-rotaci se také nìkdy øíká jednoduchá rotace, kde¾to
+LR-rotaci a RL-rotaci se øíká dvojitá rotace. V¹imnìte si, ¾e po rotaci je
+vý¹ka podstromu, se kterým se rotace provádìla, stejná jako jeho vý¹ka
+pøed vlo¾ením nového vrcholu. Tedy po rotaci není naru¹ena vyvá¾enost
+nìjakého pøedka. Staèí tedy vyvá¾it ten nevyvá¾ený vrchol, který je ve
+stromu nejní¾e. Pokusme se nyní charakterizovat ten vrchol, který je tøeba
+vyvá¾it. Samozøejmì, ¾e tento vrchol $x$ le¾í na cestì od koøene k pøidanému
+vrcholu a platí:
+\begin{itemize}
+\item buï $b(x)=1$ a nový vrchol je pøidáván vlevo od $x$
+\item nebo $b(x)=-1$ a nový vrchol je pøidáván vpravo od $x$
+\end{itemize}
+\par
+Navíc pro ka¾dý vrchol $y$ na cestì od $x$ do pøidaného listu je $b(y)=0$,
+nebo» jinak by byl sám nevyvá¾ený, nebo by nezmìnil svou vý¹ku a tedy 
+by nebylo tøeba vyva¾ovat ani $x$.
+\par
+Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro AVL stromy}
+\label{alg:avl.ins}
+\begin{algorithmic}
+\STATE INSERT(c)
+\STATE $r \leftarrow$ koøen
+\WHILE {$r != NIL$} 
+\IF {$\text{prvek reprezentovaný} r = c$}
+  \STATE END
+\ENDIF
+\IF {$balance(r) != 0$}
+   \STATE $x = r$
+\ENDIF
+\IF {$\text{prvek reprezentovaný} r > c$}
+  \STATE $r = left(r)$
+\ELSE
+  \STATE $r = right(r)$
+\ENDIF
+\ENDWHILE
+\STATE \COMMENT {vlo¾ení nového vrcholu}
+\STATE $r := \text{nový vrchol}$
+\STATE $key(r):=c$
+\STATE $b(r):=0$
+\STATE $left(r):=nil$
+\STATE $right(r):=nil$
+\STATE $r:=x$
+\STATE VYVAZUJ(r)
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[!htb]
+\caption{VYVAZUJ pro AVL stromy}
+\label{alg:avl.bal}
+\begin{algorithmic}
+\STATE \COMMENT {úprava balance (staèí od x do vlo¾eného listu)}
+\WHILE {$r != NIL$} 
+  \IF {$\text{prvek reprezentovaný} r > c$}
+        \STATE $balance(r) := balance(r) + 1$
+        \STATE $r:=left(r)$
+  \ENDIF
+  \IF {$\text{prvek reprezentovaný } r < c$}
+        \STATE $balance(r) := balance(r) - 1$
+        \STATE $r := right(r)$
+  \ELSE
+        \STATE $r := NIL$
+  \ENDIF
+\ENDWHILE
+\IF {$balance(x) = 2$}
+  \IF {$\text{prvek reprezentovaný } left(x) > c$}
+        \STATE $LL-rotace$
+  \ELSE
+        \STATE $LR-rotace$
+  \ENDIF
+\ENDIF
+\IF {$balance(x) = -2$}
+  \IF {$\text{prvek reprezentovaný } right(x) < c$}
+        \STATE $RR-rotace$
+  \ELSE
+        \STATE $RL-rotace$
+  \ENDIF
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Algoritmus DELETE}
+
+Ubírání vrcholù z AVL-stromu se provádí stejnì jako u nevyvá¾ených
+binárních vyhledávacích stromù. To znamená, ¾e se ubíraný vrchol nahradí
+nejpravìj¹ím vrcholem levého podstromu nebo nejlevìj¹ím vrcholem pravého
+podstromu. Pøi tom se samozøejmì mohou také nìkteré vrcholy stát
+nevyvá¾enými. To se opìt øe¹í pomocí rotací.
+\par
+Operace DELETE je formálnì popsána algoritmem \ref{alg:avl.del}
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro AVL stromy}
+\label{alg:avl.del}
+\begin{algorithmic}
+\STATE DELETE(x)
+\STATE $r \leftarrow$ otec vrcholu reprezentovaného x
+\STATE \COMMENT {vrcholu $left:=r$ jsme odebrali levého syna}
+\WHILE {$r != NIL$}
+\STATE \COMMENT {Prochází vrcholy od otce ubraného vrcholu ke koøeni}
+  \IF {$left$}
+        \IF {$b(r) = 0$}
+		\STATE \COMMENT {Vrchol $r$ je stále vyvá¾ený a vý¹ka jeho podstromu se nezmìnila}
+                \STATE $b(r) := -1$
+        \ENDIF
+        \IF {$b(r) = 1$}
+		\STATE \COMMENT {Vrchol $r$ je stále vyvá¾ený, ale vý¹ka jeho podstromu se sní¾ila}
+                \STATE $b(r) := 0$
+	\STATE \COMMENT {Je tøeba vyva¾ovat}
+        \ELSE                            
+                \STATE VYVAZUJ\_RIGHT(right(r))
+        \ENDIF
+  \ELSE
+        \IF {$b(r)=0$}
+		\STATE \COMMENT {Vrchol $r$ je stále vyvá¾ený a vý¹ka jeho podstromu se nezmìnila}
+                \STATE $b(r)=1$                  
+                \STATE END
+	\ENDIF
+        \IF {$b(r)=-1$}
+		\STATE \COMMENT {Vrchol $r$ je stále vyvá¾ený, ale vý¹ka jeho podstromu se sní¾ila}
+                \STATE $b(r):=0$
+		\STATE \COMMENT {Je tøeba vyva¾ovat}
+        \ELSE
+		\STATE VYVAZUJ\_LEFT(left(r))
+        \ENDIF
+  \ENDIF
+\STATE $x:=r$
+\STATE $r:=otec(r)$
+\STATE $left:=left(r)=x$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+
+Problém je, ¾e ne pøi v¹ech rotacích se zachovává vý¹ka podstromu, jak
+tomu bylo u operace INSERT. Proto se zde vyva¾ování neomezí pouze na jeden
+vrchol.
+
+\begin{algorithm}[!htb]
+\caption{VYVAZUJ\_RIGHT pro AVL stromy}
+\label{alg:avl.del}
+\begin{algorithmic}
+\STATE VYVAZUJ\_RIGHT(x)
+\IF {$b(x)) = 0$}
+        \STATE RR-rotace
+	\STATE END
+\ENDIF        
+		\STATE \COMMENT {Vý¹ka podstromu se nezmìnila}
+\IF {$b(x)) = -1$}
+        \STATE RR-rotace
+\ELSE
+        \STATE RL-rotace
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[!htb]
+\caption{VYVAZUJ\_LEFT pro AVL stromy}
+\label{alg:avl.del}
+\begin{algorithmic}
+\STATE VYVAZUJ\_LEFT(x)
+\IF {$b(x)) = 0$}
+        \STATE LL-rotace
+		\STATE \COMMENT {Vý¹ka podstromu se nezmìnila}
+        \STATE END             
+\ENDIF
+\IF {$b(x)) = 1$}
+        \STATE LL-rotace
+\ELSE
+        \STATE LR-rotace
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
 
 
 % --------------------------------------------------------------------------

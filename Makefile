@@ -7,7 +7,7 @@
 # name of output file
 MAIN=ds
 ERRFILE=/tmp/ds.$$
-DISTDIR=../webt/skola/ds
+DISTDIR=../Documents/webt/skola/ds
 HTMLFILE=$(DISTDIR)/ds.html
 
 SRCFILES= array.tex \
@@ -43,9 +43,8 @@ commit:
 
 $(MAIN).ps: $(SRCFILES)
 	@echo "generating $(MAIN) PS file"
-	@latex ${MAIN} > /dev/null && \
+	pslatex ${MAIN} && pslatex $(MAIN) > /dev/null && \
 		dvips ${MAIN}.dvi -o $(MAIN).ps > /dev/null
-	@echo "successfull"
 
 dopics:
 	cd pics; make
@@ -54,15 +53,15 @@ dopics:
 debug: dopics $(SRCFILES)
 	pdflatex ${MAIN} && pdflatex ${MAIN} > /dev/null
 
-$(MAIN).pdf: pics $(SRCFILES)
-	@echo "generating PDF from $(MAIN)"
-	@pdflatex ${MAIN} > $(ERRFILE) \
-		&& pdflatex ${MAIN} > /dev/null
+$(MAIN).pdf: $(SRCFILES)
+	@echo "generating PDF for $(MAIN)"
+	pdflatex ${MAIN} && \
+		echo "generating index"; pdflatex ${MAIN} > /dev/null
 	@if [ $$? -eq 0 ]; then \
 	  echo "successfull"; \
 	  rm -f $(ERRFILE); \
 	else \
-	  echo "failed, log is in $(ERRFILE)"; \
+	  echo "failed"; \
 	fi
 
 pics-clean:
