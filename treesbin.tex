@@ -3,6 +3,7 @@
 
 \chapter{Binární vyhledávací stromy}
 % --------------------------------------------------------------------------
+% by Vladimir Kotal, 2004
 \section{Obecnì}
 
 \begin{defn}
@@ -94,12 +95,13 @@ operací $Access(x)$.
 
 \subsection{Algoritmus konstrukce}
 
-Dána mno¾ina $S = {x_1 < x_2 < ... < x_n }$, provádí se pouze operace
+Dána mno¾ina $S = \{x_1 < x_2 < ... < x_n \}$, provádí se pouze operace
 MEMBER(x) a jsou dány pravdìpodobnosti 
-$\alpha_1, ..., \alpha_n, \beta_1, ..., \beta_n$, kde 
+$\alpha_1, ..., \alpha_n, \beta_0, ..., \beta_n$, kde 
 \begin{itemize}
+\mnote{P znaèí pravdìpodobnost}
 \item $\alpha_i = P($provádìla se operace $MEMBER(x_i))$
-\item $\beta_i = P($provádìla se operace $MEMBER(x) pro x \in (x_i,x_{i+1}))$
+\item $\beta_i = P($provádìla se operace $MEMBER(x)$ pro $x \in (x_i,x_{i+1}))$
 \end{itemize}
 
 kde $x_0 = - \infty, x_{n+1} = \infty$.
@@ -116,7 +118,7 @@ listu reprezentujícího interval $(x_i,x_{i+1})$.
 
 \subsubsection{Zobecníme úlohu:}
 
-Dána mno¾ina $S = {x_1 < x_2 < ... < x_n }$ a ohodnocení $\alpha_i$ prvku
+Dána mno¾ina $S = \{x_1 < x_2 < ... < x_n \}$ a ohodnocení $\alpha_i$ prvku
 $x_i$ a $\beta_i$ intervalu $(x_i,x_{i+1})$.
 Chceme zkonstruovat binární vyhledávací strom T reprezentující S takový,
 ¾e $hod(T)= \sum_{i=1}^{n} \alpha_i(a_i + 1) + \sum_{i=0}^{n} \beta_i b_i$
@@ -128,19 +130,23 @@ $\alpha_i, \alpha_{i+1}, ..., \alpha_j, \beta_{i-1}, \beta_i, ..., \beta_j$.
 
 \par
 \begin{pozorov}
+\label{obvs-poz1}
 % Pozorování 1: 
 Nech» T je strom reprezentující mno¾inu $S_{i,j}$ a koøen T
 hodnotí prvek $x_k$ pro $i \leq k \leq j$. Nech» $T_l$ je podstrom levého
 syna koøene, $T_p$ je podstrom pravého syna koøene. Pak: \\
 $hod(T) = hot(T_l) + hod(T_p) + \sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j}
-\beta_l$
+\beta_l$ \\
 $T_l$ reprezentuje mno¾inu $S_{i,k-1}$ a $T_p$ reprezentuje mno¾inu $S_{k+1,j}$.
 \end{pozorov}
 
 \par
 \begin{pozorov}
 % Pozorování 2: 
-Nech» platí pøedpoklady Pozorování 1 a nechh» T je optimální
+Nech» platí pøedpoklady pozorování
+% Pozorování 1 
+\ref{obvs-poz1}
+a nech» T je optimální
 binární vyhledávací strom pro $S_{i,j}$. Pak $T_l$ je optimální
 binární vyhledávací strom pro $S_{i,k-1}$ a $T_p$ je optimální
 binární vyhledávací strom pro $S_{k+1,j}$.
@@ -152,11 +158,17 @@ binární vyhledávací strom pro $S_{k+1,j}$.
 Kdy¾ známe $hod(T_{k,k'})$ pro opt. bin. vyhl. strom
 reprezentující mno¾inu $S_{k,k'}$ kde $i \leq k \leq k' \leq j$ a $k'-k <
 j-i$, pak $hod(T_{i,j})$ pro opt. bin. vyhl. strom je \\
-$\sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j} \beta_l + min\{hod(T_{i,k-1}) +
-hod(T_{k+1,j}), i \leq k \leq j\}$. \\
-Kdy¾ $hod(T_{i,k-1}) + hod(T_{k+1,j})
-\leq min\{hod(T_{i,k'-1}) + hod(T_{k'+1,j}), i \leq k' \leq j\}$, pak \\
-$\exists$ opt. bin. vyhl. strom pro $S_{i,j}$ jeho¾ koøen reprezentuje $x_k$.
+$$
+\sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j} \beta_l + min\{hod(T_{i,k-1}) +
+hod(T_{k+1,j}), i \leq k \leq j\}
+$$
+Kdy¾ 
+$$
+hod(T_{i,k-1}) + hod(T_{k+1,j})
+\leq min\{hod(T_{i,k'-1}) + hod(T_{k'+1,j}), i \leq k' \leq j\}
+$$
+, pak $\exists$ opt. bin. vyhl. strom pro $S_{i,j}$,
+jeho¾ koøen reprezentuje $x_k$.
 \end{pozorov}
 
 \par
@@ -165,9 +177,9 @@ Systematicky spoèítáme $w_{i,j} = \sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j}
 typu $n x n, H = K = 0$.
 
 \begin{algorithmic}
-\STATE for every i=1,2,...,n do
-\STATE $H_{i,i} = w_{i,i}, K_{i,i} = i$
-\STATE enddo
+\FOR {i=1,2,...,n} 
+  \STATE $H_{i,i} = w_{i,i}, K_{i,i} = i$
+\ENDFOR
 \end{algorithmic}
 
 $H_{i,j}$ pro $i \leq j$ bude $H_{i,j} = hod(T_{i,j})$ pro opt. bin. vyhl.
@@ -177,8 +189,150 @@ reprezentovaného v koøeni $T_{i,j}$.
 
 \subsection{Sní¾ení slo¾itosti z kubické na kvadratickou}
 
-XXX dopsat
-kvadratické programování ?
+Chceme sní¾it ryhchlost konstrukce opt. bin. vyhl. stromu z kubické na
+kvadratickou. Pro tento úkol pou¾ijeme kvadratické programování. Pomocí
+této techniky lze modifikovat algoritmus pro konstrukci opt. bin. vyhl.
+strou tak, ¾e bude mít místo slo¾itosti $O(n^3)$ slo¾itost $O(n^2)$.
+\par
+Vstup: dána èísla $w(i,j), 1 \leq i \leq j \leq n$\\
+Výstup: definujeme  $c(i,j) = $
+ \(
+ \begin{cases}
+ 	0
+		&\text{pro } i=j, \text{kde } i = 1,2,..., n\\
+	w(i,j) + min\{c(i,k-1) + c(k,j),
+		i < k \leq j\}&\text{pro } i \neq j
+ \end{cases}
+ \)
+
+Úkolem je tedy nalézt èísla $c(i,j)$.
+Èísla $c(i,j)$ budou tvoøit výstup algoritmu. Kdy¾ pou¾ijeme modifikaci
+algoritmu pro hledání opt. bin. vyhl. stromu, pak spoèítáme $c(i,j)$ v
+èase $O(n^3)$.
+\par
+
+definujeme $K(i,j)$:
+\begin{defn}
+$K(i,j) = min\{l, l=i+1, ..., j \text{a platí}
+c(i,l-1) + c(l,j) \leq c(i,k-1) + c(k,j) \forall k = i+1, ...,j\}$ 
+\end{defn}
+
+Kdy¾ $K(i,j) \leq K(i,j+1) \leq K(i+1,j+1)$ pro $i \leq j$, pak lze pou¾ít
+algoritmus vy¾adující èas $O(n^2)$. (tj. mù¾eme pou¾ít rychlej¹í
+modifikaci algoritmu pro hledání opt. bin. vyhl. stromu a
+spoèítáme $c(i,j)$ v èase $O(n^2)$)
+
+\begin{pozn}
+Vztah kvadratického programování a hledání opt. bin. vyhl. stromu:
+Polo¾me $w(i,j) = \sum_{l=i}^{j} \alpha_l + \sum_{l=i-1}^{j} \beta_l$, pak
+$c(i,j) = H_{i+1,j}$.
+\end{pozn}
+
+\par
+Chceme ukázat, ¾e kdy¾ platí
+
+\begin{itemize}
+\item (A) $w(i,j) \leq w(i',j')$ pro $i' \leq i \leq j \ leq j'$ 
+\item (B) $w(i,j) + w(i',j') \leq w(i,j') + w(i',j)$ pro 
+$i \leq i' \leq j \ leq j'$ 
+\end{itemize}
+
+pak platí 
+$K(i,j) \leq K(i,j+1) \leq K(i+1,j+1)$ pro $1 \leq i \leq j$.
+
+\begin{lemma}
+Za uvedených pøedpokladù platí \\
+$c(i,j) + c(i',j') \leq c(i,j') + c(i',j)$ pro $i \leq i' \leq j \ \leq j'$ 
+\end{lemma}
+
+\begin{proof}
+indukcí dle $j'-i$: \\
+platí: kdy¾ $i = i'$ nebo $j = j'$, pak triviálnì platí \\
+$c(i,j) + c(i',j') \leq c(i,j') + c(i',j)$ 
+
+iniciální krok: kdy¾ $j'-i \leq 0$, pak platí buï $i = i'$ nebo $j = j'$. \\
+indukèní krok: pøedpokládejme, ¾e nerovnost platí, kdy¾ $j'-i < n$ a
+nech» $j'-i = n$, kde $n \geq 2$.
+
+\begin{enumerate}
+% 1)
+\item $j = i'$ pak máme dokázat, ¾e \\
+$c(i,j) + c(j,j') \leq c(i,j')$. oznaème $K(i,j') = l$.
+
+\begin{enumerate}
+\item
+(1a)
+$l \leq j$ pak $c(i,j) + c(j,j') \stackrel{\text{z def } c(i,j)}{\leq} w(i,j) + c(i,l-1) + c(l,j)+ c(j,j')
+\stackrel{\text{z (A) a ind. pøedp.}}{\leq} w(i,j') + c(i,l-1) = c(i,j)$  \\
+víme, ¾e $i < l \leq j$, tedy $j'-l < j'-i$. \\
+$\Rightarrow$ (1a) platí.
+\item
+(1b) $l \geq j$, dùkaz stejný jako pro 1a. \\
+$\Rightarrow$ 1 platí.
+\end{enumerate}
+
+% 2)
+\item $j > j'$ \\
+oznaème $k = K(i,j'), l = K(i',j)$ \\
+
+\begin{enumerate}
+\item (2a) $l \leq k$, pak $i' < l < \leq j, i < k < j \leq j'$ \\
+\begin{align*}
+&c(i,j) + c(i',j') \\
+\leq &w(i,j) + c(i,l-1) + c(l,j) + w(i',j') + c(i',k-1) + c(k,j') \\
+= &w(i,j) + w(i',j') + c(i,l-1) + c(i',k-1) + c(l,j) + c(k,j') \\
+\stackrel{\text{podle (B)}}{\leq} 
+&w(i,j') + w(i',j) + c(i,k-1) + c(i',l-1) + c(l,j) + c(k,j') =
+\end{align*}
+\mnote{$c(i,k-1) + c(i',l-1)$ jsme dostali z ind. pøedp.}
+
+víme, ¾e $i \leq i' \leq l-1 \leq k-1$ a $k-1-i < j'-i$. \\
+Potom 
+
+\begin{align*}
+= &w(i,j') + c(i,k-1) + c(k,j') + w(i',j) + c(i,l-1) c(l,j) \\
+= &c(i,j') + c(i',j)
+\end{align*}
+
+\item (2b) $k \leq l$ dùkaz je analogický jako pro (2a).
+\end{enumerate}
+$\Rightarrow$ 2 platí.
+\end{enumerate}
+$\Rightarrow$ lemma je dokázané.
+\end{proof}
+
+\begin{lemma}
+Kdy¾ $c(i,j) + c(i',j') \leq c(i,j') + c(i',j)$ pro $i \leq i' \leq j \leq
+j'$, pak platí \\
+$K(i,j) \leq K(i,j+1) \leq K(i+1,j+1)$
+\end{lemma}
+
+\begin{proof}
+Uká¾eme, ¾e platí $K(i,j) \leq K(i,j+1)$, dùkaz druhé nerovnosti je
+analogický. \\
+Abychom dokázali $(i,j) \leq K(i,j+1)$, tak staèí ukázat, ¾e platí \\
+$c(i,k-1) + c(k,j) <  c(i,k'-1) + c(k',j)$ pak
+$c(i,k-1) + c(k,j+1) <  c(i,k'-1) + c(k',j+1)$ pro $i < k' < k \leq j$.
+
+po¾adovaná nerovnost plyne z této nerovnosti: \\
+\begin{align*}
+&c(i,k'-1) + c(k',j) - c(i,k-1) - c(k,j) \\
+\stackrel{c(i,k'-1) > 0}{\leq} 
+&c(i,k'-1) + c(k',j+1) - c(i,k-1) - c(k,j+1)
+\end{align*}
+
+skonèili jsme s triky, upravíme nerovnost a vyjde to: \\
+\begin{align*}
+&c(i,k'-1) + c(k',j) + c(i,k-1) + c(k,j+1) \\
+\leq &c(i,k'-1) + c(k',j+1) + c(i,k-1) + c(k',j+1) 
+\end{align*}
+
+$c(k',j) + c(k,j+1) \leq c(k',j+1) + c(k,j)$
+platí $k' < k \leq j \leq j+1$ ... nerovnost platí dle pøedpokladu
+(polo¾íme i = k', i'=k, j=j, j'=j+1)
+\mnote{pokud se divíte $j=j$, nedivte se, znamená to, ¾e j z 1. èásti se
+rovná j z druhé èásti. chce to lep¹í znaèení}
+\end{proof}
 
 
 % --------------------------------------------------------------------------
@@ -208,6 +362,9 @@ Potom $\beta_i\geq0$, $\alpha_i\geq0$ a $\sum{\beta_i}+\sum{\alpha_i}=1$.
 Strom potom konstruujeme rekurzí tak, aby \emph{prùmìrná vá¾ená cesta} 
 ve stro\-mì byla co nejkrat¹í.
 
+Takový strom lze konstruovat pomocí rekurzivního výpoètu zkou¹ením v¹ech 
+kandidátù na koøen. To lze v èase $O(n^2)$, proto¾e volba koøene jednoznaènì urèuje 
+prvky pravého i levého podstromu (nebo» se jedná o vyhledávací strom).
 Takový strom lze konstruovat pomocí rekurzivního výpoètu zkou¹ením v¹ech 
 kandidátù na koøen. To lze v èase $O(n^2)$, proto¾e volba koøene jednoznaènì urèuje 
 prvky pravého i levého podstromu (nebo» se jedná o vyhledávací strom).
@@ -526,7 +683,7 @@ T(n) \leq (2d+c)n - d(1 + \log(n+1)/2) = (2d+c)n - d\log(n+1)
 \section{Èervenoèerné stromy}
 
 \begin{defn}
-Binární vyhledávací strom T se nazývá èervenoèerný, jestli¾e ka¾dý 
+Binární vyhledávací strom T se nazývá \emph{èervenoèerný}, jestli¾e ka¾dý 
 vrchol je obarven èervenì nebo èernì a platí následující podmínky:
 \begin{enumerate}
 \item Listy jsou èerné.
@@ -705,9 +862,6 @@ Dostáváme èervenoèerný strom.
 \label{rbt-d1d}
 \end{figure}
 \end{enumerate}
-\item Bratr je èervený.
-Pøebarvíme a zrotujeme podle obrázku \ref{rbt-d2}.
-Dostáváme 3tèès $(T,u)$, pøièem¾ porucha je o hladinu ní¾e. I kdy¾ to
 tak na první pohled nevypadá, máme vyhráno, proto¾e bratr poruchy je
 èerný a otec èervený, tedy pøí¹tí oprava bude pøípad \ref{rbt-cd1b},
 \ref{rbt-cd1c}, nebo \ref{rbt-cd1d} a skonèíme s èervenoèerným stromem.
@@ -746,6 +900,8 @@ operace pro $(2,4)$-stromy neodpovídají aktualizaèním operacím na
 \href{http://www.sgi.com/tech/stl/}%
 {standardní ¹ablonové knihovnì jazyka C++ od SGI}, 
 která je zahrnuta do GCC. Máte-li Linux, zkuste se podívat do
-\path{/usr/include/g++-2/stl\_tree.h}.
+\path{/usr/include/g++-2/stl\_tree.h}; pokud pou¾íváte OpenBSD, najdete
+implementaci jak èervenoèerných, tak splay stromù v
+\path{/usr/include/sys/tree.h}.
 \footnote{A pokud víte o podobnì dostupných implementacích jiných
 datových struktur z téhle pøedná¹ky, sem s nimi!}
