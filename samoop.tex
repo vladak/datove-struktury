@@ -132,7 +132,8 @@ Amort. slo¾itost druhé èásti = poèet placených výmìn A - poèet volných
 výmìn A
 \par
 
-i)
+% XXX jak donutit itemize aby cislovalo pomoci i, ii, iii, ... ?
+(i)
 Pøedpokládejme, ¾e x není v seznamu a délka seznamù je n.
 Èas MFR je n+1 , èas na vyhledání pro algoritmus je n+1
 operace MEMBER(x) a DELETE(x) $S_A''$ = $S_{MFR}'$
@@ -145,7 +146,7 @@ Amort. slo¾. operace MFR = n+1 + n=2n + 1=2(n+1) - 1 = 2*èas na vyhledání
 A - 1
 \par
 
-ii) x je v seznamu. Pøedpokládejme, ¾e x je na i-tém místì v seznamu $S_A$
+(ii) x je v seznamu. Pøedpokládejme, ¾e x je na i-tém místì v seznamu $S_A$
 					na j-tém místì v seznamu $S_{MFR}$
 Èas operace pro MFR je j, èas na vyhledání pro A je i.
 Oznaème k poèet y v seznamu takových, ¾e y je v $S_A$ za x, v $S_{MFR}$ pøed
