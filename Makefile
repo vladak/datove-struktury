@@ -17,5 +17,5 @@ pdf:
 	pdflatex ${MAIN}
 
 clean:
-	@rm -f ${MAIN}.toc *.ps *.pdf
+	@rm -f ${MAIN}.toc *.ps *.pdf *.aux
 	@cd pics; make clean
