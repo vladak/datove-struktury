@@ -8,37 +8,43 @@ Haldy jsou stromové struktury, které splòují
 \begin{itemize}
 \item lokální podmínku na uspoøádání
   - prvek reprezentující otce je men¹í ne¾ prvek reprezentovaný synem
+    apod.
 % oprava by M. Macok:
 % "strukturalni podminky" na stromy jsou podminky na tvar
 % stromu (event. lesu), podle kterejch se ty haldy rozdelujou na Fib.,
 % leftlist apod... neni tam nic o tom, jestli jsou synove vetsi/mensi
 % nez otcove apod., od toho je tam ta prvni podminka...
-\item strukturální podmínku na stromy, ze kterých jsou vytvoøené - podle
-nich se haldy rozdeluji na Fibonacciho, Leftist apod.
+\item strukturální podmínku na stromy, ze kterých jsou vytvoøené 
 \end{itemize}
 \end{defn}
 
+\begin{pozn}
+podle tìchto podmínek se haldy rozdìlují na Fibonacciho, Leftist,
+d-regulární apod. (mohou se li¹it jak lokální, tak strukturální podmínkou)
+\end{pozn}
+
 % --------------------------------------------------------------------------
 \section{$d$-regulární haldy}
-
-Co musí být splnìno:
-\begin{enumerate}
-\item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má d synù
-\item ka¾dý vrchol má nejvý¹e d synù
-\item existuje oèíslování synù ka¾dého vrcholu tak, ¾e po oèíslování
-prùchodem ¹íøky platí: \\
-kdy¾ vrchol nemá list, pak ka¾dý vrchol s men¹ím èíselm má d synù.
-\end{enumerate}
 
 \begin{defn}
 d-regulární halda, d celé èíslo d$\geq$ 2 \\
 Je to strom T takový, ¾e existuje jednoznaèná korespondence mezi vrcholy
 stromù a prvky reprezentované mno¾iny a platí: 
 \begin{enumerate}
-\item kdy¾ x je prvek pøiøazený vrcholu t, pak otci(t) je pøiøazen prvek
+
+\item strom T splòuje strukturální podmínky
+\begin{enumerate}
+\item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má d synù
+\item ka¾dý vrchol má nejvý¹e d synù
+\item existuje oèíslování synù ka¾dého vrcholu tak, ¾e po oèíslování
+prùchodem ¹íøky platí: \\
+kdy¾ vrchol není list, pak ka¾dý vrchol s men¹ím èíslem má d synù.
+\end{enumerate}
+
+\item podmínku na lokální uspoøádání: \\
+kdy¾ x je prvek pøiøazený vrcholu t, pak otci(t) je pøiøazen prvek
 $\leq$ x
-\item strom T splòuje podmínky (i),(ii),(iii)
-pak po oèísllování prùchodem do ¹íøky platí:
+pak po oèíslování prùchodem do ¹íøky platí:
 kdy¾ vrchol má èíslo i, jeho synové mají èísla
 % oprava by M.Macok :
 % strana 70, prvni syn vrcholu neni na pozici d(i-1)+1 ale ..+2
@@ -52,7 +58,7 @@ Pø. 3-regulární halda
 % obr.
 
 kdy¾ takto oèíslované prvky dáme do pole, pak platí: kdy¾ je vrchol na
-i-tém místì, pak jeho synové jsou 3(i-1)+2, 3i, 3i+1
+i-tém místì, èísla synù jsou 3(i-1)+2, 3i, 3i+1
 a otec je na $\lceil\frac{i-1}{3}\rceil$ místì v poli.
 to vyu¾ijeme pro implementaci polem - u¹etøíme místo.
 \par
@@ -73,7 +79,7 @@ A: if prvek reprezentovaný x je $<$ prvek reprezentovaný otcem(x) then
 
 \subsection{Algoritmus DOWN}
 
-A: if prvek reprezentující x $>$ prvek reprezentovaný nìkterým synem x
+A: if prvek reprezentovaný x $>$ prvek reprezentovaný nìkterým synem x
 then vymìníme x a syna x, který reprezentuje nejmen¹í prvek, pokraèujeme
 v A
 
@@ -92,20 +98,17 @@ UP(t)
 ... prvek reprezentovaný v koøeni
 
 \subsubsection{DELETEMIN}
-prvek reprezentovaný posledním listem dáme do koøene, odstraníme posl,.
-list
-DONW(koøen)
+prvek reprezentovaný posledním listem dáme do koøene, odstraníme poslední list \\
+DOWN(koøen)
 
-\subsubsection{DECREASEKEY(x)}
-musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje
-nalézt
-zmìníme uspoøádání v bodì x
-UP(x) mohl by být men¹í ne¾ jeho otec, proto provedeme UP
+\subsubsection{DECREASEKEY$(x, \Delta)$}
+musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje nalézt. \\
+zmìníme uspoøádání v bodì x \\
+UP(x) mohl by být men¹í ne¾ jeho otec, proto provedeme UP \\
 
-\subsubsection{INCREASEKEY}
-musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje
-nalézt
-zmìníme uspoøádání v bodì x
+\subsubsection{INCREASEKEY$(x, \Delta)$}
+musíme znát polohu vrcholu t reprezentujícího x, toto halda neumo¾òuje nalézt \\
+zmìníme uspoøádání v bodì x \\
 DOWN(x)
 
 \subsubsection{DELETE}
@@ -128,7 +131,8 @@ prvky $x_1, x_2, ..., x_n$. Pro v¹echny vrcholy, které nejsou listy podle
 oèíslování v poøadí od nejvìt¹ího k nejmen¹ímu provedeme DOWN(t).
 \par
 
-% obr.
+\mnote{chybí obrázek}
+% XXX obr.
 
 Invariant: v okam¾iku, kdy provádím DOWN(t), tak vrcholy, které
 reprezentující vìt¹í prvky splòují smìrem dolù podmínku 
@@ -173,9 +177,9 @@ K èemu jsou d-reg. haldy dobré ? napø. pro implementaci Dijkstrova
 algoritmu.
 \par
 
-Vstup: orientovaný graf (V,E), fce c:E->R+, vrchol z \\
-Výstup: d(v), $v \in V$ \\
-	d(v) je délka nejkrat¹í cesty ze z do v \\
+Vstup: orientovaný graf (V,E), fce $c:E \rightarrow R^+$, vrchol z \\
+Výstup: $d(v)$, $v \in V$ \\
+	$d(v)$ je délka nejkrat¹í cesty ze $z$ do $v$ \\
 
 \begin{algorithm}[!htb]
 \caption{Dijkstra pro d-regularni haldy}

@@ -123,11 +123,11 @@
 \contentsline {section}{\numberline {9.3}Splay stromy}{66}{section.9.3}
 \contentsline {subsection}{\numberline {9.3.1}Operace SPLAY}{66}{subsection.9.3.1}
 \contentsline {subsection}{\numberline {9.3.2}Podporované operace}{66}{subsection.9.3.2}
-\contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{66}{subsection.9.3.3}
+\contentsline {subsection}{\numberline {9.3.3}Algoritmus MEMBER}{67}{subsection.9.3.3}
 \contentsline {subsection}{\numberline {9.3.4}Algoritmus JOIN2}{67}{subsection.9.3.4}
 \contentsline {subsection}{\numberline {9.3.5}Algoritmus JOIN3}{67}{subsection.9.3.5}
 \contentsline {subsection}{\numberline {9.3.6}Algoritmus SPLIT}{67}{subsection.9.3.6}
-\contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{67}{subsection.9.3.7}
+\contentsline {subsection}{\numberline {9.3.7}Algoritmus DELETE}{68}{subsection.9.3.7}
 \contentsline {subsection}{\numberline {9.3.8}Algoritmus INSERT}{68}{subsection.9.3.8}
 \contentsline {subsection}{\numberline {9.3.9}Algoritmus CHANGEWEIGHT}{68}{subsection.9.3.9}
 \contentsline {subsection}{\numberline {9.3.10}Algoritmus SPLAY}{69}{subsection.9.3.10}
@@ -141,11 +141,11 @@
 \contentsline {subsubsection}{INSERT}{72}{subsection.10.1.3}
 \contentsline {subsubsection}{MIN}{72}{subsection.10.1.3}
 \contentsline {subsubsection}{DELETEMIN}{72}{subsection.10.1.3}
-\contentsline {subsubsection}{DECREASEKEY(x)}{72}{subsection.10.1.3}
-\contentsline {subsubsection}{INCREASEKEY}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{DECREASEKEY$(x, \Delta )$}{72}{subsection.10.1.3}
+\contentsline {subsubsection}{INCREASEKEY$(x, \Delta )$}{72}{subsection.10.1.3}
 \contentsline {subsubsection}{DELETE}{72}{subsection.10.1.3}
 \contentsline {subsection}{\numberline {10.1.4}Algoritmus MAKEHEAP}{72}{subsection.10.1.4}
-\contentsline {subsection}{\numberline {10.1.5}Slo¾itost operací}{72}{subsection.10.1.5}
+\contentsline {subsection}{\numberline {10.1.5}Slo¾itost operací}{73}{subsection.10.1.5}
 \contentsline {subsection}{\numberline {10.1.6}Dijkstrùv algoritmus}{73}{subsection.10.1.6}
 \contentsline {section}{\numberline {10.2}Leftist haldy}{74}{section.10.2}
 \contentsline {section}{\numberline {10.3}Binomiální haldy}{75}{section.10.3}
@@ -157,13 +157,10 @@
 \contentsline {chapter}{\numberline {11}Dynamizace}{79}{chapter.11}
 \contentsline {section}{\numberline {11.1}Zobecnìný vyhledávací problém}{79}{section.11.1}
 \contentsline {subsection}{\numberline {11.1.1}Operace INSERT a DELETE}{79}{subsection.11.1.1}
-\contentsline {subsection}{\numberline {11.1.2}Amortizovaný èas operace INSERT}{81}{subsection.11.1.2}
-\contentsline {subsection}{\numberline {11.1.3}Pamì»ové nároky}{82}{subsection.11.1.3}
-\contentsline {subsection}{\numberline {11.1.4}Algoritmus pro výpoèet}{82}{subsection.11.1.4}
-\contentsline {subsection}{\numberline {11.1.5}Èas pro INSERT(x)}{82}{subsection.11.1.5}
-\contentsline {subsection}{\numberline {11.1.6}Dynamizace}{83}{subsection.11.1.6}
-\contentsline {subsection}{\numberline {11.1.7}Reprezentace mno¾iny A}{84}{subsection.11.1.7}
-\contentsline {subsection}{\numberline {11.1.8}Pamì»ové nároky}{84}{subsection.11.1.8}
-\contentsline {subsection}{\numberline {11.1.9}èas pro výpoèet f}{84}{subsection.11.1.9}
-\contentsline {subsection}{\numberline {11.1.10}Amortizovaný èas operace DELETE}{85}{subsection.11.1.10}
+\contentsline {section}{\numberline {11.2}Semi-dynamizace}{80}{section.11.2}
+\contentsline {section}{\numberline {11.3}Dynamizace}{83}{section.11.3}
+\contentsline {subsection}{\numberline {11.3.1}Reprezentace mno¾iny A}{84}{subsection.11.3.1}
+\contentsline {subsection}{\numberline {11.3.2}Pamì»ové nároky}{84}{subsection.11.3.2}
+\contentsline {subsection}{\numberline {11.3.3}èas pro výpoèet f}{84}{subsection.11.3.3}
+\contentsline {subsection}{\numberline {11.3.4}Amortizovaný èas operace DELETE}{85}{subsection.11.3.4}
 \contentsline {chapter}{\numberline {12}Vícedimenzionální vyhledávání}{86}{chapter.12}

@@ -119,6 +119,20 @@ P_\staticka(n) & = \text{èas potøebný pro vybudování \staticka}
 \end{align*}
 \end{defn}
 
+\section{Semi-dynamizace}
+
+\begin{theorem}
+Máme rozlo¾itelný vyhled. problém f a máme pro nìj statickou strukturu,
+která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
+$P(n)$,
+$kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
+existuje semidynamická dat. struktura D, øe¹ící f v èase
+$O(Q(n) log(n))$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
+amort. slo¾itostí
+$O(\frac{P(n)}{n} \cdot log(n))$.
+\end{theorem}
+
+\begin{proof}
 Budeme pøedpokládat, ¾e $Q_\staticka(n)$, $S_\staticka(n)/n$ a
 $P_\staticka(n)/n$ jsou neklesající funkce.
 
@@ -199,36 +213,42 @@ INSERT(x)
 Kdy se buduje znovu S struktura pro $A_j$ ? 
 \begin{enumerate}
 \item musí se naplnit v¹echny $A_i$ pro i<j 
-to je $2^{j-1}$ úspì¹ných INSERTù (ty, které pøidaly prvek)
+to je $2^j-1$ úspì¹ných INSERTù (ty, které pøidaly prvek)
 \item provede se úspì¹ný INSERT, který vyprázdní $A_i$ pro $i \leq j$
-\item znovu se musí naplnit $A_i$ tj. $2^{j-1}-1$ úspì¹ných INSERTù
+\item znovu se musí naplnit $A_i$ tj. $2^j-1$ úspì¹ných INSERTù
 \item da¹í úspe¹ný INSERT vytvoøí teprve S strukturu pro $A_j$
 \end{enumerate}
 
 tj. $2 \cdot 2^j$ úspì¹ných INSERTù
 
-\subsection{Amortizovaný èas operace INSERT}
+Amortizovaný èas operace INSERT je 
 $$
 log|A| + \sum_{i=0}^{log|A|} \frac{P(2^j)}{2^{j+1}} \leq
 log|A| + \sum_{i=0}^{log|A|} \frac{P|A|}{|A|} = 
 O(log|A| \cdot \frac{P|A|}{|A|})
 $$
 
-\begin{pozn}
-pokud $\frac{P(n)}{n} = \Theta(n^\epsilon) pro \epsilon > 0$, pak
-amortizovaný èas pro operaci INSERT bude $O(\frac{P|A|}{|A|})$.
-\end{pozn}
+\end{proof}
 
 \begin{theorem}
 Máme rozlo¾itelný vyhled. problém f a máme pro nìj statickou strukturu,
 která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
 $P(n)$,
 $kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
-jsme navrhli novou semidynamickou dat. strukturu D, øe¹ící f v èase
+existuje semidynamická dat. struktura D, øe¹ící f v èase
 $O(Q(n) log(n))$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
-amort. slo¾itostí
+slo¾itostí
 $O(\frac{P(n)}{n} \cdot log(n))$.
 \end{theorem}
+
+Následuje konstrukce takové semidyn. struktury, která bude podporovat
+INSERT se slo¾itostí v nejhor¹ím pøípadì.
+\par
+
+\begin{pozn}
+pokud $\frac{P(n)}{n} = \Theta(n^\epsilon) pro \epsilon > 0$, pak
+amortizovaný èas pro operaci INSERT bude $O(\frac{P|A|}{|A|})$.
+\end{pozn}
 
 Máme mno¾inu A \\
 budeme mít roklad A na disjunktní mno¾iny $A_{i,j}, i=0,1,..., j \in
@@ -273,8 +293,9 @@ pozn. struktura je rozpracovaná, jestli¾e bylo provedeno nìkolikj krokù
 pro postaverní S struktury, ale je¹tì není dokonèena.
 
 - toto je definice nové semidynamické struktury
+\par
 
-\subsection{Pamì»ové nároky}
+Pamì»ové nároky
 
 \begin{multline}
 |A| + \sum_{i=0}^{log|A|} 4S(2^i) = 
@@ -289,7 +310,7 @@ $|A|$ - pamet pro pom. struktury  \\
 $\sum_{i=0}^{log|A|} 4S(2^i)$ - pamet potrebna na S struktury
 \end{pozn}
 
-\subsection{Algoritmus pro výpoèet}
+Algoritmus pro výpoèet \\
 spoèítáme $f(x,A_{i,j})$ pro ka¾dou $A_{i,j}$ a pomocí operace $\oplus$
 spoèítáme f(x,A). 
 
@@ -331,7 +352,7 @@ INSERT(x) viz. alg. \ref{alg:dynam.insert}
 \end{algorithm}
 
 
-\subsection{Èas pro INSERT(x)}
+Èas pro INSERT(x) je \\
 \begin{multline}
 log|A| + \sum_{i=0}^{log|A|} (\frac{P(2^i)}{2^i} + 1) = 
 2log|A| + \sum_{i=0}^{log|A|} \frac{2P(|A|)}{|A|} = \\
@@ -390,8 +411,11 @@ pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
 \frac{P(n)}{n})$.
 \end{theorem}
 
+\begin{proof}
+Dukaz viz \cite{mehlhorn-overmars}
+\end{proof}
 
-\subsection{Dynamizace}
+\section{Dynamizace}
 Potøebujeme, aby struktura S pøipou¹tìla fale¹ný DELETE (prvek pouze
 ¹krtneme, ale zùstane tam. fale¹ný - èas. ani pamì»ové nároky se nezlep¹í
 ani nezhor¹í)
