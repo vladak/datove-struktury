@@ -1,5 +1,6 @@
 % Souèást skript na Datové struktury. Viz main.tex
 \markright{$ $Id$ $}
+% doplnil Vladimír Kotal
 
 \chapter{Dynamizace}
 
@@ -13,60 +14,100 @@ binomiálních hald.
 \section{Zobecnìný vyhledávací problém}
 
 \begin{defn}
-\emph{Vyhledávací problém} je funkce $f: Q_1 \times 2^{Q_2} \to Q_3$, kde
-$Q_1$, $Q_2$ a $Q_3$ jsou univerza.
+\emph{Vyhledávací problém} je funkce $f: U_1 \times 2^{U_2} \to U_3$, kde
+$U_1$, $U_2$ a $U_3$ jsou univerza.
 \end{defn}
 \begin{defn}
-\emph{Øe¹ení vyhledávacího problému} pro $x \in Q_1, A \subseteq Q_2$
+\emph{Øe¹ení vyhledávacího problému} pro $x \in U_1, A \subseteq U_2$
 je nalezení hodnoty $f(x, A)$.
 \end{defn}
 
-Napøíklad
+\begin{pozn}
+Chceme najít strukturu, která reprezentuje A a algoritmus, který pro vstup
+$x \in U_1$ spoèítá $f(x, A)$. Takové struktuøe se øíká statická struktura
+pro vyhledávací problém.
+\end{pozn}
+
+Pø.:
 \begin{description}
 \item[Klasický vyhledávací problém:]
 
-	$Q_1 = Q_2 = U$, univerzum prvkù;
-	$Q_3 = \{0, 1\}$;
+	$U_1 = U_2 = U$, univerzum prvkù;
+	$U_3 = \{0, 1\}, A \subseteq U_2$
 
 	$f(x, A) =
 	\begin{cases}
 	0& \text{kdy¾ } x \notin A\\
 	1& \text{kdy¾ } x \in A
 	\end{cases}$
-\item[Vzdálenost bodù v rovinì:]
+	(rozlo¾itelný)
+\item[Euklidovská vzdálenost bodù v rovinì:]
 
-	$Q_1 = Q_2 = $ rovina, tøeba euklidovská; 
-	$Q_3 = \mathbb{R}^+$; 
-	$f(x, A) = $ vzdálenost bodu $x$ od mno¾iny $A$.
+	$U_1 = U_2 = $ euklidovská rovina; 
+	$U_3 = \mathbb{R}^+$; 
+	$f(x, A) = dist(x,A$ vzdálenost bodu $x \in U_1$ od mno¾iny $A$.
+	(rozlo¾itelný, $\oplus$ ... operace min)
+\item{Nalezení pøedchùdce}
+	$U_1 = U_2 = U_3$ 
+	pro $x \in U_1$ a $A \subseteq U_!$ a je $f(x,U_!)$ je nejvìt¹í 
+		prvek $A \leq x$
+	(rozlo¾itelný, je potøeba disjunkce)
 \item[Pøíslu¹nost ke konvexnímu obalu]
 
-	$Q_1 = Q_2 = $ rovina; 
-	$Q_3 = \{0, 1\}$;
+	$U_1 = U_2 = $ rovina; 
+	$U_3 = \{0, 1\}$;
 
 	\(f(x, A) =
 	\begin{cases}
 	0& \text{kdy¾ $x$ nepatøí do konvexního obalu $A$}\\
 	1& \text{kdy¾ $x$ patøí do konvexního obalu $A$}
 	\end{cases}\)
+	(není rozlo¾itelný problém)
+% XXX obr.
 \end{description}
+
+
+\subsection{Operace INSERT a DELETE}
+Pro mno¾inu $A \subseteq U_2$ a pro statickou strukturu {\cal S}
+øe¹ící vyhledávací problémf pro $x \in U_2$.
+INSERT(x,A) - vybudování struktury øe¹ící vyhledávací problém pro mono¾inu
+$A \cup \{x\}$.
+DELETE(x,A) - vytvoøení struktury øe¹ící vyhl. problém pro mno¾inu 
+$A - \{x\}$.
+
+Pozn:
+ze statické struktury chce vytovoøit dynamickou (dynamizace).INSERT je
+obvykle jednodu¹¹í ne¾ DELETE, na tu budeme potøeboivat dodateèné
+pøedpoklady.
+
+Nároky na dynamizaci
+- chceme aby se f(x,A) v nové struktuøe spoèítalo pøibli¾nì stejnì rychle
+  jako v pùvodní struktuøe
+- kdy¾ vytvoøení pùvodní struktury pro n prvnkovou mno¾inu trvalo
+  t, pak operace INSERT by pøibli¾nì mìla vy¾adovat èas t $t/n$.
 
 \begin{defn}
 Vyhledávací problém je \emph{rozlo¾itelný}, kdy¾
 existuje operace $\oplus$ spoèitatelná v konstantním èase a platí:
-kdy¾ $x \in Q_1$ a $A$ a $B$ jsou disjunktní podmno¾iny $Q_2$, pak
+kdy¾ $x \in U_1$ a $A$ a $B$ jsou disjunktní podmno¾iny $U_2$, pak
 \[
 	f(x, A \cup B) = f(x, A) \oplus f(x, B).
 \]
 \end{defn}
 
+\begin{pozn}
 Z vý¹e uvedených pøíkladù není rozlo¾itelným problémem pøíslu¹nost ke
-konvexnímu obalu, ostatní dva vyhledávací problémy jsou rozlo¾itelné.
+konvexnímu obalu, ostatní vyhledávací problémy jsou rozlo¾itelné.
+\end{pozn}
 
 \newcommand{\staticka }{\ensuremath{\mathcal{S}}}
 \newcommand{\dynamicka}{\ensuremath{\mathcal{D}}}
+
+
+\begin{defn}
 Nech» $f$ je rozlo¾itelný vyhledávací problém a $\staticka$ je
 ``statická'' datová struktura, která ho øe¹í. Neboli $\staticka$ je
-tvoøena pro pevnou mno¾inu $A \subseteq Q_2$ a obsahuje operaci, která
+tvoøena pro pevnou mno¾inu $A \subseteq U_2$ a obsahuje operaci, která
 pro vstup $x$ poèítá $f(x, A)$.
 
 Popí¹eme dùle¾ité parametry $\staticka$: nech» $n = |A|$, oznaème
@@ -75,17 +116,26 @@ Q_\staticka(n) & = \text{èas potøebný pro výpoèet $f(x,A)$}\\
 S_\staticka(n) & = \text{pamì» potøebná pro vybudování \staticka}\\
 P_\staticka(n) & = \text{èas potøebný pro vybudování \staticka}
 \end{align*}
+\end{defn}
 
-Po¾adujeme, aby $Q_\staticka(n)$, $S_\staticka(n)/n$ a
-$P_\staticka(n)/n$ byly neklesající funkce.
+Budeme pøedpokládat, ¾e $Q_\staticka(n)$, $S_\staticka(n)/n$ a
+$P_\staticka(n)/n$ jsou neklesající funkce.
+
+Máme mno¾inu A a vytvoøíme pro ni novou strukturu D.
+Nech» $A_i \subseteq A$ taková, ¾e buï $|A_i| = 2^i$ nebo $A_i = \emptyset$ \\
+$A_i \cap A_j = \emptyset pro i \neq j$.
+$\bigcup A_i = A$
+
+Platí $A_i \neq \emptyset$ právì kdy¾ (i+1)-ní bit v dvojkovém rozvoji èísla
+|A| je 1.
 
 Chceme navrhnout strukturu, která by umìla
 \begin{enumerate}
-\item Pro $x \in Q_1$ a pevné $A \subseteq Q_2$ rychle spoèítat $f(x, A)$.
-\item Pro $A$ a $y \in Q_2$ rychle vytvoøit strukturu pro $A \cup \{y\}$.
+\item Pro $x \in U_1$ a pevné $A \subseteq U_2$ rychle spoèítat $f(x, A)$.
+\item Pro $A$ a $y \in U_2$ rychle vytvoøit strukturu pro $A \cup \{y\}$.
 \end{enumerate}
 
-Mìjme $A_0, A_1, \ldots$ takové, ¾e
+Mìjme $A_0, A_1, \cdots$ takové, ¾e
 \begin{enumerate}
 \item $A_i \cap A_j = \emptyset$ pro $i \neq j$
 \item buï $A_i = \emptyset$ nebo $|A_i| = 2^i$ 
@@ -94,8 +144,108 @@ Mìjme $A_0, A_1, \ldots$ takové, ¾e
 
 Nová struktura \dynamicka\ reprezentující $A$ je potom
 \begin{itemize}
-\item Seznam statických struktur pro $A_i \neq \emptyset$, $\staticka_i$
-\item Vyhledávací strom reprezentující $A$
+% \item Seznam statických struktur pro $A_i \neq \emptyset$, $\staticka_i$
+\item nìjaká dynamická struktura reprezentující A
+(napø. (a,b)-strom, èerveno-èerný strom, AVL-strom)
+% \item Vyhledávací strom reprezentující $A$
+\item Pro ka¾dé $A_i \neq \emptyset$ máme S strukturu reprezentující $A_i$.
 \item Pro ka¾dé $A_i \neq \emptyset$ seznam prvkù v $A_i$; prvky
 tìchto seznamù jsou projpojeny s odpovídajícími prvky ve stromì.
 \end{itemize}
+
+Jak v nové struktuøe spoèítáme f(x,A) ?
+pro ka¾dou $A_i \neq \emptyset$ spoèítáme $f(x,A_i)$ a pomocí operace
+$\oplus$ pak spoèítáme f(x,A).
+
+\begin{pozn}
+ platí, kdy¾ $A_i \neq \emptyset$, pak 
+$i \leq \lceil log_2|A| \rceil$
+èas, který je potøeba v nové struktuøe na výpoèet f(x,A)
+\end{pozn}
+
+\begin{multline}
+log_2|A| + \sum_{i=0}^{log|A|}Q(2^i) \leq log|A| + \sum_{i=0}^{log|A|}Q(|A|)
+= log|A|(Q(|A|) + 1)
+\end{multline}
+
+$log_2(|A|)$ - vyhodnocení $f(x,A)$ z $f(x,A_i), i=0,1,...$
+\par
+
+tedy algoritmus potøebuje O(log|A| Q(|A|)) èasu
+kdy¾ $Q(n) = \Theta(n^\epsilon) pro \epsilon > 0$, pak platí. ¾e nová
+struktura pro výpoèet f potøebuje
+\begin{multline}
+log|A| + \sum_{i=0}^{log n}Q(2^i) = \\
+|A| + \sum_{i=0}^{log|A|}
+\frac{S(2^i)}{2^i} 2^i \leq |A| + \sum_{i=0}^{log|A|} \frac{S(|A|)}{|A|} 2^i \\
+= |A| - \frac{S(|A|)}{|A|} 2^i = |A| -
+\frac{S(|A|)}{|A|}(\sum_{i=0}^{log|A|} 2^i) \\
+= O(S(|A|))
+\end{multline}
+
+
+INSERT(x)
+\begin{algorithmic}
+\IF {$x \not\in A$} 
+  \STATE nalezneme nejmen¹í j, ¾e $A_j = \emptyset$
+\ENDIF
+\STATE $A_j = \{x\} \cup \bigcup{i<j} A_i, A_i = \emptyset pro i<j$
+\STATE vytvoøíme strukturu S spojový seznam pro $A_j$
+\STATE x pøidáme do reprezentace A.
+\end{algorithmic}
+
+
+Kdy se buduje znovu S struktura pro $A_j$ ? 
+\begin{enumerate}
+\item musí se naplnit v¹echny $A_i$ pro i<j 
+to je $2^{j-1}$ úspì¹ných INSERTù (ty, které pøidaly prvek)
+\item provede se úspì¹ný INSERT, který vyprázdní $A_i$ pro $i \leq j$
+\item znovu se musí naplnit $A_i$ tj. $2^{j-1}-1$ úspì¹ných INSERTù
+\item da¹í úspe¹ný INSERT vytvoøí teprve S strukturu pro $A_j$
+\end{enumerate}
+
+tj. $2 \cdot 2^j$ úspì¹ných INSERTù
+
+\subsection{Amortizovaný èas operace INSERT}
+$$
+log|A| + \sum_{i=0}^{log|A|} \frac{P(2^j)}{2^{j+1}} \leq
+log|A| + \sum_{i=0}^{log|A|} \frac{P|A|}{|A|} = 
+O(log|A| \cdot \frac{P|A|}{|A|})
+$$
+
+\begin{pozn}
+pokud $\frac{P(n)}{n} = \Theta(n^\epsilon) pro \epsilon > 0$, pak
+amortizovaný èas pro operaci INSERT bude $O(\frac{P|A|}{|A|})$.
+\end{pozn}
+
+\begin{theorem}
+Máme rozlo¾itelný vyhled. problém f a máme pro nìj statickou strukturu,
+která ho øe¹í v èase $Q(n)$, vy¾aduje $S(n)$ pamìti a vytvoøí se v èase
+$P(n)$,
+$kde Q(n), \frac{P(n)}{n}, \frac{S(n)}{n}$ jsou neklesající funkce. Pak
+jsme navrhli novou semidynamickou dat. strukturu D, øe¹ící f v èase
+$O(Q(n) log(n))$ vy¾adující $O(S(n))$ pamìti a umo¾òující INSERt s 
+amort. slo¾itostí
+$O(\frac{P(n)}{n} \cdot log(n))$.
+\end{theorem}
+
+Máme mno¾inu A \\
+budeme mít roklad A na disjunktní mno¾iny $A_{i,j}, i=0,1,..., j \in
+{0,1,...,k_j}$, kde $k_j \in {0,1,2}$. \\
+$|A_{i,j}| = 2^i$ a platí: \\
+kdy¾ $A_{i,0}$ existuje pro $i > 0$, pak existují $A_{i-1,0}, A_{i-1,1}$.
+\par
+
+Struktura: 
+\begin{enumerate}
+\item reprezentace A (pomocí (a,b)-stromù, èerveno-èerných stromù, ...)
+\item $\forall$ existující $A_{i,j}$ je S struktura reprezentující
+$A_{i,j}$ 
+\item $\forall$ existující $A_{i,j}$ je spojový seznam reprezentující
+$A_{i,j}$
+\item kdy¾ $A_{i,0}$ a $A_{i,1}$ existují pro nìjaké i, pak je 
+"rozpracovaná" S struktura pro mno¾inu $A_{i-1,k_i+1} = A{i,0} \cup
+A_{i,1}$.
+tj. bylo provedeno nìkolik krokù pro její vytvoøení, ale není dokonèena.
+\end{enumerate}
+
