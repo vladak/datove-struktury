@@ -4,9 +4,11 @@
 # Vladimir Kotal, 2003
 #
 
+MAIN=main
+
 all:
-	cslatex main
-	dvips main
+	latex ${MAIN}
+	dvips ${MAIN}
 
 clean:
-	@rm -f *
+	@rm -f * ${MAIN}.toc

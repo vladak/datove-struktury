@@ -15,7 +15,7 @@ kdy¾ vybereme $h$ z $H$ náhodnì s rovnomìrným rozlo¾ením, pak pro ka¾dou
 podmno¾inu $S\subseteq U$ takovou, ¾e $|S|\leq m$, bude oèekávaný èas 
 (poèítaný pøes v¹echny funkce z $H$) konstantní. Rozdíl proti tradiènímu 
 ha¹ovaní je, ¾e pøedpoklad rovnomìrného výbìru ha¹ovací funkce z mno¾iny 
-$H$ mu¾eme zajistit (nebo se k splnìní tohoto po¾adavku pøiblí¾it), ale 
+$H$ mù¾eme zajistit (nebo se k splnìní tohoto po¾adavku pøiblí¾it), ale 
 výbìr vstupních dat ovlivnit nemù¾eme. Nyní tuto ideu zformalizujeme. 
 \mnote{zajímá nás jednak $c$, jednak velikost systému}
 
@@ -350,11 +350,10 @@ to nikde uspokojivì spoèítané nevidìl.
 \section{Perfektní ha¹ování}
 
 Perfektním ha¹ováním myslíme úlohu nalézt pro danou pevnou mno¾inu 
-$S \subseteq U$ perfektní ha¹ovací funkci, tj. funkci, která nemá na 
+$S \subseteq U, |S| = n$ perfektní ha¹ovací funkci, tj. funkci, která nemá na 
 mno¾inì $S$ kolize. Tato úloha nepøipou¹tí pøirozenou implementaci 
 operace INSERT, proto¾e pøidaný prvek mù¾e zpùsobit kolizi. 
-Typický pøíklad pou¾ití je tabulka
-klíèových slov kompilátoru.
+Typický pøíklad pou¾ití je tabulka klíèových slov kompilátoru.
 
 \begin{defn}
 Funkce $h: U \to \intrange{0}{m-1}$ je perfektní pro $S$, kdy¾ 
@@ -408,7 +407,8 @@ ekvivalentní:
 kx \bmod N & = ky \bmod N && \pmod m\\
 k(x-y) \bmod N & = 0 && \pmod m\\
 k(x-y) \bmod N & = r m && \text{pro } r \in 
-	\{ - \lceil N/m \rceil .. \lceil N/m \rceil \} \minus \{0\}, \\
+% *ceil -> *floor (fakticka poznamka od Ladislava Proska
+	\{ - \lfloor N/m \rfloor .. \lfloor N/m \rfloor \} \minus \{0\}, \\
 \end{align*}
 tedy
 \[

@@ -233,10 +233,16 @@ Viz algoritmus \ref{alg:trie.k.del}
 % ..........................................................................
 \subsection{Èasová a pamì»ová slo¾itost}
 
-Pamì»ová slo¾itost takto komprimovaných trie je $O(nl+kl)$, kde 
-$n$ je velikost reprezentované mno¾iny.
-Èasová slo¾itost operací MEMBER, INSERT a DELETE je v nejhor¹ím
-pøípadì $O(l)$ a v prùmìrném pøípadì (za pøedpokladu rovnomìrného
+Pamì»ová slo¾itost takto komprimovaných trie je $O(nk)$, kde 
+% oprava by Ladislav Prosek O(nl + kl) -> O(nk)
+$n$ je velikost reprezentované mno¾iny. (maximálnì n-1 vnitøních vrcholù,
+ka¾dý s polem délky k).
+Èasová slo¾itost operace MEMBER je v nejhor¹ím
+pøípadì $O(l)$, pro INSERT a DELETE je to O(l+k). 
+(mù¾e být nutné pøidat/odebrat jeden vnitøní vrchol).
+% oprava slozitosti v nejhorsim pripade by Ladislav Prosek 
+
+V prùmìrném pøípadì (za pøedpokladu rovnomìrného
 rozlo¾ení vstupních dat) je to oèekávaná hloubka trie. Tu
 teï spoèítáme.
 
@@ -288,76 +294,85 @@ E_n
  & = 2\lceil\log_kn\rceil + \frac{k}{k-1}.
 \end{align*}
 
-Tedy oèekávaný èas operací MEMBER, INSERT a DELETE pro komprimované 
-trie (za pøedpokladù rovnomìrného rozlo¾ení vstupních dat) 
-je $O(\frac{\log n}{\log k})$. Zde parametr $k$ vyjadøuje vztah mezi prostorovými 
+Tedy oèekávaný èas operace MEMBER je $O(log_k(n))$ ($O(\frac{\log n}{\log
+k})$)
+a $O(log_k(n) + k)$ pro INSERT a DELETE
+\mnote{L.Pro¹ek: Mo¾ná v té oèekávané slo¾itosti by ¹lo +k zanedbat, ale
+ne na základì toho tvrzení, které dokazuje jen oèekávanou hloubku}
+pro komprimované trie (za pøedpokladù rovnomìrného rozlo¾ení vstupních dat) 
+Zde parametr $k$ vyjadøuje vztah mezi prostorovými 
 a èasovými nároky.
 
 % . . . .. . . .. .. .. . .  . .. .. .. . . ..  ..  .... . . .. . .. . .
 % nasledujici sekci (jeste kompr. trie atd.) dopsal Vladimir Kotal, 2003
 
-\mnote{XXX k cemu patri nasl. algoritmus ? (Koubek 2002)}
-INSERT($x=x_1, ..., x_l$)
+\mnote{XXX k èemu patøí násl. algoritmus ? (Koubek 2002)}
+\begin{algorithm}[!htb]
+\caption{INSERT pro komprimované trie (?)}
+\label{alg:trie.k.ins_unk}
 \begin{algorithmic}
-\STATE t <- koøen
+\STATE INSERT($x=x_1, ..., x_l$)
+\STATE t $\leftarrow$ koøen
 \WHILE {t neni list}
-  \STATE i <- hladina(t), t <- $(a_{i+1})$-ní syn t
+  \STATE i $\leftarrow$ hladina(t), t $\leftarrow$ $(a_{i+1})$-ní syn t
 \ENDWHILE
 \IF {prvek(t) neni prefix x}
   \STATE beta = nejvetsi spolecny prefix x a prvek(t)
   \STATE beta a = prefix alfa
   \STATE beta b = prefix prvek(t)
-  \STATE while hladina(t) > |beta| do t <- otec(t) done
+  \STATE while $hladina(t) > |beta|$ do t $\leftarrow$ otec(t) done
   \IF {hladina(t) < |beta|}
-    \STATE vytvorime novy vrchol w, jehoz synove, krome b-teho syna budou listy s
+    \STATE vytvoøíme nový vrchol w, jeho¾ synové, kromì b-tého syna budou listy s
     \STATE funkcemi Nal = false
     \STATE prvek(t) = beta + oznaceni syna
-    \STATE hladina(w) = |beta|, beta = $(a_1, ..., a_i)$
+    \STATE $hladina(w) = |beta|, beta = (a_1, ..., a_i)$
     \STATE necht $v = a_{hladina(t) + 1}$ - tý syn t, b-ty syn w je v
     \STATE $w = a_{hladina(t)+1}$-tý syn t
   \ENDIF
-  \STATE z <- a-ty syn t, Nal(z) = true, prvek(z) = x
+  \STATE z $\leftarrow$ a-ty syn t, Nal(z) = true, prvek(z) = x
 \ELSE
   \STATE Nal(t) = true, prvek(t) = x
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 \mnote{XXX dalsi neznamy algoritmus z prednasky 2002}
-
+\begin{algorithm}[!htb]
+\caption{DELETE pro komprimované trie (?)}
+\label{alg:trie.k.del_unk}
 DELETE($x=x_1, ..., x_l$)
 \begin{algorithmic}
-\STATE t <- koren
+\STATE t $\leftarrow$ koøen
 \WHILE {t neni list}
-  \STATE i <- hladina(t), t <- $(a_{i+1}$-ni syn t
+  \STATE i $\leftarrow$ hladina(t), t $\leftarrow$ $(a_{i+1}$-ni syn t
 \ENDWHILE
 \IF {Nal(t) = true a prvek(t) = j} 
   \STATE Nal(t) = false
-  \STATE v <- otec(t)
-  \STATE prvek(t) <- prefix prvek(t) o delce hladina v+1
+  \STATE v $\leftarrow$ otec(t)
+  \STATE prvek(t) $\leftarrow$ prefix prvek(t) o délce hladina v+1
   \IF {vsichni synove vrchovlu v az na jednoho jsou listy s Nal = false}
-    \STATE w <- syn(v), ktery je bud list s Nal(w) = true nebo neni list
-    \STATE necht v je a-ty ($a_i$-ty ???) syn sveho otce, v smazeme a smazeme
-    \STATE vsechny syny $v \neq w$
-    \STATE w <- a-ty ($a_i$-ty ???) syn otce v
+    \STATE w $\leftarrow$ syn(v), ktery je bud list s Nal(w) = true nebo neni list
+    \STATE necht v je a-tý ($a_i$-ty ???) syn svého otce, v sma¾eme a sma¾eme
+    \STATE v¹echny syny $v \neq w$
+    \STATE w <- a-tý ($a_i$-tý ???) syn otce v
   \ENDIF
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 
 \section{Je¹tì komprimovanìj¹í trie}
 
 % XXX dopsat !
-Pø:
-
-mìjme násedující komprimovaný trie:
-
+Pø: \\
+mìjme násedující komprimovaný trie: \\
 % XXX obr.
 \mnote{tady chybí obrázek}
 
-a jeho matici:
-\par
+a jeho matici: \\
 
-\begin{tabular}{l|l|l|l|}
+\begin{tabular}{|l|l|l|l|}
+\hline
  & 0 & 1 & 2 \\
 \hline
 root & NIL & a & b \\
@@ -375,26 +390,28 @@ reprezentovat pùvodní matici.
 
 \subsection{Popis $A$ a $rd$}
 
-Zpìt k na¹emu pøíkladu: \
+Zpìt k na¹emu pøíkladu: \\
+\par
 I. \\
 \begin{tabular}{|lllllll|}
 \hline
 hod & 210 & 211 & 212 & 120 & 121 & NIL \\
-rd & root & a & b & c \\
- & & & 0 & 3 \\
+rd & root & a & b & c & & \\
+ & & & 0 & 3 & & \\
 \hline
 \end{tabular}
+\par
 
 II. \\
 \begin{tabular}{|lllllllllll|}
 \hline
 hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
-rd & root & a & b & c \\
- & 4 & 7 & 0 & 3 \\
+rd & root & a & b & c & & & & & & \\
+ & 4 & 7 & 0 & 3 & & & & & & \\
 \hline
 \end{tabular}
 
-
+\par
 Øádek i zaèíná na místì rd(i) a musí být splnìna podmínka: \\
 Kdy¾ $M_{i,j} \neq NIL \neq M_{i',j'}$, pak $rd(i) + j \neq rd(i') + j'$ \\
 Kdy¾ na místì hod chceme zapsat prvek $\neq NIL$ a NIL, pak zapí¹eme prvek
@@ -402,16 +419,17 @@ $\neq NIL$.
 
 
 \subsection{Algoritmus pro hledání rd a hod}
-M - matice typu r x s, má m význnamných míst $\neq$ NIL
-
-- pro ka¾dý øádek nalezneme poèet míst $\neq$ NIL
-- setøídíme øádky Bucketsortem, tak ¾e rádky s vìt¹ím poètem míst $\neq$ NIL
+Nech» M je matice typu r x s, má m významných míst $\neq$ NIL.
+\begin{itemize}
+\item pro ka¾dý øádek nalezneme poèet míst $\neq$ NIL
+\item setøídíme øádky Bucketsortem, tak ¾e rádky s vìt¹ím poètem míst $\neq$ NIL
   pøedcházejí øádky s men¹ím poètem míst $\neq$ NIL
-- procházíme øádky v daném setøídìní a pro ka¾dý øádek i nalezneme
+\item procházíme øádky v daném setøídìní a pro ka¾dý øádek i nalezneme
   nejmen¹í èíslo rd(i), ¾e nedochází ke kolizi s pøedchozími øádky (tj.
   kdy¾ $M_{i',j'} \neq NIL \neq M_{i,j}$) a øádek i' byl zaøazen, pak
   $rd(i) + j \neq rd(i') + j'$.
   Pak $M_{i,j} \neq NIL$ je ulo¾eno ve vektoru hod na místì rd(i)+j.
+\end{itemize}
 
 m(l) - poèet míst $\neq$ NIL v øádcích s poètem míst $\geq l+1 \neq NIL$.
 
@@ -447,16 +465,20 @@ Pø:\\
 \hline
 M & 0 & 1 & 2 \\
 \hline
-root & NIL & a b \\
+root & NIL & a & b \\
 a & 102 & NIL & c \\
 b & 210 & 211 & 212 \\
 c & 120 & 121 & NIL \\
 \hline
 \end{tabular}
 
-rd root a b c
-   4    7 0 3
-hod 210 211 212 120 121 a b 102 NIL c
+\begin{tabular}{|l|llllllllll|}
+\hline
+rd  & root & a   & b   & c   &     &   &   &     &     &   \\
+    &    4 & 7   & 0   & 3   &     &   &   &     &     &   \\
+hod & 210  & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
+\hline
+\end{tabular}
 
 \begin{tabular}{|l|lll|}
 \hline
@@ -464,7 +486,7 @@ M' & 0 & 1 & 2 \\
 \hline
 b & 210 & 211 & 212 \\
 c & 120 & 121 & NIL \\
-root & NIL & a b \\
+root & NIL & a & b \\
 a & 102 & NIL & c \\
 \hline
 \end{tabular}
@@ -486,37 +508,45 @@ NIL & NIL & c \\
 
 cd - vektor sloupcového posunutí, slou¾í k zápisu transformace
 
-\begin{tabular}{l|lll|}
+\begin{tabular}{|l|lll|}
 \hline
  & 0 & 1 & 2 \\
 cd & 0 & 1 & 2 \\
 \hline
 \end{tabular}
+\par
 
-\begin{tabular}{l|lllll|}
+\begin{tabular}{|l|lllll|}
 \hline
  & 0 & 1 & 2 & 3 & 4 \\
 rd & 6 & 0 & 6 & 3 & 6 \\
 \hline
 \end{tabular}
+\par
 
-hod 120 211 212 102 a b 210 121 c
+\begin{tabular}{|l|lllllllll|}
+\hline
+hod & 120 & 211 & 212 & 102 & a & b & 210 & 121 & c \\
+\hline
+\end{tabular}
+\par
 
 Jak najdeme nazpátek místa ? Platí, kdy¾ $M_{i,j} \neq NIL$, pak
 $hod(rd(i+cd(j)+j)) = M_{i,j}$
 \mnote{je ten vzorec správnì ?}
 
-znaèení: 
-f(-,-) je fce dvou promìnných
-$B_j$ matice posunutých prvních sloupcù
-$m_j$ poèet míst $\neq NIL$ v $B_j$
+\par
+{\em znaèení:} \\
+f(-,-) je fce dvou promìnných \\
+$B_j$ matice posunutých prvních sloupcù \\
+$m_j$ poèet míst $\neq NIL$ v $B_j$ \\
 $m_j(l)$ poèet míst $\neq NIL$ v øádcích matice $B_j$, které mají aspoò l+1 míst
 $\neq NIL$
 \par
 
-Budeme chtít, aby $\forall j \forall l platilo m_j(l) \leq
+Budeme chtít, aby $\forall j \forall l$ platilo $m_j(l) \leq
 \frac{m}{f(l,m_j)}$. \\
-okrajové podmínky na f: f musí splòovat:
+Okrajové podmínky na f: f musí splòovat:
 \begin{itemize}
 \item $\forall$ l platí $f(l,m) \geq l+1$
 \item$\forall$ j platí $f(0,m_j) \leq \frac{m}{m_j}$
@@ -536,7 +566,7 @@ podmínka pro l, tj. platí $m_j(l) > \frac{m}{f(l,m)}$
 Z toho plyne $m_j(l) - m_{j-1}(l) > \frac{m}{f(l,m_j)} -
 \frac{m}{f(l,m_{j-1}}$.
 
-Jak roste èíslo $m_j(l)$ ? \\
+Jak roste èíslo $m_j(l)$ ? 
 \begin{itemize}
 \item v matici $B_{j-1}$ existuje øádek s aspoò l+1 místy $\neq NIL$ a s tímto
 øádkem se støetne místo $\neq NIL$ (v j-tém sloupci $\leftarrow
@@ -547,16 +577,18 @@ se støetne místo $\neq NIL$ v j-tém sloupci. Pak $m_{j-1}(l)$ vzroste o l+1.
 \end{itemize}
 
 støet - øádek v $B_{j-1}$ s aspoò l místy $\neq NIL$ a místo $\neq NIL$ v j-tém
-sloupci. Aby nebyla splnìna podmínka pro l, musí pro danou hodnotu cd(j)
-být aspoò $\frac{\frac{m}{f(l,m_j)} - \frac{m}{f(l,m_{j-1})}}{l+1}$ 
-støetù.
+sloupci. Aby nebyla splnìna podmínka pro l, musí být poèet støetù pro danou hodnotu cd(j)
+být aspoò 
+$$\frac{\frac{m}{f(l,m_j)} - \frac{m}{f(l,m_{j-1})}}{l+1}$$
 \par
 V matici $B_{j-1}$ je nejvý¹e $\frac{m_{j-1}(l-1)}{l} \leq \frac{m}{l
 f(l-1,m_{j-1}}$ øádkù s aspoò l místy $\neq NIL$, v j-tém sloupci je $m_j -
 m_{j-1} míst \neq NIL$. \\
 Podmínku pro l mù¾e zakázat nejvý¹e 
-$\frac{ \frac{m(m_j - m_{j-1})}{l f(l-1,m_{j-1}} }
-      { \frac{ \frac{m}{f(l,m_j} - \frac{m}{f(l,m_{j-1}} }{l+1} }$
+$$
+\frac{ \frac{m(m_j - m_{j-1})}{l f(l-1,m_{j-1}} }
+      { \frac{ \frac{m}{f(l,m_j} - \frac{m}{f(l,m_{j-1}} }{l+1} }
+$$
 hodnot cd.
 \par
 
@@ -566,13 +598,15 @@ $l \leq l_0 = min{l| \frac{m}{f(l,m_{j-1}} < l}$
 $m_{j-1}(l) \leq \frac{m}{f(l,m_{j-1})} \leq l+1$.
 
 Celkový poèet zakázaných hodnot cd je men¹í ne¾ \\
-$\sum_{l=1}^{l_0} \frac{l+1}{l} \frac{(m_j - m_{j-1})}{
-\frac{f(l,m_{j-1}}{f(l,m_j)} - 1} \frac{f(l,m_{j-1}}{f(l-1,m_{j-1}} $
+$$
+\sum_{l=1}^{l_0} \frac{l+1}{l} \frac{(m_j - m_{j-1})}{
+\frac{f(l,m_{j-1}}{f(l,m_j)} - 1} \frac{f(l,m_{j-1}}{f(l-1,m_{j-1}}
 (*)
+$$
 % XXX zavest si nejake cislovani
 
 Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m}}$
-\mnote "mystika"
+\mnote{"mystika"}
 f splòuje okrajové podmínky
 $f(l,m) = 2^l \geq l+1 \forall l=0,1,...$ \\
 $f(0,m_j) = 1 \leq \frac{m}{m_j} \forall j=0,1,...,s$
@@ -581,26 +615,27 @@ dosadíme do odhadu (*)
 % XXX doplni cislovani
 a dostaneme 
 
-$$
+\begin{multline}
 \sum_{l=1}^{l_0} 
   \frac{l+1}{l} 
   \frac
     {(m_j - m_{j-1})}
     { 2^{l ( \frac{m_j}{m} - frac{m_{j-1}}{m} ) }}
-  2^{( 2 - \frac{m_{j-1}}{m} )} \leq 
+  2^{( 2 - \frac{m_{j-1}}{m} )} \leq \\
 \sum_{l=1}^{l_0} 
   \frac{l+1}{l} 
   \frac{(m_j - m_{j-1})}{l( \frac{m_j}{m} - frac{m_{j-1}}{m} )} 4 = \\
 \frac{4m}{ln(2)} \sum_{l=1}^{l_0} 
   \frac{l+1}{l^2} = \frac{4m}{ln(2)} (\sum_{l=1}^{l_0} \frac{1}{l} +
-  \sum_{l=1}^{l_0} \frac{1}{l^2}) \leq 
+  \sum_{l=1}^{l_0} \frac{1}{l^2}) \leq \\
 % XXX integr. krit
 \frac{4m}{ln(2)} (1 + ln(l_0)) + \frac{\pi^2}{6} \leq 4m log_2(l_0) +
 15.3m
-$$
+\end{multline}
 
 $l_0 = min{l; \frac{m}{f(l,m_{j-1}} < l} \leftarrow l_0 < log(m) $
 $\leftarrow \leq 4m log(log(m)) + 15.3m$
+\par
 
 Celý algoritmus spoèítá ulo¾ení matice M typu r x s do vrcholù cd -
 dimenze s, rd - dimenze $4m log(log(m)) + 15.3m + r$ a hod dimenze m+s,
@@ -611,25 +646,34 @@ NIL$ v matici M.
 
 \subsection{Úsporné ulo¾ení øídkého vektoru}
 
-Mámme vektor v dimenze $n \cdot d$ a $i_0 < i_1 < ... < i_{+}$ jsou v¹echny
+Máme vektor v dimenze $n \cdot d$ a $i_0 < i_1 < ... < i_{+}$ jsou v¹echny
 indexy i takové, ¾e $v(i) \neq 0$. \\
 Vytvoøíme vektor cv dimenze t, $cv(j)=v(i_j)$.
-ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j.
+ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j. \\
 base - dimenze m
 
-% XXX sloz. zavorka
-base(j) = -1 kdy¾ $i_k div d \neq j \forall k=0,1,...,t-1$
-          $min{l; i_l div d = j}$ kdy¾ $\exists l, ¾e i_l div d = j$
+${\rm base(j) = }$
+% \left 
+$\Bigl\{$
+\begin{tabular}{lll}
+-1 & kdy¾ & $i_k$ {\tt div} $d \neq j \forall k=0,1,...,t-1$ \\
+$min{l; i_l div d = j}$ & kdy¾ & $\exists l$, ¾e $i_l$ {\tt div} $d = j$ \\
+\end{tabular}
+% \right. 
 
-vektor offset - dimenze n x d
-% opet sloz. zavorka
-offset(j,k) = -1 kdy¾ $i_l \neq jd+k \forall l = 0,1,...,t-1$
-   	      $l-base(j)$ kdy¾ $i_l = jd+k$
+vektor offset - dimenze n x d \\
+${\rm offset(j,k) =}$
+% \left 
+$\Bigl\{$
+\begin{tabular}{lll}
+-1 & kdy¾ & $i_l \neq jd+k \forall l = 0,1,...,t-1$ \\
+$l-base(j)$ & kdy¾ & $i_l = jd+k$ \\
+\end{tabular}
 
 \mnote{jd+k ... zápis v d-èkové soustavì}
 
 vektor off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
 off je dimenze n \\
-smysluplné kdy¾ $d << n a t < n$ (napø. d = loglogn)
+smysluplné kdy¾ $d << n \cdot a \cdot t < n$ (napø. $d = log(log(n))$)
 
 
