@@ -739,6 +739,63 @@ INSERT 10, 41, 60, 70, 71, 90, 69, 40, 79:
 \end{tabular}
 }%commented out
 
+\subsection{DELETE(x)}
+\begin{enumerate}
+\item spoèítáme $h(x)$ a prohledáme øetìzec zaèínající na adrese $h(x)$. \\
+kdy¾ neobsahuje $x$ $\rightarrow$ konec.
+\item kdy¾ $x$ je na adrese $h(x)$ a øetìzci následuje prvek v pomocné èásti
+tabulky (sklepì) - odstraníme x, prvek, který následuje za $x$ pøesuneme 
+na místo $h(x)$ a uvolníme jeho místo - konec.
+\item $x$ je ve sklepì - zjístíme, zda se nachází v øetìzci mimo sklep prvek
+s ha¹ovací hodnotou $h(x)$ - pokud neexistuje, pøesuneme poslední prvek v
+øetìzci, který je ve sklepì na místo $x$ a místo posledního prvku uvolníme.
+\par
+Kdy¾ takový prvek existuje, vezmeme první prvek s touto vlastností.
+Oznaème ho $y$, pak $y$ pøeneseme na místo $x$ a budeme chtít uvolnit místo
+prvku $y$. (obraznì øeèeno $x$ a $y$ v øetìzci prohodíme)
+\item $x$ je v èásti, kam mù¾e ha¹ovací funkce a øetezec v této èásti
+pokraèuje. pak $x$ odstraníme a prvky za $x$ zaha¹ujeme do tabulky v poøadí
+jak se do ní ukládaly a pokud vzniká kolize, umístíme je zpátky na místo,
+kde byly.
+\end{enumerate}
+
+$h(x) = x mod 10$
+
+DELETE: 41, 42
+
+metoda LICH:
+odstraníme prvky 62,78,82,52 z øetìzce a provedeme postupnì 
+INSERT: 62,78,82,52
+
+metoda VICH:
+odstraníme 62,78,82,52 a provedeme INSERT: 82,62,78,52.
+pokud bychom provedli INSERT 82,62,52,78, pak bychom nepoznali, v jakém to
+bylo v tabulce poøadí.
+
+\begin{tabular}{|l||l|l|}
+\hline
+ & klíè& {\tt vpøed} \\
+\hline
+0&	& \\
+1&	11& 10\\
+2&	32& 9\\
+3&	43& \\
+4&	& \\
+5&	42& 9\\
+6&	82& \\
+7&	78& 6\\
+8&	62& 7\\
+9&	52& 8\\
+\hline
+10&	21& 11\\
+11&	41& 12\\
+12&	61& \\
+\hline
+\end{tabular}
+
+
+
+
 \subsection{Srovnávací graf}
 \mnote{Nascanovat obrázek z Vittera a Chena}
 
