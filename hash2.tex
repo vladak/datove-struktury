@@ -353,7 +353,7 @@ Nech» $L = \{ l : x \bmod p_l = y \bmod p_l \land t < l \leq 2t \}$.
 Pak poèet trojic splòujících (2) je roven  
 \begin{align*}
 \text{poèet trojic} & = |L| p_{2t}^2\\
-& \leq \frac{t p_{2t}}m
+& \leq \frac{t p_{2t}^2}m
 	&& \text{jestli¾e $|L| \leq t/m$}\\
 & = 1 \frac{|H|}m
 \end{align*}
@@ -422,25 +422,38 @@ to nikde uspokojivì spoèítané nevidìl.
 % --------------------------------------------------------------------------
 \section{Externí ha¹ování}
 
-Máme dáno universum U a vnìj¹íí pamì»ové medium, které je rozdìleno do
-strnánek. Ka¾dá stránka mù¾e obsahovat nejvý¹e b záznamù. Chceme navrhnout
+Máme dáno universum $U$ a vnìj¹í pamì»ové medium, které je rozdìleno do
+stránek. Ka¾dá stránka mù¾e obsahovat nejvý¹e $b$ záznamù. Chceme navrhnout
 ukládání prvkù do stránek tak, aby operace MEMBER, INSERT, DELETE
 vy¾adovaly jen konstatní poèet pøístupù do externí pamìti, aby stránky
-byly dostateènì zaplnìné.
+byly dostateènì zaplnìné. Tedy jinými slovy: chceme minimalizovat poèet
+pøístupù do vnìj¹í pamìti.
 \par
 Vyhledáme v¾dy stránku ve vnìj¹í pamìti - natáhneme ji do vnitøní pamìti a
-tam provedeme vyhledávání - toto vyhlledávání nás ale nezajímá.
+tam provedeme vyhledávání - toto vyhledávání nás ale nezajímá.
 \par
-Nechh» $U$ je universum, $S \subseteq U$. Externí medium má stránky o
-velikosti $b$. Je dána ha¹ovací funkce $h:U \rightarrow {0,1}^k$ prostá.
-(aby ¹etøila pamì») \\
-Vytvoøíme strom mno¾iny S. Vrcholy stromu jsou v¹echny prefixy slov $h(s),
-s \in Si$. Pro vrchol $\alpha$ jsou jeho synové $\alpha 0$ a $\alpha 1$
+Nech» $U$ je universum, $S \subseteq U$. Externí medium má stránky o
+velikosti $b$. Je dána ha¹ovací funkce $h:U \rightarrow \{0,1\}^k$ prostá
+(kódovací funkce), k libovolné. Funkce $h$ tedy generuje binární kódy délky
+$k$.
+\par
+Vytvoøíme strom mno¾iny $S$. Vrcholy stromu jsou v¹echny prefixy slov $h(s),
+s \in S$. Pro vrchol $\alpha$ jsou jeho synové $\alpha 0$ a $\alpha 1$
 (pokud existují). Listy jsou prvky $h(s), s \in S$.
 
 \begin{defn}
-Pro $s \in S$ definujeme $\emph{d(s)} =$ délka nejmen¹ího prefixu $\alpha$ 
+Pro $s \in S$ definujeme $\emph{d(s)} =$ délka nejkrat¹ího prefixu $\alpha$ 
 slova $h(s)$, ¾e pod $\alpha$ je nejvý¹e $b$ listù.
+\end{defn}
+
+\begin{pozn}
+Alternativní definice $d(s)$: $d(s) =$ délka nejkrat¹ího prefixu $h(s)$
+taková, ¾e poèet prvkù $t \in S$, jejich¾ prefix délky $d(s)$ je stejný
+jako prefix $h(s)$, je nejvý¹e $b$.
+\end{pozn}
+
+\begin{defn}
+$d(S) = max\{d(s), s \in S\}$.
 \end{defn}
 
 XXX zde chybí obrázek s pøíkladem
@@ -454,12 +467,13 @@ b = 2, d(S) = 2
 11 1001
 
 Platí: Kdy¾ $d(s) = k$ a prvek $t$ má stejný prefix délky $k$ jako $s$, 
-pak $d(s) = d(t)$. $d(S) = max\{d(s), s \in S\}$.
+pak $d(s) = d(t)$. 
 
 Reprezentace: 
 \begin{itemize}
-\item adresáø: ke ka¾dému slovu $\alpha$ délky $d(S)$ je pøiøazena adresa stránky,
-která obsahuje prvky $s \in S$, ¾e $h(s)$ má prefix $\alpha$
+\item adresáø: ke ka¾dému slovu $\alpha$ délky $d(S)$ je pøiøazena adresa 
+stránky, která obsahuje prvky $s \in S$, ¾e $h(s)$ má prefix $\alpha$.
+Tato slova délky $d(s)$ jsou lexikograficky uspoøádána.
 \item datová èást: stránky s pøiøazenými prvky
 \end{itemize}
 
@@ -477,15 +491,15 @@ NIL.
 
 3 pøístupy na disk
 \begin{enumerate}
-\item Spoèítáme $h(x)$, natáhneme adresáø, nalezneme d(S) a najdeme
-stránky odpovídající prefixu h(x) délky d(S)
-\item Natáhneme odpovídající stránku do pamìti, zjistíme, zda obsahuje x a
+\item Spoèítáme $h(x)$, natáhneme adresáø, nalezneme $d(S)$ a najdeme
+stránky odpovídající prefixu $h(x)$ délky $d(S)$
+\item Natáhneme odpovídající stránku do pamìti, zjistíme, zda obsahuje $x$ a
 kdy¾ ano, provedeme po¾adovené úpravy.
 \item Stránku ulo¾íme zpìt na stejné místo.
 \end{enumerate}
 
-Operace ACCESS vy¾aduje 3 pøístupy na externí medium (pøedpoklad, ¾e
-adresáø je také ulo¾en na externím mediu)
+Operace ACCESS vy¾aduje 3 pøístupy na externí medium. (za pøedpokladu, ¾e
+adresáø je také ulo¾en na externím mediu a zabírá jednu stránku) 
 \par
 Pro rychlou implementaci aktualizaèních operací je vhodné mít u ka¾dé
 stránky ulo¾eno kolik je prvkù na stránce.
@@ -494,19 +508,31 @@ stránky ulo¾eno kolik je prvkù na stránce.
 \subsection{INSERT(x)}
 
 \begin{enumerate}
-\item Spoèítáme h(x), natáhneme adresáø, nalezneme d(S) a nalezneme adresu
-stránky odpovídající prefixu h(x) délky d(S).
-\item Natáhneme do pamìti odpovídající stránku, kdy¾ existuje x - konec
-\item Kdy¾ nneobsahuje x a má ménì prvkù ne¾ b, vlo¾íme x do této stránky
+\item Spoèítáme $h(x)$, natáhneme adresáø, nalezneme $d(S)$ a nalezneme adresu
+stránky odpovídající prefixu $h(x)$ délky $d(S)$.
+\mnote{$d(S)$ vezmu odkud ?}
+\item Natáhneme do pamìti odpovídající stránku. kdy¾ v ní existuje $x$ 
+$\rightarrow$ konec
+\item Kdy¾ neobsahuje $x$ a má ménì prvkù ne¾ $b$, vlo¾íme $x$ do této stránky
 a ulo¾íme ji zpátky na stejné místo a aktualizujeme adresáø (poèty prvkù
-nna stránce)
-\item Kdy¾ stránka prvek x neobsahuje a má b prvkù, stránku rozdìlíme
-(nalezneme nové d(s) pro s z této stránky i s pøidaným x), stránky ulo¾íme
-a aktualizujeme adresáø.
+na stránce)
+\item Kdy¾ stránka prvek $x$ neobsahuje a má $b$ prvkù, stránku rozdìlíme
+(nalezneme nové $d(s)$ pro $s$ z této stránky i s pøidaným $x$), stránky 
+ulo¾íme a aktualizujeme adresáø.
+\mnote{pokud je novì nalezené $d(s) \leq d(S)$, adresáø se zvìt¹ovat nebude}
 \end{enumerate}
 
-v na¹em pøíkladu - zvìt¹í se adresáø.
+6 pøístupù na externí medium.
+\par
 
+\begin{pozn}
+Roz¹tìpení stránky nemusí nutnì znamenat zvìt¹ení adresáøe
+\end{pozn}
+
+XXX nìjaký pøíklad na tuto situaci
+
+
+v na¹em pøíkladu - zvìt¹í se adresáø.
 00 - 0000, 0001		000 - 0000, 0001
 01 - 0100		001 - 0010
 10 \  			010 - 0100
@@ -525,18 +551,20 @@ d(S) = 1
 \subsection{DELETE(x)}
 
 \begin{enumerate}
-\item spoèítáme h(x), natáhneme adresáø, nalezneme d(S), naleznneme adresu
-stránky odpovídající prefixu h(x) délky d(S), zjistíme zda po odebrání
-prvku x mù¾e nastat spojování stránek a pokud ano, nalezneme adresu
-stránky, který se spojí s na¹í stránkou
-\item natáhneme odpovídající stránku do pamìti, zjistíme zda obsahuje x,
+\item spoèítáme $h(x)$, natáhneme adresáø, nalezneme $d(S)$, nalezneme adresu
+stránky odpovídající prefixu $h(x)$ délky $d(S)$, zjistíme zda po odebrání
+prvku $x$ mù¾e nastat spojování stránek a pokud ano, nalezneme adresu
+stránky, která se spojí s na¹í stránkou
+\item natáhneme odpovídající stránku do pamìti, zjistíme zda obsahuje $x$,
 pokud ne, tak konec
-\item kdy¾ obsahuje x a nemù¾e dojít ke slouèení stránek, tak odstraníme
-x, stránku ulo¾íme na stejné místo a aktualizujeme adresáø (poèty prvkù na
+\item kdy¾ obsahuje $x$ a nemù¾e dojít ke slouèení stránek, tak odstraníme
+$x$, stránku ulo¾íme na stejné místo a aktualizujeme adresáø (poèty prvkù na
 stránce)
-\item kdy¾ obsahuje a dojde ke sluèování, ppak odstraníme x, natáhneme
-druhou stránku a stránky slouèíme, ullo¾íme novou stránku a aktualizujeme
+\item kdy¾ obsahuje a dojde ke sluèování, pak odstraníme $x$, natáhneme
+druhou stránku a stránky slouèíme, ulo¾íme novou stránku a aktualizujeme
 adresáø.
+\mnote{pro aktualizaci adresáøe to mohou být 2 operace - naètení a
+ulo¾ení. zøejmì proto, aby mohlo být souèasnì pu¹tìno víc operací.}
 \end{enumerate}
 
 XXX zde chybí obrázek s pøíkladem
@@ -544,6 +572,16 @@ XXX zde chybí obrázek s pøíkladem
 \begin{pozn}
 Pesimistický odhad: nejvý¹e 6 pøístupù na externí medium.
 \end{pozn}
+
+\subsubsection{Aktualizace adresáøe}
+V posledním kroku DELETE se provádí aktualizace adresáøe. 
+Nejprve provedeme opravení odkazù na stránky: pokud u sudého záznamu v
+adresáøi dojde k vyprázdnìní stránky, bude tam odkaz na NIL. pokud dojde k
+vyprázdnìní u liché stránky, pøehodí se odkaz na pøedchozí (sudou)
+stránku.
+\par
+Potom se testuje, zda jde adresáø zmen¹it. Zmen¹ování provádíme tak
+dlouho, dokud to jde.
 
 \subsection{Reprezentace adresáøe}
 
@@ -554,27 +592,37 @@ uspoøádání.
 \item zvìt¹ování adresáøe znamená zdvojení prvkù
 \item test na zmen¹ování adresáøe - testujeme, zda adresa na lichém místì
 je stejná jako adresa na následujícím sudém místì - pokud ano, tak zmen¹ím
-adresáè vymazáním sudých èlenù posloupnosti.
+adresáø vymazáním sudých èlenù posloupnosti.
 \end{itemize}
 
 Oèekávané zaplnìní stránky pøi rovnomìrném rozlo¾ení dat je 
 $b ln 2 ~ 0.69 b$
+XXX vlnka
 \par
 Oèekávaná velikost adresáøe je $\frac{e}{b ln 2} n^{1 + \frac{1}{b}}$ (pøi
 rovnomìrném rozlo¾ení dat)
 
 \begin{pozn}
-èlen $n^{1 + \frac{1}{b}}$ není lineární, zde je problé, proto se to
+èlen $n^{1 + \frac{1}{b}}$ není lineární, zde je problém, proto se to
 nehodí pro malá $b$.
 \end{pozn}
 
-XXX chybí tabulka 
+\begin{tabular}{|l||l|l|l|l|}
+\hline
+b/n   	&$10^5$   &$10^6$ 	&$10^8$ 	&$10^{10}$    \\
+\hline
+2  	&$6.2*10^7$  &$1.96*10^8$	&$1.96*10^{11}$	&$1.96*10^{14}$ \\
+10	&$1.2*10^5$  &$1.5*10^6$	&$2.4*10^8$	&$3.9*10^{10}$  \\
+50	&$9.8*10^3$  &$1.0*10^6$	&$1.1*10^8$	&$1.2*10^{10}$  \\
+100	&$4.4*10^3$  &$4.5*10^4$	&$4.7*10^6$	&$4.9*10^8$   \\
+\hline
+\end{tabular}
 
-Jak je vidìt, pro b = 2 se to nehodí, adresáø je vìt¹í ne¾ velikost dat.
+Jak je vidìt, pro $b = 2$ se to nehodí, adresáø je vìt¹í ne¾ velikost dat.
 
 \begin{pozn}
-Kdy¾ pracujeme s velikostí $S$ kolem $10^10$, pak je vhodné, aby 
-$b \geq 100$, pro vìt¹í mno¾iny S, b musí být vìt¹í..
+Kdy¾ pracujeme s velikostí $S$ kolem $10^{10}$, pak je vhodné, aby 
+$b \geq 100$. Pro vìt¹í mno¾iny $S$, musí být $b$ vìt¹í..
 \end{pozn}
 
 % --------------------------------------------------------------------------
