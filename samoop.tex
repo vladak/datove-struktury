@@ -57,12 +57,14 @@ prosté seznamy S1, S2 mno¾iny S. \\
 Pak pro ka¾dý upravující algoritmus A platí:\\
 Kdy¾ MFR provede P na seznam S1 a A provede P a seznam S2, tak platí:\\
 % XXX udelat seznam
-a) èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
+\begin{itemize}
+\item{a)} èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
 výmìn A - $|P|$ 
   kdy¾ S1 = S2 \\
-b) èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
+\item{b)} èas MFR $\leq$ èas na vyhledání A + poèet placených výmìn A - poèet volných
 výmìn A - $|P|$ + $\binom{|S|}{2}$ 
   kdy¾ S1 $\neq$ S2
+\end{itemize}
 \end{theorem}
 
 \begin{defn}
@@ -133,7 +135,8 @@ výmìn A
 \par
 
 % XXX jak donutit itemize aby cislovalo pomoci i, ii, iii, ... ?
-(i)
+\begin{itemize}
+\item{(i)}
 Pøedpokládejme, ¾e x není v seznamu a délka seznamù je n.
 Èas MFR je n+1 , èas na vyhledání pro algoritmus je n+1
 operace MEMBER(x) a DELETE(x) $S_A''$ = $S_{MFR}'$
@@ -144,9 +147,8 @@ $S_{MFR}'$ vznikne z $S_{MFR}$ pøidáním x na zaè. seznamu
 tedy bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) = n\\
 Amort. slo¾. operace MFR = n+1 + n=2n + 1=2(n+1) - 1 = 2*èas na vyhledání
 A - 1
-\par
 
-(ii) x je v seznamu. Pøedpokládejme, ¾e x je na i-tém místì v seznamu $S_A$
+\item{(ii)} x je v seznamu. Pøedpokládejme, ¾e x je na i-tém místì v seznamu $S_A$
 					na j-tém místì v seznamu $S_{MFR}$
 Èas operace pro MFR je j, èas na vyhledání pro A je i.
 Oznaème k poèet y v seznamu takových, ¾e y je v $S_A$ za x, v $S_{MFR}$ pøed
@@ -156,18 +158,20 @@ Pak i+k $\geq$ j (i+k $\geq$ i-k+j)
 amort. slo¾. pro MFR = j + bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$)
 \par
 
-DELETE(x)  bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) $\leq$ -k
+DELETE(x)\\
+bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) $\leq$ -k
 amort. slo¾. $\leq$ j - k $\leq$ 2i - 1 = 2*èas na vyhledání A - 1
 \par
 
-MEMBER(x), INSERT(x)
+MEMBER(x), INSERT(x) \\
 bal($S_A''$, $S_{MFR}'$) - bal($S_A$, $S_{MFR}$) $\leq$ -k + i-1
 (nìjaké dvojice mohly pøibýt)
 amort. slo¾. operace MFR $\leq$ j-k+i-1 $\leq$ i+i-1 = 2i - 1 = 2*èas na
 vyhledání A-1
 \par
+\end{itemize}
 
-Amort. slo¾.\\
+\subsubsection{Amort. slo¾itost}
 1. fáze operace $\leq$ 2*èas na vyhledání A-1
 2. fáze operace = poèet placených výmìn A - poèet volných výmìn A
 Pøi placené výmìnì si v seznamu $S_A''$ vymìní x místo z za x, tedy
@@ -184,14 +188,14 @@ Tedy platí: \\
 $S_2$) = 2*èas na vyhledání v P algoritmem A + poèet placených výmìn A pøi
 P - poèet volných výmìn A pøi P - $|P|$ + bal($S_1$, $S_2$)
 
-% |P| ... za ka¾dou operaci je -1
+\mnote{|P| ... za ka¾dou operaci je -1}
 kdy¾ $S_1$ = $S_2$ pak bal($S_1$, $S_2$)=0 a platí a)
      $S_1$ $\neq$ $S_2$ pak bal($S_1$, $S_2$) $\leq$ $\binom{|S|}{2}$ a
 platí b)
 \end{proof}
 
 \begin{pozn}
-S tímto jsme se setkali pøi EISCH
+S tímto jsme se setkali pøi EISCH \\
        je to dùvod, proè je EISCH lep¹í ne¾ LISCH
 			    VICH lep¹í ne¾ LICH
 \end{pozn}
@@ -217,7 +221,13 @@ S = \{1,2,3\} ... stavy Markovova øetìzce jsou v¹echny permutace S
 pravdìpodobnost pøechodu je pst. operace pøevádìjící jeden stav do druhého
 \par
 
-% XXX chybi obr.
+\mnote{chybi obr.}
+%\begin{figure}[!htb]
+%\centering\includegraphics{pics/tr}
+%\caption{Pøechody mezi stavy}
+%\label{tr-prechody}
+%\end{figure}
+
 
 Tyto Markovovy øetìzce jsou nerozlo¾itelné a aperiodické a to znamená, ¾e
 existují asymptot. pravdìpodobnosti, tj. pro seznam $\Pi$ je dána
@@ -258,7 +268,7 @@ Jaká je pravdìpodobnost tohoto jevu ?
 
 oèekávaný èas operace je 
 $$
-\sum_{i} \beta_i p_i \\
+\sum_{i} \beta_i p_i 
 = \sum_{\substack{j,i\\j \ne i}} \frac{\beta_i\beta_j}{\beta_i+\beta_j}
 $$
 

@@ -446,8 +446,8 @@ rd(i) = 1,2,... je zakázané, kdy¾ vznikne kolize. \\
 tj. $\exists$ øádek i' pøedcházející a $\exists j,j'$ takové, ¾e $M_{i',j'} \neq
 NIL \neq M_{i,j}$ a platilo by $rd(i') + j' = rd(i) + j$.
 $\rightarrow$ tìchto mo¾ností je $< lm(l-1) \leq m$. \\
-O(rs) - zjistíme pro ka¾dý øádek poèet míst $\neq NIL$.
-O(m+r) - tøídìní Bucketsortem
+O(rs) - zjistíme pro ka¾dý øádek poèet míst $\neq NIL$. \\
+O(m+r) - tøídìní Bucketsortem \\
 O(mrs) - krok 2
 \end{proof}
 
@@ -556,10 +556,10 @@ Okrajové podmínky na f: f musí splòovat:
 \subsubsection{Algoritmus na posunutí sloupcù}
 
 1) pro ka¾dý sloupec v poøadí 0,1,... nalezneme nejmen¹í cd(j) takové, aby
-matice $B_j$ splòovala $\forall l m_j(l) \leq \frac{m}{f(l,m_j)}$
+matice $B_j$ splòovala $\forall l$ $m_j(l) \leq \frac{m}{f(l,m_j)}$
 (ka¾dý sloupec posunujeme dokud nesplòuje podmínku) \\
 Na získanou matici $B = B_s$ pak pou¾ijeme pøedchozí algoritmus. \\
-Platí $m(l) = m_s(l) \leq \frac{m}{f(l,m)} \leq \frac{m}{l+1}$.
+Platí $m(l) = m_s(l) \leq \frac{m}{f(l,m)} \leq \frac{m}{l+1}$. \\
 Hledáme hodnotu cd(j) a pøedp., ¾e pro nìjakou hodnotu cd(j) není splnìna
 podmínka pro l, tj. platí $m_j(l) > \frac{m}{f(l,m)}$
 ... platila pro $B_{j-1}, tj. m_{j-1}(l) \leq \frac{m}{f(l,m_{j-1})}$
@@ -567,15 +567,16 @@ podmínka pro l, tj. platí $m_j(l) > \frac{m}{f(l,m)}$
 Z toho plyne $m_j(l) - m_{j-1}(l) > \frac{m}{f(l,m_j)} -
 \frac{m}{f(l,m_{j-1}}$.
 \par
+
 Jak roste èíslo $m_j(l)$ ? 
-\begin{itemize}
+\begin{enumerate}
 \item v matici $B_{j-1}$ existuje øádek s aspoò l+1 místy $\neq NIL$ a s tímto
 øádkem se støetne místo $\neq NIL$ (v j-tém sloupci $\leftarrow
 m_{j-1}(l)$
 vzroste o 1)
 \item v matici $B_{j-1}$ existuje øádek s l místy $\neq NIL$ a s tímto øádkem
 se støetne místo $\neq NIL$ v j-tém sloupci. Pak $m_{j-1}(l)$ vzroste o l+1.
-\end{itemize}
+\end{enumerate}
 
 støet - øádek v $B_{j-1}$ s aspoò l místy $\neq NIL$ a místo $\neq NIL$ v j-tém
 sloupci. Aby nebyla splnìna podmínka pro l, musí být poèet støetù pro danou hodnotu cd(j)
@@ -585,29 +586,31 @@ $$\frac{\frac{m}{f(l,m_j)} - \frac{m}{f(l,m_{j-1})}}{l+1}$$
 V matici $B_{j-1}$ je nejvý¹e $\frac{m_{j-1}(l-1)}{l} \leq \frac{m}{l
 f(l-1,m_{j-1}}$ øádkù s aspoò l místy $\neq NIL$, v j-tém sloupci je $m_j -
 m_{j-1} míst \neq NIL$. \\
-Podmínku pro l mù¾e zakázat nejvý¹e 
-% \begin{multline}\bigparens
-$$
+\par
+
+Podmínka pro l mù¾e zakázat nejvý¹e 
+\begin{multline}\bigparens
 \frac{ \frac{m(m_j - m_{j-1})}{l f(l-1,m_{j-1}} }
   { \frac{ \frac{m}{f(l,m_j} - \frac{m}{f(l,m_{j-1}} }{l+1} } 
-$$
-% \begin{multline}
-hodnot cd.
+\text{ hodnot cd} = 
+\frac{l+1}{l} \frac{((m_j - m_{j-1})}{\frac{f(l.m_{j-1})}{f(l,m_j)} - 1}
+  \frac{f(l.m_{j-1})}{f(l,m_{j-1})}
+\end{multline}
 \par
 
 Staèí nám sèítat pøes hodnoty l takové, ¾e \\
-$m m_{j-1}(l) \leq l-1$ tj. pøes 
+$m m_{j-1}(l) \leq l+1$ tj. pøes 
 $l \leq l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\}$, \\
 $m_{j-1}(l) \leq \frac{m}{f(l,m_{j-1})} \leq l+1$.
 
 Celkový poèet zakázaných hodnot cd je men¹í ne¾ 
 \begin{multline}
 \label{odh-zak-hodnot}\bigparens
-\sum_{l=1}^{l_0} \frac{l+1}{l} \frac{(m_j - m_{j-1})}{
+\sum_{l=0}^{l_0} \frac{l+1}{l} \frac{(m_j - m_{j-1})}{
 \frac{f(l,m_{j-1}}{f(l,m_j)} - 1} \frac{f(l,m_{j-1}}{f(l-1,m_{j-1}}
 \end{multline}
 
-Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m}}$
+Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m})}$ \\
 \mnote{"mystika"}
 f splòuje okrajové podmínky
 $f(l,m) = 2^l \geq l+1 \forall l=0,1,...$ \\
@@ -623,23 +626,25 @@ a dostaneme
     {(m_j - m_{j-1})}
     { 2^{l ( \frac{m_j}{m} - frac{m_{j-1}}{m} ) }}
   2^{( 2 - \frac{m_{j-1}}{m} )} \leq \\
+\text{vyu¾ijeme, ¾e $2^x - 1 \geq x ln(2)$} \\
 \sum_{l=1}^{l_0} 
   \frac{l+1}{l} 
   \frac{(m_j - m_{j-1})}{l( \frac{m_j}{m} - frac{m_{j-1}}{m} )} 4 = \\
 \frac{4m}{ln(2)} \sum_{l=1}^{l_0} 
   \frac{l+1}{l^2} = \frac{4m}{ln(2)} (\sum_{l=1}^{l_0} \frac{1}{l} +
   \sum_{l=1}^{l_0} \frac{1}{l^2}) \leq \\
-% XXX integr. krit
+\text{integrální kriterium} \\
 \frac{4m}{ln(2)} (1 + ln(l_0)) + \frac{\pi^2}{6} \leq 4m log_2(l_0) +
-15.3m
+15.3m \\
+\text{odhadneme $l_0$: } 
+l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\} \rightarrow l_0 < log(m) \\
+\text{pak } \leq 4m log(log(m)) + 15.3m
 \end{multline}
 
-$l_0 = min{l; \frac{m}{f(l,m_{j-1}} < l} \leftarrow l_0 < log(m) $
-$\leftarrow \leq 4m log(log(m)) + 15.3m$
-\par
-
-Celý algoritmus spoèítá ulo¾ení matice M typu r x s do vrcholù cd -
-dimenze s, rd - dimenze $4m log(log(m)) + 15.3m + r$ a hod dimenze m+s,
+Celý algoritmus spoèítá ulo¾ení matice M typu r x s do vektorù  \\
+cd - dimenze s, \\
+rd - dimenze $4m log(log(m)) + 15.3m + r$, \\
+hod dimenze m+s, \\
 pøitom hodnoty $cd(j) < 4m log(log(m)) + 15.3m$ a $rd(i) < m$.
 \par
 Èas potøebný k výpoètu je $O(sr(m loglog(m))^2)$, kde m je poèet míst $\neq
@@ -647,10 +652,10 @@ NIL$ v matici M.
 
 \subsection{Úsporné ulo¾ení øídkého vektoru}
 
-Máme vektor v dimenze $n \cdot d$ a $i_0 < i_1 < ... < i_{+}$ jsou v¹echny
+Máme vektor v dimenze $n \cdot d$ a $i_0 < i_1 < ... < i_{t-1}$ jsou v¹echny
 indexy i takové, ¾e $v(i) \neq 0$. \\
-Vytvoøíme vektor cv dimenze t, $cv(j)=v(i_j)$.
-ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j. \\
+Vytvoøíme vektor cv dimenze t, $cv(j)=v(i_j)$. \\
+Ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j. \\
 base - dimenze m
 
 ${\rm base(j) = }$
@@ -658,7 +663,7 @@ ${\rm base(j) = }$
 $\Bigl\{$
 \begin{tabular}{lll}
 -1 & kdy¾ & $i_k$ {\tt div} $d \neq j \forall k=0,1,...,t-1$ \\
-$min{l; i_l div d = j}$ & kdy¾ & $\exists l$, ¾e $i_l$ {\tt div} $d = j$ \\
+$min\{l; i_l div d = j\}$ & kdy¾ & $\exists l$, ¾e $i_l$ {\tt div} $d = j$ \\
 \end{tabular}
 % \right. 
 
@@ -667,7 +672,7 @@ ${\rm offset(j,k) =}$
 % \left 
 $\Bigl\{$
 \begin{tabular}{lll}
--1 & kdy¾ & $i_l \neq jd+k \forall l = 0,1,...,t-1$ \\
+-1 & kdy¾ & $i_l \neq jd+k$ $\forall l = 0,1,...,t-1$ \\
 $l-base(j)$ & kdy¾ & $i_l = jd+k$ \\
 \end{tabular}
 
@@ -675,6 +680,66 @@ $l-base(j)$ & kdy¾ & $i_l = jd+k$ \\
 
 vektor off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
 off je dimenze n \\
-smysluplné kdy¾ $d << n \cdot a \cdot t < n$ (napø. $d = log(log(n))$)
+potøebujeme base(dim n), off (dim n) \\
+smysluplné kdy¾ $d << n$ a $t < n$ (napø. $d = log(log(n))$)
 
+pro dané i - nalezení hodnoty v(i)
+kdy¾ base(i {\tt div} d) = -1, pak v(i) = 0  \\
+base(i {\tt div} d) $\neq -1$, pak k = i {\tt mod} d \\
+j = i div d \\
+l = off(j) {\tt div} $(d+1)^k$ \\
+l = l {\tt mod} (d+1) \\
+l = l - 1 + base(j) \\
+v(i) = cv(l) \\
+
+Lze pou¾ít pro malé t a $(d+1)^d$ v rozsahu velikosi registru - vhodné napø.
+pro $d \approx log(log(n))$.
+
+Pø.:
+v = 
+\begin{tabular}{|l|l|l|l|}
+\hline
+0 1 0 & 1 0 1 & 0 0 0 & 0 0 1 \\
+\hline
+      0  &     1 &      -1 &    3 \\
+\hline
+\end{tabular}
+
+$i_0$ = 1, $i_1$ = 3, $i_2$ = 5, $i_3$ = 11, d = 3 \\
+
+cv = 
+\begin{tabular}{|l|l|l|l|}
+\hline
+v(1) & v(3) & v(5) & v(11) \\
+\hline
+\end{tabular}
+
+base =
+\begin{tabular}{|l|l|l|l|}
+\hline
+0 & 1 & -1 & 3 \\
+\hline
+\end{tabular}
+
+\begin{tabular}{|l|llll|}
+\hline
+offset & 0 & 1 & 2 & 3 \\
+\hline
+0 & -1 & 0 & -1 & -1 \\
+1 & 0 & -1 & -1 & -1 \\
+2 & -1 & 1 & -1 & 0 \\
+\hline
+\end{tabular}
+
+3. sloupec tabulky offset repr. nuly \\
+off = 
+\begin{tabular}{|l|l|l|l|}
+\hline
+4 & 33 & 0 & 16 \\
+\hline
+\end{tabular}
+
+$off(7) = (offset(1,0) + 1)4^0 + (offset(1,1) + 1)4^1 + (offset(1,2) +
+1)4^2$
+$off(1) = 1 + 0 + 2\cdot4^2 = 33$
 
