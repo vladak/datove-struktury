@@ -407,39 +407,39 @@ prvek odpovídající vrcholu.
 \begin{algorithmic}
 \STATE MERGE($T_1$, $T_2$)
 \STATE ($T_1, T_2$ binom. haldy velikosti $n_1,n_2$)
-\STATE P = 0, i = 0, T = 0 
-\WHILE {i $leq$ log($n_1 + n_2$)}
+\STATE $P = 0, i = 0, T = 0$
+\WHILE {$i \leq log(n_1 + n_2)$}
   \STATE $S_1$ je strom v $T_1$ izomorfní s $H_i$ (pokud neexistuje, tak $S_1=0$)
   \STATE $S_1$ je strom v $T_1$ izomorfní s $H_i$ (pokud neexistuje, tak $S_1=0$)
   % XXX \CASE
      \IF {$S_1, S_2$, P = 0}
        \STATE neprovedeme nic
      \ENDIF
-     \IF {jeden strom z $S_1, S_2$, P je neprázdný} 
-        \STATE vlo¾ím tento strom do T, P=0
+     \IF {jeden strom z $S_1, S_2$, $P$ je neprázdný} 
+        \STATE vlo¾ím tento strom do $T$, $P=0$
      \ENDIF
-     \IF {dva stromy z $S_1, S_2$, P jsou neprázdné}
-       \STATE spojím tyto stromy a výsledek vzlo¾ím do P
+     \IF {dva stromy z $S_1, S_2$, $P$ jsou neprázdné}
+       \STATE spojím tyto stromy a výsledek vzlo¾ím do $P$
      \ENDIF
-     \IF {v¹echny stromy z $S_1, S_2$, P jsou neprázdné}
-       \STATE vlo¾ím do T, spojení $S_1, S_2$ vlo¾ím do P
+     \IF {v¹echny stromy z $S_1, S_2$, $P$ jsou neprázdné}
+       \STATE vlo¾ím do $T$, spojení $S_1, S_2$ vlo¾ím do $P$
      \ENDIF
   % \ENDCASE
-  \STATE i = i + 1
+  \STATE $i = i + 1$
 \ENDWHILE
 \end{algorithmic}
 \end{algorithm}
 
 \begin{pozn}
-P odpovídá pøenosu v binárním sèítání, T je výsledná halda
+$P$ odpovídá pøenosu v binárním sèítání, $T$ je výsledná halda.
 \end{pozn}
 
 \begin{algorithm}[!htb]
-\caption{Spojeni dvou binomi. hald}
+\caption{Spojení dvou binom. hald}
 \label{alg:heaps.binom.spoj}
 \begin{algorithmic}
 \STATE Spojeni($S_1$, $S_2$)
-\STATE $S_1, S_2$ jsou stromy izomorfní s $H_i$ pro nìjaké i
+\STATE $S_1, S_2$ jsou stromy izomorfní s $H_i$ pro nìjaké $i$
 \IF {prvek reprezentovaný koøenem $S_1 \leq$ prvek reprezentovaný koøenem $S_2$}
   \STATE koøen $S_2$ se stane dal¹ík synem koøene $S_1$
 \ELSE
@@ -458,28 +458,34 @@ MIN - prohledáme prvky reprezentované koøeny stromù a najdeme nejmen¹í
 \label{alg:heaps.binom.deletemin}
 \begin{algorithmic}
 \STATE DELETEMIN
-\STATE prohledáním prvkù reprezentovaných koøeny stromù naleznu strom S, jeho¾ koøen reprezentuje nejmen¹í prvek
+\STATE prohledáním prvkù reprezentovaných koøeny stromù naleznu strom $S$,
+jeho¾ koøen reprezentuje nejmen¹í prvek
 \STATE $T_1 = T \ {S}, T_2$ je tvoøen podstormy v¹echn synù koøene S
-\STATE (tj. utrhnu koøen a zbytek dám do haldy) - je to halda díky vlastnosti 4
-\STATE T $\rightarrow$ MERGE($T_1, T_2$)
+\STATE (tj. utrhnu koøen a zbytek dám do haldy) - 
+	je to halda díky vlastnosti 4
+\STATE $T \rightarrow$ MERGE($T_1, T_2$)
 \end{algorithmic}
 \end{algorithm}
 
 \begin{pozn}
-operace DELETE se nedá rozumnì provést,museli bychom pøebudovat celý strom
+Operace DELETE se nedá rozumnì provést, museli bychom pøebudovat celý
+strom.
 \end{pozn}
 
 \begin{theorem}
-Operace MERGE, INSERT, MIN, DELETEMIN a DECREASEKEY vy¾adují èas O(log n).
+Operace MERGE, INSERT, MIN, DELETEMIN a DECREASEKEY vy¾adují èas $O(log n)$.
 Operace INCREASEKEY vy¾aduje èas $O(log^2 n)$.
 \end{theorem}
 
 \begin{pozn}
-sèítání v binárních èíslech O(1)
-1 0 0 ... 0
-1 1 1 ... 1
-amort. slo¾.
-neplatí nìco podobného pro binom. stomy ? Ano, pro operaci INSERT.
+XXX
+Sèítání v binárních èíslech má (XXX amort?) slo¾itost $O(1)$.
+\\
+1 0 0 ... 0 \\
+1 1 1 ... 1 \\
+\\
+amort. slo¾. \\
+Neplatí nìco podobného pro binom. stromy ? Ano, pro operaci INSERT.
 \end{pozn}
 
 \begin{theorem}
@@ -492,8 +498,8 @@ MERGE zabírá dost èasu - musíme ho dìlat ?
 
 
 \subsection{Líná implementace binom. hald}
-zmìníme definici - vynecháme podmínku 2, tj. teï v na¹í binom. haldì mohou
-být izomorfní stromy.
+Zmìníme definici - vynecháme podmínku 2, tj. teï v na¹í binom. haldì
+mohou být izomorfní stromy.
 \par
 Operace MERGE($T_1, T_2$) - provedeme konkatenaci seznamù $T_1 a T_2$.
 Jenom to by nefungovalo, musíme je¹tì zmìnit operace MIN, DELETEMIN.
@@ -503,16 +509,18 @@ Jenom to by nefungovalo, musíme je¹tì zmìnit operace MIN, DELETEMIN.
 \label{alg:heaps.binom-line.min}
 \begin{algorithmic}
 \STATE MIN
-\STATE pøi prohledávání prvkù reprezentovaných koøeny stromù seøadíme stromy do mno¾in $Q_i$, i=0,...,n , kde $Q_i$ je mno¾ina v¹ech stromù v T izomorfních s $H_i$.
-\STATE i = 0, T = 0
+\STATE pøi prohledávání prvkù reprezentovaných koøeny stromù seøadíme
+stromy do mno¾in $Q_i$, $i=0,...,n$ , kde $Q_i$ je mno¾ina v¹ech stromù v
+$T$ izomorfních s $H_i$.
+\STATE $i = 0, T = 0$
 \WHILE {$\exists Q_i \neq 0$}
   \WHILE {$|Q_i| > 1$}
     \STATE vezmeme dva stromy z $Q_i$, spojíme je, výsledek dáme do $Q_{i+1}$
   \ENDWHILE
   \IF {$Q_i \neq 0$}
-    \STATE strom z $Q_i$ dám do T
+    \STATE strom z $Q_i$ dám do $T$
   \ENDIF
-  \STATE i = i + 1
+  \STATE $i = i + 1$
 \ENDWHILE
 \end{algorithmic}
 \end{algorithm}
@@ -522,28 +530,29 @@ dá stromy po odtr¾ení nejmen¹ího prvku do odpovídajících mno¾in $Q_i$
 
 \begin{theorem}
 Operace MERGE a INSERT pøi líné implementaci vy¾adují èas O(1), operace
-DELETEMIN a MIn vy¾adují èas O(poèet stromù).
+DELETEMIN a MIN vy¾adují èas $O(\text{poèet stromù})$.
 \end{theorem}
 
 \begin{pozn}
-bal(konfigurace) = poèet v¹ech stromù ve v¹ech haldách v konfiguraci
+$bal(\text{konfigurace}) = \text{poèet v¹ech stromù ve v¹ech haldách v
+konfiguraci}$
 \end{pozn}
 
 \subsubsection{Amort. slo¾.}
-amort. slo¾. = èas pro operaci + bal(výsledné konfigurace) - bal(pùvodní
-konfigurace)
+$\text{amort. slo¾.} = \text{èas pro operaci} + 
+bal(\text{výsledné konfigurace}) - bal(\text{pùvodní konfigurace})$
 
 \begin{tabular}{ll}
-MERGE & O(1) \\
-INSERT & O(1) \\
-MIN & O(log n) \\
-DELETEMIN & O(log n) \\
+MERGE & $O(1)$ \\
+INSERT & $O(1)$ \\
+MIN & $O(log n)$ \\
+DELETEMIN & $O(log n)$ \\
 \end{tabular}
 
 \subsection{Zobecnìné binomiální haldy}
 
 XXX
-\mnote{pøedná¹elo se to tento rok vùbec ?}
+\mnote{pøedná¹elo se to tento rok (2004) vùbec ?}
 
 % --------------------------------------------------------------------------
 \section{Fibonacciho haldy}

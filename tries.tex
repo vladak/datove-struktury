@@ -4,6 +4,7 @@
 \chapter{Trie}
 
 % --------------------------------------------------------------------------
+
 \section{Základní varianta}
 
 Trie je rovinná implementace slovníku.
@@ -38,6 +39,11 @@ slovo $\alpha a$.
 % ..........................................................................
 \subsection{Algoritmus MEMBER}
 
+viz. algoritmus \ref{alg:trie.member}.
+
+\begin{algorithm}[!htb]
+\caption{MEMBER pro základní verzi trie}
+\label{alg:trie.member}
 \begin{algorithmic}
 \STATE \COMMENT {vyhledání $x = x_1 \dots x_l$}
 \STATE $t := \text{koøen}$
@@ -49,10 +55,16 @@ slovo $\alpha a$.
 \STATE \COMMENT {test}
 \STATE \textbf{return} $\Nal(t)$
 \end{algorithmic}
+\end{algorithm}
 
 % ..........................................................................
 \subsection{Algoritmus INSERT}
 
+viz. algoritmus \ref{alg:trie.insert}.
+
+\begin{algorithm}[!htb]
+\caption{INSERT pro základní verzi trie}
+\label{alg:trie.insert}
 \begin{algorithmic}
 \STATE \COMMENT {vyhledej $x$}
 \IF[trie nemusí být tak hluboké, jak potøebujeme] {\textbf{not} $\Nal(t)$}
@@ -65,10 +77,16 @@ slovo $\alpha a$.
         \STATE $\Nal(t) := \textit{true}$
 \ENDIF
 \end{algorithmic}
+\end{algorithm}
 
 % ..........................................................................
 \subsection{Algoritmus DELETE}
 
+viz. algoritmus \ref{alg:trie.delete}.
+
+\begin{algorithm}[!htb]
+\caption{DELETE pro základní verzi trie}
+\label{alg:trie.delete}
 \begin{algorithmic}
 \STATE \COMMENT {vyhledej $x$}
 \IF {$\Nal(t)$}
@@ -82,7 +100,9 @@ slovo $\alpha a$.
         \ENDWHILE
 \ENDIF  
 \end{algorithmic}
+\end{algorithm}
 
+\par
 Pou¾ili jsme obrat $t := \text{otec } t$. To lze provést buï tak, ¾e
 se vrchol kromì svých synù odkazuje i na svého otce a spotøebuje tak
 pamì» navíc, nebo se cesta z koøene do aktuálního vrcholu bìhem
@@ -110,14 +130,14 @@ $S = \{0202011, 0202012, 0202021, 1212102, 1212111, 1212121, 1212122\}$.
 Nekomprimované trie pro tuto mno¾inu je na obrázku \ref{fig:tries}.
 Vidíme, ¾e písmena na druhé a¾ páté pozici jsou v¾dy stejná a
 % XXX \uv{prokousat} 
-pøedchozí algoritmy se jimi musí prokousat. Pøesnì 
+pøedchozí algoritmy se jimi musí prokousat. Pøesnìji 
 øeèeno, prohlí¾ení vrcholu $v$, který má jediného 
 syna, který není list s hodnotou $\Nal = \textit{false}$, nepøiná¹í 
 ¾ádnou kladnou informaci, proto¾e mno¾iny prvkù z $S$, 
 které jsou reprezentovány vrcholy v podstromu otce $v$ a v podstromu 
-vrcholu $v$ jsou stejné. To vedlo k idei tyto vrcholy ze stromu vynechat a tím 
-zmen¹it (komprimovat) trie.  
-   
+vrcholu $v$ jsou stejné. To vedlo k idei tyto vrcholy ze stromu vynechat a
+tím zmen¹it (komprimovat) trie.  
+
 \begin{figure}
 \centering\includegraphics{pics/tries}
 \caption{Nekomprimované trie}
@@ -445,38 +465,42 @@ Kdy¾ $M_{i,j} \neq NIL \neq M_{i',j'}$, pak $rd(i) + j \neq rd(i') + j'$ \\
 Kdy¾ na místì hod chceme zapsat prvek $\neq NIL$ a NIL, pak zapí¹eme prvek
 $\neq NIL$.
 
+% ------------------------------------------------------------------------
 
 \subsection{Algoritmus pro hledání rd a hod}
-Nech» M je matice typu r x s, má m významných míst $\neq$ NIL.
+
+Nech» $M$ je matice typu $r x s$, má $m$ významných míst $\neq$ NIL.
+
 \begin{itemize}
 \item pro ka¾dý øádek nalezneme poèet míst $\neq$ NIL
-\item setøídíme øádky Bucketsortem, tak ¾e rádky s vìt¹ím poètem míst $\neq$ NIL
-  pøedcházejí øádky s men¹ím poètem míst $\neq$ NIL
+\item setøídíme øádky Bucketsortem, tak ¾e rádky s vìt¹ím poètem míst
+ $\neq$ NIL pøedcházejí øádky s men¹ím poètem míst $\neq$ NIL
 \item procházíme øádky v daném setøídìní a pro ka¾dý øádek i nalezneme
   nejmen¹í èíslo rd(i), ¾e nedochází ke kolizi s pøedchozími øádky (tj.
-  kdy¾ $M_{i',j'} \neq NIL \neq M_{i,j}$) a øádek i' byl zaøazen, pak
+  kdy¾ $M_{i',j'} \neq NIL \neq M_{i,j}$) a øádek $i'$ byl zaøazen, pak
   $rd(i) + j \neq rd(i') + j'$.
-  Pak $M_{i,j} \neq NIL$ je ulo¾eno ve vektoru hod na místì rd(i)+j.
+  Pak $M_{i,j} \neq NIL$ je ulo¾eno ve vektoru hod na místì $rd(i)+j$.
 \end{itemize}
 
-m(l) - poèet míst $\neq$ NIL v øádcích s poètem míst $\geq l+1 \neq NIL$.
+$m(l)$ - poèet míst $\neq$ NIL v øádcích s poètem míst $\geq l+1 \neq NIL$.
 
 \begin{theorem}
 Kdy¾ $m(l)(l+1) \leq m$ pro ka¾dé l, pak $rd(i) < m$ pro ka¾dý øádek i a
-algoritmus vy¾aduje èas O(rsm).
+algoritmus vy¾aduje èas $O(rsm)$.
 \end{theorem}
 
 \begin{proof}
-Pøedpokládejme, ¾e hledáme rd pro øádek i, který má l míst $\neq NIL$. \\
-ve vektoru hod je obsazeno ménì ne¾ m(l-1) míst. \\ 
-zkou¹íme rd(i)=1,2,... \\
-rd(i) = 1,2,... je zakázané, kdy¾ vznikne kolize. \\
-tj. $\exists$ øádek i' pøedcházející a $\exists j,j'$ takové, ¾e $M_{i',j'} \neq
-NIL \neq M_{i,j}$ a platilo by $rd(i') + j' = rd(i) + j$.
+Pøedpokládejme, ¾e hledáme rd pro øádek $i$, který má l míst $\neq NIL$. \\
+ve vektoru hod je obsazeno ménì ne¾ $m(l-1)$ míst. \\ 
+zkou¹íme $rd(i)=1,2,...$ \\
+$rd(i) = 1,2,...$ je zakázané, kdy¾ vznikne kolize. \\
+tj. $\exists$ øádek $i'$ pøedcházející a $\exists j,j'$ takové, ¾e
+$M_{i',j'} \neq NIL \neq M_{i,j}$ 
+a platilo by $rd(i') + j' = rd(i) + j$.
 $\rightarrow$ tìchto mo¾ností je $< lm(l-1) \leq m$. \\
-O(rs) - zjistíme pro ka¾dý øádek poèet míst $\neq NIL$. \\
-O(m+r) - tøídìní Bucketsortem \\
-O(mrs) - krok 2
+$O(rs)$ - zjistíme pro ka¾dý øádek poèet míst $\neq NIL$. \\
+$O(m+r)$ - tøídìní Bucketsortem \\
+$O(mrs)$ - krok 2
 \end{proof}
 
 Pø:
@@ -521,20 +545,30 @@ a & 102 & NIL & c \\
 
 (pøehodili jsme pouze øádky)
 
-\begin{tabular}{|lll|}
+sl - vektor posunutých sloupcù
+sl(0) = 0
+sl(1) = 1
+
+\begin{tabular}{|l|lll|}
 \hline
-210 & NIL & NIL \\
-120 & 211 & 212 \\
-NIL & 121 & NIL \\
-102 & a & b \\
-NIL & NIL & c \\
+M' & 0 & 1 & 2 \\
+\hline
+1 & 210 & NIL & NIL \\
+2 & 120 & 211 & 212 \\
+3 & NIL & 121 & NIL \\
+4 & 102 & a & b \\
+5 & NIL & NIL & c \\
 \hline
 \end{tabular}
 
+zac = (6,0,6,3,6)
+hod = (120, 211, 212, 102, a, b, 210, 121, c)
+
+Kdy¾ $M(i,j)$ je významné místo, pak $M(i,j) = hod(zac(i+sl(j)) + j)$.
 
 \subsection{Vertikální posun sloupcù}
 
-cd - vektor sloupcového posunutí, slou¾í k zápisu transformace
+$cd$ - vektor sloupcového posunutí, slou¾í k zápisu transformace
 
 \begin{tabular}{|l|lll|}
 \hline
@@ -583,13 +617,18 @@ Okrajové podmínky na f: f musí splòovat:
 
 \subsubsection{Algoritmus na posunutí sloupcù}
 
-1) pro ka¾dý sloupec v poøadí 0,1,... nalezneme nejmen¹í cd(j) takové, aby
-matice $B_j$ splòovala $\forall l$ $m_j(l) \leq \frac{m}{f(l,m_j)}$
-(ka¾dý sloupec posunujeme dokud nesplòuje podmínku) \\
-Na získanou matici $B = B_s$ pak pou¾ijeme pøedchozí algoritmus. \\
+\begin{enumerate}
+\item Pro ka¾dý sloupec v poøadí $0,1,...$ nalezneme nejmen¹í $cd(j)$ 
+takové, aby matice $B_j$ splòovala 
+$\forall l$ $m_j(l) \leq \frac{m}{f(l,m_j)}$
+(ka¾dý sloupec posunujeme dokud nesplòuje podmínku) 
+\item Na získanou matici $B = B_s$ pak pou¾ijeme pøedchozí algoritmus. 
+\end{enumerate}
+
 Platí $m(l) = m_s(l) \leq \frac{m}{f(l,m)} \leq \frac{m}{l+1}$. \\
-Hledáme hodnotu cd(j) a pøedp., ¾e pro nìjakou hodnotu cd(j) není splnìna
-podmínka pro l, tj. platí $m_j(l) > \frac{m}{f(l,m)}$
+Hledáme hodnotu $cd(j)$ a pøedpokládáme, ¾e pro nìjakou hodnotu 
+$cd(j)$ není splnìna
+podmínka pro $l$, tj. platí $m_j(l) > \frac{m}{f(l,m)}$
 ... platila pro $B_{j-1}, tj. m_{j-1}(l) \leq \frac{m}{f(l,m_{j-1})}$
 \par
 Z toho plyne $m_j(l) - m_{j-1}(l) > \frac{m}{f(l,m_j)} -
@@ -598,25 +637,27 @@ Z toho plyne $m_j(l) - m_{j-1}(l) > \frac{m}{f(l,m_j)} -
 
 Jak roste èíslo $m_j(l)$ ? 
 \begin{enumerate}
-\item v matici $B_{j-1}$ existuje øádek s aspoò l+1 místy $\neq NIL$ a s tímto
-øádkem se støetne místo $\neq NIL$ (v j-tém sloupci $\leftarrow
-m_{j-1}(l)$
-vzroste o 1)
-\item v matici $B_{j-1}$ existuje øádek s l místy $\neq NIL$ a s tímto øádkem
-se støetne místo $\neq NIL$ v j-tém sloupci. Pak $m_{j-1}(l)$ vzroste o l+1.
+\item v matici $B_{j-1}$ existuje øádek s aspoò $l+1$ místy $\neq NIL$ 
+a s tímto øádkem se støetne místo $\neq NIL$ (v $j$-tém sloupci 
+$\leftarrow m_{j-1}(l)$
+vzroste o $1$)
+\item v matici $B_{j-1}$ existuje øádek s $l$ místy $\neq NIL$ a s tímto
+øádkem se støetne místo $\neq NIL$ v $j$-tém sloupci. Pak $m_{j-1}(l)$
+vzroste o $l+1$.
 \end{enumerate}
 
-støet - øádek v $B_{j-1}$ s aspoò l místy $\neq NIL$ a místo $\neq NIL$ v j-tém
-sloupci. Aby nebyla splnìna podmínka pro l, musí být poèet støetù pro danou hodnotu cd(j)
+støet - øádek v $B_{j-1}$ s aspoò $l$ místy $\neq NIL$ a místo $\neq NIL$
+v $j$-tém sloupci. Aby nebyla splnìna podmínka pro l, musí být poèet støetù
+pro danou hodnotu $cd(j)$
 být aspoò 
 $$\frac{\frac{m}{f(l,m_j)} - \frac{m}{f(l,m_{j-1})}}{l+1}$$
 \par
 V matici $B_{j-1}$ je nejvý¹e $\frac{m_{j-1}(l-1)}{l} \leq \frac{m}{l
-f(l-1,m_{j-1}}$ øádkù s aspoò l místy $\neq NIL$, v j-tém sloupci je $m_j -
+f(l-1,m_{j-1}}$ øádkù s aspoò $l$ místy $\neq NIL$, v j-tém sloupci je $m_j -
 m_{j-1}$ míst $\neq NIL$. \\
 \par
 
-Podmínka pro l mù¾e zakázat nejvý¹e 
+Podmínka pro $l$ mù¾e zakázat nejvý¹e 
 \begin{multline}\bigparens
 \frac{ \frac{m(m_j - m_{j-1})}{l f(l-1,m_{j-1}} }
   { \frac{ \frac{m}{f(l,m_j} - \frac{m}{f(l,m_{j-1}} }{l+1} } 
@@ -626,12 +667,12 @@ Podmínka pro l mù¾e zakázat nejvý¹e
 \end{multline}
 \par
 
-Staèí nám sèítat pøes hodnoty l takové, ¾e \\
+Staèí nám sèítat pøes hodnoty $l$ takové, ¾e \\
 $m m_{j-1}(l) \leq l+1$ tj. pøes 
 $l \leq l_0 = min\{l; \frac{m}{f(l,m_{j-1}} < l\}$, \\
 $m_{j-1}(l) \leq \frac{m}{f(l,m_{j-1})} \leq l+1$.
 
-Celkový poèet zakázaných hodnot cd je men¹í ne¾ 
+Celkový poèet zakázaných hodnot $cd$ je men¹í ne¾ 
 \begin{multline}
 \label{odh-zak-hodnot}\bigparens
 \sum_{l=0}^{l_0} \frac{l+1}{l} \frac{(m_j - m_{j-1})}{
@@ -641,7 +682,7 @@ Celkový poèet zakázaných hodnot cd je men¹í ne¾
 Zvolíme $f(l,m_j) = 2^{l(2 - \frac{m_j}{m})}$.
 
 \begin{pozn}
-Jeliko¾ se f vyskytuje v sumì jen v podílech, výraz se zjednodu¹¹í,
+Jeliko¾ se $f$ vyskytuje v sumì jen v podílech, výraz se zjednodu¹¹í,
 zvolíme-li $f(l, m_j) = 2^{g(l, m_j)}$, kde g je nìjaká vhodná funkce.
 Dosadíme-li, mù¾eme si v¹imnout, ¾e dostaneme v exponentech rozdíly 
 $g(l, m_{j-1}) - g(l, m_j) a g(l, m_{j-1}) - g(l - 1, m_{j-1})$,
@@ -664,7 +705,7 @@ teï mù¾eme zkrátit.
 
 (... suma z Mehlhorna na stranì 10, první suma od spoda ...)
 \par
-Dal¹ími heuristikami a s vyu¾itím okrajových podmínek pro f nakonec
+Dal¹ími heuristikami a s vyu¾itím okrajových podmínek pro $f$ nakonec
 zjistíme, ¾e dobrou volbou jsou funkce $h(l) = l, k(m_j) = 2 - \frac {m_j}m.$
 \end{pozn}
  
@@ -711,7 +752,7 @@ Máme vektor v dimenze $n \cdot d$ (rozdìlený na $n$ blokù velikosti $d$)
 a $i_0 < i_1 < ... < i_{t-1}$ jsou v¹echny
 indexy $i$ takové, ¾e $v(i) \neq 0$. \\
 Vytvoøíme vektor $cv$ dimenze $t$, $cv(j)=v(i_j)$. \\
-Ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto j. \\
+Ná¹ úkol - pro dané l zjistit, zda $l = i_j$ a pøípadnì nalézt toto $j$. \\
 Sestavíme vektor $base$ dimenze $n$:
 
 ${\rm base(j) = }$
@@ -733,10 +774,10 @@ $l-base(j)$ & $i_l = jd+k$ \\
 \end{tabular}
 
 Nyní ulo¾íme matici $offset$ do vektoru $off$ dimenze $n$
-tak, ¾e z ka¾dého øádku vytvoøíme èíslo v soustavì o základu $d+1$: \\
+tak, ¾e z ka¾dého øádku vytvoøíme èíslo $v$ soustavì o základu $d+1$: \\
 
 off(j) = $\sum_{k=0}^{d-1}(offset(j,k) + 1)(d+1)^k$ \\
-potøebujeme base(dim n), off (dim n) \\
+potøebujeme $base(dim n)$, $off(dim n)$ \\
 smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = log log n)$)
 \par
 
@@ -748,20 +789,20 @@ Platí následující vztahy:
 \end{enumerate}
 \par
 
-pro dané i - nalezení hodnoty v(i)
-kdy¾ base(i {\tt div} d) = -1, pak v(i) = 0  \\
-base(i {\tt div} d) $\neq -1$, pak k = i {\tt mod} d \\
-j = i div d \\
-l = off(j) {\tt div} $(d+1)^k$ \\
-l = l {\tt mod} (d+1) \\
-l = l - 1 + base(j) \\
-v(i) = cv(l) \\
+pro dané $i$ - nalezení hodnoty $v(i)$
+kdy¾ $base(i {\tt div} d) = -1$, pak $v(i) = 0$ \\
+$base(i {\tt div} d) \neq -1$, pak $k = i {\tt mod} d$ \\
+$j = i div d$ \\
+$l = off(j) {\tt div} (d+1)^k$ \\
+$l = l {\tt mod} (d+1)$ \\
+$l = l - 1 + base(j)$ \\
+$v(i) = cv(l)$ \\
 
-Lze pou¾ít pro malé t a $(d+1)^d$ v rozsahu velikosi registru - vhodné napø.
-pro $d \approx log log n)$.
+Lze pou¾ít pro malé $t$ a $(d+1)^d$ v rozsahu velikosi registru - vhodné
+napø.  pro $d \approx log log n)$.
 
 Pø.:
-v = 
+$v$ = 
 \begin{tabular}{|l|l|l|l|}
 \hline
 0 1 0 & 1 0 1 & 0 0 0 & 0 0 1 \\
@@ -772,14 +813,14 @@ v =
 
 $i_0$ = 1, $i_1$ = 3, $i_2$ = 5, $i_3$ = 11, d = 3 \\
 
-cv = 
+$cv$ = 
 \begin{tabular}{|l|l|l|l|}
 \hline
 v(1) & v(3) & v(5) & v(11) \\
 \hline
 \end{tabular}
 
-base =
+$base$ =
 \begin{tabular}{|l|l|l|l|}
 \hline
 0 & 1 & -1 & 3 \\

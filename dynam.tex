@@ -57,14 +57,18 @@ Pø.:
 	$U_1 = U_2 = $ rovina; 
 	$U_3 = \{0, 1\}$;
 
+	\begin{figure}[!htb]
+	\centering\includegraphics{pics/convex-envel}
+	\caption{Konvexní obal}
+	\label{convex-envel}
+	\end{figure}
+
 	\(f(x, A) =
 	\begin{cases}
 	0& \text{kdy¾ $x$ nepatøí do konvexního obalu $A$}\\
 	1& \text{kdy¾ $x$ patøí do konvexního obalu $A$}
 	\end{cases}\)
 	(není rozlo¾itelný problém)
-% XXX obr.
-\mnote{chybí obrázek}
 \end{description}
 
 
@@ -366,7 +370,10 @@ kdy¾ $\frac{P(n)}{n} \geq n^{\epsilon}$ pro $\epsilon > 0$, pak INSERT
 vy¾aduje èas $O(\frac{P(n)}{n})$.
 
 \par
-Pø.:
+\begin{priklad}
+XXX
+\par
+\hspace{5mm}
 
 \begin{tabular}{|l|l|l|}
 \hline
@@ -398,6 +405,8 @@ dokonèeno $A_{1,1} = \{x_3,x_4\}$ \\
 \hline
 \end{tabular}
 
+\end{priklad}
+
 \begin{theorem}
 Nech» S je statická struktura pro rozlo¾itelný vyhledávací problém f
 a nech» K je "hladká" funkce. Pak existuje semidynamická struktura D
@@ -412,10 +421,13 @@ pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
 \end{theorem}
 
 \begin{proof}
-Dukaz viz \cite{mehlhorn-overmars}
+Dùkaz viz. \cite{mehlhorn-overmars}
 \end{proof}
 
+% dynamizace ----------------------------------------------------------
+
 \section{Dynamizace}
+
 Potøebujeme, aby struktura S pøipou¹tìla fale¹ný DELETE (prvek pouze
 ¹krtneme, ale zùstane tam. fale¹ný - èas. ani pamì»ové nároky se nezlep¹í
 ani nezhor¹í)

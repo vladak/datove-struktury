@@ -23,6 +23,28 @@ SRCFILES= array.tex \
 	treesbin.tex \
 	tries.tex
 
+PICS=	pics/abt.pdf \
+	pics/avl-ll.pdf \
+	pics/avl-lr.pdf \
+	pics/avl.pdf \
+	pics/rbt-d.pdf \
+	pics/rbt-d1a.pdf \
+	pics/rbt-d1b.pdf \
+	pics/rbt-d1c.pdf \
+	pics/rbt-d1d.pdf \
+	pics/rbt-d2.pdf \
+	pics/rbt-i.pdf \
+	pics/rbt-i1.pdf \
+	pics/rbt-i2a.pdf \
+	pics/rbt-i2b.pdf \
+	pics/splay-insert.pdf \
+	pics/splay-join2.pdf \
+	pics/splay-join3.pdf \
+	pics/splay-rot.pdf \
+	pics/splay-dvojrot.pdf \
+	pics/tr-markov.pdf \
+	pics/tries.pdf
+
 all: $(MAIN).pdf
 
 dist: $(MAIN).pdf $(MAIN).ps
@@ -54,10 +76,15 @@ dopics:
 debug: dopics $(SRCFILES)
 	pdflatex ${MAIN} && pdflatex ${MAIN} > /dev/null
 
-$(MAIN).pdf: $(SRCFILES)
-	@echo "generating PDF for $(MAIN)"
-	pdflatex ${MAIN} && \
-		echo "generating index"; pdflatex ${MAIN} > /dev/null
+$(MAIN).pdf: $(SRCFILES) $(PICS)
+	@rm -f $(MAIN).pdf
+	@pdflatex -interaction=errorstopmode ${MAIN}
+	@if [ -f $(MAIN).pdf ]; then \
+	  echo "generating index"; \
+	  pdflatex ${MAIN} > /dev/null; \
+	fi
+
+disabled:
 	@if [ $$? -eq 0 ]; then \
 	  echo "successfull"; \
 	  rm -f $(ERRFILE); \
@@ -68,6 +95,6 @@ $(MAIN).pdf: $(SRCFILES)
 pics-clean:
 	@cd pics; make clean
 
+# ${MAIN}.toc 
 clean: 
-	# ${MAIN}.toc 
 	@rm -f *.ps *.pdf *.aux *.out *.log *.dvi
