@@ -412,8 +412,8 @@ DELETE($x=x_1, ..., x_l$)
 \section{Je¹tì komprimovanìj¹í trie}
 
 % XXX dopsat !
-Pø: \\
-mìjme násedující komprimovaný trie: \\
+\begin{priklad}
+Mìjme násedující komprimovaný trie: \\
 % XXX obr.
 \mnote{tady chybí obrázek}
 
@@ -429,12 +429,15 @@ b & 210 & 211 & 212 \\
 c & 120 & 121 & NIL \\
 \hline
 \end{tabular}
+\end{priklad}
+
+\hspace{5mm}
 
 Chceme se zbavit polo¾ek NIL v matici reprezentující trie. Dal¹í komprese
-dosáhneme pomocí vektorù hod (vektor hodnot) a rd. Tyto vektory budou
+dosáhneme pomocí vektorù $hod$ (vektor hodnot) a $rd$. Tyto vektory budou
 reprezentovat pùvodní matici.
 
-\mnote{co znamena rd ?}
+\mnote{co znamena $rd$ ?}
 
 \subsection{Popis $A$ a $rd$}
 
@@ -444,23 +447,41 @@ I. \\
 \begin{tabular}{|lllllll|}
 \hline
 hod & 210 & 211 & 212 & 120 & 121 & NIL \\
-rd & root & a & b & c & & \\
- & & & 0 & 3 & & \\
+\hline
+\end{tabular}
+
+\hspace{3mm}
+
+\begin{tabular}{|lllll|}
+\hline
+   & root & a & b & c \\
+rd &      &   & 0 & 3 \\
 \hline
 \end{tabular}
 \par
+
+\hspace{5mm}
 
 II. \\
 \begin{tabular}{|lllllllllll|}
 \hline
 hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
-rd & root & a & b & c & & & & & & \\
- & 4 & 7 & 0 & 3 & & & & & & \\
 \hline
 \end{tabular}
 
+\hspace{3mm}
+
+\begin{tabular}{|lllll|}
+\hline
+   & root & a & b & c \\
+rd & 4    & 7 & 0 & 3 \\
+\hline
+\end{tabular}
+
+\hspace{5mm}
+
 \par
-Øádek i zaèíná na místì rd(i) a musí být splnìna podmínka: \\
+Øádek $i$ zaèíná na místì $rd(i)$ a musí být splnìna podmínka: \\
 Kdy¾ $M_{i,j} \neq NIL \neq M_{i',j'}$, pak $rd(i) + j \neq rd(i') + j'$ \\
 Kdy¾ na místì hod chceme zapsat prvek $\neq NIL$ a NIL, pak zapí¹eme prvek
 $\neq NIL$.
@@ -469,6 +490,7 @@ $\neq NIL$.
 
 \subsection{Algoritmus pro hledání rd a hod}
 
+% XXX r x s
 Nech» $M$ je matice typu $r x s$, má $m$ významných míst $\neq$ NIL.
 
 \begin{itemize}
@@ -476,7 +498,7 @@ Nech» $M$ je matice typu $r x s$, má $m$ významných míst $\neq$ NIL.
 \item setøídíme øádky Bucketsortem, tak ¾e rádky s vìt¹ím poètem míst
  $\neq$ NIL pøedcházejí øádky s men¹ím poètem míst $\neq$ NIL
 \item procházíme øádky v daném setøídìní a pro ka¾dý øádek i nalezneme
-  nejmen¹í èíslo rd(i), ¾e nedochází ke kolizi s pøedchozími øádky (tj.
+  nejmen¹í èíslo $rd(i)$, ¾e nedochází ke kolizi s pøedchozími øádky (tj.
   kdy¾ $M_{i',j'} \neq NIL \neq M_{i,j}$) a øádek $i'$ byl zaøazen, pak
   $rd(i) + j \neq rd(i') + j'$.
   Pak $M_{i,j} \neq NIL$ je ulo¾eno ve vektoru hod na místì $rd(i)+j$.
@@ -485,8 +507,8 @@ Nech» $M$ je matice typu $r x s$, má $m$ významných míst $\neq$ NIL.
 $m(l)$ - poèet míst $\neq$ NIL v øádcích s poètem míst $\geq l+1 \neq NIL$.
 
 \begin{theorem}
-Kdy¾ $m(l)(l+1) \leq m$ pro ka¾dé l, pak $rd(i) < m$ pro ka¾dý øádek i a
-algoritmus vy¾aduje èas $O(rsm)$.
+Kdy¾ $m(l)(l+1) \leq m$ pro ka¾dé $l$, pak $rd(i) < m$ pro ka¾dý øádek $i$
+a algoritmus vy¾aduje èas $O(rsm)$.
 \end{theorem}
 
 \begin{proof}
@@ -503,15 +525,13 @@ $O(m+r)$ - tøídìní Bucketsortem \\
 $O(mrs)$ - krok 2
 \end{proof}
 
-Pø:
-jedna mo¾nost
+%jedna mo¾nost
+%% XXX obr. matice
+%M = 
+%$\rightarrow$ budeme mít moc øádkù - nevhodné
 
-% XXX obr. matice
-M = 
-
-$\rightarrow$ budeme mít moc øádkù - nevhodné
-
-Pø:\\
+\begin{priklad}
+XXX nejaky komentar \\
 
 \begin{tabular}{|l|lll|}
 \hline
@@ -524,13 +544,22 @@ c & 120 & 121 & NIL \\
 \hline
 \end{tabular}
 
-\begin{tabular}{|l|llllllllll|}
+\begin{tabular}{|l|llll|}
 \hline
-rd  & root & a   & b   & c   &     &   &   &     &     &   \\
-    &    4 & 7   & 0   & 3   &     &   &   &     &     &   \\
-hod & 210  & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
+    & root & a & b & c \\
+rd  &    4 & 7 & 0 & 3 \\
 \hline
 \end{tabular}
+
+\hspace{3mm}
+
+\begin{tabular}{|l|llllllllll|}
+\hline
+hod & 210 & 211 & 212 & 120 & 121 & a & b & 102 & NIL & c \\
+\hline
+\end{tabular}
+
+\hspace{3mm}
 
 \begin{tabular}{|l|lll|}
 \hline
@@ -543,11 +572,16 @@ a & 102 & NIL & c \\
 \hline
 \end{tabular}
 
+\hspace{3mm}
+
 (pøehodili jsme pouze øádky)
 
-sl - vektor posunutých sloupcù
-sl(0) = 0
-sl(1) = 1
+$sl$ - vektor posunutých sloupcù
+
+\begin{itemize}
+\item $sl(0) = 0$
+\item $sl(1) = 1$
+\end{itemize}
 
 \begin{tabular}{|l|lll|}
 \hline
@@ -561,8 +595,10 @@ M' & 0 & 1 & 2 \\
 \hline
 \end{tabular}
 
-zac = (6,0,6,3,6)
-hod = (120, 211, 212, 102, a, b, 210, 121, c)
+\hspace{5mm}
+
+$zac = (6,0,6,3,6)$ \\
+$hod = (120, 211, 212, 102, a, b, 210, 121, c)$
 
 Kdy¾ $M(i,j)$ je významné místo, pak $M(i,j) = hod(zac(i+sl(j)) + j)$.
 
@@ -586,12 +622,17 @@ rd & 6 & 0 & 6 & 3 & 6 \\
 \end{tabular}
 \par
 
+\hspace{3mm}
+
 \begin{tabular}{|l|lllllllll|}
 \hline
 hod & 120 & 211 & 212 & 102 & a & b & 210 & 121 & c \\
 \hline
 \end{tabular}
-\par
+
+\hspace{3mm}
+
+\end{priklad}
 
 Jak najdeme nazpátek místa ? Platí, kdy¾ $M_{i,j} \neq NIL$, pak
 $hod(rd(i+cd(j)+j)) = M_{i,j}$
