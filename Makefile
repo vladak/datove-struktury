@@ -31,6 +31,7 @@ dist: $(MAIN).pdf $(MAIN).ps
 	  exit 1; \
 	fi
 	cp $(MAIN).pdf $(MAIN).ps $(DISTDIR)
+	sh snapdate.sh $(HTMLFILE)
 	cd $(DISTDIR) && cvs commit
 
 src-dist:
