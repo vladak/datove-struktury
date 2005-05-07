@@ -251,7 +251,7 @@ struktura pro výpoèet $f$ potøebuje
 \IF {$x \not\in A$} 
   \STATE nalezneme nejmen¹í $j$, ¾e $A_j = \emptyset$
 \ENDIF
-\STATE $A_j = \{x\} \cup \bigcup{i<j} A_i, A_i = \emptyset pro i<j$
+\STATE $A_j = \{x\} \cup \bigcup{i<j} A_i, A_i = \emptyset$ pro $i<j$
 \STATE vytvoøíme strukturu $S$ spojový seznam pro $A_j$
 \STATE $x$ pøidáme do reprezentace $A$.
 \end{algorithmic}
@@ -523,7 +523,7 @@ Pro INSERT je $O(\frac{log(n)}{log \frac{K(n)}{log(n)} }
 \end{theorem}
 
 \begin{proof}
-viz \cite{mehlhorn-overmars}
+viz \cite{mehlhorn-overmars}.
 \end{proof}
 
 % dynamizace ----------------------------------------------------------

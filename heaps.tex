@@ -132,6 +132,8 @@ $O(dh)$.
 
 \subsubsection{DELETEMIN}
 
+viz algoritmus~\ref{alg:heap.dreg.deletemin}.
+
 \begin{algorithm}[!htb]
 \caption{DELETEMIN pro d-regulární haldy}
 \label{alg:heap.dreg.deletemin}
@@ -146,7 +148,8 @@ $O(dh)$.
 
 Provedení této operace pøedpokládá, ¾e musíme znát polohu vrcholu $t$
 reprezentujícího $x$, toto halda neumo¾òuje nalézt. 
-\par
+
+viz algoritmus~\ref{alg:heap.dreg.decrkey}.
 
 \begin{algorithm}[!htb]
 \caption{DECREASEKEY pro d-regulární haldy}
@@ -159,7 +162,7 @@ reprezentujícího $x$, toto halda neumo¾òuje nalézt.
 
 \subsubsection{INCREASEKEY$(x, \Delta)$}
 
-Musíme znát polohu vrcholu t reprezentujícího x, 
+Musíme znát polohu vrcholu $t$ reprezentujícího $x$, 
 toto halda neumo¾òuje nalézt.
 
 \begin{algorithm}[!htb]
@@ -211,6 +214,7 @@ V d-reg. haldì reprezentující n-prvkovou mno¾inu implementace operací
 vy¾aduje èasy dané tabulkou: \\
 \par
 
+\begin{center}
 \begin{tabular}{|l|l|}
 \hline
 Operace & slo¾itost \\
@@ -221,7 +225,7 @@ DELETEMIN, INCREASEKEY, DELETE & $O(d \cdot log_d(n))$ \\
 \hline
 \par
 \end{tabular}
-\\
+\end{center}
 
 Máme vrchol v $i$-té hladinì a "d-reg. strom" má hloubku $h$. 
 Kolik èasu potøebuje DOWN($t$) ?
@@ -774,6 +778,8 @@ DELETEMIN a MIN vy¾adují èas $O(\text{poèet stromù v haldì})$.
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
+Operace & Amort. slo¾itost \\
+\hline
 MERGE & $O(1)$ \\
 INSERT & $O(1)$ \\
 MIN & $O(log n)$ \\
@@ -841,11 +847,13 @@ amortizovaná slo¾itost $O(1)$.
 \begin{pozn}
 Pomocí \emph{úèetní metody} doká¾eme, ¾e to platí: \\
 Pøi odøezávání syna vrcholu $x$ zaplatí operace DECREASE\_KEY
+\begin{samepage}
 \begin{itemize}
   \item 2 jednotky na úèet $x$
   \item 1 jednotku ba úèet vzniklého stromu
   \item 1 jednotku za práci (odøíznutí a zaøazení)
 \end{itemize}
+\end{samepage}
 
 Pøi odøíznutí druhého syna jsou na úètu vrcholu $x$ 4 jednotky
 $\Rightarrow$ mohu zopakovat body 1) - 3).

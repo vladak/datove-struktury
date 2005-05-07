@@ -101,11 +101,11 @@
 \contentsline {subsection}{\numberline {7.3.4}Hled\'an\IeC {\'\i } $k$}{65}{subsection.7.3.4}
 \contentsline {section}{\numberline {7.4}AVL stromy}{66}{section.7.4}
 \contentsline {subsection}{\numberline {7.4.1}Algoritmus INSERT}{67}{subsection.7.4.1}
-\contentsline {subsection}{\numberline {7.4.2}Algoritmus DELETE}{68}{subsection.7.4.2}
+\contentsline {subsection}{\numberline {7.4.2}Algoritmus DELETE}{69}{subsection.7.4.2}
 \contentsline {section}{\numberline {7.5}\v Cerveno\v cern\'e stromy}{69}{section.7.5}
 \contentsline {subsection}{\numberline {7.5.1}Operace INSERT}{70}{subsection.7.5.1}
 \contentsline {subsection}{\numberline {7.5.2}Operace DELETE}{73}{subsection.7.5.2}
-\contentsline {subsection}{\numberline {7.5.3}Z\'av\v ery}{76}{subsection.7.5.3}
+\contentsline {subsection}{\numberline {7.5.3}Z\'av\v ery}{75}{subsection.7.5.3}
 \contentsline {chapter}{\numberline {8}$(a,b)$ stromy}{77}{chapter.8}
 \contentsline {section}{\numberline {8.1}Z\'akladn\IeC {\'\i } varianta}{77}{section.8.1}
 \contentsline {subsection}{\numberline {8.1.1}Reprezentace mno\v ziny $S$ $(a,b)$ stromem}{78}{subsection.8.1.1}

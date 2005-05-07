@@ -42,7 +42,7 @@ $<s_{i-1}, s_i>$.
 \begin{priklad}
 
 Nech» $S = \{ 1, 7, 12, 15, 24, 81 \}$. Binární vyhledávací strom
-reprezentující mno¾inu $S$ je na obr. \ref{XXX}
+reprezentující mno¾inu $S$ je na obr.~\ref{fig.bvs.example}.
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/bvs}
@@ -54,7 +54,7 @@ reprezentující mno¾inu $S$ je na obr. \ref{XXX}
 
 \begin{pozn}
 V listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje tyto
-intervaly. (viz obr. \ref{fig.bvs.example}) Tato vazba je v jendotlivými
+intervaly. (viz obr.~\ref{fig.bvs.example}) Tato vazba je v jednotlivými
 operacemi udr¾ována.
 % (updatuje se to samo XXX reword)
 \end{pozn}
@@ -76,35 +76,35 @@ operacemi udr¾ována.
 \end{algorithmic}
 \end{algorithm}
 
+
 \subsection{Algoritmus INSERT}
 
-XXX dopsat podle nìjakého dùvìryhodného zdroje
-
-% tohle je pouze pokus o alg.
-\begin{itemize}
-\item najdi list kam patøí $x$ ($x_{i-1} < x < x_i$)
-\item udìlej z nìj vnitøní vrchol s hodnotou $x$
-\item pøidej mu dva syny s intervaly $<x_{i-1}, x> , <x, x_i>$
-\item uprav strukturální podmínku na strom
-\end{itemize}
+\mnote{tohle je pouze pokus o alg. 
+XXX dopsat podle nìjakého dùvìryhodného zdroje !}
+\begin{enumerate}
+  \item najdi list kam patøí $x$ ($x_{i-1} < x < x_i$)
+  \item udìlej z nìj vnitøní vrchol s hodnotou $x$
+  \item pøidej mu dva syny s intervaly $<x_{i-1}, x> , <x, x_i>$
+  \item uprav strukturální podmínku na strom
+\end{enumerate}
 
 
 \subsection{Algoritmus DELETE}
 
 DELETE(x) provedeme následovnì: 
 
-\begin{itemize}
-\item nalezneme $x$ (vrchol reprezentující $x$)
-\item pokud jeden jeho syn je list, pak odstraníme vrchol + syna, který je
-  list, druhý syn nahradí odstranìný vrchol
+\begin{enumerate}
+  \item nalezneme $x$ (vrchol reprezentující $x$)
+  \item pokud jeden jeho syn je list, pak odstraníme vrchol + syna, který je
+    list, druhý syn nahradí odstranìný vrchol
 \mnote{co kdy¾ oba synové jsou listy ?}
-\item pokud ¾ádný jeho syn není list, pak:
-  nalezneme vrchol $u$, reprezentující nejmen¹í prvek v $S$ vìt¹í ne¾ $x$.
-  levý syn tohoto vrcholu je list.
-  pøemístíme prvek reprezentovaný tímto vrcholem do vrcholu
-  reprezentujícího $x$ odstraníme $u$ a jeho levého syna, pravého syna $u$ dáme
-  na místo $u$.
-\end{itemize}
+  \item pokud ¾ádný jeho syn není list, pak:
+    nalezneme vrchol $u$, reprezentující nejmen¹í prvek v $S$ vìt¹í ne¾ $x$.
+    levý syn tohoto vrcholu je list.
+    pøemístíme prvek reprezentovaný tímto vrcholem do vrcholu
+    reprezentujícího $x$ odstraníme $u$ a jeho levého syna, pravého syna
+    $u$ dáme na místo $u$.
+\end{enumerate}
 
 Jak nalezneme vrchol reprezentující nejmen¹í prvek v $S$ vìt¹í ne¾ $x$ ?
 Jsme ve vrcholu $t$ reprezentujícím $x$ a hledáme vrchol $u$:
@@ -211,7 +211,7 @@ $$
 hod(T_{i,k-1}) + hod(T_{k+1,j})
 \leq min\{hod(T_{i,k'-1}) + hod(T_{k'+1,j}), i \leq k' \leq j\}
 $$
-, pak $\exists$ opt. bin. vyhl. strom pro $S_{i,j}$,
+pak $\exists$ opt. bin. vyhl. strom pro $S_{i,j}$,
 jeho¾ koøen reprezentuje $x_k$.
 \end{pozorov}
 
@@ -265,7 +265,7 @@ v èase $O(n^3)$ a vy¾aduje $O(n^2)$ pamìti.
 
 $K_{i,j} \leq K_{i,j+1} \leq K_{i+1,j+1}$
 
-XXX obr. matice
+\mnote{XXX obr. matice}
 
 \subsubsection{Konstrukce opt. bin. vyhl, stromu ze znalosti matice $K$}
 \begin{itemize}
@@ -849,12 +849,16 @@ kopmromisem mohou být právì AVL-stromy.
 AVL stromy jsou nazvané podle jmen jejich tvùrcù Adison-Vesley-Landis. 
 
 \begin{defn}
-Nech» v je vnitøní vrchol stromu T. Pak \\
-$l(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu levého syna $v$ \\
-$p(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu pravého syna
-$v$. Pokud takový podstrom neexistuje, polo¾me $l(v)$ resp. $p(v)$ rovno $-1$.
+Nech» v je vnitøní vrchol stromu T. Potom 
+\begin{itemize}
+  \item $l(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu 
+  	levého syna $v$.
+  \item $p(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu 
+  	pravého syna $v$. 
+\end{itemize}
+Pokud takový podstrom neexistuje, polo¾me $l(v)$ resp. $p(v)$ rovno $-1$.
 Dále oznaème $b(v) = l(v) - p(v)$. Vrchol $v$ nazveme vyvá¾ený, jestli¾e
-$b(v)$ nebývá hodnot $-1$, $0$ nebo $1$.
+$b(v)$ nabývá hodnot $-1$, $0$ nebo $1$.
 \end{defn}
 
 \begin{defn}
@@ -882,7 +886,7 @@ $h \leq 2 \log N(h)$. Nerovnost $N(h) \geq 2^{h/2}$ doká¾eme indukcí:
 \begin{enumerate}
 \item $N(0) = 1 \geq 2^{0/2} = 1$ \\
    $N(1) = 2 \geq 2^{1/2}$
-\item $N(h) \geq 2 N(h-2) \geq 2 2^{h/(2-1)} = 2^{h/2}$
+\item $N(h) \geq 2 N(h-2) \geq 2 \cdot 2^{h/(2-1)} = 2^{h/2}$
 \end{enumerate}
 
 V¹echny vrcholy AVL stromu jsou tedy vyvá¾ené. Nevyvá¾ené vrcholy mohou
@@ -890,6 +894,7 @@ vzniknout pøi operacích INSERT a DELETE. Pøi tom se mù¾e hodnota $b(v)$
 zmìnit maximálnì o jednièku. Hodnota $b(v)$ nevyvá¾eného vrcholu bude tedy
 $-2$ nebo $2$.
 \end{proof}
+
 
 \subsection{Algoritmus INSERT}
 
@@ -931,24 +936,26 @@ $T_{2}'$,
 nebo do $T_{2}"$. Pøi vkládání nového vrcholu do pravého podstromu vrcholu
 x se pro vyvá¾ení pou¾ívají rotace RR-rotace a RL-rotace, které jsou 
 symetrické k ji¾ uvedeným rotacím.
-\par
+
+\begin{samepage}
 LL-rotaci a RR-rotaci se také nìkdy øíká jednoduchá rotace, kde¾to
 LR-rotaci a RL-rotaci se øíká dvojitá rotace. V¹imnìte si, ¾e po rotaci je
 vý¹ka podstromu, se kterým se rotace provádìla, stejná jako jeho vý¹ka
 pøed vlo¾ením nového vrcholu. Tedy po rotaci není naru¹ena vyvá¾enost
 nìjakého pøedka. Staèí tedy vyvá¾it ten nevyvá¾ený vrchol, který je ve
 stromu nejní¾e. Pokusme se nyní charakterizovat ten vrchol, který je tøeba
-vyvá¾it. Samozøejmì, ¾e tento vrchol $x$ le¾í na cestì od koøene k pøidanému
+vyvá¾it. Samozøejmì, ¾e vrchol $x$ le¾í na cestì od koøene k pøidanému
 vrcholu a platí:
 \begin{itemize}
 \item buï $b(x)=1$ a nový vrchol je pøidáván vlevo od $x$
 \item nebo $b(x)=-1$ a nový vrchol je pøidáván vpravo od $x$
 \end{itemize}
-\par
+\end{samepage}
+
 Navíc pro ka¾dý vrchol $y$ na cestì od $x$ do pøidaného listu je $b(y)=0$,
 nebo» jinak by byl sám nevyvá¾ený, nebo by nezmìnil svou vý¹ku a tedy 
 by nebylo tøeba vyva¾ovat ani $x$.
-\par
+
 Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
 
 \begin{algorithm}[!htb]
@@ -1372,10 +1379,19 @@ operace pro $(2,4)$-stromy neodpovídají aktualizaèním operacím na
 Èervenoèerné stromy se pou¾ívají napøíklad ve 
 \href{http://www.sgi.com/tech/stl/}%
 standardní ¹ablonové knihovnì jazyka C++ od SGI, 
-která je zahrnuta do GCC. Máte-li Linux, zkuste se podívat do
-\path{/usr/include/g++-2/stl\_tree.h}; pokud pou¾íváte OpenBSD, najdete
-implementaci jak èervenoèerných, tak splay stromù v
-\path{/usr/include/sys/tree.h}.
-\footnote{A pokud víte o podobnì dostupných implementacích jiných
-datových struktur z téhle pøedná¹ky, sem s nimi!}
+která je zahrnuta do GCC\footnote{Máte-li Linux, zkuste se podívat do
+\path{/usr/include/g++-2/stl\_tree.h}; 
+%pokud pou¾íváte OpenBSD, najdete
+%implementaci jak èervenoèerných, tak splay stromù v
+%\path{/usr/include/sys/tree.h}.
+Co se týèe "real-world" aplikací èerveno-èerných stromù, je mo¾né zmínit
+packet filter (PF) v OpenBSD, kde se tyto stromy pou¾ívají k reprezentaci
+pravidel pro firewall. Pro firewally je èas vyhodnocení jednotlivých
+paketù proti pravidlùm kritický. Zajímavé je, ¾e pùvodní implementaci PF
+pou¾ívala AVL stromy. Èerveno-èerné stromy se ukázaly jako výhodnìj¹í.
+Implementaci èerveno-èerných stromù lze v OpenBSD najít v 
+\path{/usr/include/sys/tree.h} v podobì maker jazyka C. Tento soubor 
+obsahuje rovnì¾ makra pro implementaci Splay stromù.
+A pokud víte o podobnì dostupných implementacích jiných
+datových struktur z téhle pøedná¹ky, sem s nimi !}.
 
