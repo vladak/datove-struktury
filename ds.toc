@@ -32,10 +32,10 @@
 \contentsline {section}{\numberline {3.7}Sr\r ustaj\IeC {\'\i }c\IeC {\'\i } ha\v sov\'an\IeC {\'\i } (standardn\IeC {\'\i }: LISCH a EISCH)}{19}{section.3.7}
 \contentsline {subsection}{\numberline {3.7.1}Algoritmus INSERT}{19}{subsection.3.7.1}
 \contentsline {section}{\numberline {3.8}Sr\r ustaj\IeC {\'\i }c\IeC {\'\i } ha\v sov\'an\IeC {\'\i } s pomocnou pam\v et\IeC {\'\i } (obecn\'e: LICH, EICH, VICH)}{20}{section.3.8}
-\contentsline {subsection}{\numberline {3.8.1}Operace DELETE}{21}{subsection.3.8.1}
-\contentsline {subsection}{\numberline {3.8.2}Srovn\'avac\IeC {\'\i } graf}{22}{subsection.3.8.2}
-\contentsline {section}{\numberline {3.9}Srovn\'an\IeC {\'\i } metod}{22}{section.3.9}
-\contentsline {section}{\numberline {3.10}P\v reha\v sov\'av\'an\IeC {\'\i }}{23}{section.3.10}
+\contentsline {subsection}{\numberline {3.8.1}Operace DELETE}{20}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Srovn\'avac\IeC {\'\i } graf}{21}{subsection.3.8.2}
+\contentsline {section}{\numberline {3.9}Srovn\'an\IeC {\'\i } metod}{21}{section.3.9}
+\contentsline {section}{\numberline {3.10}P\v reha\v sov\'av\'an\IeC {\'\i }}{22}{section.3.10}
 \contentsline {subsection}{\numberline {3.10.1}MEMBER}{23}{subsection.3.10.1}
 \contentsline {subsection}{\numberline {3.10.2}INSERT}{23}{subsection.3.10.2}
 \contentsline {subsection}{\numberline {3.10.3}DELETE}{23}{subsection.3.10.3}
@@ -197,3 +197,4 @@
 \contentsline {subsection}{\numberline {11.3.3}\v Cas pro v\'ypo\v cet $f$}{131}{subsection.11.3.3}
 \contentsline {subsection}{\numberline {11.3.4}Amortizovan\'y \v cas operace DELETE}{132}{subsection.11.3.4}
 \contentsline {subsection}{\numberline {11.3.5}Amortizovan\'y \v cas operace INSERT}{133}{subsection.11.3.5}
+\contentsline {chapter}{Literatura}{134}{section*.36}

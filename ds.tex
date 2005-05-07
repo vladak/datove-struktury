@@ -18,6 +18,9 @@
 \usepackage{graphicx} % graphic files
 \usepackage{a4wide}
 
+% nechci aby se ToC objevoval v ToC
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+
 % poznamky na okraji
 \usepackage[textwidth=15cm, marginparwidth=2cm]{geometry}
 \marginparsep=0.7cm
@@ -127,8 +130,17 @@ Martin Vidner {\tt <mvidner@atlas.cz>}}
 %\end{center}
 % \maketitle
 
-  \end{center}
   \vskip 0 pt plus .5 fill\relax
+
+  %\hline
+  {\Large\bf Universita Karlova} 
+  \vskip 5 pt\relax
+  {\large\bf Matematicko-fyzikální fakulta}
+
+  \vskip 10 pt\relax
+  {\large 2004}
+
+  \end{center}
 \end{titlepage}
 
 
@@ -136,7 +148,7 @@ Martin Vidner {\tt <mvidner@atlas.cz>}}
 \tableofcontents
 %\listofalgorithms
 
-% XXX uvod ke skriptum
+% uvod ke skriptum
 \chapter*{Pøedmluva\markboth{Pøedmluva}{}}
 
 Kdy¾ jsem se nìkdy na zaèátku r. 2002 rozhodl doplnit pùvodní 
@@ -158,9 +170,10 @@ Stále je ov¹em pravdìpodobné, ¾e skripta obsahují i vá¾nìj¹í chyby. Pokud
 nìjaké pøi uèení najdete, zkuste mi napsat.
 
 Skripta mù¾e èíst prakticky ka¾dý, kdo je obeznámen se základy teoretické
-informatiky, rozhodnì ale doporuèuji absolvovat pøedmìty 'Úvod do teorie
-pravdìpodobnosti' a 'Úvod do slo¾itosti a NP-úplnosti'. První se vám bude
-hodit pøi dùkazech, druhý pøi obecném chápání algoritmù.
+informatiky, rozhodnì ale doporuèuji absolvovat pøedmìty '\emph{Úvod do teorie
+pravdìpodobnosti}' a '\emph{Úvod do slo¾itosti a NP-úplnosti}' nebo jejich
+ekvivalenty. 
+První se vám bude hodit pøi dùkazech, druhý pøi obecném chápání algoritmù.
 
 Obsahovì skripta pokrývají pøedná¹ky Datové struktury I a II 
 RNDr. Václava Koubka, DrSc. Navíc jsou pøidány nìkteré vìci, pøedná¹ené
@@ -183,8 +196,10 @@ Podìkování patøí následujícím lidem:
 \begin{itemize}
   \item Martin Vidner \\ 
   	pùvodní verze skript (kapitoly Ha¹ování I,II, XXX)
-  \item Li¹ák, Jéòa, ®abièka, Jindøich (XXX co to je za lidi?), Martin Mare¹, 
-	Pavel Machek, Jakub Èerný \\
+  \item Li¹ák, Jéòa, ®abièka, Jindøich\footnote{Lidé, kterým dìkoval
+  	Martin Vidner. Identita tìchto jedincù zøejmì zùstane nav¾dy
+	utajena.}, 
+  	Martin Mare¹, Pavel Machek, Jakub Èerný \\
 	opravy a dodatky v pùvodní verzi skript
   \item Martin Maèok \\
   	faktické opravy
@@ -205,7 +220,7 @@ Nìkteré èásti skript byly volnì pøevzaty ze zdrojù jiných ne¾ z
 originální pøedná¹ky Datové struktury. Konkrétnì èásti sekcí o
 binomiálních a fibonacciho haldách byly inspirovány pøedná¹kou O. Èepka,
 sekce o splay stromech byla èásteènì pøevzata z textù FIT VUTBR.
-Sekce o semioptimálních vyhledávacích stromech je tvoøena referátem L.
+Sekce o semi-optimálních vyhledávacích stromech je tvoøena referátem L.
 Strojila. Sekce o AVL stromech vznikla kompilací a doplnìním materiálù z
 webu.
 
@@ -241,10 +256,27 @@ webu.
 
 % ==========================================================================
 
-\begin{thebibliography}{99}
-\bibitem{mehlhorn} Mehlhorn, Kurt. \emph{Data Structures And Algorithms}, Springer Verlag, '83 
-\bibitem{mehlhorn-overmars} K. Mehlhorn, M. H. Overmars
-  \emph{Optimal Dynamization of Decomposable Searching Problems}
+\begin{thebibliography}{X}
+%\begin{thebibliography}{99}
+\bibitem{mehlhorn} 
+Mehlhorn, Kurt. (1983): \emph{Data Structures And Algorithms}, 
+Springer Verlag
+
+\bibitem{mehlhorn-overmars} 
+Mehlhorn K., Overmars M. H. (XXX):
+\emph{Optimal Dynamization of Decomposable Searching Problems}
+
+\bibitem{douglas-GPERF}
+Douglas C. Schmidt (1990): 
+\emph{GPERF: A Perfect Hash Function Generator},
+in Proceedings of the 2nd C++ Conference, 
+San Francisco, California, USENIX, pp. 87--102.
+Èlánek se dá stáhnout z 
+\htmladdnormallink
+{citeseer}
+{http://citeseer.nj.nec.com/schmidt90gperf.html}.
+
+
 \end{thebibliography}
 
 \end{document}

@@ -1,4 +1,56 @@
 
+
+Vojta Havranek
+vojtic@volny.cz
+
+
+Ahoj Vlado,
+
+moc diky za ty skripta na datovky, nevim co bych si bez nich pocal. Ze
+zacatku(kdyz jsem mel jeste dost casu a skripta cetl bedlive :) ), tak
+jsem narazil na nekolik mist, kde si myslim, ze jsou chyby(nekdy jsou to
+jen drobnosti, nebo jsem to mozna jen nepochopil). V texu neumim vubec
+nic, tak ti jenom pisu, co mi prijde podezrely, snad ti to k necemu bude:
+
+1) sekce 3.1.4, posledni odhad EMS:
+
+j0 + Suma(n/j0! * J0!/J!) <= j0 + Suma(j0!/j!)
+
+-nerovnost podle me neplati, potrebovali bysme j0!>=n plati ale opak
+
+- k oprave podle me staci nahradit j0 v sume j0+1
+
+2) u dukazu V 4.1.1 chybi predpokladat, ze x a y jsou ruzne
+
+3)zneni V 4.1.2, ma tam bejt delta_h(x,S) misto delta_h(x,y)
+
+4)zneni V 4.1.4, chybi tam predpoklad, ze ocekavana hodnota X je nenulova,
+jinak to neplati
+
+5)4.3.1, vyraz (4.10) - dat tu vnitrni sumu do zavorky, mam dojem, ze tam
+faliruje priorita
+
+6)6.1 definice finterp je podle me spatne, zlomek se nema nasobit (h-d+1)
+ale jen (h-d)
+
+napr. kdyby x==s(h), tak ho tim interpolacnim krokem preskocime
+
+je to potreba opravit dvakrat, jednou v ty tabulce funkci a v algoritmu
+6.2 delka:=...
+
+7)algoritmus 7.2 mi prijde nejakej zluklej, funkcnejsi verze je asi v
+zapiscich Lenky Novotne na
+http://mff.modry.cz/datovky/zapisky/Lenka/ slajd 45
+
+i kdyz ani tam si nejsem tak uplne jist ... :)
+
+Tak to je vse, pak uz jsem zjistil, ze nestiham, a jen jsem to
+rychle prolitl :).
+
+Vojta Havranek
+
+----------------------------------------------------------------------------
+
 - doplnit vypocet odhadu pro usp./neusp. pripad k EISCH, LISCH, ...
 - dodelat obrazky k (a,b)-stromum, externimu hashovani, ...
 
