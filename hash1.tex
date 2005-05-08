@@ -110,6 +110,7 @@ je stejná jako oèekávaná délka seznamu.
 Ale pozor na prázdný seznam, u nìj nedosáhneme nulového èasu operace. 
 Uká¾eme, ¾e oèekávaná doba operace je konstantní.
 
+\begin{samepage}
 Pøedpoklady:
 \begin{enumerate}
 \item $h$ rozdìluje prvky $U$ do seznamù nezávisle a rovnomìrnì
@@ -120,6 +121,7 @@ poèty prvkù $S$ zobrazených na $i$ a $j$ li¹í nejvý¹ o 1.
 $S$ má stejnou pravdìpodobnost. To je dost omezující, proto¾e na
 rozdíl od ha¹ovací funkce nejsme schopni $S$ ovlivnit.
 \end{enumerate}
+\end{samepage}
 
 % ..........................................................................
 \subsection{Oèekávaná délka seznamu}
@@ -402,14 +404,16 @@ Pøi ha¹ování s pøesuny ztrácíme èas právì tìmi pøesuny, obzvlá¹tì,
 kdy¾ jsou záznamy velké. To motivuje následující implementaci 
 ha¹ování s øetìzci.
 
-Pou¾ijeme dva ukazatele, {\tt vpøed} a {\tt zaèátek}. 
-{\tt T[i].vpøed} je index následujícího prvku v øetìzci, který je zde
-ulo¾en. (Nemusí to být øetìzec s $h(x)=i$.)
-{\tt T[i].zaèátek} je index zaèátku øetìzce, který obsahuje prvky,
-jejich¾ $h(x)=i$.
+Pou¾ijeme dva ukazatele, {\tt vpøed} a {\tt zaèátek}:
+\begin{itemize}
+  \item {\tt T[i].vpøed} je index následujícího prvku v øetìzci, 
+  	který je zde ulo¾en. (Nemusí to být øetìzec s $h(x)=i$.)
+  \item {\tt T[i].zaèátek} je index zaèátku øetìzce, který obsahuje
+  	prvky, jejich¾ $h(x)=i$.
+\end{itemize}
 
 \begin{priklad}
-Ukládáme 50, 90, 31, 60:
+Nech» $h(x) = x \bmod 10$. Ukládáme prvky 50, 90, 31, 60:
 
 \vspace{5mm}
 
@@ -902,8 +906,8 @@ viz algoritmus \ref{alg:hash1.srust.pomoc.delete}
 \begin{enumerate}
 \item spoèítáme $h(x)$ a prohledáme øetìzec zaèínající na adrese $h(x)$. \\
 kdy¾ neobsahuje $x$ $\rightarrow$ konec.
-\item kdy¾ $x$ je na adrese $h(x)$ a øetìzci následuje prvek v pomocné èásti
-tabulky (sklepì) - odstraníme x, prvek, který následuje za $x$ pøesuneme 
+\item kdy¾ $x$ je na adrese $h(x)$ a v øetìzci následuje prvek v pomocné èásti
+tabulky (sklepì) - odstraníme $x$. Prvek, který následuje za $x$ pøesuneme 
 na místo $h(x)$ a uvolníme jeho místo - konec.
 \item $x$ je ve sklepì - zjístíme, zda se nachází v øetìzci mimo sklep prvek
 s ha¹ovací hodnotou $h(x)$ - pokud neexistuje, pøesuneme poslední prvek v
@@ -1088,7 +1092,15 @@ dìlá.
 
 Máme ha¹ovací funkce: $h_0$ ha¹uje do tabulky velikosti $m = 2^0 m$,
 $h_1$ do $2m = 2^1 m$, $h_2$ do $4m = 2^2 m$ \ldots, $h_i$ do $2^i
-m$. Mno¾inu $S$ reprezentujeme takto:
+m$.
+
+% opet, samepage nezafungovalo
+%\pagebreak
+\vspace{10mm}
+
+\begin{samepage}
+\noindent
+Mno¾inu $S$ reprezentujeme takto:
 
 Ulo¾ena je velikost $S$ a èíslo $i$ takové, ¾e
 \begin{equation}
@@ -1096,6 +1108,7 @@ Ulo¾ena je velikost $S$ a èíslo $i$ takové, ¾e
 2^{i-2} m < |S| < 2^i m
 \end{equation}
 a S je zaha¹ována funkcí $h_i$.
+\end{samepage}
 
 \subsection{MEMBER}
 

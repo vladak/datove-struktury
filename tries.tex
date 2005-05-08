@@ -875,19 +875,19 @@ smysluplné kdy¾ $d \ll n$ a $t < n$ (napø. $d = \log \log n)$)
 
 Platí následující vztahy: 
 \begin{enumerate}
-\item $v(h) = 0 \leftrightarrow offset(h {\tt div} d, h {\tt mod} d) = -1$
+\item $v(h) = 0 \leftrightarrow offset(h {\tt div} d, h \bmod d) = -1$
 \item $v(h) = 1 \rightarrow h = base(h {\tt div} d) + offset(h {\tt div} d, h
-{\tt mod} d)$
-\item $offset(i, j) = off(i) {\tt div} (d+1)^j {\tt mod} (d+1) - 1$
+\bmod d)$
+\item $offset(i, j) = off(i) {\tt div} (d+1)^j \bmod (d+1) - 1$
 \end{enumerate}
 \par
 
 pro dané $i$ - nalezení hodnoty $v(i)$
 kdy¾ $base(i {\tt div } d) = -1$, pak $v(i) = 0$ \\
-$base(i {\tt div } d) \neq -1$, pak $k = i {\tt mod } d$ \\
+$base(i {\tt div } d) \neq -1$, pak $k = i \bmod d$ \\
 $j = i {\tt div } d$ \\
 $l = off(j) {\tt div } (d+1)^k$ \\
-$l = l {\tt mod } (d+1)$ \\
+$l = l \bmod (d+1)$ \\
 $l = l - 1 + base(j)$ \\
 $v(i) = cv(l)$ \\
 
