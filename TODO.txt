@@ -148,6 +148,7 @@ Stranka 20 - ta tabulka nahore, prvek 42 je asi "spatne umisten"(neda se
 na nej dostat ze 2)
 
 Stranka 24 - misto delta(x,y) asi delta(x,S)
+- DONE (opraveno)
 
 Stranka 49 - tabulka dole moc siroka a zacina s odrazkou
 
