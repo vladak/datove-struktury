@@ -3,12 +3,14 @@
 
 
 \chapter{Binární vyhledávací stromy}
+\label{bvs}
 % --------------------------------------------------------------------------
 % by Vladimir Kotal, 2004
 
 
 % ..........................................................................
 \section{Obecnì}
+\label{bvs:obecne}
 
 \begin{defn}
 \emph{Binární vyhledávací strom} reprezentující mno¾inu $S$ je takový 
@@ -54,9 +56,8 @@ reprezentující mno¾inu $S$ je na obr.~\ref{fig.bvs.example}.
 
 \begin{pozn}
 V listech máme jen intervaly, ka¾dý vrchol implicitnì urèuje tyto
-intervaly. (viz obr.~\ref{fig.bvs.example}) Tato vazba je v jednotlivými
+intervaly. (viz obr.~\ref{fig.bvs.example}) Tato vazba je jednotlivými
 operacemi udr¾ována.
-% (updatuje se to samo XXX reword)
 \end{pozn}
 
 \subsection{Algoritmus MEMBER}
@@ -66,7 +67,7 @@ operacemi udr¾ována.
 \label{alg:btr.mem}
 \begin{algorithmic}
 \STATE $t \leftarrow$ koøen
-\WHILE {$t$ \text{není list} \text{ a } $t$ \text{nereprezentuje} $x$} 
+\WHILE {$t$ \text{není list a zároveò} $t$ \text{nereprezentuje} $x$} 
 \IF {$x >$ \text{prvek reprezentovaný} $t$}
   \STATE $t \leftarrow$ pravý syn
 \ELSE 
@@ -121,6 +122,10 @@ $O(\text{délka stromu}) = O(\text{vý¹ka stromu})$.
 
 % --------------------------------------------------------------------------
 \section{Optimální binární vyhledávací stromy}
+
+Budeme chtít reprezentaci binárního vyhledávacího stromu takovou, ¾e 
+bude optimalizovaná vzhledem k operaci MEMBER za pøedpokladu, ¾e známe
+pravdìpodobnost provedení této operace na jednotlivé vrcholy stromu.
 
 \subsection{Co je to optimální binární vyhledávací strom}
 
@@ -284,14 +289,13 @@ matice $K$, strom takto zkonstruujeme v èase $O(n)$.
 XXX slouèit s èástí pøedch subsekce
 
 Chceme sní¾it ryhchlost konstrukce opt. bin. vyhl. stromu z kubické na
-kvadratickou. Pro tento úkol pou¾ijeme kvadratické programování. Pomocí
-této techniky lze modifikovat algoritmus pro konstrukci opt. bin. vyhl.
-strou tak, ¾e bude mít místo slo¾itosti $O(n^3)$ slo¾itost $O(n^2)$.
+kvadratickou. Pro tento úkol pou¾ijeme \emph{kvadratické programování}. 
+Pomocí této techniky lze modifikovat algoritmus pro konstrukci optimální
+BVS tak, ¾e bude mít místo slo¾itosti $O(n^3)$ slo¾itost $O(n^2)$.
 
-
-
-Algoritmus pro výpoèet $H$ a $K$ jsme modifikovali, tak ¾e øádky 
-(1),(2),(3) jsme nahradili øádky (1'),(2'),(3').
+Algoritmus~\ref{alg:obvs.puv} pro výpoèet $H$ a $K$ jsme modifikovali tak,
+¾e øádky (1),(2),(3) jsme nahradili øádky (1'),(2'),(3'). Tím vznikl
+algoritmus~\ref{alg:obvs.modif}.
 
 \begin{algorithm}[!htb]
 \caption{Modifikovaný algoritmus pro výpoèet matic H, K}
@@ -305,7 +309,7 @@ Algoritmus pro výpoèet $H$ a $K$ jsme modifikovali, tak ¾e øádky
   \STATE $i = 1$
   \WHILE {$i+j \leq n$}
     \STATE $m = K_{i,i} + j, hod = H_{i,m-1} + H_{m+i,i+j}$ (1')
-    \STATE $k = K_{i,i+j} + 1$ (2')
+    \STATE $k = K_{i,i+j} + 1$ (2') 
     \WHILE {$k \leq K_{i+1,j+1}$ (3')} 
       \IF {$hod > H_{i,k-1} + H_{k+1,i+j}$}
         \STATE $hod = H_{i,k-1}+H_{k+1,i+j}$
@@ -320,9 +324,6 @@ Algoritmus pro výpoèet $H$ a $K$ jsme modifikovali, tak ¾e øádky
 \end{algorithmic}
 \end{algorithm}
 
-
-
-\par
 Modifikovaný algoritmus: Tøetí vnoøený cyklus vy¾aduje èas 
 $O(K_{i+1,j+1} - K_{i,j})$. Tedy druhý vnoøený cyklus vy¾aduje èas 
 $O(K_{2,2+j} - K_{1,1+j} + K_{3,3+j} - K_{2,2+j} + K_{4,4+j} - K_{3,3+j} +

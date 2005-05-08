@@ -3,15 +3,20 @@
 
 \chapter{Trie}
 
-% --------------------------------------------------------------------------
+\emph{Trie}\footnote{Název \emph{trie} pochází z anglického 
+"re{\bf trie}val", tedy vyzvednutí. Názory na to, jak vyslovovat 
+"trie" se rùzní. V èe¹tinì se zpravidla vyslovuje tak jak se pí¹e.} 
+je rovinná implementace slovníku.
 
-\section{Základní varianta}
-
-Trie je rovinná implementace slovníku.
 Máme abecedu $\Sigma$ velikosti $k$. Universum jsou v¹echna slova nad
 $\Sigma$ délky právì $l$ (nekoneènou mno¾inu si nemù¾eme dovolit a
 krat¹í slova doplníme zprava mezerami). Chceme reprezentovat mno¾inu
 slov $S \subseteq U$.
+
+
+% --------------------------------------------------------------------------
+
+\section{Základní varianta}
 
 \begin{defn}
 \emph{Trie} nad $\Sigma$ je koneèný strom, jeho¾ ka¾dý vnitøní
@@ -27,14 +32,58 @@ slovo $\alpha a$.
 \begin{defn}
 Øekneme, ¾e trie nad $\Sigma$ \emph{reprezentuje mno¾inu} $S$, kdy¾:
 \begin{itemize}
-\item Listùm je pøiøazena boolovská funkce nále¾ení \Nal: $\Nal(t)$ je
-  true právì kdy¾ slovo, které odpovídá listu $t$, je v $S$.
-\item Kdy¾ $v$ je vnitøní vrchol trie odpovídající slovu $\alpha$, pak
-  existuje $\beta \in S$ takové, ¾e $\alpha$ je prefix $\beta$.
-\item Pro ka¾dé slovo $\alpha \in S$ existuje v trie list odpovídající
-  $\alpha$.
+  \item Listùm je pøiøazena boolovská funkce nále¾ení \Nal: $\Nal(t)$ je
+  	true právì kdy¾ slovo, které odpovídá listu $t$, je v $S$.
+  \item (\emph{prefixová podmínka}) Kdy¾ $v$ je vnitøní vrchol trie 
+	odpovídající slovu $\alpha$, pak
+  	existuje $\beta \in S$ takové, ¾e $\alpha$ je prefix $\beta$.
+  \item Pro ka¾dé slovo $\alpha \in S$ existuje v trie list odpovídající
+  	$\alpha$.
 \end{itemize}
 \end{defn}
+
+% podle http://en.wikipedia.org/wiki/Trie
+\begin{pozn}
+Na rozdíl od binárního vyhledávacího stromu (viz kapitola~\ref{bvs},
+sekce~\ref{bvs:obecne}), ¾ádný vrchol ve stromì neobsahuje ulo¾ený klíè,
+který reprezentuje. Namísto toho jeho pozice ve stromì udává klíè, který
+reprezentuje\footnote{Tato a následující poznámka jsou volnì pøevzaty z
+encyklopedie Wikipedia, heslo Trie.}. 
+Pouze nìkteré vrcholy ve stromì obsahují data - napø. pro
+implementaci slovníku s hesly by data ulo¾ená v listech obsahovala popis
+tohoho hesla\footnote{Napø. slovník spisovatelù, kde listy ve trie by
+odpovídaly jménùm jednotlivých spisovatelù a data ulo¾ená v nich by 
+obsahovala seznam jejich dìl.}.
+\end{pozn}
+
+% podle http://en.wikipedia.org/wiki/Trie
+\begin{pozn}
+Proè jsou trie výhodné ?
+
+\begin{itemize}
+  \item Vyhledávání klíèù je rychlej¹í ne¾ v BVS. Vyhledání klíèe délky
+  $m$ vy¾aduje pouze $O(m)$ èasu. Pro BVS je to $O(m^2)$ v nejhor¹ím pøípadì,
+  proto¾e se musí opakovanì porovnávat poèáteèní znaky hledaného slova.
+  Dal¹í výhoda je pou¾ití indexace pomocí znakù v operaci MEMBER.
+  \item Trie zabírají ménì místa. Proto¾e nejsou klíèe v trie ulo¾eny
+  explicitnì, pro ulo¾ení jednoho klíèe je potøeba pouze amortizovaný
+  konstantní prostor.
+  \item Pomocí trie lze jednodu¹e provádìt operaci hledání nejdel¹ího 
+  prefixu\footnote{anglicky "longest-prefix matching"}, kde potøebujeme
+  najít klíè, který má nejdel¹í shodný prefix s hledaným
+  klíèem\footnote{To se hodí napøíklad pro implementace sí»ových
+  operaèních systémù, kde je potøeba provádìt tuto operaci pro
+  hledání v routovacích tabulkách nebo tabulkách pro pøeklad adres. 
+  V pøípadì smìrovacích tabulek se posílá paket na dal¹í "hop" podle 
+  cílové adresy. Routovací tabulka obsahuje záznamy, které udávají adresu
+  sítì a adresu zaøízení, na které posílat pakety pro tuto sí» - tzv.
+  "hop". Tento "hop" se vybírá tak, aby cílová adresa paketu mìla
+  co mo¾ná nejdel¹í shodný prefix s nìjakou adresou sítì v routovací
+  tabulce.}. 
+  Dále trie dovolují asociovat jednu hodnotu s mno¾inou klíèù, které mají
+  shodný prefix\footnote{Tím, ¾e ulo¾íme data do vnitøních uzlù trie.}.
+\end{itemize}
+\end{pozn}
 
 % ..........................................................................
 \subsection{Algoritmus MEMBER}
@@ -49,13 +98,20 @@ viz algoritmus \ref{alg:trie.member}.
 \STATE $t := \text{koøen}$
 \STATE $i := 1$
 \WHILE {$t \text{ není list}$}
-        \STATE $t := t[x_i]$
+        \STATE $t := t[x_i]$ // sestup podle znaku $x_i$
         \STATE $i := i + 1$
 \ENDWHILE
 \STATE \COMMENT {test}
 \STATE \textbf{return} $\Nal(t)$
 \end{algorithmic}
 \end{algorithm}
+
+Na tomto algoritmu je zajímavé to, ¾e pou¾ívá jednotlivé znaky hledaného
+slova $x$ k indexaci v jednotlivých vrcholech trie (viz øádek s
+komentáøem ve výpisu algoritmu~\ref{alg:trie.member}.). To dovoluje najít
+vrchol do kterého se má pøi hledání sestoupit v èase $O(1)$. Tedy
+slo¾itost operace MEMBER je $O(l)$, proto¾e musíme projít nejvý¹e $l$
+vrcholù ne¾ dosáhneme listu (délka slov je nejvý¹e $l$).
 
 % ..........................................................................
 \subsection{Algoritmus INSERT}
@@ -66,7 +122,7 @@ viz algoritmus \ref{alg:trie.insert}.
 \caption{INSERT pro základní verzi trie}
 \label{alg:trie.insert}
 \begin{algorithmic}
-\STATE \COMMENT {vyhledej $x$}
+\STATE \COMMENT {vyhledej $x$ pomocí operace MEMBER(x)}
 \IF[trie nemusí být tak hluboké, jak potøebujeme] {\textbf{not} $\Nal(t)$}
         \WHILE {$i \leq l$}
                 \STATE vrcholu $t$ pøidej $k$ listù ohodnocených
@@ -79,6 +135,12 @@ viz algoritmus \ref{alg:trie.insert}.
 \end{algorithmic}
 \end{algorithm}
 
+Pøi operaci INSERT se sestupuje a¾ na úroveò délky slova, pøièem¾ se
+pøidávají nové úrovnì v pøípadì ¾e nejsou v trie pøítomny\footnote{Celkem 
+hezky si lze proces pøidávání nových hladin v rámci jedné vìtve pøedstavit 
+tak, ¾e v ka¾dé hladinì, která je novì pøidaná, "vyroste smeták" s $k$ 
+vrcholy.}.
+
 % ..........................................................................
 \subsection{Algoritmus DELETE}
 
@@ -88,7 +150,7 @@ viz algoritmus \ref{alg:trie.delete}.
 \caption{DELETE pro základní verzi trie}
 \label{alg:trie.delete}
 \begin{algorithmic}
-\STATE \COMMENT {vyhledej $x$}
+\STATE \COMMENT {vyhledej $x$ pomocí operace MEMBER(x)}
 \IF {$\Nal(t)$}
         \STATE $\Nal(t) := \textit{false}$
         \STATE $t := \text{otec } t$
@@ -102,7 +164,10 @@ viz algoritmus \ref{alg:trie.delete}.
 \end{algorithmic}
 \end{algorithm}
 
-\par
+Analogicky k operaci INSERT dochází k ru¹ení hladin v rámci jedné vìtve
+v pøípadì ¾e v¹echny
+listy v hladinì mají hodnotu $\Nal = \textit{false}$.
+
 Pou¾ili jsme obrat $t := \text{otec } t$. To lze provést buï tak, ¾e
 se vrchol kromì svých synù odkazuje i na svého otce a spotøebuje tak
 pamì» navíc, nebo se cesta z koøene do aktuálního vrcholu bìhem
