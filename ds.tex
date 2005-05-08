@@ -27,6 +27,12 @@
 
 \usepackage{placeins} % \FloatBarrier
 
+% nechci aby se poznamky pod carou prelevaly na dalsi stranku (footnote
+% split)
+% default je 100, cim vic, tim min se bude splitovat
+% hodnota 10000 splitovani vypne
+\interfootnotelinepenalty=10000
+
 \usepackage{url}% \path
 
 \usepackage{algorithmic}
@@ -215,6 +221,8 @@ Podìkování patøí následujícím lidem:
   	algoritmus pro INSERT v semidyn. systémech
   \item Michal Kováè \\
   	pøeklepy, faktické opravy
+  \item Vojta Havránek \\
+  	faktické opravy
 \end{itemize}
 
 
@@ -282,6 +290,21 @@ San Francisco, California, USENIX, pp. 87--102.
 % reference z http://penguin.ewu.edu/~trolfe/DSWpaper/
 Adel'son-Velskii G. M., Landis E. M. (1962): \emph{An Algorithm for the
 Organization of Information}, Soviet Math. Dockl.
+
+\bibitem{Topfer}
+Topfer P. (1995): Algoritmy a programovací techniky, nakl. Prometheus,
+ISBN 80-85849-83-6
+
+\bibitem{Vitter-Chen}
+% http://portal.acm.org/citation.cfm?id=2205
+% existuji jeste dalsi papers od Vitter a Chena ktere porovnavaji
+% hashovaci matody:
+% http://scholar.google.com/scholar?q=vitter+chen&ie=UTF-8&oe=UTF-8&hl=en&btnG=Search
+Chen Wen-Chin, Vitter Jeffrey Scott (1984): \emph{Analysis of new variants
+of coalesced hashing}, ACM Transactions on Database Systems (TODS) archive
+Volume 9 ,  Issue 4  (December 1984) table of contents
+Pages: 616 - 645, Year of Publication: 1984, ISSN:0362-5915, Publisher	
+ACM Press New York, NY, USA.
 
 \end{thebibliography}
 

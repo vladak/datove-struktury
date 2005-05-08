@@ -116,6 +116,7 @@ rozdíl od ha¹ovací funkce nejsme schopni $S$ ovlivnit.
 % ..........................................................................
 \subsection{Oèekávaná délka seznamu}
 
+\begin{samepage}
 Oznaème $p(\ell) = \pr(\hbox{seznam je dlouhý }\ell)$.
 
 Z pøedpokladù má $p(\ell)$ binomické rozdìlení, neboli
@@ -139,8 +140,9 @@ E
 = \alpha,
 \end{multline}
 
-kde $\alpha = n/m$ je tzv. faktor naplnìní, load factor, obvykle je dùle¾ité,
-je-li vìt¹í èi men¹í ne¾ 1.
+kde $\alpha = n/m$ je tzv.~\emph{faktor naplnìní}\footnote{anglicky
+\footnote{load factor}}, obvykle je dùle¾ité, je-li vìt¹í èi men¹í ne¾ 1.
+\end{samepage}
 
 \def\xx{
 s rozptylem
@@ -153,13 +155,14 @@ s rozptylem
 Kdy¾ máme posloupnost $P$ operací MEMBER, INSERT, DELETE splòující
 pøedpoklad rovnomìrného rozdìlení a aplikovanou na prázdnou ha¹ovací
 tabulku, pak oèekávaný èas je \( O( |P| + \frac{|P|^2}{2m} ) \)
+
 % ..........................................................................
 \subsection{Oèekávaný poèet testù}
 
 \mnote{co je to test? porovnání klíèù, nahlédnutí do tabulky?}
 Slo¾itost prohledání seznamu se mù¾e li¹it podle toho, jestli tam hledaný
-prvek je nebo není. Úspì¹ným pøípadem nazveme takovou Operaci(x), kde
-$x \in S$, neúspì¹ný pøípad je $x \notin S$. V úspì¹ném pøípadì
+prvek je nebo není. \emph{Úspì¹ným pøípadem} nazveme takovou Operaci(x), 
+kde $x \in S$, \emph{neúspì¹ný pøípad} je $x \notin S$. V úspì¹ném pøípadì
 prohledáváme prùmìrnì jenom polovinu seznamu.
 
 
@@ -218,6 +221,7 @@ Oèekávaný poèet testù pro vyhledání jednoho prvku
 % ..........................................................................
 \subsection{Oèekávaná délka nejdel¹ího seznamu}
 
+\begin{samepage}
 Známe oèekávané hodnoty, ale ty nám samy o sobì moc neøeknou. Hodila
 by se nám standardní odchylka, ta se ale slo¾itì poèítá. Místo toho
 vypoèteme oèekávaný nejhor¹í pøípad:
@@ -225,6 +229,7 @@ vypoèteme oèekávaný nejhor¹í pøípad:
 Doká¾eme, ¾e
 za pøedpokladù 1 a 2 a $|S| = n \leq m$ je oèekávaná délka maximálního
 seznamu $\text{EMS} = O( \frac{\log n}{\log\log n} )$.
+\end{samepage}
 
 Z definice 
 \[
@@ -286,7 +291,7 @@ Uspoøádání øetìzcù vylep¹í neúspì¹ný pøípad.
 Oèekávaný èas v neúspì¹ném pøípadì se od èasu v úspì¹ném pøípadì li¹í
 jen o aditivní konstantu.
 
-%(Jenom citace vìty z [VitterChen])
+%(Jenom citace vìty z \cite{Vitter-Chen})
 
 % --------------------------------------------------------------------------
 \section{Ha¹ování s pøesuny}
@@ -759,7 +764,7 @@ neúspì¹ném jsou samozøejmì shodné).
 \subsection{Algoritmus INSERT LISCH}
 \subsection{Algoritmus INSERT EISCH}
 \subsection{Oèekávaný poèet testù}
-(Jenom citace vìty z [VitterChen])
+(Jenom citace vìty z~\cite{Vitter-Chen})
 }
 
 % --------------------------------------------------------------------------
@@ -910,13 +915,16 @@ bylo v tabulce poøadí.
 
 
 \subsection{Srovnávací graf}
-\mnote{Nascanovat obrázek z Vittera a Chena}
+
+XXX
+\mnote{Nascanovat obrázek z Vittera a Chena~\cite{Vitter-Chen}}
 
 % --------------------------------------------------------------------------
 \section{Srovnání metod}
 Zde uvádíme porovnání podle poètu testù, proto¾e to se dá
 {\em vypoèítat}. Doba bìhu se musí {\em mìøit}.
 
+\begin{samepage}
 V neúspì¹ném pøípadì:
 \begin{enumerate}
 \item h. s uspoøádanými øetìzci (nejlep¹í)
@@ -927,6 +935,7 @@ V neúspì¹ném pøípadì:
 \item h. se 2 funkcemi
 \item h. s lineárním pøidáváním (nejhor¹í)
 \end{enumerate}
+\end{samepage}
 
 Poèet testù pro úplnì zaplnìnou tabulku ($m=n$ nebo $m=n-1$)
 

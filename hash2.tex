@@ -49,7 +49,9 @@ $H$ je \( c \)-univerzální a
 \begin{proof}
 \( |H|=N^{2} \), co¾ je poèet dvojic $(a,b)$.
 
-Nech» $(x,y)$ jsou libovolné, ale pevné.
+Nech» $(x,y)$ jsou libovolné, ale pevné. 
+% oprava x != y by V. Havranek
+Zároveò platí $x \neq y$.
 Kolize nastane v pøípadech, kdy¾:
 
 \[
@@ -110,17 +112,18 @@ Chceme spoèítat prùmìrnou délku $S_x$, kde prùmìr poèítáme pøes
 v¹echny $h \in H$, kde $H$ je $c$-univerzální systém.
 
 \begin{theorem}
-Kdy¾ H je c-universální systém, pak $\forall S \subseteq U$ a $\forall x \in
+Kdy¾ $H$ je c-universální systém, pak $\forall S \subseteq U$ a $\forall x \in
 U$ je oèekávaná hodnota \\
 \[
-\delta_h(x,y) = 
+% oprava \delta_h(x,y) -> \delta_h(x,S) by V. Havranek
+\delta_h(x,S) = 
 \begin{cases}
 \frac{c(|S| - 1)}{m} & x \in S \\
 \frac{c|S|}{m} & x \notin S
 \end{cases}
 \]
 \\
-, kde prùmìr se bere pøes $h \in H$ a pøedpokládáme rovnomìrný výbìr fcí z
+kde prùmìr se bere pøes $h \in H$ a pøedpokládáme rovnomìrný výbìr fcí z
 $H$.
 \end{theorem}
 

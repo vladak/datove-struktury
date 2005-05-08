@@ -151,7 +151,8 @@ Semi-dynamizace umo¾ní operaci INSERT nad novou reprezentací pùvodní
 mno¾iny. Tato reprezentace bude vyu¾ívat statické struktury. Nejprve
 provedeme "základní" semidynamizaci, poté ji vylep¹íme pro INSERT se
 slo¾itostí v nejhor¹ím pøípadì. Vylep¹ení bude vy¾adovat jiný rozklad
-pùvodní mno¾iny a algoritmus INSERT (viz \ref{alg:semidyn.insert}) 
+pùvodní mno¾iny a algoritmus INSERT (viz
+algoritmus~\ref{alg:semidyn.insert.vylepseny}) 
 bude slo¾itìj¹í.
 
 \begin{theorem}
@@ -378,7 +379,7 @@ spoèítáme $f(x,A)$.
 Platí: $Q(n) \geq n^{\epsilon}$ pro nìjaké $\epsilon$, pak èas potøebný pro
 výpoèet $f$ je $O(Q(N))$.
 
-INSERT(x) viz alg. \ref{alg:semidyn.insert}
+INSERT(x) viz alg.~\ref{alg:semidyn.insert}
 
 %\begin{algorithm}[!htb]
 %\caption{Operace INSERT pro semidynamizaci}
@@ -408,7 +409,7 @@ INSERT(x) viz alg. \ref{alg:semidyn.insert}
 
 \begin{algorithm}[!htb]
 \caption{INSERT pro semidynamizaci (rozklad $A$ na $A_{i,j}$)}
-\label{alg:semidyn.insert}
+\label{alg:semidyn.insert.vylepseny}
 \begin{algorithmic}
 \STATE INSERT(x)
 \IF{$x \not\in A$}

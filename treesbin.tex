@@ -859,14 +859,26 @@ Nech» $v$ je vnitøní vrchol stromu T. Potom
   	pravého syna $v$. 
 \end{itemize}
 Pokud takový podstrom neexistuje, polo¾me $l(v)$ resp. $p(v)$ rovno $-1$.
-Dále oznaème $b(v) = l(v) - p(v)$. Vrchol $v$ nazveme vyvá¾ený, jestli¾e
-$b(v)$ nabývá hodnot $-1$, $0$ nebo $1$.
+Dále oznaème $b(v) = l(v) - p(v)$. Vrchol $v$ nazveme \emph{vyvá¾ený}, 
+jestli¾e $b(v)$ nabývá hodnot $-1$, $0$ nebo $1$.
 \end{defn}
 
 \begin{defn}
+\label{avl:definice}
 AVL strom je binární vyhledávací strom takový, ¾e pro ka¾dý vnitøní vrchol
 $v$ platí $l(v) - p(v) \in \{-1,0,1\}$.
 \end{defn}
+
+\begin{pozn}
+AVL stromy jsou jen jednou z mo¾ností jak vyva¾ovat stromy. 
+\emph{Dokonale vyvá¾ené stromy} stanovují podmínku, ¾e pro ka¾dý uzel ve
+stromu platí, ¾e \emph{poèty} uzlù v levém a pravém podstromu tohoto 
+uzlu se li¹í nejvý¹e o jednièku. AVL stromy tento po¾adavek zeslabují
+tak, ¾e vy¾adují, aby se \emph{vý¹ky} levého a pravého podstromu libovolného
+vrcholu li¹ily nejvý¹e o jednièku\footnote{Platí, ¾e ka¾dý dokonale
+vyvá¾ený strom je zároveò AVL stromem. Opaèné tvrzení neplatí.}.
+Úvod do vyvá¾ených binárních stromù lze nalézt napø. v~\cite{Topfer}.
+\end{pozn}
 
 \begin{theorem}
 AVL-strom o $n$ vrcholech má vý¹ku nejvý¹e $2 \log n$.
@@ -1080,10 +1092,12 @@ nevyvá¾enými. To se opìt øe¹í pomocí rotací.
 
 %\begin{samepage}
 Operace DELETE je formálnì popsána algoritmem~\ref{alg:avl.del}.
+V algoritmu se pou¾ívají dvì procedury pro vyva¾ování popsané v
+algoritmech~\ref{alg:avl.del.vyvazuj.right}~a~\ref{alg:avl.del.vyvazuj.left}.
 
 \begin{algorithm}[!htb]
 \caption{VYVAZUJ\_RIGHT pro AVL stromy}
-\label{alg:avl.del}
+\label{alg:avl.del.vyvazuj.right}
 \begin{algorithmic}
 \STATE VYVAZUJ\_RIGHT(x)
 \IF {$b(x) = 0$}
@@ -1101,7 +1115,7 @@ Operace DELETE je formálnì popsána algoritmem~\ref{alg:avl.del}.
 
 \begin{algorithm}[!htb]
 \caption{VYVAZUJ\_LEFT pro AVL stromy}
-\label{alg:avl.del}
+\label{alg:avl.del.vyvazuj.left}
 \begin{algorithmic}
 \STATE VYVAZUJ\_LEFT(x)
 \IF {$b(x) = 0$}
@@ -1119,11 +1133,12 @@ Operace DELETE je formálnì popsána algoritmem~\ref{alg:avl.del}.
 %\end{samepage}
 
 
-
 %\begin{samepage}
 Problém je, ¾e ne pøi v¹ech rotacích se zachovává vý¹ka podstromu, jak
 tomu bylo u operace INSERT. Proto se zde vyva¾ování neomezí pouze na jeden
-vrchol.
+vrchol. Pøi operaci DELETE se mù¾e provést a¾ $\log n$ rotací. Ka¾dopádnì
+slo¾itost operace delete je stejnì jako slo¾itost operace INSERT $O(\log n)$.
+\mnote{XXX dokázat max. poèet rotací pøi DELETE}
 
 % tohle by melo flushnout floats
 % dalsi varianta:
@@ -1296,8 +1311,9 @@ synovci $s1$, $s2$, viz obrázek \ref{rbt-d}.
 \caption{Obecná situace pøi DELETE}
 \label{rbt-d}
 \end{figure}
-Oprava zále¾í na barvì vrcholu $b$:
 
+\begin{samepage}
+Oprava zále¾í na barvì vrcholu $b$:
 \begin{enumerate}
 \item Bratr je èerný. 
 Rozli¹ujeme dále 4 pøípady, z nich¾ jeden propaguje poruchu o hladinu
@@ -1361,6 +1377,8 @@ stromem.
 \end{figure}
 
 \end{enumerate}
+\end{samepage}
+
 
 \subsection{Závìry}
 Pro binární vyhledávací èervenoèerné stromy lze implementovat MEMBER,
@@ -1376,22 +1394,11 @@ stromù ve výpoèetní geometrii nese informaci i rozlo¾ení prvkù ve stromì,
 a tato informace se musí po provedení rotace nebo dvojité rotace aktualizovat. 
 To znamená prohledání celého stromu a tedy èas $O(n)$ za ka¾dou rotaci a 
 dvojitou rotaci navíc. Pro tyto problémy jsou èervenoèerné stromy obzvlá¹tì 
-vhodné, proto¾e minimalizují poèet pou¾itých rotací a dvojitých rotací. 
-
-\begin{pozn}
-Èervenoèerné stromy se pou¾ívají pøi implementaci $(2,4)$-stromù, se
-kterými se seznámíme v dal¹í kapitole. Vrchol 
-se dvìma syny je nahrazen jedním èerným vrcholem, vrchol se tøemi syny 
-je nahrazen èerným vrcholem s jedním èerveným synem a vrchol se ètyømi 
-syny je nahrazen èerným vrcholem se dvìma syny. Pozor! Aktualizaèní 
-operace pro $(2,4)$-stromy neodpovídají aktualizaèním operacím na 
-èervenoèerných stromech (i reprezentace prvkù je odli¹ná).
-\end{pozn}
-
-Èervenoèerné stromy se pou¾ívají napøíklad ve 
+vhodné, proto¾e minimalizují poèet pou¾itých rotací a dvojitých 
+rotací\footnote{Èervenoèerné stromy se pou¾ívají napøíklad ve 
 \href{http://www.sgi.com/tech/stl/}%
 standardní ¹ablonové knihovnì jazyka C++ od SGI, 
-která je zahrnuta do GCC\footnote{Máte-li Linux, zkuste se podívat do
+která je zahrnuta do GCC. Máte-li Linux, zkuste se podívat do
 \path{/usr/include/g++-2/stl\_tree.h}; 
 %pokud pou¾íváte OpenBSD, najdete
 %implementaci jak èervenoèerných, tak splay stromù v
@@ -1406,4 +1413,14 @@ Implementaci èerveno-èerných stromù lze v OpenBSD najít v
 obsahuje rovnì¾ makra pro implementaci Splay stromù.
 A pokud víte o podobnì dostupných implementacích jiných
 datových struktur z téhle pøedná¹ky, sem s nimi !}.
+
+\begin{pozn}
+Èervenoèerné stromy se pou¾ívají pøi implementaci $(2,4)$-stromù, se
+kterými se seznámíme v dal¹í kapitole. Vrchol 
+se dvìma syny je nahrazen jedním èerným vrcholem, vrchol se tøemi syny 
+je nahrazen èerným vrcholem s jedním èerveným synem a vrchol se ètyømi 
+syny je nahrazen èerným vrcholem se dvìma syny. Pozor! Aktualizaèní 
+operace pro $(2,4)$-stromy neodpovídají aktualizaèním operacím na 
+èervenoèerných stromech (i reprezentace prvkù je odli¹ná).
+\end{pozn}
 

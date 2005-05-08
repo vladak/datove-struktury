@@ -163,7 +163,8 @@ viz algoritmus~\ref{alg:heap.dreg.decrkey}.
 \subsubsection{INCREASEKEY$(x, \Delta)$}
 
 Musíme znát polohu vrcholu $t$ reprezentujícího $x$, 
-toto halda neumo¾òuje nalézt.
+toto halda neumo¾òuje nalézt. 
+viz algoritmus~\ref{alg:heap.dreg.incrkey}.
 
 \begin{algorithm}[!htb]
 \caption{INCREASEKEY pro d-regulární haldy}
@@ -481,7 +482,7 @@ haldy}, tj. pro ka¾dou stromovou hranu platí $\text{klíè otce} \leq
 
 \begin{defn}
 \label{def.binomheap}
-Binomická halda je soubor stromù takových, ¾e
+\emph{Binomiální halda} je soubor stromù takových, ¾e
 \begin{itemize}
 \item ka¾dý strom je izomorfní s nìjakým $B_i$
 \item ¾ádné dva stromy nejsou izomorfní
@@ -590,8 +591,8 @@ zabere $O(1)$.
 \end{algorithm}
 
 \begin{pozn}
-V algoritmu MERGE (viz \ref{alg:heaps.binom.merge}) odpovídá $P$ pøenosu 
-v binárním sèítání, $T$ je výsledná halda.
+V algoritmu MERGE (viz algoritmus~\ref{alg:heaps.binom.merge}) 
+odpovídá $P$ pøenosu v binárním sèítání, $T$ je výsledná halda.
 \end{pozn}
 
 \subsection{MIN}
@@ -734,6 +735,7 @@ zastoupen nejvý¹e jedním stromem.
 Konsolidace bì¾í v $O(log n)$ plus vyèerpá úèty stromù, které zaniknou pøi
 slévání.
 
+\begin{samepage}
 Konsolidace probíhá takto:
 \begin{enumerate}
   \item vytvoøím pole délky $log n$, které je prázdné 
@@ -749,13 +751,16 @@ Konsolidace probíhá takto:
 	\end{itemize}
   \item z pole vytvoøíme spojový seznam $\rightarrow$ $O(log n)$
 \end{enumerate}
+\end{samepage}
 
+\begin{samepage}
 DELETEMIN tedy potøebuje
 \begin{itemize}
   \item $O(log n)$ do úètù novì vytvoøených stromù
   \item $O(log n)$ na jejich zavedení do spojového seznamu
   \item $O(log n)$ na konsolidaci
 \end{itemize}
+\end{samepage}
 
 Pøi konsolidaci v¾dy zároveò vyhledáme nové minimum.
 
@@ -773,7 +778,7 @@ DELETEMIN a MIN vy¾adují èas $O(\text{poèet stromù v haldì})$.
 %$\text{amort. slo¾.} = \text{èas pro operaci} + 
 %bal(\text{výsledné konfigurace}) - bal(\text{pùvodní konfigurace})$
 
-\hspace{5mm}
+\vspace{5mm}
 
 \begin{center}
 \begin{tabular}{|l|l|}
@@ -825,8 +830,9 @@ DECREASE\_KEY($h$,$i$,$\delta$)
   \item podstrom i s koøenem $i$ odøízneme a jako samostatný strom ho
         zavedeme haldy (tj. zaøadím do spojového seznamu koøenù stromù v
 	haldì) $\Rightarrow$ $O(1)$
-  \item Abychom udr¾eli stromy dostateènì "ko¹até", (nechceme stromy typu
-  	"smeták" - tj. takových, které sestávají pouze z koøene a jeho synù) 
+  \item Abychom udr¾eli stromy dostateènì "ko¹até"\footnote{nechceme 
+  	stromy typu "smeták" - tj. takových, které sestávají pouze 
+	z koøene a jeho synù, které jsou zároveò listy}
   	tak od ka¾dého vrcholu $x$ mohou být odøíznuti nejvý¹e 2
   	synové $\Rightarrow$ po odøíznutí 2. syna je odøíznut i sám vrchol $x$.
 \end{enumerate}
@@ -836,7 +842,7 @@ DECREASE\_KEY($h$,$i$,$\delta$)
 \centering\includegraphics{pics/fibheaps}
 \caption{Poèty vrcholù stromù $F_0, F_1, ...$ tvoøí Fibonacciho
 posloupnost.}
-\label{fig:heaps.fib.proof}
+\label{fig:heaps.fib.pocty.vrcholu}
 \end{figure}
 
 \begin{pozn}
@@ -845,12 +851,14 @@ amortizovaná slo¾itost $O(1)$.
 \end{pozn}
 
 \begin{pozn}
-Pomocí \emph{úèetní metody} doká¾eme, ¾e to platí: \\
+Pomocí \emph{úèetní metody}\footnote{Pro definici úèetní metody viz
+pøedná¹ky ze "\emph{Slo¾itosti a NP úplnosti}".}
+doká¾eme, ¾e to platí: \\
 Pøi odøezávání syna vrcholu $x$ zaplatí operace DECREASE\_KEY
 \begin{samepage}
 \begin{itemize}
   \item 2 jednotky na úèet $x$
-  \item 1 jednotku ba úèet vzniklého stromu
+  \item 1 jednotku na úèet vzniklého stromu
   \item 1 jednotku za práci (odøíznutí a zaøazení)
 \end{itemize}
 \end{samepage}
@@ -862,7 +870,7 @@ $\Rightarrow$ mohu zopakovat body 1) - 3).
 \begin{theorem}
 \label{heaps.fib.theorem}
 Nejvy¹¹í øád stromu ve Fibonacciho haldì je $\lfloor log_\varphi n \rfloor =
-\Theta(log_2 n)$.
+\Theta(log_2 n)$ pro nìjaké $\varphi > 1$.
 \end{theorem}
 
 \begin{lemma}
@@ -899,7 +907,7 @@ Nech» $F_j$ je nejmen¹í mo¾ný (tj. má oøezané podstromy na max. mo¾nou
 
 \begin{itemize}
   \item[ad 1)] 
-  viz obr. \ref{fig:heaps.fib.proof}
+  viz obr.~\ref{fig:heaps.fib.proof}
 
   \begin{figure} 
   \centering\includegraphics{pics/fibheap}
