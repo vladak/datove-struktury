@@ -40,8 +40,8 @@ pøekrýt s tìmi kladnými. To je základní idea ha¹ování.
 Problémy:
 \begin{enumerate}
 \item Jak rychle spoèítáme $h(s)$.
-\item Co znamená {\em ulo¾en na místì $h(s)$}. Co kdy¾ $h(s)=h(t)$,
-ale $s \ne t$.
+\item Co znamená {\em ulo¾en na místì $h(s)$} ? Co kdy¾ platí $h(s)=h(t)$
+a zároveò $s \ne t$ ?
 \end{enumerate}
 
 Øe¹ení:
@@ -55,7 +55,15 @@ se dìlí podle toho, jak øe¹í kolize.
 % --------------------------------------------------------------------------
 \section{Ha¹ování se separovanými øetìzci}
 
-Ha¹ovací tabulka je pole lineárních seznamù, ne nutnì uspoøádaných.
+Tento zpùsob ha¹ování øe¹í kolize tak, ¾e kolidující prvky ukládá na
+stejnou pozici do tabulky. Na této pozici jsou ulo¾eny v podobì 
+lineárních seznamù. Takovému seznamu kolidujících prvkù se øíká
+\emph{øetìzec}.
+Ha¹ovací tabulka je tedy pole lineárních seznamù, ne nutnì uspoøádaných.
+Odtud plyne název této metody, proto¾e øetìzce prvkù nejsou mezi sebou
+promíchány - øetìzec, který je v tabulce ulo¾en na pozici $y$ v sobì 
+obsahuje pouze ty prvky, pro které platí $h(x) = y$.
+
 Základní operace na této tabulce jsou MEMBER (viz algoritmus
 \ref{alg:hash1.separ.member}),
 INSERT (viz alg. \ref{alg:hash1.separ.insert}) a DELETE (viz alg. 
@@ -116,14 +124,14 @@ rozdíl od ha¹ovací funkce nejsme schopni $S$ ovlivnit.
 % ..........................................................................
 \subsection{Oèekávaná délka seznamu}
 
-\begin{samepage}
 Oznaème $p(\ell) = \pr(\hbox{seznam je dlouhý }\ell)$.
 
 Z pøedpokladù má $p(\ell)$ binomické rozdìlení, neboli
 \[
-p(\ell) = \rozvoj{n}{\ell}{\invm},
+p(\ell) = \rozvoj{n}{\ell}{\invm}
 \]
 
+\begin{samepage}
 tedy oèekávaná délka seznamu je
 \begin{multline}\bigparens
 \label{binom-uprava}
@@ -141,7 +149,7 @@ E
 \end{multline}
 
 kde $\alpha = n/m$ je tzv.~\emph{faktor naplnìní}\footnote{anglicky
-\footnote{load factor}}, obvykle je dùle¾ité, je-li vìt¹í èi men¹í ne¾ 1.
+\emph{load factor}}, obvykle je dùle¾ité, je-li vìt¹í èi men¹í ne¾ 1.
 \end{samepage}
 
 \def\xx{
@@ -285,9 +293,12 @@ pak
 % --------------------------------------------------------------------------
 \section{Ha¹ování s uspoøádanými øetìzci}
 
-Uspoøádání øetìzcù vylep¹í neúspì¹ný pøípad.
+Uspoøádání øetìzcù vylep¹í neúspì¹ný pøípad, proto¾e hledání v øetìzci
+mù¾eme zastavit v okamziku, kdy narazíme na prvek vìt¹í ne¾ hledaný prvek
+(za pøedpokladu, ¾e prvky v øetìzci jsou uspoøádány vzestupnì).
 
 \subsection{Oèekávaný èas}
+
 Oèekávaný èas v neúspì¹ném pøípadì se od èasu v úspì¹ném pøípadì li¹í
 jen o aditivní konstantu.
 
@@ -308,11 +319,12 @@ pro ka¾dý prvek øetìzce je v polo¾ce {\tt vpøed} adresa následujícího prvku
 øetìzce a v polo¾ce {\tt vzad} je adresa pøedchozího prvku. Zaèátek,
 resp. konec øetìzce má prázdnou polo¾ku {\tt vzad}, resp. {\tt vpøed}.
 
+\begin{samepage}
+\begin{priklad}
 Napøíklad pro $U=\mathbb{N}, m=10, h(x) = x \bmod 10$, ha¹ujeme posloupnost
-10, 50, 21, 60:
+10, 50, 21, 60: 
 
 \vspace{5mm}
-
 \begin{tabular}{|l|l|l|l|}
 \hline
 & klíè& {\tt vpøed}& {\tt vzad}\\
@@ -329,21 +341,28 @@ Napøíklad pro $U=\mathbb{N}, m=10, h(x) = x \bmod 10$, ha¹ujeme posloupnost
 9& & & \\
 \hline
 \end{tabular}
-
+\end{priklad}
+\end{samepage}
 \vspace{5mm}
 
-MEMBER je jednoduchý. 
+MEMBER(x) je jednoduchý - od $h(x)$-tého místa procházíme øetìzec prvkù a¾
+na konec a v pøípadì nalezení prvku operaci ukonèíme.
 
 Pøi INSERT musíme zjistit, zda $h(x)$-tý øetìzec zaèíná na $h(x)$-tém
-místì.
+místì\footnote{To je jednoduché - pokud prvek na $h(x)$-tém místì má
+nulový ukazatel {\tt vzad}, pak je zaèátkem $h(x)$-tého øetìzce.}.
 Pokud ano, prvek pøidáme do $h(x)$-tého øetìzce,
 pokud ne, pøemístíme prvek na $h(x)$-tém místì na jiné volné místo,
 upravíme {\tt vpøed} a {\tt vzad} a prvek vlo¾íme na $h(x)$-té místo.
 
-Pøedchozí tabulka po INSERT(53):
+% vynuceny zlom stranky, nechtel si dat rict pomoci samepage
+\pagebreak
+
+\begin{samepage}
+\begin{priklad}
+Tabulka z pøedchozího pøíkladu po INSERT(53) bude vypadat takto: 
 
 \vspace{5mm}
-
 \begin{tabular}{|l|l|l|l|}
 \hline
 & klíè& {\tt vpøed}& {\tt vzad}\\
@@ -360,7 +379,8 @@ Pøedchozí tabulka po INSERT(53):
 9& & & \\
 \hline
 \end{tabular}
-
+\end{priklad}
+\end{samepage}
 \vspace{5mm}
 
 Pøi DELETE musíme testovat, zda odstraòovaný prvek není na 1. místì
@@ -373,6 +393,7 @@ Jak zjistíme, ¾e jiný prvek $y$ patøí tam, kde je ulo¾en?
 Spoèítat $h(y)$
 mù¾e být relativnì pomalé. Pokud {\tt T[i].vzad} nìkam ukazuje, pak
 víme, ¾e $h(y) \ne h(x)$.
+
 
 % --------------------------------------------------------------------------
 \section{Ha¹ování se dvìma ukazateli}
@@ -387,6 +408,7 @@ ulo¾en. (Nemusí to být øetìzec s $h(x)=i$.)
 {\tt T[i].zaèátek} je index zaèátku øetìzce, který obsahuje prvky,
 jejich¾ $h(x)=i$.
 
+\begin{priklad}
 Ukládáme 50, 90, 31, 60:
 
 \vspace{5mm}
@@ -410,6 +432,10 @@ Ukládáme 50, 90, 31, 60:
 
 \vspace{8mm}
 
+% opet, samepage nefunguje
+\pagebreak
+
+\begin{samepage}
 Pøidáme 42, 72, 45:
 
 \vspace{5mm}
@@ -430,6 +456,8 @@ Pøidáme 42, 72, 45:
 9& & & \\
 \hline
 \end{tabular}
+\end{samepage}
+\end{priklad}
 
 
 % --------------------------------------------------------------------------
@@ -488,6 +516,7 @@ Pøidáme 40, 98, 62, 108:
 \hline
 \end{tabular}
 
+
 % --------------------------------------------------------------------------
 \section{Ha¹ování se dvìma funkcemi (otevøené h., h. s otevøenou adresací)}
 
@@ -495,6 +524,7 @@ Pou¾ijeme dvì ha¹ovací funkce, $h_1$ a $h_2$, je zde v¹ak úèelné pøedpokládat,
 ¾e $h_2(i)$ a $m$ jsou nesoudìlné pro ka¾dé $i\in U$. Pøi INSERTu pak hledáme
 nejmen¹í $j$ takové, ¾e $T[h_1(x) + j h_2(x)]$ je volné.
 
+\begin{priklad}
 Mìjme $h_1(x) = x \bmod 10$
 
 \vspace{5mm}
@@ -542,6 +572,7 @@ místo najdeme pro $i=2$.
 9& \\
 \hline
 \end{tabular}
+\end{priklad}
 
 \vspace{5mm}
 
@@ -561,7 +592,7 @@ Napø.: $h(i) = i \bmod 10$, \( h_1(i) = \begin{cases}
 \subsection{Algoritmus INSERT}
 % \mnote{Je¹tì rozmyslet znaèení a sjednotit zápis algoritmù}
 
-viz algoritmus \ref{alg:hash1.2fce.insert}
+viz algoritmus \ref{alg:hash1.2fce.insert}.
 
 \begin{algorithm}[!htb]
 \caption{INSERT pro ha¹ování se dvìma funkcemi}
@@ -574,12 +605,15 @@ INSERT(x)
  kdy¾ tam $x$ je, pak skonèi\\
  kdy¾ je místo prázdné, vlo¾ tam $x$ a skonèi
 \item 
- kdy¾ je $i$-té místo obsazeno prvkem $\ne x$, pak:\\
- spoèti $h_2(x)$\\
- $k = (h_1(x)+h_2(x)) \bmod m$\\
- while $k$-té místo je obsazené prvkem $\ne x$ a $i\ne k$ do\\
- \quad $k = (k+h_2(x)) \bmod m$\\
- enddo
+ \begin{algorithmic}
+ \IF {$i$-té místo obsazeno prvkem $\ne x$}
+ \STATE spoèti $h_2(x)$
+ \STATE $k = (h_1(x)+h_2(x)) \bmod m$
+ \WHILE {$k$-té místo je obsazené prvkem $\ne x$ a $i\ne k$}
+   \STATE \quad $k = (k+h_2(x)) \bmod m$
+ \ENDWHILE
+ \ENDIF
+ \end{algorithmic}
 \item
  kdy¾ je $k$-té místo obsazené prvkem $x$, pak nedìlej nic,\\ 
  kdy¾ $i=k$, pak ohla¹ pøeplnìno, jinak vlo¾ $x$ na
@@ -676,11 +710,19 @@ $\frac 1\alpha \ln \frac 1{1-\alpha}$
 \mnote{XXX doplnit odhady pro úspì¹ný/neúspì¹ný pøípad pro EISCH, LISCH, ..
 z 2003/2004.}
 
-Tabulka má dvì polo¾ky: klíè a adresu následujícího prvku. Prvek $s
-\in S$ je reprezentován v øetìzci, který pokraèuje v místì $h(s)$.
+Dal¹í metodou jak øe¹it kolize je neseparovat øetìzce. To znamená, ¾e v
+jednom øetìzci se nyní mohou nacházet prvky, které mají rùzné hodnoty
+ha¹ovací funkce. Proto se této metodì øíká \emph{srùstající ha¹ování}.
+Øetìzce se nepøesouvají, v tabulce tedy nemusí být obsa¾ena informace 
+kde zaèíná daný øetìzec.
+
+Tabulka má dvì polo¾ky: klíè a adresu následujícího prvku ({\tt vpøed}). 
+Prvek $s \in S$ je reprezentován v øetìzci, který pokraèuje v místì $h(s)$.
 
 \begin{priklad}
-V následující tabulce jsou srostlé øetìzce pro 0 a 3:
+\label{priklad:srust.hash}
+Opìt pou¾ijeme ha¹ovací funkci $h(x) = x \mod 10$.
+V následující tabulce jsou srostlé øetìzce pro hodnoty 0 a 3 funkce $h$:
 
 \vspace{5mm}
 
@@ -729,7 +771,8 @@ ho pøipojí hned za $h(x)$-té místo.
 
 \begin{priklad}
 Po provedení operací
-LISCH INSERT(103), EISCH INSERT(94) bude tabulka vypadat takto:
+LISCH INSERT(103), EISCH INSERT(94) bude tabulka z pøíkladu
+\ref{priklad:srust.hash} vypadat takto:
 
 \vspace{5mm}
 
@@ -755,7 +798,8 @@ LISCH INSERT(103), EISCH INSERT(94) bude tabulka vypadat takto:
 
 \begin{pozn}
 Pøi úspì¹ném vyhledání je EISCH asi o 15\% rychlej¹í ne¾ LISCH. (Pøi
-neúspì¹ném jsou samozøejmì shodné).
+neúspì¹ném jsou samozøejmì shodné, proto¾e v obou pøípadech je nutné 
+projít celý øetìzec.)
 \end{pozn}
 
 % XXX co s timto ?
@@ -782,6 +826,10 @@ jsou analogické k LISCH a EISCH. VICH (\emph{variable insert coalesced
 hashing}) pøipojuje na konec øetìzce, jestli¾e øetìzec konèí ve sklepì,
 jinak na místo, kde øetìzec opustil sklep.
 
+% opet, samepage nefunguje
+\pagebreak
+
+\begin{samepage}
 \begin{priklad}
 Provedeme operaci INSERT pro následující posloupnost prvkù:
 10, 41, 60, 70, 71, 90, 69, 40, 79. Tabulka pak bude vypadat takto:
@@ -818,6 +866,7 @@ Provedeme operaci INSERT pro následující posloupnost prvkù:
 
 Sklep je od "hlavní èásti" tabulky odli¹en èarou.
 \end{priklad}
+\end{samepage}
 
 \def\xx{%commented out
 \begin{tabular}{|l|l|l|}
@@ -870,6 +919,9 @@ kde byly.
 \end{enumerate}
 \end{algorithm}
 
+% chci aby se priklad vlezl na jednu stranu
+\pagebreak
+
 \begin{priklad}
 Pou¾ijeme ha¹ovací funkci $h(x) = x \mod 10$
 
@@ -919,10 +971,14 @@ bylo v tabulce poøadí.
 XXX
 \mnote{Nascanovat obrázek z Vittera a Chena~\cite{Vitter-Chen}}
 
+
 % --------------------------------------------------------------------------
 \section{Srovnání metod}
+
 Zde uvádíme porovnání podle poètu testù, proto¾e to se dá
 {\em vypoèítat}. Doba bìhu se musí {\em mìøit}.
+
+\subsection{Poøadí podle neúspì¹ného pøípadu}
 
 \begin{samepage}
 V neúspì¹ném pøípadì:
@@ -937,11 +993,17 @@ V neúspì¹ném pøípadì:
 \end{enumerate}
 \end{samepage}
 
+
+\subsection{Poèet testù pro zaplnìnou tabulku}
+
 Poèet testù pro úplnì zaplnìnou tabulku ($m=n$ nebo $m=n-1$)
 
 \vspace{5mm}
 
+\mnote{co znamenají èísla v pravém sloupci ?}
 \begin{tabular}{|l|l|}
+\hline
+typ	& XXX \\
 \hline
 h. s pøesuny&		1.5\\
 h. se 2 ukazateli&	1.6\\
@@ -954,9 +1016,10 @@ h. s lineárním pøidáváním&$n$\\
 \hline
 \end{tabular}
 
-\vspace{5mm}
+%\vspace{5mm}
+%\bigskip
 
-\bigskip
+\subsection{Poèet testù vyjádøený vzorcem}
 
 \begin{tabular}{|l|l|l|}
 \hline

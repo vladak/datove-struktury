@@ -17,13 +17,14 @@ podmno¾inu $S\subseteq U$ takovou, ¾e $|S|\leq m$, bude oèekávaný èas
 ha¹ovaní je, ¾e pøedpoklad rovnomìrného výbìru ha¹ovací funkce z mno¾iny 
 $H$ mù¾eme zajistit (nebo se k splnìní tohoto po¾adavku pøiblí¾it), ale 
 výbìr vstupních dat ovlivnit nemù¾eme. Nyní tuto ideu zformalizujeme. 
-\mnote{zajímá nás jednak $c$, jednak velikost systému}
+\mnote{zajímá nás jednak $c$, jednak velikost systému (tj. poèet funkcí v
+systému)}
 
 \begin{defn}
 \label{c-us}
 Tøída ha¹ovacích funkcí 
 \( H \subseteq \{h | h: \intrange{0}{N-1} \rightarrow \intrange{0}{m-1}\} \)
-je \emph{c-univerzální}, kde $c\in\mathbb{R}^+$, jestli¾e 
+je \emph{c-univerzální} systém, kde $c\in\mathbb{R}^+$, jestli¾e 
 \begin{equation*}
 \forall x\neq y\in \intrange{0}{N-1} :
 \left |\{h\in H : h(x)=h(y)\}\right| \leq c\frac{|H|}{m}, 
@@ -37,15 +38,19 @@ je \emph{c-univerzální}, kde $c\in\mathbb{R}^+$, jestli¾e
 
 % ..........................................................................
 
-Nejprve uká¾eme, ¾e $c$-univerzální systémy existují. 
-Pøedpokládáme, ¾e $U = \intrange{0}{N-1}$, kde $N$ je prvoèíslo.
+\noindent
+Nejprve uká¾eme, ¾e $c$-univerzální systémy existují:
+
+\begin{theorem}
+Pøedpokládejme, ¾e $U = \intrange{0}{N-1}$, kde $N$ je prvoèíslo.
 Definujme 
 \[ H=\{h_{ab}:h_{ab}(x)=((ax+b)\bmod N)\bmod m;
 \ a,b\in \intrange{0}{N-1}\} \]
-\begin{theorem}
-$H$ je \( c \)-univerzální a 
+
+Potom $H$ je \( c \)-univerzální a 
 \( c=\left( \left\lceil \frac{N}{m}\right\rceil /\frac{N}{m}\right) ^{2} \).
 \end{theorem}
+
 \begin{proof}
 \( |H|=N^{2} \), co¾ je poèet dvojic $(a,b)$.
 
@@ -437,6 +442,7 @@ viz algoritmus \ref{alg:hash2.univ.delete}
 \UNTIL {v¹echny øetìzce mají délku $\leq d_i$}
 \end{algorithmic}
 
+\noindent
 Kolikrát probìhne ten cyklus? Závisí to na více parametrech 
 % a Koubek to nikde uspokojivì spoèítané nevidìl.
 a není jisté, zda to bylo nìkdy pøesnì spoèítáno.
@@ -673,7 +679,7 @@ adresáø.
 ulo¾ení. zøejmì proto, aby mohlo být souèasnì pu¹tìno víc operací.}
 
 \begin{priklad}
-Pro situaci z pøíkladu \ref{priklad:exthash.insert} provedeme
+Pro situaci z pøíkladu \ref{priklad:exthash.insert2} provedeme
 DELETE(0100). V adresáøi budou pak polo¾ky 010 a 011 ukazovat na prázdnou
 stránku (NIL). Adresáø zùstal po této operaci stejný.
 

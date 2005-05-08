@@ -30,14 +30,17 @@
 \contentsline {subsubsection}{p\v ri ne\'usp\v e\v sn\'em vyhled\'av\'an\IeC {\'\i }}{18}{section*.9}
 \contentsline {subsubsection}{p\v ri \'usp\v e\v sn\'em vyhled\'av\'an\IeC {\'\i }}{19}{section*.10}
 \contentsline {section}{\numberline {3.7}Sr\r ustaj\IeC {\'\i }c\IeC {\'\i } ha\v sov\'an\IeC {\'\i } (standardn\IeC {\'\i }: LISCH a EISCH)}{19}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}Algoritmus INSERT}{19}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.1}Algoritmus INSERT}{20}{subsection.3.7.1}
 \contentsline {section}{\numberline {3.8}Sr\r ustaj\IeC {\'\i }c\IeC {\'\i } ha\v sov\'an\IeC {\'\i } s pomocnou pam\v et\IeC {\'\i } (obecn\'e: LICH, EICH, VICH)}{20}{section.3.8}
 \contentsline {subsection}{\numberline {3.8.1}Operace DELETE}{21}{subsection.3.8.1}
 \contentsline {subsection}{\numberline {3.8.2}Srovn\'avac\IeC {\'\i } graf}{22}{subsection.3.8.2}
 \contentsline {section}{\numberline {3.9}Srovn\'an\IeC {\'\i } metod}{22}{section.3.9}
+\contentsline {subsection}{\numberline {3.9.1}Po\v rad\IeC {\'\i } podle ne\'usp\v e\v sn\'eho p\v r\IeC {\'\i }padu}{22}{subsection.3.9.1}
+\contentsline {subsection}{\numberline {3.9.2}Po\v cet test\r u pro zapln\v enou tabulku}{23}{subsection.3.9.2}
+\contentsline {subsection}{\numberline {3.9.3}Po\v cet test\r u vyj\'ad\v ren\'y vzorcem}{23}{subsection.3.9.3}
 \contentsline {section}{\numberline {3.10}P\v reha\v sov\'av\'an\IeC {\'\i }}{23}{section.3.10}
-\contentsline {subsection}{\numberline {3.10.1}MEMBER}{23}{subsection.3.10.1}
-\contentsline {subsection}{\numberline {3.10.2}INSERT}{23}{subsection.3.10.2}
+\contentsline {subsection}{\numberline {3.10.1}MEMBER}{24}{subsection.3.10.1}
+\contentsline {subsection}{\numberline {3.10.2}INSERT}{24}{subsection.3.10.2}
 \contentsline {subsection}{\numberline {3.10.3}DELETE}{24}{subsection.3.10.3}
 \contentsline {subsection}{\numberline {3.10.4}Slo\v zitost}{24}{subsection.3.10.4}
 \contentsline {chapter}{\numberline {4}Ha\v sov\'an\IeC {\'\i } II}{25}{chapter.4}
