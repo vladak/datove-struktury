@@ -845,11 +845,13 @@ operací bude tedy lineární. Pokud bychom v¹ak chtìli, aby mìl strom co
 nejmen¹í vý¹ku (vzdálenost listù od koøene by se mohla li¹it maximálnì o
 jednièku), byly by operace INSERT a DELETE nároèné. Rozumným
 kopmromisem mohou být právì AVL-stromy.
-\par
-AVL stromy jsou nazvané podle jmen jejich tvùrcù Adison-Vesley-Landis. 
+
+AVL stromy jsou nazvané podle jmen jejich tvùrcù (Adel'son-Velskii a
+Landis). Pùvodní èlánek o AVL stromech lze nalézt v~\cite{AVL-trees}.
+% Adison-Vesley-Landis. 
 
 \begin{defn}
-Nech» v je vnitøní vrchol stromu T. Potom 
+Nech» $v$ je vnitøní vrchol stromu T. Potom 
 \begin{itemize}
   \item $l(v)$ je délka nejdel¹í cesty z $v$ do listu v podstromu 
   	levého syna $v$.
@@ -901,7 +903,7 @@ $-2$ nebo $2$.
 Vlo¾ení nového vrcholu do AVL-stromu se provádí stejnì jako v
 nevyva¾ovaných binárních vyhledávacích stromech. Pøi tom se v¹ak u
 nìkterých vrcholù mù¾e poru¹it podmínka na vyvá¾enost. Mìjme 
-strom na obrázku \ref{avltree}
+strom na obrázku~\ref{avltree}.
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/avl}
@@ -912,8 +914,8 @@ strom na obrázku \ref{avltree}
 V tomto stromì jsou vý¹ky podstromù $T_1$, $T_2$ a $T_3$ stejné. 
 Pokud pøi vlo¾ení
 nového vrcholu do podstromu T1 vzroste vý¹ka tohoto podstromu, bude vrchol
-x nevyvá¾ený. Jeho vyvá¾ení se v¹ak provede jednodu¹e pomocí tzv.
-LL-rotace. (viz obr. \ref{avl-ll})
+$x$ nevyvá¾ený. Jeho vyvá¾ení se v¹ak provede jednodu¹e pomocí 
+tzv.~LL-rotace. (viz~obr.~\ref{avl-ll})
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/avl-ll}
@@ -922,8 +924,8 @@ LL-rotace. (viz obr. \ref{avl-ll})
 \end{figure}
 
 Pokud bychom v¹ak chtìli nový vrchol vlo¾it do $T_2$ a vý¹ka tohoto podstromu
-by vzrostla, byl by opìt vrchol x nevyvá¾ený. To se mù¾e napravit pomocí
-LR-rotace. (viz obr. \ref{avl-lr})
+by vzrostla, byl by opìt vrchol $x$ nevyvá¾ený. To se mù¾e napravit pomocí
+LR-rotace. (viz~obr.~\ref{avl-lr})
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/avl-lr}
@@ -934,7 +936,7 @@ LR-rotace. (viz obr. \ref{avl-lr})
 Poznamenejme, ¾e na vyvá¾enost nemá vliv, zda jsme vrchol vlo¾ili do
 $T_{2}'$,
 nebo do $T_{2}"$. Pøi vkládání nového vrcholu do pravého podstromu vrcholu
-x se pro vyvá¾ení pou¾ívají rotace RR-rotace a RL-rotace, které jsou 
+$x$ se pro vyvá¾ení pou¾ívají rotace RR-rotace a RL-rotace, které jsou 
 symetrické k ji¾ uvedeným rotacím.
 
 \begin{samepage}
@@ -956,7 +958,7 @@ Navíc pro ka¾dý vrchol $y$ na cestì od $x$ do pøidaného listu je $b(y)=0$,
 nebo» jinak by byl sám nevyvá¾ený, nebo by nezmìnil svou vý¹ku a tedy 
 by nebylo tøeba vyva¾ovat ani $x$.
 
-Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
+Operace INSERT je formálnì popsána algoritmem~\ref{alg:avl.ins}.
 
 \begin{algorithm}[!htb]
 \caption{INSERT pro AVL stromy}
@@ -1024,6 +1026,7 @@ Operace INSERT je formálnì popsána algoritmem \ref{alg:avl.ins}.
 \end{algorithm}
 
 
+
 \subsection{Algoritmus DELETE}
 
 Ubírání vrcholù z AVL-stromu se provádí stejnì jako u nevyvá¾ených
@@ -1031,8 +1034,6 @@ binárních vyhledávacích stromù. To znamená, ¾e se ubíraný vrchol nahradí
 nejpravìj¹ím vrcholem levého podstromu nebo nejlevìj¹ím vrcholem pravého
 podstromu. Pøi tom se samozøejmì mohou také nìkteré vrcholy stát
 nevyvá¾enými. To se opìt øe¹í pomocí rotací.
-\par
-Operace DELETE je formálnì popsána algoritmem \ref{alg:avl.del}
 
 \begin{algorithm}[!htb]
 \caption{DELETE pro AVL stromy}
@@ -1075,11 +1076,10 @@ Operace DELETE je formálnì popsána algoritmem \ref{alg:avl.del}
 \ENDWHILE
 \end{algorithmic}
 \end{algorithm}
+%\end{samepage}
 
-
-Problém je, ¾e ne pøi v¹ech rotacích se zachovává vý¹ka podstromu, jak
-tomu bylo u operace INSERT. Proto se zde vyva¾ování neomezí pouze na jeden
-vrchol.
+%\begin{samepage}
+Operace DELETE je formálnì popsána algoritmem~\ref{alg:avl.del}.
 
 \begin{algorithm}[!htb]
 \caption{VYVAZUJ\_RIGHT pro AVL stromy}
@@ -1116,9 +1116,21 @@ vrchol.
 \ENDIF
 \end{algorithmic}
 \end{algorithm}
+%\end{samepage}
 
 
 
+%\begin{samepage}
+Problém je, ¾e ne pøi v¹ech rotacích se zachovává vý¹ka podstromu, jak
+tomu bylo u operace INSERT. Proto se zde vyva¾ování neomezí pouze na jeden
+vrchol.
+
+% tohle by melo flushnout floats
+% dalsi varianta:
+% ctan macro/latex/contrib/supported/ placeins.sty 
+% \floatbarrier command 
+%\clearpage
+\FloatBarrier
 
 % --------------------------------------------------------------------------
 \section{Èervenoèerné stromy}

@@ -27,18 +27,18 @@ d-regulární apod. (mohou se li¹it jak lokální, tak strukturální podmínkou)
 \section{$d$-regulární haldy}
 
 \begin{defn}
-d-regulární halda, $d$ celé èíslo d$\geq$ 2 \\
+d-regulární halda, $d$ celé èíslo $d \geq 2$ \\
 Je to strom $T$ takový, ¾e existuje jednoznaèná korespondence mezi vrcholy
 stromù a prvky reprezentované mno¾iny a platí: 
 \begin{enumerate}
 
 \item strom $T$ splòuje strukturální podmínky
 \begin{enumerate}
-\item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má d synù
-\item ka¾dý vrchol má nejvý¹e d synù
+\item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má $d$ synù
+\item ka¾dý vrchol má nejvý¹e $d$ synù
 \item existuje oèíslování synù ka¾dého vrcholu tak, ¾e po oèíslování
 prùchodem ¹íøky platí: \\
-kdy¾ vrchol není list, pak ka¾dý vrchol s men¹ím èíslem má d synù.
+kdy¾ vrchol není list, pak ka¾dý vrchol s men¹ím èíslem má $d$ synù.
 \end{enumerate}
 
 \item podmínku na lokální uspoøádání: \\
@@ -54,12 +54,12 @@ $\lceil\frac{i-1}{d}\rceil$.
 \end{defn}
 
 \begin{priklad}
-Pøíklad 3-regulární haldy je na obrázku è. \ref{XXX}.
+Pøíklad 3-regulární haldy je na obrázku~\ref{XXX}.
 
 \mnote{XXX chybi obr.}
 
 Kdy¾ takto oèíslované prvky dáme do pole, pak platí: kdy¾ je vrchol na
-i-tém místì, èísla synù jsou $3(i-1)+2, 3i, 3i+1$
+$i$-tém místì, èísla synù jsou $3(i-1)+2, 3i, 3i+1$
 a otec je na $\lceil\frac{i-1}{3}\rceil$ místì v poli.
 to vyu¾ijeme pro implementaci polem - u¹etøíme místo.
 \end{priklad}
