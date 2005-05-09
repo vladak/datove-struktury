@@ -29,27 +29,32 @@ d-regulární apod. (mohou se li¹it jak lokální, tak strukturální podmínkou)
 \begin{defn}
 d-regulární halda, $d$ celé èíslo $d \geq 2$ \\
 Je to strom $T$ takový, ¾e existuje jednoznaèná korespondence mezi vrcholy
-stromù a prvky reprezentované mno¾iny a platí: 
+stromù a prvky reprezentované mno¾iny a platí:
 \begin{enumerate}
-
-\item strom $T$ splòuje strukturální podmínky
-\begin{enumerate}
-\item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má $d$ synù
-\item ka¾dý vrchol má nejvý¹e $d$ synù
-\item existuje oèíslování synù ka¾dého vrcholu tak, ¾e po oèíslování
-prùchodem ¹íøky platí: \\
-kdy¾ vrchol není list, pak ka¾dý vrchol s men¹ím èíslem má $d$ synù.
-\end{enumerate}
-
-\item podmínku na lokální uspoøádání: \\
-kdy¾ $x$ je prvek pøiøazený vrcholu $t$, pak otci($t$) je pøiøazen prvek
-$\leq x$
-pak po oèíslování prùchodem do ¹íøky platí:
-kdy¾ vrchol má èíslo $i$, jeho synové mají èísla
+\item strom $T$ splòuje strukturální podmínky:
+  \begin{itemize}
+    \item ka¾dý vrchol s vyjímkou nejvý¹e jednoho je buï list nebo má $d$ synù
+    \item ka¾dý vrchol má nejvý¹e $d$ synù
+    \item existuje oèíslování synù ka¾dého vrcholu tak, ¾e po oèíslování
+  	  prùchodem ¹íøky platí: \\
+	  kdy¾ vrchol není list, pak ka¾dý vrchol s men¹ím èíslem má $d$
+	  synù.
+	  %\footnote{Tato podmínka øíká jinými slovy toto: V poslední
+	  %hladinì jsou v¹echny uzly umístìny co mo¾ná nejvíce "vlevo",
+	  %tzn. procházíme-li uzly pøedposlední hladiny zleva doprava,
+	  %nejprve má nìkolik z nich (popø. ¾ádný) $d$ následníkù, pak mù¾e
+	  %být (ale nemusí) jeden uzel s jedním následníkem a zbývající 
+	  %uzly pøedposlední hladiny následníky
+	  %nemají. (parafráze z~\cite{Topfer}, str.~79)}.
+  \end{itemize}
+  \item podmínku na lokální uspoøádání: \\
+	kdy¾ $x$ je prvek pøiøazený vrcholu $t$, pak otci($t$) je pøiøazen
+	prvek $\leq x$ pak po oèíslování prùchodem do ¹íøky platí:
+	kdy¾ vrchol má èíslo $i$, jeho synové mají èísla
 % oprava by M.Macok :
 % strana 70, prvni syn vrcholu neni na pozici d(i-1)+1 ale ..+2
-$d(i-1)+2,d(i-1)+3,...,di+1$ a otec má èíslo 
-$\lceil\frac{i-1}{d}\rceil$.
+	$d(i-1)+2,d(i-1)+3,...,di+1$ a otec má èíslo 
+	$\lceil\frac{i-1}{d}\rceil$.
 \end{enumerate}
 \end{defn}
 
@@ -212,13 +217,12 @@ reprezentující vìt¹í prvky splòují smìrem dolù podmínku
 \subsection{Slo¾itost operací}
 
 V d-reg. haldì reprezentující n-prvkovou mno¾inu implementace operací
-vy¾aduje èasy dané tabulkou: \\
-\par
+vy¾aduje èasy dané tabulkou:
 
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
-Operace & slo¾itost \\
+Operace & Slo¾itost \\
 \hline
 MIN & O(1) \\
 INSERT, DECREASEKEY & $O(log_d(n))$ \\
@@ -361,10 +365,11 @@ $T$ taková, ¾e $\forall$ prvek pøiøazený vrcholu $v \geq$ prvek pøiøazený
 otci $v$.
 \end{defn}
 
-\begin{pozn}
-Podobné operaci JOIN v AVL stromech (ale...)
-\mnote{XXX rozvést}
-\end{pozn}
+%\begin{pozn}
+%Podobné operaci JOIN v AVL stromech (ale...)
+% - v AVL stromech je operace JOIN ???
+%\mnote{XXX rozvést}
+%\end{pozn}
 
 \subsection{MERGE}
 

@@ -42,9 +42,11 @@ $<s_{i-1}, s_i>$.
 \end{pozn}
 
 \begin{priklad}
-
 Nech» $S = \{ 1, 7, 12, 15, 24, 81 \}$. Binární vyhledávací strom
 reprezentující mno¾inu $S$ je na obr.~\ref{fig.bvs.example}.
+\mnote{Strom na obr.~\ref{fig.bvs.example} není mo¾ná nejlep¹í pøíklad,
+proto¾e BVS mohou vypadat více nepravidelnì - na rozdíl od haldy
+\emph{nemusí} mít v¹echny uzly umístìny co mo¾ná nejvíce "vlevo".}
 
 \begin{figure}[!htb]
 \centering\includegraphics{pics/bvs}
@@ -847,8 +849,8 @@ nejmen¹í vý¹ku (vzdálenost listù od koøene by se mohla li¹it maximálnì o
 jednièku), byly by operace INSERT a DELETE nároèné. Rozumným
 kopmromisem mohou být právì AVL-stromy.
 
-AVL stromy jsou nazvané podle jmen jejich tvùrcù (Adel'son-Velskii a
-Landis). Pùvodní èlánek o AVL stromech lze nalézt v~\cite{AVL-trees}.
+AVL stromy jsou nazvané podle jmen jejich tvùrcù ({\bf A}del'son-{\bf V}elskii 
+a {\bf L}andis). Pùvodní èlánek o AVL stromech lze nalézt v~\cite{AVL-trees}.
 % Adison-Vesley-Landis. 
 
 \begin{defn}
@@ -888,10 +890,11 @@ AVL-strom o $n$ vrcholech má vý¹ku nejvý¹e $2 \log n$.
 \begin{proof}
 Oznaème $N(h)$ minimální poèet vrcholù AVL stromu vý¹ky $h$. Mù¾eme tedy
 $N(h)$ definovat takto:
-
-$$N(0) = 1
-N(1) = 2
-N(h) = 1 + N(h-1) + N(h-2)$$
+\begin{align*}
+&N(0) = 1 \\
+&N(1) = 2 \\
+&N(h) = 1 + N(h-1) + N(h-2)
+\end{align*}
 
 Je zøejmé, ¾e platí $N(h) \geq 2 N(h-2)$ nebo $N(h-2) \leq N(h-1)$. 
 
@@ -899,9 +902,9 @@ Odtud dostaneme, ¾e $N(h) \geq 2^{h/2}$ a tedy
 $h \leq 2 \log N(h)$. Nerovnost $N(h) \geq 2^{h/2}$ doká¾eme indukcí:
 
 \begin{enumerate}
-\item $N(0) = 1 \geq 2^{0/2} = 1$ \\
-   $N(1) = 2 \geq 2^{1/2}$
-\item $N(h) \geq 2 N(h-2) \geq 2 \cdot 2^{h/(2-1)} = 2^{h/2}$
+  \item $N(0) = 1 \geq 2^{0/2} = 1$ \\
+   	$N(1) = 2 \geq 2^{1/2}$
+  \item $N(h) \geq 2 N(h-2) \geq 2 \cdot 2^{h/(2-1)} = 2^{h/2}$
 \end{enumerate}
 
 V¹echny vrcholy AVL stromu jsou tedy vyvá¾ené. Nevyvá¾ené vrcholy mohou
@@ -1045,7 +1048,9 @@ Operace INSERT je formálnì popsána algoritmem~\ref{alg:avl.ins}.
 Ubírání vrcholù z AVL-stromu se provádí stejnì jako u nevyvá¾ených
 binárních vyhledávacích stromù. To znamená, ¾e se ubíraný vrchol nahradí
 nejpravìj¹ím vrcholem levého podstromu nebo nejlevìj¹ím vrcholem pravého
-podstromu. Pøi tom se samozøejmì mohou také nìkteré vrcholy stát
+podstromu\footnote{To je klasický postup operace DELETE pro BVS popsaný
+v~\cite{Topfer}, str.~70.}. 
+Pøi tom se samozøejmì mohou také nìkteré vrcholy stát
 nevyvá¾enými. To se opìt øe¹í pomocí rotací.
 
 \begin{algorithm}[!htb]
@@ -1138,7 +1143,7 @@ algoritmech~\ref{alg:avl.del.vyvazuj.right}~a~\ref{alg:avl.del.vyvazuj.left}.
 Problém je, ¾e ne pøi v¹ech rotacích se zachovává vý¹ka podstromu, jak
 tomu bylo u operace INSERT. Proto se zde vyva¾ování neomezí pouze na jeden
 vrchol. Pøi operaci DELETE se mù¾e provést a¾ $\log n$ rotací. Ka¾dopádnì
-slo¾itost operace delete je stejnì jako slo¾itost operace INSERT $O(\log n)$.
+slo¾itost operace DELETE je stejnì jako slo¾itost operace INSERT $O(\log n)$.
 \mnote{XXX dokázat max. poèet rotací pøi DELETE}
 
 % tohle by melo flushnout floats
