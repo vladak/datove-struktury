@@ -1,0 +1,53 @@
+ivo.pavlik@gmail.com
+
+
+Errata:
+-------
+(Chyby, ktore som nasiel: chybne indexy, chybajuce znaky, ...)
+
+- str. 18 - 3.6.2: V prvej sume chyba zatvorka.
+- str. 28 - "vysvetlit 'krizik'" je o tom, ze horna cela cast z [N/m] >= (N/m).
+- str. 33 - Priklad 4.2.3: Po prvom vlozeni prvku (1111) prvok v strukture chyba ;-)
+- str. 43 - obr. 5.1: V priklade , ktory sa nan odkazuje, je miesto slova 1212110 slovo 1212111.
+- str. 49 - 3 bod algoritmu: Zatvorka, v ktorej je vysvetlenie kolizie, ma koncit az na konci vety (az po "...pak rd(i) + j != rd(i') + j'").
+- STR. 49 - Veta 5.3.1 - Prvy riadok dokazu: '1 mist' namiesto 'l mist'.
+- str. 61 - 7.2.3: Chceme znizit cas a nie rychlost (asi:-)
+- str. 61 - Algoritmus 7.2: Pri inicializacii premennej hod tam namiesto H(i+1,j) ma byt H(i+1,i+j).
+- str. 62 - uplne dole: Pri TEXani ti uslo "leq"
+- str. 64 - 7.3: V druhom odstavci (hned za definiciou) su dve duplicitne vety.
+- str. 65 - 7.3.2: medzi definiciou s0 a s1 chyba ciarka a medzera.
+- str. 86 - A-sort: V cykle ma byt neostra nerovnost (while k >= 1)
+- str. 89 - Chyba vysvetlenie ako sa vo vztahoch vysvetlujucich vlastnosti parcialneho stromu objavil vrchol 'u'.
+- str. 92 - 8.5.2: Chyba ukoncovacia zatvorka.
+
+
+
+Typy:
+-----
+(Co by sa mohlo, podla mna, vylepsit. Co sa mi zdalo divne. Silne subjektivny charakter!!!)
+
+- Rovnitka v dokazoch, kde vypocty presahuju jeden riadok by som daval aj na koniec aktualneho riadku aj na zaciatok riadku nasledujuceho. Ked je to len na zaciatku, tak je to trochu zneprehladnujuce. To iste plati aj o vacsitkach a mensitkach..
+- Zarovnanie vyrazov mi nejach nechuti (prvy riadok nalavo, dalsie napravo)
+- Vsetky hashovacie tabulky: hodilo by sa zobrazovat vsetky prvky, ktore sa na danom mieste tabulky (pocas hasovania) vyskytovali.
+
+- str. 7 - 1.1 - 2: Sorry ale toto je trochu odveci ;)
+- str. 18 - Insert: v 3. kroku by som vopred spocital i = h1(x) a j = h2(X). Nech je jasne, ze sa to nemusi pocitat viackrat. Bude to mozno trosku prehladnejsie.
+- str. 26 - veta 4.1.2: Tu ste ma predbehli - uz je to opravene :)
+- str. 27 - Veta 4.1.5: Po "pre vsetky t > 1" sa mi ziada slovo "plati" alebo ':'
+- str. 28 - Medzi vyrazom pre |U2| a |Ui| chybaju nejake zvisle tri bodky
+- str. 29: Doraznejsie by som zvyraznil, ze "1." a "2." odseky sa tykaju predtym spomenutych podmienok 1. a 2. Napriklad "1. podmienka\n", "2. podmienka\n".
+- str. 43 - pozn. 5.2.1: Chcelo by to povedat, ze 'beta' je uzol (hoci ho asi mozeme chapat aj ako slovo) - aby bolo jasno a citatel nemusel riesit, co to je.
+- str. 43 - pozn. 5.2.1: "Kdyz 'beta'..." by som spojil do jednej vety s 'Potom a-ty..." - chcelo by to za prvou vetou ciarku.
+- STR. 44 - 5.2.4 - Druhy odstavec: Nie je jasne o com sa hovori (asi tam mala byt casova aj pamatova zlozitost).
+- STR. 49 - Veta 5.3.1 - Koniec dokazu: O(mrs) vyzaduje treti krok a nie druhy.
+- str. 56: Ten algoritmus je na konci nejaky zvlastny - nesedi s tym, co je v texte za nim...
+- str. 57: Vysvetlenie odhadu |X - prv| je asi chybne. Myslim, ze je to takto: "Vynechame prvy dotaz a posledny, ktory preskoci hladany prvok".
+- str. 60 - pozorovanie 7.2.1: Koren T asi 'reprezentuje' prvok xk a nie 'hodnoti'... (zvlastna formulacia)
+- str. 60 - pozorovanie 7.2.3: Ja by som to formuloval ako: "Ked mame ... PRE VSETKY k..." a nie "Ked mame ... pre (jeden) strom". Tak to bude jasnejsie. Navyse v mojich poznamkach je ta podmienka ovela slabsia. Ono totiz staci, ze mame pozname optimalne stromy T(1,k-1) a T(k+1,n), pre 1<k<n.
+- str. 60/61: for-cyklus je duplicitny (mame ho v nasledujucom algoritme - tam je spravne).
+- str. 61 (hore): "Hi,j pro..." nejky zmatok. To Hi,j na zaciatku tam nema co robit. Veta za ma zacat "Pro i<=j bude...".
+- str. 61: Mozno by chcelo explicitne spomenut (do komentarov), co reprezentuju indexy 'i' a 'j' ('i' - index prveho prvku podstromu; 'j' - posunutie, offset konca, pocet prvkov stromu - 1, "sirka" stromu).
+- str. 65 - V algoritme construct_tree(...) nejk uslo cislovanie podmienok pre 'k'. Osobne by som to asi cisloval nejak na psosob "i, ii, iii".
+- str. 73: V prvom komentari by som pridal zatvorky:
+           {vrcholu left := (r jsme odebrali leveho syna)}
+
