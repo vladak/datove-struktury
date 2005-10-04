@@ -1,5 +1,32 @@
 
 
+Kdyz jsem pouzival tvoje skripta z Datovek pro uceni na statnice, narazil
+jsem na par drobnosti:
+
+sekce 10.11: Merge Leftist hald. Je tam T1->Merge(neco) a melo by tam
+pravy syn T1->Merge(neco)
+
+sekce 7.3.: Skorooptimalni BVS. Obratil bych znaceni alfa a beta tak, aby
+bylo shodne s predchozi sekci o optimalnich BVS. Tak jak to je ted je to
+presne inverze a je to celkem matouci (tj. alfa pro uzly, beta pro
+intervaly u skorooptimalnich to je naopak)
+
+sekce 10.12.Insert a Delete Min jsou v textu sloucene do jednoho
+algoritmu.
+
+Tady nemam cislo sekce, ale jedna se o binomialni haldy. Mas tam uvedenou
+casovou slozitost pro INCKEY a DECKEY, ale prislusne algoritmy nikde
+nemas. Co jsem se koukal do poznamek, Cepek vubec INCKEY a DECKEY u
+binomialnich hald nedelal. Nevrdim, ze by to neslo, ale mozna je to tam
+zbytecne.
+
+Diky a mej se,
+
+Lukas Marsalek
+
+
+---------------------------------------------------------------------------
+
 Vojta Havranek
 vojtic@volny.cz
 
