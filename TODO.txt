@@ -47,13 +47,13 @@ j0 + Suma(n/j0! * J0!/J!) <= j0 + Suma(j0!/j!)
 
 - k oprave podle me staci nahradit j0 v sume j0+1
 
-4)zneni V 4.1.4, chybi tam predpoklad, ze ocekavana hodnota X je nenulova,
-jinak to neplati
+DONE 4) zneni V 4.1.4, chybi tam predpoklad, ze ocekavana hodnota X je nenulova,
+	jinak to neplati
 
-5)4.3.1, vyraz (4.10) - dat tu vnitrni sumu do zavorky, mam dojem, ze tam
-faliruje priorita
+DONE 5) 4.3.1, vyraz (4.10) - dat tu vnitrni sumu do zavorky, mam dojem, ze tam
+	faliruje priorita
 
-6)6.1 definice finterp je podle me spatne, zlomek se nema nasobit (h-d+1)
+6) 6.1 definice finterp je podle me spatne, zlomek se nema nasobit (h-d+1)
 ale jen (h-d)
 
 napr. kdyby x==s(h), tak ho tim interpolacnim krokem preskocime
@@ -61,14 +61,14 @@ napr. kdyby x==s(h), tak ho tim interpolacnim krokem preskocime
 je to potreba opravit dvakrat, jednou v ty tabulce funkci a v algoritmu
 6.2 delka:=...
 
-7)algoritmus 7.2 mi prijde nejakej zluklej, funkcnejsi verze je asi v
+7) algoritmus 7.2 mi prijde nejakej zluklej, funkcnejsi verze je asi v
 zapiscich Lenky Novotne na
-http://mff.modry.cz/datovky/zapisky/Lenka/ slajd 45
+http://mff.modry.cz/datovky/zapisky/Lenka/ slajd 45
 
 i kdyz ani tam si nejsem tak uplne jist ... :)
 
 Tak to je vse, pak uz jsem zjistil, ze nestiham, a jen jsem to
-rychle prolitl :).
+rychle prolitl :).
 
 Vojta Havranek
 

@@ -157,7 +157,12 @@ pøes v¹echny funkce $h \in H$ pøi jejich rovnomìrném rozdìlení.
 \end{theorem}
 
 \begin{theorem}
-Markovova nerovnost: $\pr(X \geq t \mathrm{E}X) \leq 1/t$
+Markovova nerovnost: Nech» oèekávaná hodnota X je nenulová. Pak platí 
+$\pr(X \geq t \mathrm{E}X) \leq 1/t$
+% oprava from V. Havranek - kdyby nebyla ocek. hodnota nenulova, tvrzeni
+% by neplatilo.
+\mnote{pokud by nebyl uveden pøedpoklad $X \neq 0$, Markovova 
+nerovnost by neplatila.}
 \end{theorem}
 
 \begin{pozn}
@@ -849,7 +854,9 @@ b_k(i) = |\{ x \in S : h_k(x) = i \}|
 Jednak platí
 \begin{align}
 \label{bki2}
-d & = \sum_{k=1}^{N-1} \left( \sum_{i=0}^{m-1} ( b_k(i) )^2 -n \right)\\
+% vnitrni suma (s mocninou) dana do zavorky aby byly v poradku priority 
+% (from V. Havranek)
+d & = \sum_{k=1}^{N-1} \left( ( \sum_{i=0}^{m-1} ( b_k(i) )^2 ) -n \right)\\
 \intertext{a také}
 d & = \sum_{x \neq y \in S} |\{ k : h_k(x)=h_k(y) \}|
 	&&\text{prohozením sum}\\
