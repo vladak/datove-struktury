@@ -259,13 +259,13 @@ Zbývá tedy spoèítat $p_{ij}$ : \\
 
 \begin{equation}
 \begin{split}
-p_{ij} & = p(\text{"} x_j \text{ bude pøed } x_i \text{"}) \\
-& = p(\text{"poslední MEMBER, který byl na }x_i \text{ nebo } x_j\text{,}
-\text{byl na } x_j \text{"}) \\
-& = p(\text{"poslední zavolání MEMBER bylo na } x_j \text{"} | 
-\text{"poslední zavolání MEMBER bylo na } x_i \text{ nebo } x_j \text{"}) \\
-& \stackrel{*}{=} p(\text{"zavolání MEMBER na } x_j \text{"} | 
-\text{"zavolání MEMBER na } x_i \text{ nebo } x_j \text{"}) \\
+p_{ij} & = p(\text{``} x_j \text{ bude pøed } x_i \text{``}) \\
+& = p(\text{poslední MEMBER, který byl na }x_i \text{ nebo } x_j\text{,}
+\text{byl na } x_j \text{``}) \\
+& = p(\text{``poslední zavolání MEMBER bylo na } x_j \text{``} | 
+\text{``poslední zavolání MEMBER bylo na } x_i \text{ nebo } x_j \text{``}) \\
+& \stackrel{*}{=} p(\text{``zavolání MEMBER na } x_j \text{``} | 
+\text{``zavolání MEMBER na } x_i \text{ nebo } x_j \text{``}) \\
 & = \frac{p_j}{p_i + p_j}
 \end{split}
 \end{equation}
@@ -838,7 +838,7 @@ v SPLAY a
 pøedpokládejme, ¾e druhý cyklus bì¾í k-krát. (tj. $T_k$ je výsledný strom)
 \par
 Amortizovaná slo¾itost (SPLAY($x$,$T$)) 
-\mnote{$\text{"èas operace" } = k$}
+\mnote{$\text{``èas operace``} = k$}
 \begin{equation}
 \begin{split}
 & = \text{èas operace} + bal(\text{výsledná konfigurace}) - 
