@@ -1,6 +1,8 @@
 #
 # makefile pro prepis prednasek z dat. struktur
 #
+# generovani PDF: make && make toc
+#
 # Vladimir Kotal, 2003-2011
 #
 
