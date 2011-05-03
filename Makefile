@@ -1,7 +1,7 @@
 #
 # makefile pro prepis prednasek z dat. struktur
 #
-# Vladimir Kotal, 2003
+# Vladimir Kotal, 2003-2011
 #
 
 # name of output file
@@ -53,18 +53,9 @@ dist: $(MAIN).pdf
 	  echo "cannot copy dist file into $(DISTDIR)"; \
 	  exit 1; \
 	fi
-	#cp $(MAIN).pdf $(MAIN).ps $(DISTDIR)
 	cp $(MAIN).pdf $(DISTDIR)
 	sh snapdate.sh $(HTMLFILE)
-	cd $(DISTDIR) && cvs commit
-
-src-dist:
-	@echo "nothing yet"
-	# XXX FIXME tar
-	@sh snapdate.sh $(HTMLFILE)
-
-commit:
-	cvs commit
+	cd $(DISTDIR)
 
 $(MAIN).ps: $(SRCFILES)
 	@echo "generating $(MAIN) PS file"
